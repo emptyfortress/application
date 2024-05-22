@@ -11,36 +11,42 @@ const draw = ref(true)
 const pages = [
 	{
 		id: 0,
-		title: 'Старт',
-		icon: 'mdi-view-grid-outline',
+		title: 'Назад',
+		icon: 'mdi-arrow-left-circle-outline',
 		url: '/',
 	},
+	// {
+	// 	id: 1,
+	// 	title: 'Приложение',
+	// 	icon: 'mdi-view-grid-outline',
+	// 	url: '/',
+	// },
 	{
-		id: 1,
+		id: 2,
 		title: 'Сценарии',
 		icon: 'mdi-movie-open',
 		url: '/scene',
 	},
 	{
-		id: 2,
+		id: 3,
 		title: 'Роли',
 		name: 'mask1',
 		url: '/role',
 	},
 	{
-		id: 3,
+		id: 4,
 		title: 'Процессы',
 		icon: 'mdi-shuffle-variant',
 		url: '/process',
 	},
 	{
-		id: 4,
+		id: 5,
 		title: 'Субъекты',
 		name: 'subject',
 		url: '/subject',
 	},
 	{
-		id: 5,
+		id: 6,
 		title: 'Реестры',
 		name: 'sheet',
 		url: '/list',
@@ -75,5 +81,8 @@ q-drawer(v-model="draw" show-if-above behavior="desktop" side="left" :width="240
 .q-item.q-router-link--active {
 	background: $primary;
 	color: white;
+}
+.q-item:first-child {
+	margin-bottom: 2rem;
 }
 </style>

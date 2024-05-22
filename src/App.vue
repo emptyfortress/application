@@ -62,11 +62,13 @@ q-layout(view="hHh LpR fFf")
 	}
 }
 .log {
-	width: 2rem;
-	height: 2rem;
+	width: 1.3rem;
+	height: 1.3rem;
 }
 .title {
 	margin-left: 1rem;
+	font-size: 0.8rem;
+	text-transform: uppercase;
 }
 .container {
 	max-width: 1200px;

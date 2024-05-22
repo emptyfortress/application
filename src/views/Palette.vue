@@ -1,8 +1,15 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const props = defineProps({
+	id: {
+		type: String,
+		default: 'test',
+	},
+})
+</script>
 
 <template lang="pug">
 q-page(padding)
-	h2 palette
+	h2 {{props.id}}
 	.row
 		.divi.pri
 		.divi.sec

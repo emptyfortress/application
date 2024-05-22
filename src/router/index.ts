@@ -24,7 +24,7 @@ const router = createRouter({
 		{
 			path: '/app/:id',
 			name: 'app',
-			component: () => import('@/views/Palette.vue'),
+			component: () => import('@/views/DashBoard.vue'),
 			props: true,
 		},
 		{

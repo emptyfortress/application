@@ -51,7 +51,7 @@ const rows = ref([
 		id: 0,
 		name: 'Квартальные цели',
 		module: 'Web-клиент',
-		descr: 'Здесь описание',
+		descr: 'Здесь описание приложения',
 		author: 'Орлов П.С.',
 		created: '2023-10-14',
 	},
@@ -59,7 +59,7 @@ const rows = ref([
 		id: 1,
 		name: 'Тестовое приложение',
 		module: 'Платформа',
-		descr: 'Здесь описание',
+		descr: 'Здесь описание приложения',
 		author: 'Орлов П.С.',
 		created: '2023-10-12',
 	},
@@ -67,14 +67,14 @@ const rows = ref([
 		id: 2,
 		name: 'Заявка на отпуск',
 		module: 'Web-клиент',
-		descr: 'Здесь описание',
+		descr: 'Здесь описание приложения',
 		author: 'Воробьева А.К.',
 		created: '2023-10-14',
 	},
 ])
 
 const goto = (evt, row, index) => {
-	router.push(`/app/${row.id}`)
+	router.push(`/app/${row.name}`)
 }
 
 const dialog = ref(false)
