@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import SvgIcon from '@/components/SvgIcon.vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
 
 const modelValue = defineModel()
 const draw = ref(true)
@@ -44,6 +47,10 @@ const pages = [
 	},
 ]
 const mini = ref(true)
+
+const calcColor = (to: string) => {
+	return route.path == to ? 'white' : ''
+}
 </script>
 
 <template lang="pug">
@@ -52,7 +59,7 @@ q-drawer(v-model="draw" show-if-above behavior="desktop" side="left" :width="256
 		q-item(clickable v-ripple v-for="page in pages" :to="page.url")
 			q-item-section(avatar)
 				q-icon(v-if="page.icon" :name="page.icon")
-				SvgIcon.icon(v-if="page.name" :name="page.name")
+				SvgIcon.icon(v-if="page.name" :name="page.name" :color="calcColor(page.url)")
 			q-item-section
 				q-item-label {{ page.title }}
 </template>
@@ -64,5 +71,9 @@ q-drawer(v-model="draw" show-if-above behavior="desktop" side="left" :width="256
 .icon {
 	height: 24px;
 	transform: translateX(-3px);
+}
+.q-item.q-router-link--active {
+	background: $primary;
+	color: white;
 }
 </style>
