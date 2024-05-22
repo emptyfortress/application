@@ -4,7 +4,7 @@ import { RouterLink, RouterView } from 'vue-router'
 import SvgIcon from '@/components/SvgIcon.vue'
 import LeftDrawer from '@/components/LeftDrawer.vue'
 
-const leftDrawerOpen = ref(false)
+const leftDrawerOpen = ref(true)
 const toggleLeftDrawer = () => {
 	leftDrawerOpen.value = !leftDrawerOpen.value
 }
@@ -22,7 +22,7 @@ q-layout(view="hHh lpR fFf")
 					SvgIcon.log(name="logo")
 				span.title Конструктор приложений
 
-			q-icon(name="mdi-close" color="primary")
+			// q-icon(name="mdi-close" color="primary")
 			q-space
 			q-avatar(color="blue-2" size="32px")
 				img(src="@/assets/img/user0.svg")
@@ -39,9 +39,10 @@ q-layout(view="hHh lpR fFf")
 	LeftDrawer(v-model="leftDrawerOpen")
 
 	q-page-container
-		router-view(v-slot="{ Component, route }")
-			transition(name="fade" mode="out-in")
-				component(:is="Component")
+		.container
+			router-view(v-slot="{ Component, route }")
+				transition(name="fade" mode="out-in")
+					component(:is="Component")
 </template>
 
 <style scoped lang="scss">
@@ -63,6 +64,11 @@ q-layout(view="hHh lpR fFf")
 .title {
 	margin-left: 1rem;
 }
+.container {
+	max-width: 1200px;
+	margin: 0 auto;
+	// background: pink;
+}
 
 @media (min-width: 1024px) {
 	header {
@@ -80,5 +86,13 @@ q-layout(view="hHh lpR fFf")
 		place-items: flex-start;
 		flex-wrap: wrap;
 	}
+}
+.name::before {
+	content: '';
+	width: 8px;
+	height: 8px;
+	border-radius: 8px;
+	background: teal;
+	display: inline-block;
 }
 </style>

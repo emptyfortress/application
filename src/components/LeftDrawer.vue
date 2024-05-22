@@ -54,7 +54,7 @@ const calcColor = (to: string) => {
 </script>
 
 <template lang="pug">
-q-drawer(v-model="draw" show-if-above behavior="desktop" side="left" :width="256" :mini="modelValue")
+q-drawer(v-model="draw" show-if-above behavior="desktop" side="left" :width="240" :mini="modelValue")
 	q-list.q-mt-lg
 		q-item(clickable v-ripple v-for="page in pages" :to="page.url")
 			q-item-section(avatar)
