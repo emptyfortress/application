@@ -1,6 +1,18 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 
+declare module 'vue-router' {
+	interface Bread {
+		label?: string
+		to?: string
+		icon?: string
+	}
+	interface RouteMeta {
+		title?: string
+		bread?: Bread[]
+	}
+}
+
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
 	routes: [
@@ -10,14 +22,51 @@ const router = createRouter({
 			component: HomeView,
 		},
 		{
-			path: '/about',
-			name: 'about',
-			// route level code-splitting
-			// this generates a separate chunk (About.[hash].js) for this route
-			// which is lazy-loaded when the route is visited.
-			component: () => import('../views/AboutView.vue'),
+			path: '/scene',
+			name: 'scene',
+			component: () => import('@/views/SceneView.vue'),
+			meta: {
+				title: 'Сценарии',
+			},
+		},
+		{
+			path: '/role',
+			name: 'role',
+			component: () => import('@/views/RoleView.vue'),
+			meta: {
+				title: 'Роли',
+			},
+		},
+		{
+			path: '/process',
+			name: 'process',
+			component: () => import('@/views/ProcessView.vue'),
+			meta: {
+				title: 'Процессы',
+			},
+		},
+		{
+			path: '/subject',
+			name: 'subject',
+			component: () => import('@/views/SubjectView.vue'),
+			meta: {
+				title: 'Субъекты',
+			},
+		},
+		{
+			path: '/list',
+			name: 'list',
+			component: () => import('@/views/ListView.vue'),
+			meta: {
+				title: 'Реестры',
+			},
 		},
 	],
+})
+
+const DEFAULT_TITLE = 'Конструктор приложений'
+router.beforeEach((to) => {
+	document.title = to.meta.title || DEFAULT_TITLE
 })
 
 export default router

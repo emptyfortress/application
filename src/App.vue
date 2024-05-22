@@ -39,7 +39,10 @@ q-layout(view="hHh lpR fFf")
 	LeftDrawer(v-model="leftDrawerOpen")
 
 	q-page-container
-		router-view
+		router-view(v-slot="{ Component, route }")
+			transition(name="fade" mode="out-in")
+				component(:is="Component")
+		// router-view
 </template>
 
 <style scoped lang="scss">
