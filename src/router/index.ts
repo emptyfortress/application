@@ -22,6 +22,17 @@ const router = createRouter({
 			component: HomeView,
 		},
 		{
+			path: '/app/:id',
+			name: 'app',
+			component: () => import('@/views/Palette.vue'),
+			props: true,
+		},
+		{
+			path: '/palette',
+			name: 'palette',
+			component: () => import('@/views/Palette.vue'),
+		},
+		{
 			path: '/scene',
 			name: 'scene',
 			component: () => import('@/views/SceneView.vue'),

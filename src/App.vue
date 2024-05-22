@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { RouterLink, RouterView } from 'vue-router'
+import { ref, computed } from 'vue'
+import { RouterLink, RouterView, useRoute } from 'vue-router'
 import SvgIcon from '@/components/SvgIcon.vue'
 import LeftDrawer from '@/components/LeftDrawer.vue'
 
@@ -8,21 +8,23 @@ const leftDrawerOpen = ref(true)
 const toggleLeftDrawer = () => {
 	leftDrawerOpen.value = !leftDrawerOpen.value
 }
+
+const route = useRoute()
+const inside = computed(() => {
+	return route.path == '/' ? false : true
+})
 </script>
 
 <template lang="pug">
-q-layout(view="hHh lpR fFf")
-
+q-layout(view="hHh LpR fFf")
 	q-header.head
 		q-toolbar
-			// q-btn(dense flat round icon="menu" @click="toggleLeftDrawer")
 
 			q-toolbar-title
 				q-avatar(@click="toggleLeftDrawer")
 					SvgIcon.log(name="logo")
 				span.title Конструктор приложений
 
-			// q-icon(name="mdi-close" color="primary")
 			q-space
 			q-avatar(color="blue-2" size="32px")
 				img(src="@/assets/img/user0.svg")
@@ -36,7 +38,7 @@ q-layout(view="hHh lpR fFf")
 						q-item-section Выход
  
 
-	LeftDrawer(v-model="leftDrawerOpen")
+	LeftDrawer(v-model="leftDrawerOpen" v-show="inside")
 
 	q-page-container
 		.container
@@ -47,7 +49,9 @@ q-layout(view="hHh lpR fFf")
 
 <style scoped lang="scss">
 .head {
-	background-color: transparent;
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
+	background-color: #dce3f21a;
 	height: 64px;
 	color: var(--text-color);
 	padding-right: 1rem;
