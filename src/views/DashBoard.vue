@@ -52,9 +52,9 @@ q-page(padding)
 	br
 	.podzag Настройки приложения
 	.grid1
-		.blo(@click="$router.push('/scene')")
-			.txt Сценарии
-			q-icon(name="mdi-movie-open" color="blue-grey-2" size="xl")
+		// .blo(@click="$router.push('/scene')")
+		// 	.txt Сценарии
+		// 	q-icon(name="mdi-movie-open" color="blue-grey-2" size="xl")
 		.blo(@click="$router.push('/role')")
 			.txt Роли
 			SvgIcon.icon(name="mask1" color="#cfd8dc")
@@ -98,7 +98,7 @@ q-page(padding)
 }
 .grid1 {
 	display: grid;
-	grid-template-columns: repeat(5, 1fr);
+	grid-template-columns: repeat(4, 1fr);
 	// justify-items: start;
 	// align-items: stretch;
 	column-gap: 1rem;
