@@ -30,19 +30,19 @@ q-page(padding)
 	br
 	.podzag Настройки приложения
 	.grid1
-		.blo
+		.blo(@click="$router.push('/scene')")
 			.txt Сценарии
 			q-icon(name="mdi-movie-open" color="blue-grey-2" size="xl")
-		.blo
+		.blo(@click="$router.push('/role')")
 			.txt Роли
 			SvgIcon.icon(name="mask1" color="#cfd8dc")
-		.blo
+		.blo(@click="$router.push('/process')")
 			.txt Процессы
 			q-icon(name="mdi-shuffle-variant" color="blue-grey-2" size="xl")
-		.blo
+		.blo(@click="$router.push('/subject')")
 			.txt Субъекты
 			SvgIcon.icon(name="subject" color="#cfd8dc")
-		.blo
+		.blo(@click="$router.push('/list')")
 			.txt Реестры
 			SvgIcon.icon(name="sheet" color="#cfd8dc")
 

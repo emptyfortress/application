@@ -2,5 +2,5 @@
 
 <template lang="pug">
 q-page(padding)
-	h2 List
+	h4 Реестры
 </template>

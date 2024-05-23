@@ -73,7 +73,7 @@ const rows = ref([
 	},
 ])
 
-const goto = (evt, row, index) => {
+const goto = (evt: Event, row: any, index: number) => {
 	router.push(`/app/${row.name}`)
 }
 

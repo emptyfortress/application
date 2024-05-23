@@ -9,16 +9,16 @@ const modelValue = defineModel()
 const draw = ref(true)
 
 const pages = [
-	{
-		id: 0,
-		title: 'Назад',
-		icon: 'mdi-arrow-left-circle-outline',
-		url: '/',
-	},
+	// {
+	// 	id: 0,
+	// 	title: 'Старе',
+	// 	icon: 'mdi-home-roof',
+	// 	url: '/',
+	// },
 	// {
 	// 	id: 1,
-	// 	title: 'Приложение',
-	// 	icon: 'mdi-view-grid-outline',
+	// 	title: 'Назад',
+	// 	icon: 'mdi-arrow-left-circle-outline',
 	// 	url: '/',
 	// },
 	{
@@ -62,6 +62,16 @@ const calcColor = (to: string) => {
 <template lang="pug">
 q-drawer(v-model="draw" show-if-above behavior="desktop" side="left" :width="240" :mini="modelValue")
 	q-list.q-mt-lg
+		q-item(clickable to="/")
+			q-item-section(avatar)
+				q-icon(name="mdi-home-roof")
+			q-item-section
+				q-item-label Старт
+		q-item(clickable @click="$router.back")
+			q-item-section(avatar)
+				q-icon(name="mdi-arrow-left-circle-outline")
+			q-item-section
+				q-item-label Назад
 		q-item(clickable v-ripple v-for="page in pages" :to="page.url")
 			q-item-section(avatar)
 				q-icon(v-if="page.icon" :name="page.icon")
