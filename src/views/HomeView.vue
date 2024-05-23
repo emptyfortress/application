@@ -14,11 +14,11 @@ const columns = [
 		sortable: true,
 	},
 	{
-		name: 'module',
+		name: 'version',
 		required: true,
-		label: 'Модуль',
+		label: 'Версия',
 		align: 'left',
-		field: 'module',
+		field: 'version',
 		sortable: true,
 	},
 	{
@@ -50,7 +50,7 @@ const rows = ref([
 	{
 		id: 0,
 		name: 'Квартальные цели',
-		module: 'Web-клиент',
+		version: '0.1.0',
 		descr: 'Здесь описание приложения',
 		author: 'Орлов П.С.',
 		created: '2023-10-14',
@@ -58,7 +58,7 @@ const rows = ref([
 	{
 		id: 1,
 		name: 'Тестовое приложение',
-		module: 'Платформа',
+		version: '1.1.0',
 		descr: 'Здесь описание приложения',
 		author: 'Орлов П.С.',
 		created: '2023-10-12',
@@ -66,7 +66,7 @@ const rows = ref([
 	{
 		id: 2,
 		name: 'Заявка на отпуск',
-		module: 'Web-клиент',
+		version: '2.1.0',
 		descr: 'Здесь описание приложения',
 		author: 'Воробьева А.К.',
 		created: '2023-10-14',

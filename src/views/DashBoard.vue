@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// import { onMounted } from 'vue'
+import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import SvgIcon from '@/components/SvgIcon.vue'
 import { useStore } from '@/stores/store'
@@ -19,6 +19,8 @@ const goto = (e: string) => {
 }
 const store = useStore()
 store.setPage(props.id)
+
+const version = ref('0.1.0')
 </script>
 
 <template lang="pug">
@@ -28,8 +30,16 @@ q-page(padding)
 			h4 {{ props.id}}
 			.text-subtitle1 Здесь описание приложения
 		.bl
-			.text-overline модуль
-			.big Web-клиент
+			.text-overline version
+			.big
+				q-icon(name="mdi-source-branch" color="primary")
+				span.q-ml-sm v. 0.1.0
+					q-menu
+						q-list
+							q-item(clickable)
+								q-item-section v.0.2.0
+							q-item(clickable)
+								q-item-section v.1.1.0
 
 		.q-gutter-x-sm
 			q-btn(flat  round icon="mdi-pencil" color="primary" @click="") 
@@ -75,6 +85,8 @@ q-page(padding)
 }
 .big {
 	font-size: 1.2rem;
+	color: $primary;
+	cursor: pointer;
 }
 .text-overline {
 	line-height: 1;

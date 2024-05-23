@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
+const props = defineProps({
+	mode: {
+		type: String,
+		default: 'app',
+	},
+})
 const modelValue = defineModel<boolean>()
 
 const name = ref('')
@@ -36,7 +42,8 @@ q-dialog(v-model="modelValue")
 	q-card(style="min-width: 400px;")
 		q-btn.close(round color="negative" icon="mdi-close" v-close-popup)
 		q-card-section
-			.text-h6 Новое приложение
+			.text-h6(v-if="props.mode == 'app'") Новое приложение
+			.text-h6(v-if="props.mode == 'scene'") Создать сценарий 
 
 		q-card-section
 			label Название
