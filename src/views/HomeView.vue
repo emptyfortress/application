@@ -89,7 +89,7 @@ const create = (e: any) => {
 
 <template lang="pug">
 q-page(padding)
-	.zg Мои приложения ({{rows.length}})
+	h4 Мои приложения ({{rows.length}})
 	q-table(flat
 		:rows="rows"
 		:columns="columns"

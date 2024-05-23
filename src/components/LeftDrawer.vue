@@ -1,26 +1,17 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import SvgIcon from '@/components/SvgIcon.vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
+import { useStore } from '@/stores/store'
 
 const route = useRoute()
+const router = useRouter()
+const store = useStore()
 
 const modelValue = defineModel()
 const draw = ref(true)
 
 const pages = [
-	// {
-	// 	id: 0,
-	// 	title: 'Старе',
-	// 	icon: 'mdi-home-roof',
-	// 	url: '/',
-	// },
-	// {
-	// 	id: 1,
-	// 	title: 'Назад',
-	// 	icon: 'mdi-arrow-left-circle-outline',
-	// 	url: '/',
-	// },
 	{
 		id: 2,
 		title: 'Сценарии',
@@ -57,6 +48,11 @@ const mini = ref(true)
 const calcColor = (to: string) => {
 	return route.path == to ? 'white' : ''
 }
+
+const goToApp = () => {
+	const url = '/app/' + store.page
+	router.push(url)
+}
 </script>
 
 <template lang="pug">
@@ -67,7 +63,7 @@ q-drawer(v-model="draw" show-if-above behavior="desktop" side="left" :width="240
 				q-icon(name="mdi-home-roof")
 			q-item-section
 				q-item-label Старт
-		q-item(clickable @click="$router.back")
+		q-item(clickable @click="goToApp")
 			q-item-section(avatar)
 				q-icon(name="mdi-arrow-left-circle-outline")
 			q-item-section

@@ -1,5 +1,8 @@
 <script setup lang="ts">
+// import { onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import SvgIcon from '@/components/SvgIcon.vue'
+import { useStore } from '@/stores/store'
 
 const props = defineProps({
 	id: {
@@ -7,6 +10,15 @@ const props = defineProps({
 		default: 'test',
 	},
 })
+const router = useRouter()
+const route = useRoute()
+
+const goto = (e: string) => {
+	const url = '/app/' + props.id + '/' + e
+	router.push(url)
+}
+const store = useStore()
+store.setPage(props.id)
 </script>
 
 <template lang="pug">
@@ -20,11 +32,11 @@ q-page(padding)
 			.big Web-клиент
 
 		.q-gutter-x-sm
-			q-btn(flat  round icon="mdi-pencil" color="primary" @click="action") 
+			q-btn(flat  round icon="mdi-pencil" color="primary" @click="") 
 				q-tooltip Редактировать
-			q-btn(flat  round icon="mdi-content-duplicate" color="primary" @click="action") 
+			q-btn(flat  round icon="mdi-content-duplicate" color="primary" @click="") 
 				q-tooltip Дублировать
-			q-btn(unelevated color="negative" label="Удалить приложение" @click="action") 
+			q-btn(unelevated color="negative" label="Удалить приложение" @click="") 
 
 	br
 	br
