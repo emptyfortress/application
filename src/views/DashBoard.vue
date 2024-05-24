@@ -62,7 +62,7 @@ q-page(padding)
 			.txt Процессы
 			q-icon(name="mdi-shuffle-variant" color="blue-grey-2" size="xl")
 		.blo(@click="$router.push('/subject')")
-			.txt Субъекты
+			.txt Карточки
 			SvgIcon.icon(name="subject" color="#cfd8dc")
 		.blo(@click="$router.push('/list')")
 			.txt Реестры
