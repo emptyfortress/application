@@ -33,6 +33,11 @@ const router = createRouter({
 			component: () => import('@/views/Palette.vue'),
 		},
 		{
+			path: '/flip',
+			name: 'palette',
+			component: () => import('@/views/Flip.vue'),
+		},
+		{
 			path: '/scene',
 			name: 'scene',
 			component: () => import('@/views/SceneView.vue'),
