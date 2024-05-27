@@ -39,6 +39,7 @@ const showEnd = () => {
 
 onMounted(() => {
 	wrapGrid(grid.value, {
+		duration: 500,
 		onStart: () => {
 			hideStart()
 		},
