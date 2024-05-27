@@ -47,6 +47,7 @@ onMounted(() => {
 		},
 	})
 })
+// just comment to new build
 </script>
 
 <template lang="pug">
