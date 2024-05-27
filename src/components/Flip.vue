@@ -2,6 +2,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { wrapGrid } from 'animate-css-grid'
 import ExpandCard from '@/components/ExpandCard.vue'
+import Roles from '@/components/Roles.vue'
 
 const big = ref(false)
 
@@ -36,15 +37,22 @@ const hideStart = () => {
 const showEnd = () => {
 	end.value = true
 }
+const hideEnd = () => {
+	end.value = false
+}
 
 onMounted(() => {
 	wrapGrid(grid.value, {
 		duration: 300,
 		onStart: () => {
-			hideStart()
+			if (active.value == 0) {
+				hideEnd()
+			}
 		},
 		onEnd: () => {
-			showEnd()
+			if (active.value == 1) {
+				showEnd()
+			}
 		},
 	})
 })
@@ -57,6 +65,7 @@ onMounted(() => {
 	.item(@click="expand(1)" :class="{active : active == 1}")
 		.in
 			.txt Роли
+			Roles(v-if="end")
 	.item(@click="expand(2)" :class="{active : active == 2}")
 		.in
 			.txt  Процессы
