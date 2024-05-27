@@ -15,17 +15,7 @@ const action = () => {
 const grid = ref()
 
 onMounted(() => {
-	wrapGrid(grid.value, {
-		// stagger: 50,
-		// duration: 500,
-		// easing: 'linear',
-		// onStart: (animatingElementList) => {
-		// 	console.log('starting animation')
-		// },
-		// onEnd: (animatingElementList) => {
-		// 	console.log('ending animation')
-		// },
-	})
+	wrapGrid(grid.value)
 })
 </script>
 
@@ -46,7 +36,7 @@ q-page(padding)
 
 <style scoped lang="scss">
 .grid {
-	width: 50%;
+	// width: 50%;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
 	grid-template-rows: 1fr 1fr;

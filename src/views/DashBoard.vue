@@ -1,14 +1,20 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import SvgIcon from '@/components/SvgIcon.vue'
 import { useStore } from '@/stores/store'
+import { wrapGrid } from 'animate-css-grid'
 
 const props = defineProps({
 	id: {
 		type: String,
 		default: 'test',
 	},
+})
+
+const grid = ref()
+onMounted(() => {
+	wrapGrid(grid.value, {})
 })
 const router = useRouter()
 const route = useRoute()
@@ -21,14 +27,39 @@ const store = useStore()
 store.setPage(props.id)
 
 const version = ref('0.1.0')
+const padding = ref(true)
+
+const roleMax = ref(false)
+const setRole = () => {
+	padding.value = !padding.value
+	roleMax.value = !roleMax.value
+}
+const calcH = computed(() => {
+	return padding.value == false ? 'expand' : ''
+})
+const calcP = computed(() => {
+	return padding.value == false ? 'expand' : ''
+})
+const calcHide = computed(() => {
+	return padding.value == false ? 'hide' : ''
+})
+
+onMounted(() => {
+	wrapGrid(grid.value)
+})
+watch(roleMax, (val) => {
+	if (val) {
+		console.log(22222)
+	}
+})
 </script>
 
 <template lang="pug">
-q-page(padding)
+q-page(:padding="padding")
 	.grid
 		div
-			h4 {{ props.id}}
-			.text-subtitle1 Здесь описание приложения
+			h4(:class="calcH") {{ props.id}}
+			.text-subtitle1(:class="calcHide") Простые служебные записки
 		.bl
 			.text-overline version
 			.big
@@ -48,64 +79,33 @@ q-page(padding)
 				q-tooltip Дублировать
 			q-btn(unelevated color="negative" label="Удалить приложение" @click="") 
 
-	br
-	br
-	.podzag Настройки приложения
-	.grid1
-		// .blo(@click="$router.push('/scene')")
-		// 	.txt Сценарии
-		// 	q-icon(name="mdi-movie-open" color="blue-grey-2" size="xl")
-		.blo(@click="$router.push('/role')")
-			.txt Роли
-			SvgIcon.icon(name="mask1" color="#cfd8dc")
-		.blo(@click="$router.push('/process')")
-			.txt Процессы
-			q-icon(name="mdi-shuffle-variant" color="blue-grey-2" size="xl")
-		.blo(@click="$router.push('/subject')")
-			.txt Карточки
-			SvgIcon.icon(name="subject" color="#cfd8dc")
-		.blo(@click="$router.push('/list')")
-			.txt Реестры
-			SvgIcon.icon(name="sheet" color="#cfd8dc")
+	.podzag(:class="calcP") Настройки приложения
+
+	.grida(ref="grid" :class="{role : roleMax}")
+		.blo.left(@click="setRole" :class="{max : roleMax}")
+				// .txt Роли
+				// SvgIcon.icon(name="mask1" color="#cfd8dc")
+		.blo(@click="")
+			// .txt Процессы
+			// q-icon(name="mdi-shuffle-variant" color="blue-grey-2" size="xl")
+		.blo(@click="")
+			// .txt Карточки
+			// SvgIcon.icon(name="subject" color="#cfd8dc")
+		.blo(@click="")
+			// .txt Реестры
+			// SvgIcon.icon(name="sheet" color="#cfd8dc")
 
 </template>
 
 <style scoped lang="scss">
-.txt {
-	text-transform: uppercase;
-	color: $secondary;
-}
-.grid {
+.grida {
+	width: 100%;
 	display: grid;
-	grid-template-columns: 2fr 1fr auto;
-	// justify-items: start;
-	align-items: center;
-	column-gap: 1rem;
-	row-gap: 0.5rem;
-}
-.big {
-	font-size: 1.2rem;
-	color: $primary;
-	cursor: pointer;
-}
-.text-overline {
-	line-height: 1;
-}
-.podzag {
-	font-size: 1.1rem;
-	margin-bottom: 1rem;
-	// font-weight: 300;
-}
-.grid1 {
-	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	// justify-items: start;
-	// align-items: stretch;
-	column-gap: 1rem;
-	// div {
-	// 	width: 100%;
-	// 	height: 150px;
-	// 	// background: #efefef;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-template-rows: 1fr 1fr;
+	gap: 1rem;
+	// &.role {
+	// 	grid-template-columns: 1fr;
 	// }
 }
 .blo {
@@ -121,5 +121,51 @@ q-page(padding)
 		border: 1px solid #ccc;
 		box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
 	}
+	&.max {
+		grid-column: 1/-1;
+		height: 400px;
+	}
+}
+h4 {
+	transition: 0.2s ease all;
+	&.expand {
+		font-size: 1.2rem;
+		font-weight: 600;
+	}
+}
+.q-page {
+	transition: 0.2s ease all;
+}
+.txt {
+	text-transform: uppercase;
+	color: $secondary;
+}
+.grid {
+	display: grid;
+	grid-template-columns: 2fr 1fr auto;
+	align-items: center;
+	column-gap: 1rem;
+	row-gap: 0.5rem;
+}
+.big {
+	font-size: 1.2rem;
+	color: $primary;
+	cursor: pointer;
+}
+.text-overline {
+	line-height: 1;
+}
+.hide {
+	display: none;
+}
+.podzag {
+	font-size: 1.1rem;
+	margin-bottom: 1rem;
+	margin-top: 3rem;
+	transition: 0.2s ease all;
+	&.expand {
+		margin-top: 0;
+	}
+	// font-weight: 300;
 }
 </style>
