@@ -45,8 +45,9 @@ q-page(padding)
 			q-avatar(color="blue-4" size="56px")
 				img(:src="`user${item.icon}.svg`")
 			.label {{ item.name }}
+			.descr Описание роли
 			.rule Правила выбора
-			.rule Здвеь какие-то правила выбора роли.
+			.rule Здесь какие-то правила выбора роли.
 			q-card-actions.q-mt-md.full-width
 				q-btn(flat round icon="mdi-pencil" color="primary" @click="" size="sm") 
 				q-space
@@ -69,11 +70,14 @@ q-page(padding)
 	padding: 1rem;
 	border: 1px solid #ccc;
 	display: flex;
-	width: 150px;
+	width: 160px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+}
+.label {
+	font-weight: 600;
 }
 .rule {
 	font-size: 0.8rem;
@@ -81,5 +85,9 @@ q-page(padding)
 	color: $secondary;
 	text-align: center;
 	line-height: 1.2;
+}
+.descr {
+	font-size: 0.8rem;
+	margin-top: 1rem;
 }
 </style>
