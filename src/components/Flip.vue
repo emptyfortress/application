@@ -15,11 +15,12 @@ const active = ref(0)
 const emit = defineEmits(['active', 'inactive'])
 
 const expand = (e: number) => {
-	full.value = !full.value
 	if (active.value == e) {
 		active.value = 0
+		full.value = false
 		emit('inactive')
 	} else {
+		full.value = true
 		active.value = e
 		emit('active')
 	}
