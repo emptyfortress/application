@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { wrapGrid } from 'animate-css-grid'
+import ExpandCard from '@/components/ExpandCard.vue'
 
 const big = ref(false)
 
@@ -9,8 +10,11 @@ const toggle = () => {
 }
 const full = ref(false)
 
-const action = () => {
+const active = ref(0)
+
+const expand = (e: number) => {
 	full.value = !full.value
+	active.value = e
 }
 const grid = ref()
 
@@ -21,65 +25,41 @@ onMounted(() => {
 
 <template lang="pug">
 q-page(padding)
-	.grid(ref="grid" :class="{full : full}")
-		.role
-			q-btn(unelevated color="primary" label="Отмена" @click="action") 
-		.proc
-			span process
-		.list
-			span process
-		.card
-			span process
-		.card
-			span process
+	.blockgrid(ref="grid" :class="{full : full}")
+		.bl.role(@click="expand(1)" :class="{active : active == 1}")
+		.bl.proc(@click="expand(2)" :class="{active : active == 2}")
+		.bl.card(@click="expand(3)" :class="{active : active == 3}")
+		.bl.list(@click="expand(4)" :class="{active : active == 4}")
 </template>
 
 <style scoped lang="scss">
-.grid {
-	// width: 50%;
+.blockgrid {
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-	grid-template-rows: 1fr 1fr;
-	height: 400px;
-	// justify-items: start;
-	// align-items: stretch;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-template-rows: 200px 100px;
 	column-gap: 0.5rem;
 	row-gap: 0.5rem;
-	// transition: 0.3s ease all;
-	div {
-		// height: 100px;
-		background: #ccc;
-		overflow: hidden;
-	}
 	&.full {
-		// gap: 3rem;
-		width: 100%;
-		grid-template-columns: 1fr 50px;
-		grid-template-rows: 1fr 0.1fr;
-		span {
-			display: none;
-		}
-		.text {
-			display: block;
+		grid-template-rows: 1fr 100px;
+		.active {
+			grid-column: 1/-1;
+			grid-row: 1/2;
+			height: 500px;
 		}
 	}
-	.text {
-		display: none;
+}
+.bl {
+	border-radius: 0.5rem;
+	cursor: pointer;
+	height: 150px;
+	background: #fff;
+	padding: 1rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	&:hover {
+		border: 1px solid #ccc;
+		box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
 	}
-	// &:has(.role:hover) {
-	// 	width: 100%;
-	// 	grid-template-columns: 7fr 1fr;
-	// 	grid-template-rows: 4fr 1fr;
-	// }
-	// &:has(.proc:hover) {
-	// 	width: 100%;
-	// 	grid-template-columns: 1fr 7fr;
-	// 	grid-template-rows: 4fr 1fr;
-	// }
-	// &:has(.list:hover) {
-	// 	width: 100%;
-	// 	grid-template-columns: 7fr 1fr;
-	// 	grid-template-rows: 1fr 4fr;
-	// }
 }
 </style>
