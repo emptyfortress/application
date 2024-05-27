@@ -27,7 +27,7 @@ const dialog = ref(false)
 const showDialog = () => {
 	dialog.value = !dialog.value
 }
-const create = (e) => {
+const create = (e: any) => {
 	roles.value.push(e)
 }
 const remove = (idx: number) => {
@@ -54,7 +54,7 @@ q-page(padding)
 
 		q-btn(unelevated round icon="mdi-plus" color="primary" @click="showDialog") 
 
-	CreateDialog(v-model="dialog" mode="role" :icon="roles.length" @create="create")
+	CreateDialog(v-model="dialog" mode="role" @create="create")
 </template>
 
 <style scoped lang="scss">
