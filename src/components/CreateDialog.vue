@@ -7,6 +7,7 @@ const props = defineProps({
 		default: 'app',
 	},
 })
+const icon = ref(3)
 const modelValue = defineModel<boolean>()
 
 const name = ref('')
@@ -29,10 +30,12 @@ const create = () => {
 		descr: descr.value,
 		author: 'Орлов П.С.',
 		created: '2024-05-15',
+		icon: icon.value + 1,
 	}
 	emit('create', tmp)
 	name.value = ''
 	descr.value = ''
+	icon.value += 1
 	modelValue.value = false
 }
 </script>
@@ -44,6 +47,7 @@ q-dialog(v-model="modelValue")
 		q-card-section
 			.text-h6(v-if="props.mode == 'app'") Новое приложение
 			.text-h6(v-if="props.mode == 'scene'") Создать сценарий 
+			.text-h6(v-if="props.mode == 'role'") Создать роль 
 
 		q-card-section
 			label Название

@@ -4,7 +4,7 @@ import BpmnModeler from 'bpmn-js/lib/Modeler'
 import 'bpmn-js/dist/assets/diagram-js.css'
 import 'bpmn-js/dist/assets/bpmn-js.css'
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css'
-import pizza from '@/stores/pizza.bpmn?raw'
+import pizza from '@/stores/bpm.bpmn?raw'
 import { useStore } from '@/stores/store'
 
 const store = useStore()
