@@ -28,6 +28,12 @@ const router = createRouter({
 			props: true,
 		},
 		{
+			path: '/split/:id',
+			name: 'split',
+			component: () => import('@/views/SplitView.vue'),
+			props: true,
+		},
+		{
 			path: '/palette',
 			name: 'palette',
 			component: () => import('@/views/Palette.vue'),

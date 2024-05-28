@@ -78,7 +78,8 @@ const tree = [
 ]
 
 const goto = (evt: Event, row: any, index: number) => {
-	router.push(`/app/${row.name}`)
+	router.push(`/split/${row.name}`)
+	// router.push(`/app/${row.name}`)
 }
 
 const dialog = ref(false)
