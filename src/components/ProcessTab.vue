@@ -31,7 +31,7 @@ onMounted(() => {
 			console.log('something went wrong:', warnings, message)
 		})
 
-	modeler.on('element.click', (event) => {
+	modeler.on('element.click', (event: any) => {
 		let tmp = {
 			id: event.element.businessObject.id,
 			type: event.element.businessObject.$type,
