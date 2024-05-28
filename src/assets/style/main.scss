@@ -11,7 +11,7 @@
 .q-splitter__separator {
 	&:hover,
 	&:active {
-		border-left: 2px dotted var(--color-heading);
+		border-left: 2px dotted $primary;
 	}
 }
 

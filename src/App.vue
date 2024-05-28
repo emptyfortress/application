@@ -2,17 +2,17 @@
 import { ref, computed } from 'vue'
 import { RouterLink, RouterView, useRoute } from 'vue-router'
 import SvgIcon from '@/components/SvgIcon.vue'
-import LeftDrawer from '@/components/LeftDrawer.vue'
+// import LeftDrawer from '@/components/LeftDrawer.vue'
 
-const leftDrawerOpen = ref(true)
-const toggleLeftDrawer = () => {
-	leftDrawerOpen.value = !leftDrawerOpen.value
-}
-
-const route = useRoute()
-const inside = computed(() => {
-	return route.path == '/' ? false : true
-})
+// const leftDrawerOpen = ref(true)
+// const toggleLeftDrawer = () => {
+// 	leftDrawerOpen.value = !leftDrawerOpen.value
+// }
+//
+// const route = useRoute()
+// // const inside = computed(() => {
+// 	return route.path == '/' ? false : true
+// })
 </script>
 
 <template lang="pug">
@@ -20,8 +20,8 @@ q-layout(view="hHh LpR fFf")
 	q-header.head
 		q-toolbar
 
-			q-toolbar-title
-				q-avatar(@click="toggleLeftDrawer")
+			q-toolbar-title(@click="$router.push('/')")
+				q-avatar
 					SvgIcon.log(name="logo")
 				span.title Конструктор приложений
 
@@ -38,7 +38,7 @@ q-layout(view="hHh LpR fFf")
 						q-item-section Выход
  
 
-	LeftDrawer(v-model="leftDrawerOpen" v-show="inside")
+	// LeftDrawer(v-model="leftDrawerOpen" v-show="inside")
 
 	q-page-container
 		.container
@@ -64,15 +64,17 @@ q-layout(view="hHh LpR fFf")
 .log {
 	width: 1.3rem;
 	height: 1.3rem;
+	cursor: pointer;
 }
 .title {
 	margin-left: 1rem;
 	font-size: 0.8rem;
 	text-transform: uppercase;
+	cursor: pointer;
 }
 .container {
-	max-width: 1200px;
-	margin: 0 auto;
+	// max-width: 1400px;
+	margin: 0 2rem;
 	// background: pink;
 }
 

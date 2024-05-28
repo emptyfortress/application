@@ -30,27 +30,26 @@ onMounted(() => {
 			const { warnings, message } = err
 			console.log('something went wrong:', warnings, message)
 		})
+
+	modeler.on('element.click', (event) => {
+		let tmp = {
+			id: event.element.businessObject.id,
+			type: event.element.businessObject.$type,
+			name: event.element.businessObject.name,
+		}
+		store.setCurrent(tmp)
+	})
 })
 </script>
 
 <template lang="pug">
-q-page(padding)
-	div {{ store.page }}
-	h4 Процессы
-	.canvas(ref="canvas")
+.canvas(ref="canvas")
 </template>
 
 <style scoped lang="scss">
-// :deep(.bjs-powered-by) {
-// 	display: none;
-// }
-// :deep(.bpmn-icon-subprocess-expanded) {
-// 	display: none;
-// }
 .canvas {
 	width: 100%;
-	// height: 770px;
-	// background: #fff;
+	height: 100%;
 	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAAXNSR0IArs4c6QAAADBJREFUGFclioEJADAMwvSl7f8P1pfMaAsiCcT1inOPQJIlkwy3uT8JbmImh2zANh9STBXvibRbIgAAAABJRU5ErkJggg==)
 		repeat;
 	border: 1px solid #ccc;
@@ -78,5 +77,8 @@ q-page(padding)
 }
 :deep(.bpmn-icon-intermediate-event-none) {
 	display: none;
+}
+:deep(.djs-palette.two-column.open) {
+	width: 50px;
 }
 </style>
