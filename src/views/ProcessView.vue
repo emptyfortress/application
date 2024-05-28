@@ -55,4 +55,28 @@ q-page(padding)
 		repeat;
 	border: 1px solid #ccc;
 }
+:deep(.bpmn-icon-lasso-tool) {
+	display: none;
+}
+:deep(.bpmn-icon-hand-tool) {
+	display: none;
+}
+:deep(.bpmn-icon-space-tool) {
+	display: none;
+}
+:deep(.bpmn-icon-subprocess-expanded) {
+	display: none;
+}
+:deep(.bpmn-icon-data-object) {
+	display: none;
+}
+:deep(.bpmn-icon-data-store) {
+	display: none;
+}
+:deep(.bpmn-icon-group) {
+	display: none;
+}
+:deep(.bpmn-icon-intermediate-event-none) {
+	display: none;
+}
 </style>
