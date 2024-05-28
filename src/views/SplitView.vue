@@ -2,6 +2,8 @@
 import { ref } from 'vue'
 import ProcessTab from '@/components/ProcessTab.vue'
 import PropertyPanel from '@/components/PropertyPanel.vue'
+import RolePanel from '@/components/RolePanel.vue'
+import RoleTab from '@/components/RoleTab.vue'
 import { useStore } from '@/stores/store'
 
 const props = defineProps({
@@ -56,7 +58,8 @@ q-page
 			q-tab-panels(v-model="store.tabs" vertical animated transition-prev="jump-up" transition-next="jump-up")
 				q-tab-panel(name="process")
 					ProcessTab
-				q-tab-panel(name="role") role
+				q-tab-panel(name="role")
+					RoleTab
 				q-tab-panel(name="card") card
 				q-tab-panel(name="list") list
 
@@ -64,6 +67,9 @@ q-page
 			transition(name="page1")
 				div(v-if="store.tabs == 'process'")
 					PropertyPanel
+			transition(name="page1")
+				div(v-if="store.tabs == 'role'")
+					RolePanel
 
 
 </template>
@@ -97,9 +103,12 @@ q-page
 		margin-top: 0;
 	}
 }
+.q-tabs {
+	border-bottom: 1px solid #ccc;
+}
 :deep(.q-tab-panels) {
 	height: calc(100vh - 200px);
-	// margin: 0 6px 6px 6px;
+	background: transparent;
 }
 :deep(.q-tab-panel) {
 	padding: 0;
