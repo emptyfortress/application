@@ -11,6 +11,7 @@ export const useStore = defineStore('store', {
 		count: 0,
 		page: 'Квартальные цели',
 		current: null as BusinessObject | null,
+		tabs: 'process',
 	}),
 	getters: {
 		doubleCount: (state) => state.count * 2,

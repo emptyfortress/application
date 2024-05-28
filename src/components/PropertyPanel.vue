@@ -8,7 +8,7 @@ const tabs = ref('main')
 
 <template lang="pug">
 q-tabs(v-model="tabs" dense active-color="primary" align="left")
-	q-tab(name="main" label="Основные")
+	q-tab(name="main" label="Свойства")
 	q-tab(name="sec" label="Дополнительно")
 	q-tab(name="tri" label="Таб 3")
 
@@ -16,6 +16,8 @@ q-tabs(v-model="tabs" dense active-color="primary" align="left")
 .panel
 	q-tab-panels(v-model="tabs" animated)
 		q-tab-panel(name="main")
+			template(v-if="store.current == null")
+				div Выберите объект на панели слева
 			pre {{ store.current}}
 		q-tab-panel(name="sec") sec
 		q-tab-panel(name="tri") tri

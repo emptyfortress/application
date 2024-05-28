@@ -13,7 +13,7 @@ const props = defineProps({
 
 const store = useStore()
 const split = ref(70)
-const tabs = ref('process')
+// const tabs = ref('process')
 </script>
 
 <template lang="pug">
@@ -47,13 +47,13 @@ q-page
 	q-splitter(v-model="split")
 		template(v-slot:before)
 
-			q-tabs(v-model="tabs" inline-label active-color="primary" align="left" dense)
+			q-tabs(v-model="store.tabs" inline-label active-color="primary" align="left" dense)
 				q-tab(name="process" icon="mdi-shuffle-variant" label="Процессы")
 				q-tab(name="role" icon="mdi-drama-masks" label="Роли")
 				q-tab(name="card" icon="mdi-card-bulleted-outline" label="Карточки")
 				q-tab(name="list" icon="mdi-invoice-list-outline" label="Реестры")
 
-			q-tab-panels(v-model="tabs" vertical animated transition-prev="jump-up" transition-next="jump-up")
+			q-tab-panels(v-model="store.tabs" vertical animated transition-prev="jump-up" transition-next="jump-up")
 				q-tab-panel(name="process")
 					ProcessTab
 				q-tab-panel(name="role") role
@@ -61,7 +61,9 @@ q-page
 				q-tab-panel(name="list") list
 
 		template(v-slot:after)
-			PropertyPanel
+			transition(name="page1")
+				div(v-if="store.tabs == 'process'")
+					PropertyPanel
 
 
 </template>
