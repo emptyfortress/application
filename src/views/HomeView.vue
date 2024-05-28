@@ -49,7 +49,7 @@ const columns = [
 const rows = ref([
 	{
 		id: 0,
-		name: 'Служебная записка',
+		name: 'Заявка',
 		version: '0.1.5',
 		descr: 'Здесь описание приложения',
 		author: 'Орлов П.С.',

@@ -21,7 +21,7 @@ q-page
 	.grid
 		div
 			h4 {{ props.id}}
-			.text-subtitle1 Простая служебная запискa
+			.text-subtitle1 Простая заявка
 		.bl
 			.text-overline version
 			.big
@@ -99,6 +99,7 @@ q-page
 }
 :deep(.q-tab-panels) {
 	height: calc(100vh - 200px);
+	// margin: 0 6px 6px 6px;
 }
 :deep(.q-tab-panel) {
 	padding: 0;
