@@ -43,7 +43,7 @@ q-layout(view="hHh LpR fFf")
 	q-page-container
 		.container
 			router-view(v-slot="{ Component, route }")
-				transition(name="fade" mode="out-in")
+				transition(:name="route.meta.transition || 'fade'" :mode="route.meta.mode || 'out-in'")
 					component(:is="Component")
 </template>
 

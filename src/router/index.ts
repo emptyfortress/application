@@ -10,6 +10,8 @@ declare module 'vue-router' {
 	interface RouteMeta {
 		title?: string
 		bread?: Bread[]
+		transition?: any
+		mode?: any
 	}
 }
 
@@ -20,6 +22,15 @@ const router = createRouter({
 			path: '/',
 			name: 'home',
 			component: HomeView,
+		},
+		{
+			path: '/subcard',
+			name: 'subcard',
+			component: () => import('@/views/SubCard.vue'),
+			props: true,
+			meta: {
+				transition: 'zoomin',
+			},
 		},
 		{
 			path: '/app/:id',

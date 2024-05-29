@@ -9,8 +9,12 @@ interface BusinessObject {
 export const useStore = defineStore('store', {
 	state: () => ({
 		count: 0,
-		page: 'Квартальные цели',
-		current: null as BusinessObject | null,
+		page: 'Заявка',
+		current: {
+			id: 'id',
+			type: 'bpmn:Task',
+			name: 'Исправить заявку',
+		},
 		tabs: 'process',
 	}),
 	getters: {

@@ -11,10 +11,6 @@ const props = defineProps({
 		type: String,
 		default: 'test',
 	},
-	desc: {
-		type: String,
-		required: false,
-	},
 })
 
 const store = useStore()
