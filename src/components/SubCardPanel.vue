@@ -7,14 +7,23 @@ const tabs = ref('main')
 <template lang="pug">
 q-tabs(v-model="tabs" dense active-color="primary" align="left")
 	q-tab(name="main" label="Свойства")
-	q-tab(name="sec" label="Дополнительно")
+	q-tab(name="field" label="Поля")
+	q-tab(name="role" label="Роли")
 
 .panel
 	q-tab-panels(v-model="tabs" animated)
 		q-tab-panel(name="main")
-			div Что здесь
+			div Название разметки
+			div Правила выбора
+			div Другие свойства
 
-		q-tab-panel(name="sec") sec
+		q-tab-panel(name="field")
+			div Список доступных полей (таскаем нужные на форму)
+				div(v-for="n in 10" draggable="true") Поле {{ n }}
+
+		q-tab-panel(name="role")
+			div Здесь роли для выбранной разметки ?
+			div Список ролей (таскаем на выбранную разметку)
 </template>
 
 <style scoped lang="scss">

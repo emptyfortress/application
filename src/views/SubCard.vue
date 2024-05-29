@@ -5,6 +5,8 @@ import SubCardPanel from '@/components/SubCardPanel.vue'
 
 const store = useStore()
 const split = ref(70)
+
+const tabs = ref('main')
 </script>
 
 <template lang="pug">
@@ -17,6 +19,23 @@ q-page
 
 	q-splitter(v-model="split")
 		template(v-slot:before)
+			q-tabs(v-model="tabs" dense active-color="primary" align="left")
+				q-tab(name="main" label="Разметки")
+				q-tab(name="sec" label="Состояния ?")
+
+			.panel
+				.grid
+					div
+						q-list
+							q-item(clickable)
+								q-item-section Разметка 1
+							q-item(clickable)
+								q-item-section Разметка 2
+							q-item(clickable)
+								q-item-section Разметка 3
+						q-btn(unelevated color="primary" label="Создать") 
+					.form
+						div Форма
 
 		template(v-slot:after)
 			SubCardPanel
@@ -33,5 +52,27 @@ q-page
 .q-splitter {
 	margin-top: 1rem;
 	height: calc(100vh - 160px);
+}
+.panel {
+	box-sizing: border-box;
+	margin: 0 6px 6px 6px;
+	background: #fff;
+	height: calc(100vh - 202px);
+	box-shadow:
+		2px 2px 4px rgba(0, 0, 0, 0.2),
+		-1px 0px 4px rgba(0, 0, 0, 0.2);
+}
+.grid {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	justify-items: start;
+	align-items: start;
+	column-gap: 3rem;
+	padding: 1rem;
+}
+.form {
+	width: 100%;
+	height: calc(100vh - 240px);
+	background: #eee;
 }
 </style>
