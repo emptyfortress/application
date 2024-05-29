@@ -42,7 +42,7 @@ q-page
 		template(v-slot:after)
 			SubCardPanel
 	Teleport(to="body")
-		vue-draggable-resizable.drag(:x="0" :y="0" :w="200" :h="150" :active="false")
+		vue-draggable-resizable.drag(:x="0" :y="0" :w="200" :h="150" :active="false" :z="2005")
 			q-img(src="@/assets/img/map.png")
 
 </template>
