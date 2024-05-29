@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { useStore } from '@/stores/store'
 import SubCardPanel from '@/components/SubCardPanel.vue'
+import VueDraggableResizable from 'vue-draggable-resizable'
 
 const store = useStore()
 const split = ref(70)
@@ -37,11 +38,24 @@ q-page
 					.form
 						div Форма
 
+
 		template(v-slot:after)
 			SubCardPanel
+	Teleport(to="body")
+		vue-draggable-resizable.drag(:x="0" :y="0" :w="200" :h="150")
+			p Hello! I'm a minimap.
+
 </template>
 
 <style scoped lang="scss">
+.drag {
+	padding: 0.5rem;
+	background: #fff;
+	box-shadow: 3px 3px 6px 0px rgba(0, 0, 0, 0.2);
+	position: absolute;
+	top: 50%;
+	left: 50%;
+}
 .top {
 	display: grid;
 	grid-template-columns: auto 1fr;
