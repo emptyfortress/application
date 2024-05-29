@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 import { useStore } from '@/stores/store'
 import SubCardPanel from '@/components/SubCardPanel.vue'
 import VueDraggableResizable from 'vue-draggable-resizable'
@@ -8,6 +8,29 @@ const store = useStore()
 const split = ref(70)
 
 const tabs = ref('main')
+const razm = reactive([
+	{
+		id: 0,
+		name: 'Разметка 1',
+		selected: false,
+	},
+	{
+		id: 1,
+		name: 'Разметка 2',
+		selected: false,
+	},
+	{
+		id: 2,
+		name: 'Разметка 2',
+		selected: false,
+	},
+])
+const select = (item: any) => {
+	razm.map((e) => {
+		e.selected = false
+	})
+	item.selected = true
+}
 </script>
 
 <template lang="pug">
@@ -20,23 +43,23 @@ q-page
 
 	q-splitter(v-model="split")
 		template(v-slot:before)
-			q-tabs(v-model="tabs" dense active-color="primary" align="left")
+			q-tabs.q-px-sm(v-model="tabs" dense active-color="primary" align="left")
 				q-tab(name="main" label="Разметки")
-				q-tab(name="sec" label="Состояния ?")
+				q-tab(name="sec" label="Состояния")
 
-			.panel
-				.grid
-					div
-						q-list
-							q-item(clickable)
-								q-item-section Разметка 1
-							q-item(clickable)
-								q-item-section Разметка 2
-							q-item(clickable)
-								q-item-section Разметка 3
-						q-btn(unelevated color="primary" label="Создать") 
-					.form
-						div Форма
+			q-tab-panels.panel(v-model="tabs" animated)
+				q-tab-panel(name="main")
+					.grid
+						div
+							q-list
+								q-item(clickable dense v-for="item in razm" :key="item.id" :class="{selected : item.selected}" @click="select(item)")
+									q-item-section {{ item.name }}
+							br
+							q-btn(unelevated color="primary" label="Создать") 
+						.form
+							div Форма
+				q-tab-panel(name="sec")
+					.q-pa-lg Здесь состояния ?
 
 
 		template(v-slot:after)
@@ -88,5 +111,13 @@ q-page
 	width: 100%;
 	height: calc(100vh - 240px);
 	background: #eee;
+}
+.selected {
+	background: $secondary;
+	color: white;
+}
+:deep(.q-tab-panel) {
+	padding: 0;
+	background: transparent;
 }
 </style>
