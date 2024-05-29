@@ -10,7 +10,7 @@ const router = useRouter()
 const route = useRoute()
 
 const goto = () => {
-	store.setPage(route.params.id)
+	store.setPage(route.params.id.toString())
 	router.push('/subcard')
 }
 </script>
