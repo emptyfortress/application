@@ -55,7 +55,11 @@ q-page
 								q-item(clickable dense v-for="item in razm" :key="item.id" :class="{selected : item.selected}" @click="select(item)")
 									q-item-section {{ item.name }}
 							br
-							q-btn(unelevated color="primary" label="Создать") 
+							.column.items-center.q-gutter-y-sm
+								.col
+									q-btn(unelevated color="secondary" label="Создать") 
+								.col
+									q-btn(flat color="primary" label="Выбрать") 
 						.form
 							div Форма
 				q-tab-panel(name="sec")
