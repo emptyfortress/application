@@ -11,6 +11,10 @@ const props = defineProps({
 		type: String,
 		default: 'test',
 	},
+	desc: {
+		type: String,
+		required: false,
+	},
 })
 
 const store = useStore()
@@ -23,7 +27,7 @@ q-page
 	.grid
 		div
 			h4 {{ props.id}}
-			.text-subtitle1 Простая заявка
+			.text-subtitle1(v-if="props.id == 'Заявка'") Простая заявка
 		.bl
 			.text-overline version
 			.big
