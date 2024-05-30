@@ -58,6 +58,7 @@ const duble = () => {
 		selected: false,
 	})
 }
+
 const remove = () => {
 	let idx = razm.findIndex((e: any) => {
 		return e.selected == true
