@@ -61,7 +61,7 @@ q-page
 				q-tab-panel(name="role")
 					RoleTab
 				q-tab-panel(name="card")
-					q-img(src="@/assets/img/card.png")
+					q-img(src="@/assets/img/card.png" width="80%")
 				q-tab-panel(name="list") list
 
 		template(v-slot:after)
