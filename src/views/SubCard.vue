@@ -66,6 +66,7 @@ const remove = () => {
 	currentForm.value = razm[0].name
 	razm[0].selected = true
 }
+const editMode = ref(false)
 </script>
 
 <template lang="pug">
@@ -111,8 +112,11 @@ q-page
 								q-carousel-slide(:name="3")
 									q-img(src="@/assets/img/form3.png")
 							div
-								q-btn(flat color="primary" label="Сохранить" ) 
-								q-btn(flat color="negative" label="Удалить" @click="remove") 
+								template(v-if="editMode")
+									q-btn(flat color="primary" label="Сохранить" @click="editMode = false" ) 
+									q-btn(flat color="negative" label="Удалить" @click="remove") 
+								template(v-else)
+									q-btn(flat color="primary" label="Редактировать" @click="editMode = true" ) 
 				q-tab-panel(name="sec")
 					.q-pa-lg Здесь состояния ?
 
