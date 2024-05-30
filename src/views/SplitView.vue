@@ -60,7 +60,8 @@ q-page
 					ProcessTab
 				q-tab-panel(name="role")
 					RoleTab
-				q-tab-panel(name="card") card
+				q-tab-panel(name="card")
+					q-img(src="@/assets/img/card.png")
 				q-tab-panel(name="list") list
 
 		template(v-slot:after)
@@ -69,6 +70,9 @@ q-page
 					PropertyPanel
 			transition(name="page1")
 				div(v-if="store.tabs == 'role'")
+					RolePanel
+			transition(name="page1")
+				div(v-if="store.tabs == 'card'")
 					RolePanel
 
 

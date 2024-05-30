@@ -83,7 +83,7 @@ const router = createRouter({
 			name: 'subject',
 			component: () => import('@/views/SubjectView.vue'),
 			meta: {
-				title: 'Субъекты',
+				title: 'Карточки',
 			},
 		},
 		{
