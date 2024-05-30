@@ -39,6 +39,33 @@ const select = (item: any) => {
 	slide.value = item.id
 }
 const slide = ref(1)
+
+const add = () => {
+	const date = new Date()
+	razm.push({
+		id: +date,
+		name: 'Новая форма',
+		etap: store.current.name,
+		selected: false,
+	})
+}
+const duble = () => {
+	const date = new Date()
+	razm.push({
+		id: +date,
+		name: currentForm.value + '-copy',
+		etap: store.current.name,
+		selected: false,
+	})
+}
+const remove = () => {
+	let idx = razm.findIndex((e: any) => {
+		return e.selected == true
+	})
+	razm.splice(idx, 1)
+	currentForm.value = razm[0].name
+	razm[0].selected = true
+}
 </script>
 
 <template lang="pug">
@@ -72,8 +99,8 @@ q-page
 										q-item-label {{ item.etap }}
 							br
 							q-card-actions
-								q-btn(unelevated color="primary" label="Создать") 
-								q-btn(flat color="primary" label="Дублировать") 
+								q-btn(unelevated color="primary" label="Создать" @click="add") 
+								q-btn(flat color="primary" label="Дублировать" @click="duble") 
 						.form
 							h5 {{ currentForm }}
 							q-carousel(animated v-model="slide" navigation arrows infinite transition-prev="jump-right" transition-next="jump-left" height="400px" width="80%")
@@ -84,8 +111,8 @@ q-page
 								q-carousel-slide(:name="3")
 									q-img(src="@/assets/img/form3.png")
 							div
-								// q-btn(flat color="primary" label="Сохранить как копию" ) 
 								q-btn(flat color="primary" label="Сохранить" ) 
+								q-btn(flat color="negative" label="Удалить" @click="remove") 
 				q-tab-panel(name="sec")
 					.q-pa-lg Здесь состояния ?
 
