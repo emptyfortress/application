@@ -10,27 +10,35 @@ const split = ref(70)
 const tabs = ref('main')
 const razm = reactive([
 	{
-		id: 0,
-		name: 'Разметка 1',
-		selected: false,
-	},
-	{
 		id: 1,
-		name: 'Разметка 2',
-		selected: false,
+		name: 'Форма 1',
+		etap: 'Создал заявку',
+		selected: true,
 	},
 	{
 		id: 2,
-		name: 'Разметка 2',
+		name: 'Форма 2',
+		etap: 'Согласовать заявку',
+		selected: false,
+	},
+	{
+		id: 3,
+		name: 'Форма 3',
+		etap: 'Рассмотреть заявку',
 		selected: false,
 	},
 ])
+const currentForm = ref('Форма 1')
+
 const select = (item: any) => {
 	razm.map((e) => {
 		e.selected = false
 	})
 	item.selected = true
+	currentForm.value = item.name
+	slide.value = item.id
 }
+const slide = ref(1)
 </script>
 
 <template lang="pug">
@@ -40,28 +48,44 @@ q-page
 		div
 			div {{ store.page }}
 			h5 {{ store.current?.name }}
+		.q-gutter-x-xs
+			q-btn(flat color="primary" label="Отмена") 
+			q-btn(unelevated color="primary" label="Сохранить изменения") 
+	
 
 	q-splitter(v-model="split")
 		template(v-slot:before)
 			q-tabs.q-px-sm(v-model="tabs" dense active-color="primary" align="left")
-				q-tab(name="main" label="Разметки")
+				q-tab(name="main" label="Формы")
 				q-tab(name="sec" label="Состояния")
 
 			q-tab-panels.panel(v-model="tabs" animated)
 				q-tab-panel(name="main")
 					.grid
 						div
+							.text-overline Доступные формы
 							q-list
 								q-item(clickable dense v-for="item in razm" :key="item.id" :class="{selected : item.selected}" @click="select(item)")
-									q-item-section {{ item.name }}
+									q-item-section
+										q-item-label {{ item.name }}
+									q-item-section.small(side)
+										q-item-label {{ item.etap }}
 							br
-							.column.items-center.q-gutter-y-sm
-								.col
-									q-btn(unelevated color="secondary" label="Создать") 
-								.col
-									q-btn(flat color="primary" label="Выбрать") 
+							q-card-actions
+								q-btn(unelevated color="primary" label="Создать") 
+								q-btn(flat color="primary" label="Дублировать") 
 						.form
-							div Форма
+							h5 {{ currentForm }}
+							q-carousel(animated v-model="slide" navigation arrows infinite transition-prev="jump-right" transition-next="jump-left" height="400px" width="80%")
+								q-carousel-slide(:name="1")
+									q-img(src="@/assets/img/form1.png")
+								q-carousel-slide(:name="2")
+									q-img(src="@/assets/img/form2.png")
+								q-carousel-slide(:name="3")
+									q-img(src="@/assets/img/form3.png")
+							div
+								// q-btn(flat color="primary" label="Сохранить как копию" ) 
+								q-btn(flat color="primary" label="Сохранить" ) 
 				q-tab-panel(name="sec")
 					.q-pa-lg Здесь состояния ?
 
@@ -80,13 +104,13 @@ q-page
 	background: #fff;
 	box-shadow: 3px 3px 6px 0px rgba(0, 0, 0, 0.2);
 	position: absolute;
-	top: 50%;
-	left: 50%;
+	top: 70%;
+	left: 80%;
 }
 .top {
 	display: grid;
-	grid-template-columns: auto 1fr;
-	justify-items: start;
+	grid-template-columns: auto 1fr auto;
+	justify-items: space-between;
 	align-items: center;
 	column-gap: 1rem;
 }
@@ -99,6 +123,7 @@ q-page
 	margin: 0 6px 6px 6px;
 	background: #fff;
 	height: calc(100vh - 202px);
+	padding: 1rem;
 	box-shadow:
 		2px 2px 4px rgba(0, 0, 0, 0.2),
 		-1px 0px 4px rgba(0, 0, 0, 0.2);
@@ -109,19 +134,29 @@ q-page
 	justify-items: start;
 	align-items: start;
 	column-gap: 3rem;
-	padding: 1rem;
 }
 .form {
 	width: 100%;
 	height: calc(100vh - 240px);
 	background: #eee;
+	padding: 1rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	// align-items: center;
 }
 .selected {
-	background: $secondary;
-	color: white;
+	background: #d3e8ff;
 }
 :deep(.q-tab-panel) {
 	padding: 0;
+	background: transparent;
+}
+.small {
+	font-size: 0.8rem;
+	white-space: nowrap;
+}
+:deep(.q-carousel) {
 	background: transparent;
 }
 </style>

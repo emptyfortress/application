@@ -13,7 +13,7 @@ q-tabs(v-model="tabs" dense active-color="primary" align="left")
 .panel
 	q-tab-panels(v-model="tabs" animated)
 		q-tab-panel(name="main")
-			div Название разметки
+			div Название формы
 			div Правила выбора
 			div Другие свойства
 
