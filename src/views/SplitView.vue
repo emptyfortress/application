@@ -15,7 +15,6 @@ const props = defineProps({
 
 const store = useStore()
 const split = ref(70)
-// const tabs = ref('process')
 </script>
 
 <template lang="pug">

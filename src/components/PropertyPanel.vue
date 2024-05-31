@@ -29,15 +29,9 @@ q-tabs(v-model="tabs" dense active-color="primary" align="left")
 			pre {{ store.current}}
 			.view(v-if="store.current?.type == 'bpmn:Task'" @click="goto")
 				div Что увидит пользователь?
-				br
-				.field
-				.field
-				.field
-				q-btn.q-ml-md(unelevated color="primary" label="Отмена" size="xs") 
 
 			.view(v-if="store.current?.type == 'bpmn:Task'")
 				div Что пользователь сможет сделать?
-					.big ?
 
 		q-tab-panel(name="sec") sec
 </template>
@@ -65,6 +59,9 @@ q-tabs(v-model="tabs" dense active-color="primary" align="left")
 	padding: 0.5rem;
 	min-height: 200px;
 	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 .field {
 	height: 24px;

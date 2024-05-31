@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref, reactive, computed } from 'vue'
 import { useStore } from '@/stores/store'
 import SubCardPanel from '@/components/SubCardPanel.vue'
 import VueDraggableResizable from 'vue-draggable-resizable'
+import SvgIcon from '@/components/SvgIcon.vue'
 
 const store = useStore()
 const split = ref(70)
@@ -67,11 +68,24 @@ const remove = () => {
 	razm[0].selected = true
 }
 const editMode = ref(false)
+const prev = computed(() => {
+	return '/split/' + store.page
+})
 </script>
 
 <template lang="pug">
 q-page
-	.top
+	q-breadcrumbs
+		template(v-slot:separator)
+			q-icon(name="mdi-arrow-right" color="primary")
+		q-breadcrumbs-el(:to="prev")
+			SvgIcon(name="process")
+			q-item-label {{ store.page }}
+		q-breadcrumbs-el
+			SvgIcon.item(name="rect")
+			q-item-label {{ store.current.name }}
+
+	// .top
 		q-btn(flat round dense icon="mdi-arrow-left-circle-outline" color="primary" @click="$router.back()" size="lg") 
 		div
 			div {{ store.page }}
@@ -189,5 +203,14 @@ q-page
 }
 :deep(.q-carousel) {
 	background: transparent;
+}
+.q-breadcrumbs {
+	font-size: 1.1rem;
+	.q-item__label {
+		margin-left: 0.5rem;
+	}
+}
+svg.icon.item {
+	width: 1.4rem;
 }
 </style>
