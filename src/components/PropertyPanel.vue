@@ -45,9 +45,7 @@ q-tabs(v-model="tabs" dense active-color="primary" align="left")
 	margin: 0 6px 6px 6px;
 	background: #fff;
 	height: calc(100vh - 202px);
-	box-shadow:
-		2px 2px 4px rgba(0, 0, 0, 0.2),
-		-1px 0px 4px rgba(0, 0, 0, 0.2);
+	box-shadow: var(--panel-shadow);
 }
 :deep(.q-tab-panels) {
 	background: transparent;

@@ -3,11 +3,12 @@
 @import 'vue-draggable-resizable/style.css';
 
 :root {
+	--panel-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2), -1px 0px 3px rgba(0, 0, 0, 0.2);
 }
 
 .q-splitter--vertical.q-splitter--workable > .q-splitter__separator {
-	margin-left: 0.5rem;
-	margin-right: 0.5rem;
+	margin-left: 0.2rem;
+	margin-right: 0.2rem;
 }
 .q-splitter__separator {
 	&:hover,

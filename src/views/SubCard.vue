@@ -32,7 +32,7 @@ const slide = ref(1)
 const formName = ref('')
 const frm = ref()
 onMounted(() => {
-	formName.value = 'Форма ' + store.current.name
+	formName.value = 'Форма "' + store.current.name + '"'
 })
 
 const add = () => {
@@ -171,9 +171,7 @@ q-page
 	background: #fff;
 	height: calc(100vh - 202px);
 	padding: 1rem;
-	box-shadow:
-		2px 2px 4px rgba(0, 0, 0, 0.2),
-		-1px 0px 4px rgba(0, 0, 0, 0.2);
+	box-shadow: var(--panel-shadow);
 }
 .grid {
 	display: grid;
