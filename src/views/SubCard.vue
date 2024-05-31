@@ -27,13 +27,13 @@ const fields1: Field[] = reactive([
 	// 	},
 ])
 
-const select = (item: any) => {
-	razm.map((e) => {
-		e.selected = false
-	})
-	item.selected = true
-	slide.value = item.id
-}
+// const select = (item: any) => {
+// 	razm.map((e) => {
+// 		e.selected = false
+// 	})
+// 	item.selected = true
+// 	slide.value = item.id
+// }
 const slide = ref(1)
 const frm = ref()
 
