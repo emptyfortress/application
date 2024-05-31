@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useStore } from '@/stores/store'
 
+const store = useStore()
 const tabs = ref('main')
 </script>
 
@@ -14,6 +16,9 @@ q-tabs(v-model="tabs" dense active-color="primary" align="left")
 	q-tab-panels(v-model="tabs" animated)
 		q-tab-panel(name="main")
 			div Название формы
+			q-input(v-model="store.formName" dense filled)
+			br
+
 			div Правила выбора
 			div Другие свойства
 

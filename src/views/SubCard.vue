@@ -29,10 +29,11 @@ const select = (item: any) => {
 	slide.value = item.id
 }
 const slide = ref(1)
-const formName = ref('')
+// const formName = ref('')
 const frm = ref()
+
 onMounted(() => {
-	formName.value = 'Форма "' + store.current.name + '"'
+	store.setFormName(store.startFormName)
 })
 
 const add = () => {
@@ -114,20 +115,20 @@ q-page
 							br
 							q-btn(flat color="primary" label="Создать" @click="add") 
 						.form
-							// .zg Форма {{ store.current.name }}
 							.zg
-								span {{ formName}}
-									q-popup-edit(v-model="formName" v-slot="scope")
+								span {{ store.formName}}
+									q-popup-edit(v-model="store.formName" v-slot="scope")
 										q-input(ref="frm" v-model="scope.value" dense autofocus @focus="frm.select()" @keyup.enter="scope.set")
 								
 							// q-carousel(animated v-model="slide" navigation arrows infinite transition-prev="jump-right" transition-next="jump-left" height="400px" width="80%")
-							// 	q-carousel-slide(:name="1")
-							// 		q-img(src="@/assets/img/form1.png")
-							// 	q-carousel-slide(:name="2")
-							// 		q-img(src="@/assets/img/form2.png")
-							// 	q-carousel-slide(:name="3")
-							// 		q-img(src="@/assets/img/form3.png")
-							div
+								q-carousel-slide(:name="1")
+									q-img(src="@/assets/img/form1.png")
+								q-carousel-slide(:name="2")
+									q-img(src="@/assets/img/form2.png")
+								q-carousel-slide(:name="3")
+									q-img(src="@/assets/img/form3.png")
+
+							// div
 								template(v-if="editMode")
 									q-btn(flat color="primary" label="Сохранить" @click="editMode = false" ) 
 									q-btn(flat color="negative" label="Удалить" @click="remove") 

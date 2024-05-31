@@ -8,7 +8,6 @@ interface BusinessObject {
 
 export const useStore = defineStore('store', {
 	state: () => ({
-		count: 0,
 		page: 'Заявка',
 		current: {
 			id: 'id',
@@ -16,9 +15,10 @@ export const useStore = defineStore('store', {
 			name: 'Исправить заявку',
 		},
 		tabs: 'process',
+		formName: '',
 	}),
 	getters: {
-		doubleCount: (state) => state.count * 2,
+		startFormName: (state) => 'Форма "' + state.current.name + '"',
 	},
 	actions: {
 		setPage(e: string) {
@@ -26,6 +26,9 @@ export const useStore = defineStore('store', {
 		},
 		setCurrent(e: BusinessObject) {
 			this.current = e
+		},
+		setFormName(e: string) {
+			this.formName = e
 		},
 	},
 })
