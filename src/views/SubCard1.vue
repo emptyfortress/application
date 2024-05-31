@@ -78,9 +78,6 @@ q-page
 		q-breadcrumbs-el(to="/subcard1")
 			SvgIcon(name="process")
 			q-item-label {{ store.page }}
-		q-breadcrumbs-el.cursor-pointer
-			SvgIcon.item(name="rect")
-			q-item-label {{ store.current.name }}
 			q-menu
 				.size
 					q-img(src="@/assets/img/map.png")

@@ -33,6 +33,15 @@ const router = createRouter({
 			},
 		},
 		{
+			path: '/subcard1',
+			name: 'subcard1',
+			component: () => import('@/views/SubCard1.vue'),
+			props: true,
+			// meta: {
+			// 	transition: 'zoomin',
+			// },
+		},
+		{
 			path: '/app/:id',
 			name: 'app',
 			component: () => import('@/views/DashBoard.vue'),
