@@ -29,3 +29,11 @@
 .rel {
 	position: relative;
 }
+.empty {
+	font-size: 0.8rem;
+	color: $secondary;
+	text-align: center;
+	&:before {
+		content: '🙃 ';
+	}
+}
