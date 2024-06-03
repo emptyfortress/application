@@ -4,6 +4,7 @@ import { useStore } from '@/stores/store'
 
 const store = useStore()
 const tabs = ref('main')
+const temp = ref('')
 </script>
 
 <template lang="pug">
@@ -15,12 +16,17 @@ q-tabs(v-model="tabs" dense active-color="primary" align="left")
 .panel
 	q-tab-panels(v-model="tabs" animated)
 		q-tab-panel(name="main")
-			div Название формы
-			q-input(v-model="store.formName" dense filled)
-			br
+			template(v-if="store.currentField == null")
+				div Название формы
+				q-input(v-model="store.formName" dense filled)
+				br
+				div Правила выбора
+				div Другие свойства
 
-			div Правила выбора
-			div Другие свойства
+			template(v-else)
+				div Поле
+				q-input(v-model="tmp" dense filled)
+
 
 		q-tab-panel(name="field")
 			div Список доступных полей (таскаем нужные на форму)

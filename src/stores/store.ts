@@ -1,9 +1,5 @@
 import { defineStore } from 'pinia'
 
-// interface Props {
-// 	label: string
-// 	val: string
-// }
 interface BusinessObject {
 	id: string
 	type: string
@@ -20,6 +16,7 @@ export const useStore = defineStore('store', {
 		},
 		tabs: 'process',
 		formName: '',
+		currentField: null as null | BusinessObject,
 	}),
 	getters: {
 		startFormName: (state) => 'Форма "' + state.current.name + '"',
@@ -33,6 +30,9 @@ export const useStore = defineStore('store', {
 		},
 		setFormName(e: string) {
 			this.formName = e
+		},
+		setField(e: BusinessObject) {
+			this.currentField = e
 		},
 	},
 })

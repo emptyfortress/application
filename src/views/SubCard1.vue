@@ -76,7 +76,7 @@ q-page
 
 
 		q-breadcrumbs-el(to="/subcard1")
-			SvgIcon(name="process")
+			// SvgIcon(name="process")
 			q-item-label {{ store.page }}
 			q-menu
 				.size

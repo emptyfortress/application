@@ -26,7 +26,7 @@ const create = () => {
 	type.value = ''
 	modelValue.value = false
 }
-const options = ['Строка', 'Сотрудник', 'Текст']
+const options = ['Строка', 'Сотрудник', 'Текст', 'Кнопка', 'Кнопка действий']
 </script>
 
 <template lang="pug">

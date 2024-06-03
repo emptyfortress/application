@@ -31,11 +31,11 @@ q-page
 		q-breadcrumbs-el(:to="prev" icon="mdi-arrow-left-circle-outline" label="Назад")
 
 
-		q-breadcrumbs-el(to="/subcard1")
-			SvgIcon(name="process")
-			q-item-label {{ store.page }}
+		q-breadcrumbs-el(to="/subcard1" :label="store.page")
+			// SvgIcon(name="process")
+			// q-item-label {{ store.page }}
 		q-breadcrumbs-el.cursor-pointer
-			SvgIcon.item(name="rect")
+			// SvgIcon.item(name="rect")
 			q-item-label {{ store.current.name }}
 			q-menu
 				.size
@@ -72,7 +72,6 @@ q-page
 	Teleport(to="body")
 		vue-draggable-resizable.drag(:x="0" :y="0" :w="200" :h="150" :active="false" :z="2005")
 			q-img(src="@/assets/img/map.png")
-
 
 </template>
 

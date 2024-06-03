@@ -3,19 +3,34 @@ import { reactive, ref, onMounted } from 'vue'
 import draggable from 'vuedraggable'
 import { useStore } from '@/stores/store'
 import AddFieldDialog from '@/components/AddFieldDialog.vue'
+import { uid } from 'quasar'
 
 interface Field {
 	id: string
 	name: string
 	type: string
+	selected: boolean
 }
 
-const fields: Field[] = reactive([])
+const fields: Field[] = reactive([
+	{
+		id: 'one',
+		name: 'Сотрудник',
+		type: 'Строка справочника',
+		selected: false,
+	},
+	{
+		id: 'two',
+		name: 'Название этапа',
+		type: 'Строка',
+		selected: false,
+	},
+])
 const fields1: Field[] = reactive([])
 
 const store = useStore()
 const log = () => {
-	console.log(111)
+	console.log('log')
 }
 const drag = ref(false)
 
@@ -27,16 +42,30 @@ const create = (e: Field) => {
 	fields.push(e)
 }
 const remove = () => {
-	// let idx = razm.findIndex((e: any) => {
-	// 	return e.selected == true
-	// })
-	// razm.splice(idx, 1)
-	// // currentForm.value = razm[0].name
-	// razm[0].selected = true
+	let idx = fields1.findIndex((e: any) => {
+		return e.selected == true
+	})
+	fields1.splice(idx, 1)
+	store.setField(null)
 }
 onMounted(() => {
 	store.setFormName(store.startFormName)
 })
+const select = (el: any) => {
+	fields1.map((item) => {
+		item.selected = false
+	})
+	el.selected = true
+	store.setField(el)
+}
+
+const cloneDog = ({ id, name, type }) => {
+	return {
+		id: uid(),
+		name: name,
+		type: type,
+	}
+}
 </script>
 
 <template lang="pug">
@@ -47,11 +76,15 @@ onMounted(() => {
 			draggable(
 				:list="fields"
 				:group="{ name: 'people', pull: 'clone', put: false }"
+				:clone="cloneDog"
 				@change="log"
 				item-key="id"
 				)
 				template( #item="{element}" )
-					q-item(clickable dense) {{element.name}}
+					q-item.rem(clickable dense)
+						q-item-section {{element.name}}
+						q-item-section(side)
+							q-btn(flat round dense icon="mdi-trash-can-outline" color="primary" @click="" size="sm") 
 
 		.empty(v-if="!fields.length") Ничего нет
 
@@ -77,7 +110,10 @@ onMounted(() => {
 				item-key="id"
 				)
 				template( #item="{element}" )
-					q-item(clickable) {{element.name}}
+					q-item(clickable @click="select(element)" :class="{selected: element.selected}")
+						q-item-section {{element.name}}
+						q-item-section(side v-if="element.selected")
+							q-btn(flat round dense icon="mdi-close" color="primary" @click="remove" size="sm") 
 
 	AddFieldDialog(v-model="dialog" @create="create")
 </template>
@@ -93,7 +129,7 @@ onMounted(() => {
 .form {
 	width: 100%;
 	height: calc(100vh - 240px);
-	background: #eee;
+	// background: #eee;
 	padding: 1rem;
 	.zg {
 		font-size: 1.2rem;
@@ -108,5 +144,16 @@ onMounted(() => {
 .list {
 	margin-top: 1rem;
 	min-height: 150px;
+}
+.rem {
+	.q-btn {
+		display: none;
+	}
+	padding-right: 0;
+	&:hover {
+		.q-btn {
+			display: inline-flex;
+		}
+	}
 }
 </style>

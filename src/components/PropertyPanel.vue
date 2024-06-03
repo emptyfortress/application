@@ -44,7 +44,7 @@ q-tabs(v-model="tabs" dense active-color="primary" align="left")
 			template(v-if="store.current.type == 'bpmn:Task'")
 				br
 				div Что видит пользователь?
-				.vie(@click="isFormVisible = true") Настроить
+				.vie(@click="goto") Настроить
 
 
 		q-tab-panel(name="sec") sec
