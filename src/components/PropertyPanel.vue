@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 import { useStore } from '@/stores/store'
 import { useRouter, useRoute } from 'vue-router'
 
@@ -13,6 +13,8 @@ const goto = () => {
 	store.setPage(route.params.id.toString())
 	router.push('/subcard')
 }
+const prop1 = ref('')
+const prop2 = ref('')
 </script>
 
 <template lang="pug">
@@ -24,14 +26,23 @@ q-tabs(v-model="tabs" dense active-color="primary" align="left")
 .panel
 	q-tab-panels(v-model="tabs" animated)
 		q-tab-panel(name="main")
-			template(v-if="store.current == null")
-				div Выберите объект на панели слева
-			pre {{ store.current}}
-			.view(v-if="store.current?.type == 'bpmn:Task'" @click="goto")
-				div Что увидит пользователь?
+			// pre {{ store.current}}
+			template(v-if="store.current.type == 'bpmn:Process'")
+				div Ничего не выбрано.
+			template(v-else)
+				.form
+					.label Название:
+					q-input.val(v-model="store.current.name" dense filled)
+					.label Свойство 1:
+					q-input.val(v-model="prop1" dense filled)
+					.label Свойство 2:
+					q-input.val(v-model="prop2" dense filled)
 
-			.view(v-if="store.current?.type == 'bpmn:Task'")
-				div Что пользователь сможет сделать?
+			template(v-if="store.current.type == 'bpmn:Task'")
+				br
+				div Что видит пользователь?
+				.vie Настроить
+
 
 		q-tab-panel(name="sec") sec
 </template>
@@ -51,21 +62,25 @@ q-tabs(v-model="tabs" dense active-color="primary" align="left")
 	background: transparent;
 	padding: 1rem;
 }
-.view {
-	background: #dedede;
-	margin: 0.5rem;
-	padding: 0.5rem;
+.form {
+	display: grid;
+	width: 100%;
+	grid-template-columns: auto 1fr;
+	justify-items: start;
+	align-items: center;
+	column-gap: 1rem;
+	row-gap: 0.5rem;
+}
+.val {
+	width: 100%;
+}
+.vie {
+	background: #eee;
 	min-height: 200px;
 	cursor: pointer;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-}
-.field {
-	height: 24px;
-	width: 100px;
-	background: #fff;
-	margin-bottom: 3px;
-	margin-left: 1rem;
+	color: $primary;
 }
 </style>

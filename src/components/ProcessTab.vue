@@ -37,6 +37,7 @@ onMounted(() => {
 			type: event.element.businessObject.$type,
 			name: event.element.businessObject.name,
 		}
+		console.log(event.element)
 		store.setCurrent(tmp)
 	})
 })
@@ -53,6 +54,9 @@ onMounted(() => {
 	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAAXNSR0IArs4c6QAAADBJREFUGFclioEJADAMwvSl7f8P1pfMaAsiCcT1inOPQJIlkwy3uT8JbmImh2zANh9STBXvibRbIgAAAABJRU5ErkJggg==)
 		repeat;
 	border: 1px solid #ccc;
+}
+:deep(.bjs-powered-by) {
+	display: none;
 }
 :deep(.bpmn-icon-lasso-tool) {
 	display: none;

@@ -1,9 +1,14 @@
 import { defineStore } from 'pinia'
 
+interface Props {
+	label: string
+	val: string
+}
 interface BusinessObject {
 	id: string
 	type: string
-	name: string
+	name?: string
+	props: Props[]
 }
 
 export const useStore = defineStore('store', {
@@ -11,8 +16,8 @@ export const useStore = defineStore('store', {
 		page: 'Заявка',
 		current: {
 			id: 'id',
-			type: 'bpmn:Task',
-			name: 'Исправить заявку',
+			type: 'bpmn:Process',
+			name: '',
 		},
 		tabs: 'process',
 		formName: '',

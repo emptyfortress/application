@@ -41,16 +41,8 @@ q-page(padding)
 </template>
 
 <style scoped lang="scss">
-// :deep(.bjs-powered-by) {
-// 	display: none;
-// }
-// :deep(.bpmn-icon-subprocess-expanded) {
-// 	display: none;
-// }
 .canvas {
 	width: 100%;
-	// height: 770px;
-	// background: #fff;
 	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAAXNSR0IArs4c6QAAADBJREFUGFclioEJADAMwvSl7f8P1pfMaAsiCcT1inOPQJIlkwy3uT8JbmImh2zANh9STBXvibRbIgAAAABJRU5ErkJggg==)
 		repeat;
 	border: 1px solid #ccc;
