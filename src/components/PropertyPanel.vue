@@ -2,6 +2,7 @@
 import { ref, reactive } from 'vue'
 import { useStore } from '@/stores/store'
 import { useRouter, useRoute } from 'vue-router'
+import EditFormDialog from '@/components/EditFormDialog.vue'
 
 const store = useStore()
 const tabs = ref('main')
@@ -15,6 +16,8 @@ const goto = () => {
 }
 const prop1 = ref('')
 const prop2 = ref('')
+
+const isFormVisible = ref(false)
 </script>
 
 <template lang="pug">
@@ -41,10 +44,12 @@ q-tabs(v-model="tabs" dense active-color="primary" align="left")
 			template(v-if="store.current.type == 'bpmn:Task'")
 				br
 				div Что видит пользователь?
-				.vie Настроить
+				.vie(@click="isFormVisible = true") Настроить
 
 
 		q-tab-panel(name="sec") sec
+
+	EditFormDialog(v-model="isFormVisible")
 </template>
 
 <style scoped lang="scss">
