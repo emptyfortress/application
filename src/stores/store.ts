@@ -1,14 +1,13 @@
 import { defineStore } from 'pinia'
 
-interface Props {
-	label: string
-	val: string
-}
+// interface Props {
+// 	label: string
+// 	val: string
+// }
 interface BusinessObject {
 	id: string
 	type: string
-	name?: string
-	props: Props[]
+	name: string
 }
 
 export const useStore = defineStore('store', {
