@@ -46,7 +46,7 @@ const remove = () => {
 		return e.selected == true
 	})
 	fields1.splice(idx, 1)
-	store.setField(null)
+	store.clearField()
 }
 onMounted(() => {
 	store.setFormName(store.startFormName)

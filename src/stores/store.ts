@@ -34,5 +34,8 @@ export const useStore = defineStore('store', {
 		setField(e: BusinessObject) {
 			this.currentField = e
 		},
+		clearField() {
+			this.currentField = null
+		},
 	},
 })
