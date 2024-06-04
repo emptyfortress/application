@@ -59,11 +59,12 @@ const select = (el: any) => {
 	store.setField(el)
 }
 
-const cloneDog = ({ id, name, type }) => {
+// const cloneDog = ({ id, name, type }) => {
+const cloneDog = (item: Field) => {
 	return {
 		id: uid(),
-		name: name,
-		type: type,
+		name: item.name,
+		type: item.type,
 	}
 }
 </script>
