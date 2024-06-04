@@ -20,6 +20,7 @@ const create = () => {
 		id: uid(),
 		name: name.value,
 		type: type.value,
+		selected: true,
 	}
 	emit('create', tmp)
 	name.value = ''

@@ -35,11 +35,16 @@ const log = () => {
 const drag = ref(false)
 
 const dialog = ref(false)
+
 const add = () => {
 	dialog.value = !dialog.value
 }
 const create = (e: Field) => {
 	fields.push(e)
+	fields1.map((item) => {
+		item.selected = false
+	})
+	fields1.push(e)
 }
 const remove = () => {
 	let idx = fields1.findIndex((e: any) => {
@@ -59,12 +64,12 @@ const select = (el: any) => {
 	store.setField(el)
 }
 
-// const cloneDog = ({ id, name, type }) => {
 const cloneDog = (item: Field) => {
 	return {
 		id: uid(),
 		name: item.name,
 		type: item.type,
+		selected: true,
 	}
 }
 </script>
@@ -84,8 +89,6 @@ const cloneDog = (item: Field) => {
 				template( #item="{element}" )
 					q-item.rem(clickable dense)
 						q-item-section {{element.name}}
-						q-item-section(side)
-							q-btn(flat round dense icon="mdi-trash-can-outline" color="primary" @click="" size="sm") 
 
 		.empty(v-if="!fields.length") Ничего нет
 

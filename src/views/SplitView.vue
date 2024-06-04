@@ -5,6 +5,7 @@ import PropertyPanel from '@/components/PropertyPanel.vue'
 import RolePanel from '@/components/RolePanel.vue'
 import RoleTab from '@/components/RoleTab.vue'
 import { useStore } from '@/stores/store'
+import { useRoute } from 'vue-router'
 
 const props = defineProps({
 	id: {
@@ -14,6 +15,7 @@ const props = defineProps({
 })
 
 const store = useStore()
+const route = useRoute()
 const split = ref(70)
 </script>
 

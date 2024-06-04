@@ -54,6 +54,12 @@ const router = createRouter({
 			props: true,
 			children: [
 				{
+					path: 'form',
+					name: 'form',
+					component: () => import('@/components/Form.vue'),
+					props: true,
+				},
+				{
 					path: 'process',
 					name: 'proc',
 					component: () => import('@/components/ProcessTab.vue'),

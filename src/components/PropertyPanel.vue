@@ -11,8 +11,8 @@ const router = useRouter()
 const route = useRoute()
 
 const goto = () => {
-	store.setPage(route.params.id.toString())
-	router.push('/subcard')
+	// store.setPage(route.params.id.toString())
+	router.push(`/split/${store.page}/form`)
 }
 const prop1 = ref('')
 const prop2 = ref('')
