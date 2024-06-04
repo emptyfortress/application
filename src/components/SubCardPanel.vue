@@ -4,7 +4,7 @@ import { useStore } from '@/stores/store'
 
 const store = useStore()
 const tabs = ref('main')
-const temp = ref('')
+const tmp = ref('')
 </script>
 
 <template lang="pug">
