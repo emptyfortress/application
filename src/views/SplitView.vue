@@ -20,74 +20,56 @@ const split = ref(70)
 <template lang="pug">
 q-page
 	.grid
-		div
-			h4 {{ props.id}}
-			.text-subtitle1(v-if="props.id == 'Заявка'") Простая заявка
-		.bl
-			.text-overline version
-			.big
-				q-icon(name="mdi-source-branch" color="primary")
-				span.q-ml-sm v. 0.1.0
-					q-menu
-						q-list
-							q-item(clickable)
-								q-item-section v.0.2.0
-							q-item(clickable)
-								q-item-section v.1.1.0
-
-		.q-gutter-x-sm
-			q-btn(flat  round icon="mdi-pencil" color="primary" @click="") 
-				q-tooltip Редактировать
-			q-btn(flat  round icon="mdi-content-duplicate" color="primary" @click="") 
-				q-tooltip Дублировать
-			q-btn(unelevated color="negative" label="Удалить приложение" @click="") 
-			
-	
-
+		RouterLink.bl(:to="`/split/${store.page}/process`" exactActiveClass="active") Процессы
+		RouterLink.bl(:to="`/split/${store.page}/card`" exactActiveClass="active") Карточки
+		RouterLink.bl(:to="`/split/${store.page}/role`" exactActiveClass="active") Роли
+		RouterLink.bl(:to="`/split/${store.page}/list`" exactActiveClass="active") Реестры
 
 	q-splitter(v-model="split")
 		template(v-slot:before)
-
-			q-tabs(v-model="store.tabs" inline-label active-color="primary" align="left" dense)
-				q-tab(name="process" icon="mdi-shuffle-variant" label="Процессы")
-				q-tab(name="role" icon="mdi-drama-masks" label="Роли")
-				q-tab(name="card" icon="mdi-card-bulleted-outline" label="Карточки")
-				q-tab(name="list" icon="mdi-invoice-list-outline" label="Реестры")
-
-			q-tab-panels(v-model="store.tabs" vertical animated transition-prev="jump-up" transition-next="jump-up")
-				q-tab-panel(name="process")
-					ProcessTab
-				q-tab-panel(name="role")
-					RoleTab
-				q-tab-panel(name="card")
-					q-img(src="@/assets/img/card.png" width="80%")
-				q-tab-panel(name="list") list
+			router-view
 
 		template(v-slot:after)
-			transition(name="page1")
-				div(v-if="store.tabs == 'process'")
-					PropertyPanel
-			transition(name="page1")
-				div(v-if="store.tabs == 'role'")
-					RolePanel
-			transition(name="page1")
-				div(v-if="store.tabs == 'card'")
-					RolePanel
-
+			PropertyPanel
 
 </template>
 
 <style scoped lang="scss">
+.q-page {
+	--height: calc(100vh - 150px);
+}
+
 .q-splitter {
-	margin-top: 1rem;
-	height: calc(100vh - 160px);
+	margin-top: 0.5rem;
+	height: var(--height);
 }
 .grid {
 	display: grid;
-	grid-template-columns: 2fr 1fr auto;
+	grid-template-columns: repeat(4, 150px);
 	align-items: center;
-	column-gap: 1rem;
+	column-gap: 0.25rem;
 	row-gap: 0.5rem;
+}
+.bl {
+	background: #ffffff7a;
+	height: 48px;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-transform: uppercase;
+	color: #333;
+	text-decoration: none;
+	&:hover {
+		background: #fff;
+	}
+}
+.active {
+	background: $primary;
+	color: white;
+	&:hover {
+		background: $primary;
+	}
 }
 .big {
 	font-size: 1.2rem;
@@ -110,7 +92,7 @@ q-page
 	border-bottom: 1px solid #ccc;
 }
 :deep(.q-tab-panels) {
-	height: calc(100vh - 200px);
+	height: var(--height);
 	background: transparent;
 }
 :deep(.q-tab-panel) {

@@ -1,32 +1,49 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { RouterLink, RouterView, useRoute } from 'vue-router'
+import { RouterView, useRoute } from 'vue-router'
 import SvgIcon from '@/components/SvgIcon.vue'
-// import LeftDrawer from '@/components/LeftDrawer.vue'
+import { useStore } from '@/stores/store'
+const store = useStore()
 
-// const leftDrawerOpen = ref(true)
-// const toggleLeftDrawer = () => {
-// 	leftDrawerOpen.value = !leftDrawerOpen.value
-// }
-//
-// const route = useRoute()
-// // const inside = computed(() => {
-// 	return route.path == '/' ? false : true
-// })
+const route = useRoute()
 </script>
 
 <template lang="pug">
 q-layout(view="hHh LpR fFf")
 	q-header.head
 		q-toolbar
+			q-avatar
+				SvgIcon.log(name="logo")
 
-			q-toolbar-title(@click="$router.push('/')")
-				q-avatar
-					SvgIcon.log(name="logo")
-				span.title Конструктор приложений
+			q-breadcrumbs
+				template(v-slot:separator)
+					q-icon(name="mdi-arrow-right" color="primary")
+
+				q-breadcrumbs-el(to="/" label="Конструктор")
+
+				template(v-if="route.path !== '/'" )
+					q-breadcrumbs-el(:to="`/split/${store.page}`" :label="store.page")
+
+					.q-ml-xl.cursor-pointer
+						q-icon(name="mdi-source-branch" color="primary")
+						span.q-ml-sm v. 0.1.0
+							q-menu
+								q-list
+									q-item(clickable)
+										q-item-section v.0.2.0
+									q-item(clickable)
+										q-item-section v.1.1.0
 
 			q-space
-			q-avatar(color="blue-2" size="32px")
+			template(v-if="route.path !== '/'" )
+				.q-gutter-x-sm
+					q-btn(flat  round icon="mdi-pencil" color="primary" @click="") 
+						q-tooltip Редактировать
+					q-btn(flat  round icon="mdi-content-duplicate" color="primary" @click="") 
+						q-tooltip Дублировать
+					q-btn(unelevated color="negative" label="Удалить приложение" @click="" size="sm") 
+
+			q-avatar.q-ml-xl(color="blue-2" size="32px")
 				img(src="@/assets/img/user0.svg")
 				q-menu
 					q-item(clickable v-close-popup)
@@ -102,5 +119,11 @@ q-layout(view="hHh LpR fFf")
 	border-radius: 8px;
 	background: teal;
 	display: inline-block;
+}
+.q-breadcrumbs {
+	font-size: 1.1rem;
+	.q-item__label {
+		margin-left: 0.5rem;
+	}
 }
 </style>

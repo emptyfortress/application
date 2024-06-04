@@ -21,7 +21,7 @@ const isFormVisible = ref(false)
 </script>
 
 <template lang="pug">
-q-tabs(v-model="tabs" dense active-color="primary" align="left")
+// q-tabs(v-model="tabs" dense active-color="primary" align="left")
 	q-tab(name="main" label="Свойства")
 	q-tab(name="sec" label="Дополнительно")
 
@@ -58,9 +58,10 @@ q-tabs(v-model="tabs" dense active-color="primary" align="left")
 }
 .panel {
 	box-sizing: border-box;
-	margin: 0 6px 6px 6px;
+	// margin: 0 6px 6px 6px;
 	background: #fff;
-	height: calc(100vh - 202px);
+	height: 100%;
+	// height: calc(100vh - 202px);
 	box-shadow: var(--panel-shadow);
 }
 :deep(.q-tab-panels) {

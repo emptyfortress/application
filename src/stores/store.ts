@@ -8,6 +8,7 @@ interface BusinessObject {
 
 export const useStore = defineStore('store', {
 	state: () => ({
+		title: 'Конструктор приложений',
 		page: 'Заявка',
 		current: {
 			id: 'id',
