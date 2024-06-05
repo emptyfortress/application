@@ -37,9 +37,9 @@ q-page
 </template>
 
 <style scoped lang="scss">
-.q-page {
-	--height: calc(100vh - 150px);
-}
+// .q-page {
+// 	--height: calc(100vh - 150px);
+// }
 
 .q-splitter {
 	margin-top: 0.5rem;

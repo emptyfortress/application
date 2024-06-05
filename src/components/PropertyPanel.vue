@@ -18,36 +18,34 @@ const prop1 = ref('')
 const prop2 = ref('')
 
 const isFormVisible = ref(false)
+console.log(route)
 </script>
 
 <template lang="pug">
-// q-tabs(v-model="tabs" dense active-color="primary" align="left")
-	q-tab(name="main" label="Свойства")
-	q-tab(name="sec" label="Дополнительно")
-
-
 .panel
-	q-tab-panels(v-model="tabs" animated)
-		q-tab-panel(name="main")
-			// pre {{ store.current}}
-			template(v-if="store.current.type == 'bpmn:Process'")
-				div Ничего не выбрано.
-			template(v-else)
-				.form
-					.label Название:
-					q-input.val(v-model="store.current.name" dense filled)
-					.label Свойство 1:
-					q-input.val(v-model="prop1" dense filled)
-					.label Свойство 2:
-					q-input.val(v-model="prop2" dense filled)
+	template(v-if="route.name == 'process' ")
+		.form
+			.label Название:
+			q-input.val(v-model="store.current.name" dense filled)
+			.label Свойство 1:
+			q-input.val(v-model="prop1" dense filled)
+			.label Свойство 2:
+			q-input.val(v-model="prop2" dense filled)
 
-			template(v-if="store.current.type == 'bpmn:Task'")
-				br
-				div Что видит пользователь?
-				.vie(@click="goto") Настроить
+		br
+		div Что видит пользователь?
+		.vie(@click="goto") Настроить
+
+	template(v-if="route.name == 'form' && store.currentField == null")
+		.text-h6 {{ store.formName }}
+		div Настройки формы 1
+		div Настройки формы 2
+	template(v-if="route.name == 'form' && store.currentField !== null")
+		.text-h6  {{ store.currentField.name }}
+		div Настройка 1 {{ store.currentField.name }}
+		div Настройка 2 {{ store.currentField.name }}
 
 
-		q-tab-panel(name="sec") sec
 
 	EditFormDialog(v-model="isFormVisible")
 </template>
@@ -58,10 +56,9 @@ const isFormVisible = ref(false)
 }
 .panel {
 	box-sizing: border-box;
-	// margin: 0 6px 6px 6px;
+	padding: 1rem;
 	background: #fff;
 	height: 100%;
-	// height: calc(100vh - 202px);
 	box-shadow: var(--panel-shadow);
 }
 :deep(.q-tab-panels) {

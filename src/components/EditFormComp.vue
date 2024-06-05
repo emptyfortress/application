@@ -29,9 +29,11 @@ const fields: Field[] = reactive([
 const fields1: Field[] = reactive([])
 
 const store = useStore()
+
 const log = () => {
 	console.log('log')
 }
+
 const drag = ref(false)
 
 const dialog = ref(false)
@@ -45,6 +47,7 @@ const create = (e: Field) => {
 		item.selected = false
 	})
 	fields1.push(e)
+	store.setField(e)
 }
 const remove = () => {
 	let idx = fields1.findIndex((e: any) => {
@@ -56,12 +59,18 @@ const remove = () => {
 onMounted(() => {
 	store.setFormName(store.startFormName)
 })
+
 const select = (el: any) => {
-	fields1.map((item) => {
-		item.selected = false
-	})
-	el.selected = true
-	store.setField(el)
+	if (el.selected == false) {
+		fields1.map((item) => {
+			item.selected = false
+		})
+		el.selected = true
+		store.setField(el)
+	} else {
+		el.selected = false
+		store.clearField()
+	}
 }
 
 const cloneDog = (item: Field) => {
@@ -69,9 +78,10 @@ const cloneDog = (item: Field) => {
 		id: uid(),
 		name: item.name,
 		type: item.type,
-		selected: true,
+		selected: false,
 	}
 }
+const frm = ref()
 </script>
 
 <template lang="pug">
@@ -91,12 +101,6 @@ const cloneDog = (item: Field) => {
 						q-item-section {{element.name}}
 
 		.empty(v-if="!fields.length") Ничего нет
-
-			// q-item(clickable dense v-for="item in fields" :key="item.id" :class="{selected : item.selected}" @click="select(item)")
-				q-item-section
-					q-item-label {{ item.name }}
-				q-item-section.small(side)
-					q-item-label {{ item.type }}
 
 		br
 		q-btn(flat color="primary" icon="mdi-plus-circle" label="Создать" @click="add") 

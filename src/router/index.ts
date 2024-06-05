@@ -61,20 +61,20 @@ const router = createRouter({
 				},
 				{
 					path: 'process',
-					name: 'proc',
+					name: 'process',
 					component: () => import('@/components/ProcessTab.vue'),
 					props: true,
 				},
 				{
 					path: 'card',
 					name: 'card',
-					component: () => import('@/components/Test.vue'),
+					component: () => import('@/components/Card.vue'),
 					props: true,
 				},
 				{
 					path: 'role',
 					name: 'role',
-					component: () => import('@/components/Test.vue'),
+					component: () => import('@/components/Roles.vue'),
 					props: true,
 				},
 				{
