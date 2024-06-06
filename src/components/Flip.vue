@@ -33,42 +33,22 @@ const pages = [
 	{ id: 3, name: 'Списки', icon: 'sheet' },
 ]
 
-const onBeforeEnter = (el) => {
-	el.style.opacity = 0
-	el.style.transfrom = 'translateY(100px)'
-}
-
-const onEnter = (el, done) => {
-	gsap.to(el, {
-		opacity: 1,
-		y: 0,
-		duration: 0.8,
-		onComplete: done,
-	})
-}
 onMounted(() => {
 	nextTick()
-	gsap.fromTo(
-		'.item',
-		{
-			opacity: 0,
-			y: 100,
-		},
-		{
-			duration: 0.6,
-			opacity: 1,
-			y: 0,
-			delay: 0.1,
-			stagger: 0.2,
-			ease: 'expo.out',
-		}
-	)
+	gsap.from('.item', {
+		opacity: 0,
+		y: 100,
+		duration: 0.6,
+		delay: 0.1,
+		stagger: 0.2,
+		ease: 'expo.out',
+	})
 })
 </script>
 
 <template lang="pug">
 .grido
-	.item(v-for="(page, index) in pages" :key="page.id" :data-index="index")
+	.item(v-for="(page, index) in pages" :key="page.id")
 		.txt {{ page.name }}
 		SvgIcon.icon(:name="page.icon")
 
@@ -93,8 +73,8 @@ onMounted(() => {
 		}
 		&:hover {
 			border: 1px solid #ccc;
-			box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
 			color: $primary;
+			border: 1px solid $secondary;
 		}
 	}
 }
