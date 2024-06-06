@@ -12,12 +12,6 @@ const modelValue = defineModel()
 const draw = ref(true)
 
 const pages = [
-	// {
-	// 	id: 2,
-	// 	title: 'Сценарии',
-	// 	icon: 'mdi-movie-open',
-	// 	url: '/scene',
-	// },
 	{
 		id: 3,
 		title: 'Роли',

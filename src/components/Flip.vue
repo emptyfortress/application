@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
-import { wrapGrid } from 'animate-css-grid'
-import ExpandCard from '@/components/ExpandCard.vue'
-import Roles from '@/components/Roles.vue'
+import SvgIcon from '@/components/SvgIcon.vue'
 
 const big = ref(false)
 
@@ -26,78 +24,44 @@ const expand = (e: number) => {
 		emit('active')
 	}
 }
-const grid = ref()
 
-const start = ref(true)
-const end = ref(false)
-
-const hideStart = () => {
-	start.value = false
-}
-const showEnd = () => {
-	end.value = true
-}
-const hideEnd = () => {
-	end.value = false
-}
-
-onMounted(() => {
-	wrapGrid(grid.value, {
-		duration: 300,
-		onStart: () => {
-			if (active.value == 0) {
-				hideEnd()
-			}
-		},
-		onEnd: () => {
-			if (active.value == 1) {
-				showEnd()
-			}
-		},
-	})
-})
-// just comment to new build
-// just comment to new build
+const pages = [
+	{ id: 0, name: 'Процесс', icon: 'shuffle' },
+	{ id: 1, name: 'Формы', icon: 'subject' },
+	{ id: 2, name: 'Роли', icon: 'user' },
+	{ id: 3, name: 'Списки', icon: 'sheet' },
+]
 </script>
 
 <template lang="pug">
 .grido(ref="grid" :class="{full : full}")
-	.item(@click="expand(1)" :class="{active : active == 1}")
-		.in
-			.txt Роли
-			Roles(v-if="end")
-	.item(@click="expand(2)" :class="{active : active == 2}")
-		.in
-			.txt  Процессы
-	.item(@click="expand(3)" :class="{active : active == 3}")
-		.in
-			.txt Карточки
-	.item(@click="expand(4)" :class="{active : active == 4}")
-		.in
-			.txt Реестры
+	.item(v-for="page in pages" :key="page.id")
+		.txt {{ page.name }}
+		SvgIcon.icon(:name="page.icon")
+
 </template>
 
 <style scoped lang="scss">
 .grido {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr;
-	grid-template-rows: 200px 100px;
-	gap: 1rem;
+	gap: 0.5rem;
 	.item {
 		cursor: pointer;
 		background-color: white;
 		padding: 1rem;
+		height: 200px;
+		position: relative;
+		color: $secondary;
+		.icon {
+			position: absolute;
+			bottom: 1rem;
+			left: 1rem;
+		}
 		&:hover {
 			border: 1px solid #ccc;
 			box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
-		}
-	}
-	&.full {
-		grid-template-rows: 1fr 100px;
-		.active {
-			grid-column: 1/-1;
-			grid-row: 1/2;
-			height: calc(100vh - 350px);
+			color: $primary;
 		}
 	}
 }
@@ -105,6 +69,5 @@ onMounted(() => {
 .txt {
 	text-align: center;
 	text-transform: uppercase;
-	color: $secondary;
 }
 </style>
