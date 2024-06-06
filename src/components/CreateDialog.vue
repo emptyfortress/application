@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { uid } from 'quasar'
 
 const props = defineProps({
 	mode: {
@@ -21,11 +22,9 @@ const close = () => {
 
 const emit = defineEmits(['create'])
 
-const date = new Date()
-
 const create = () => {
 	let tmp = {
-		id: +date,
+		id: uid(),
 		name: name.value,
 		descr: descr.value,
 		author: 'Орлов П.С.',

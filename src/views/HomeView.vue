@@ -2,7 +2,9 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import CreateDialog from '@/components/CreateDialog.vue'
+import { useStore } from '@/stores/store'
 
+const store = useStore()
 const router = useRouter()
 const columns = [
 	{
@@ -46,17 +48,6 @@ const columns = [
 		sortable: true,
 	},
 ]
-const rows = ref([
-	{
-		id: 0,
-		name: 'Заявка',
-		version: '0.1.5',
-		descr: 'Простая заявка',
-		author: 'Орлов П.С.',
-		created: '2023-10-14',
-	},
-])
-
 const tree = [
 	{
 		label: '0.1.5',
@@ -78,8 +69,8 @@ const tree = [
 ]
 
 const goto = (evt: Event, row: any, index: number) => {
-	router.push(`/split/${row.name}`)
-	// router.push(`/app/${row.name}`)
+	router.push(`/${row.name}`)
+	store.setApp(row)
 }
 
 const dialog = ref(false)
@@ -87,39 +78,45 @@ const dialog = ref(false)
 const action = () => {
 	dialog.value = !dialog.value
 }
-const create = (e: any) => {
-	rows.value.push(e)
+const create = (e: App) => {
+	store.addAppToList(e)
 }
 const selected = ref('0.1.5')
 </script>
 
 <template lang="pug">
 q-page(padding)
-	h4 Мои приложения ({{rows.length}})
-	q-table.q-mt-sm(flat
-		:rows="rows"
-		:columns="columns"
-		row-key="name"
-		@row-click="goto"
-		hide-bottom)
+	.container
+		h4 Мои приложения ({{store.appList.length}})
+		q-table.q-mt-sm(flat
+			:rows="store.appList"
+			:columns="columns"
+			row-key="id"
+			@row-click="goto"
+			hide-bottom)
 
-		template(v-slot:body-cell-version="props")
-			q-td(:props="props")
-				q-badge(color="positive" @click.stop="") {{props.value}}
-					q-menu
-						q-tree(:nodes="tree"
-							v-model:selected="selected"
-							dense
-							node-key="label"
-							default-expand-all)
+			template(v-slot:body-cell-version="props")
+				q-td(:props="props")
+					q-badge(v-if="props.value" color="positive" @click.stop="") {{props.value}}
+						q-menu
+							q-tree(:nodes="tree"
+								v-model:selected="selected"
+								dense
+								node-key="label"
+								default-expand-all)
+					div(v-else) 0.0.0
 
-	.q-gutter-x-lg
-		q-btn.q-mt-sm(flat icon="mdi-plus-circle" color="primary" label="Создать" @click="action") 
+		.q-gutter-x-lg
+			q-btn.q-mt-sm(flat icon="mdi-plus-circle" color="primary" label="Создать" @click="action") 
 
 	CreateDialog(v-model="dialog" @create="create")
 </template>
 
 <style scoped lang="scss">
+.container {
+	max-width: 1200px;
+	margin: 0 auto;
+}
 :deep(.q-table th) {
 	background: $primary;
 	color: white;
