@@ -10,13 +10,12 @@ const squares = ref([])
 
 onMounted(() => {
 	squares.value = gsap.utils.toArray('.square')
-	console.log(squares)
 })
 
 const doFlip = () => {
 	const state = Flip.getState(squares.value)
 	swap(squares.value)
-	Flip.from(state, { duration: 1, ease: 'power1.inOut' })
+	Flip.from(state, { duration: 1, ease: 'power2.inOut' })
 }
 
 function swap([a, b]) {
@@ -30,8 +29,8 @@ const fuck = () => {
 <template lang="pug">
 q-page(padding)
 	h5 try
-	.fl(@click="fuck")
-		.start.square(@click="doFlip")
+	.fl(@click="doFlip")
+		.start.square
 		.end.square
 
 	.fuck
