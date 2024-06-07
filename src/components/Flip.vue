@@ -3,7 +3,7 @@ import { ref, computed, onMounted, nextTick } from 'vue'
 import SvgIcon from '@/components/SvgIcon.vue'
 import { gsap } from 'gsap'
 
-const content = ref(null)
+const content = ref<HTMLElement | null>(null)
 
 const pages = [
 	{ id: 0, name: 'Процесс', icon: 'shuffle' },
@@ -13,7 +13,7 @@ const pages = [
 ]
 
 onMounted(() => {
-	gsap.from(content.value.children, {
+	gsap.from(content.value!.children, {
 		y: +100,
 		duration: 0.5,
 		delay: 0.3,

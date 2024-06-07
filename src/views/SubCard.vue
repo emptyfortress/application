@@ -17,7 +17,7 @@ const frm = ref()
 
 const editMode = ref(false)
 const prev = computed(() => {
-	return '/split/' + store.page
+	// return '/split/' + store.page
 })
 const drag = ref(false)
 </script>

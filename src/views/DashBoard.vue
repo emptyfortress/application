@@ -19,7 +19,8 @@ const store = useStore()
 const currentApp = computed(() => {
 	return store.appList.find((item) => item.name == props.id)
 })
-store.setApp(currentApp.value)
+
+store.setApp(currentApp.value!)
 // const goto = (e: string) => {
 // 	const url = '/app/' + props.id + '/' + e
 // 	router.push(url)

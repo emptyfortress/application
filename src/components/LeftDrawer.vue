@@ -44,8 +44,8 @@ const calcColor = (to: string) => {
 }
 
 const goToApp = () => {
-	const url = '/app/' + store.page
-	router.push(url)
+	// const url = '/app/' + store.page
+	// router.push(url)
 }
 </script>
 

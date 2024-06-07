@@ -18,12 +18,12 @@ const doFlip = () => {
 	Flip.from(state, { duration: 1, ease: 'power2.inOut' })
 }
 
-function swap([a, b]) {
-	a.parentNode.children[0] === a ? a.parentNode.appendChild(a) : a.parentNode.appendChild(b)
+const swap = ([a, b]: HTMLElement[]) => {
+	a.parentNode?.children[0] === a ? a.parentNode?.appendChild(a) : a.parentNode?.appendChild(b)
 }
-const fuck = () => {
-	doFlip()
-}
+// function swap([a, b]) {
+// 	a.parentNode.children[0] === a ? a.parentNode.appendChild(a) : a.parentNode.appendChild(b)
+// }
 </script>
 
 <template lang="pug">

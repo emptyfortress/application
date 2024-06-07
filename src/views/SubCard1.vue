@@ -58,7 +58,7 @@ const remove = () => {
 }
 const editMode = ref(false)
 const prev = computed(() => {
-	return '/split/' + store.page
+	return '/split/' + store.app.name
 })
 const drag = ref(false)
 const log = () => {
