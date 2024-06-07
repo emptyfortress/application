@@ -2,6 +2,9 @@
 import { ref, computed, onMounted, reactive } from 'vue'
 import SvgIcon from '@/components/SvgIcon.vue'
 import { gsap } from 'gsap'
+import { Flip } from 'gsap/Flip'
+
+gsap.registerPlugin(Flip)
 
 const content = ref<HTMLElement | null>(null)
 
@@ -13,23 +16,27 @@ const pages = reactive([
 ])
 
 onMounted(() => {
-	gsap.from(content.value!.children, {
-		y: +100,
-		duration: 0.5,
-		delay: 0.3,
-		autoAlpha: 0,
-		stagger: 0.1,
-		ease: 'back.out(1.7)',
-	})
+	// gsap.from(content.value!.children, {
+	// 	y: +100,
+	// 	duration: 0.5,
+	// 	delay: 0.3,
+	// 	autoAlpha: 0,
+	// 	stagger: 0.1,
+	// 	ease: 'back.out(1.7)',
+	// })
 })
 
+const expand = ref(false)
 const doFlip = (e: App) => {
-	pages.map((el) => (el.expanded = false))
-	e.expanded = true
+	// const state = Flip.getState('h5')
+	console.log('flip')
+	// expand.value = !expand.value
+	// Flip.from(state, { absolute: true, duration: 1, ease: 'power2.inOut' })
 }
 </script>
 
 <template lang="pug">
+h5(:class="{fli: expand}") llaksjllsdkja
 .grido(ref="content")
 	.item(v-for="(page, index) in pages" :key="page.id" @click="doFlip(page)" :class="{expand: page.expanded}")
 		.txt {{ page.name }}
@@ -38,6 +45,11 @@ const doFlip = (e: App) => {
 </template>
 
 <style scoped lang="scss">
+.fli {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+}
 .grido {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -63,8 +75,12 @@ const doFlip = (e: App) => {
 		border: 1px solid $secondary;
 	}
 	&.expand {
-		grid-column: 1/-1;
-		grid-row: 1/2;
+		position: fixed;
+		top: 20%;
+		left: 1rem;
+		width: 100%;
+		// grid-column: 1/-1;
+		// grid-row: 1/2;
 	}
 }
 .txt {

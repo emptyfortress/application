@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, nextTick } from 'vue'
 import Test from '@/components/icons/Test.vue'
 import { gsap } from 'gsap'
 import { Flip } from 'gsap/Flip'
@@ -21,9 +21,16 @@ const doFlip = () => {
 const swap = ([a, b]: HTMLElement[]) => {
 	a.parentNode?.children[0] === a ? a.parentNode?.appendChild(a) : a.parentNode?.appendChild(b)
 }
-// function swap([a, b]) {
-// 	a.parentNode.children[0] === a ? a.parentNode.appendChild(a) : a.parentNode.appendChild(b)
-// }
+
+const expand = ref(false)
+
+const doExpand = () => {
+	const state = Flip.getState('.test')
+	expand.value = !expand.value
+	nextTick(() => {
+		Flip.from(state, { duration: 0.5, ease: 'power3.in' })
+	})
+}
 </script>
 
 <template lang="pug">
@@ -35,6 +42,8 @@ q-page(padding)
 
 	.fuck
 		Test.ic
+	br
+	.test(ref="fuck" :class="{full: expand}" @click="doExpand")
 </template>
 
 <style scoped lang="scss">
@@ -46,6 +55,14 @@ q-page(padding)
 	width: 200px;
 	height: 200px;
 	background: pink;
+}
+.test {
+	width: 200px;
+	height: 200px;
+	background: pink;
+	&.full {
+		width: 600px;
+	}
 }
 .end {
 	width: 200px;
