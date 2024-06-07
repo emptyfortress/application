@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, reactive, nextTick } from 'vue'
+import { ref, onMounted } from 'vue'
 import SvgIcon from '@/components/SvgIcon.vue'
 import { gsap } from 'gsap'
 import { Flip } from 'gsap/Flip'
+import { templateRef } from '@vueuse/core'
 
 gsap.registerPlugin(Flip)
 
-const content = ref<HTMLElement | null>(null)
+const content = templateRef('content')
+const dogs = templateRef('items')
 
 const pages = [
 	{ id: '0', name: 'Процесс', icon: 'shuffle' },
@@ -15,19 +17,16 @@ const pages = [
 	{ id: '3', name: 'Списки', icon: 'sheet' },
 ]
 
-let dogs = ref([])
 let bigDog = ref(null)
 
 onMounted(() => {
-	dogs.value = gsap.utils.toArray('.item')
 	bigDog.value = dogs.value[0]
-
-	dogs.value.forEach((dog) => {
-		dog.addEventListener('click', (e) => changeGrid(dog))
-	})
 })
 
-const changeGrid = (dog: any) => {
+const changeGrid = (e: number) => {
+	console.log(e)
+	let dog = dogs.value[e]
+	console.log(dog)
 	if (dog == bigDog.value) return
 
 	let state = Flip.getState(dogs.value)
@@ -45,7 +44,7 @@ const changeGrid = (dog: any) => {
 
 <template lang="pug">
 .parent(ref="content")
-	.item(v-for="(page, index) in pages" :key="page.id" :data-grid="page.id")
+	.item(v-for="(page, index) in pages" :key="page.id" :data-grid="page.id" @click="changeGrid(index)" ref="items")
 		.txt {{ page.name }}
 		SvgIcon.icon(:name="page.icon")
 

@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.16.11",
+    "@vueuse/core": "^10.10.0",
     "animate-css-grid": "^1.5.1",
     "bpmn-js": "^17.7.0",
     "fast-glob": "^3.3.2",
