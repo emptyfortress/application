@@ -3,29 +3,6 @@ import { ref, computed, onMounted, nextTick } from 'vue'
 import SvgIcon from '@/components/SvgIcon.vue'
 import { gsap } from 'gsap'
 
-const big = ref(false)
-
-const toggle = () => {
-	big.value = !big.value
-}
-const full = ref(false)
-
-const active = ref(0)
-
-const emit = defineEmits(['active', 'inactive'])
-
-const expand = (e: number) => {
-	if (active.value == e) {
-		active.value = 0
-		full.value = false
-		emit('inactive')
-	} else {
-		full.value = true
-		active.value = e
-		emit('active')
-	}
-}
-
 const pages = [
 	{ id: 0, name: 'Процесс', icon: 'shuffle' },
 	{ id: 1, name: 'Формы', icon: 'subject' },
@@ -38,10 +15,10 @@ onMounted(() => {
 	gsap.from('.item', {
 		opacity: 0,
 		y: 100,
-		duration: 0.6,
+		duration: 0.5,
 		delay: 0.1,
-		stagger: 0.2,
-		ease: 'expo.out',
+		stagger: 0.1,
+		ease: 'slow',
 	})
 })
 </script>
