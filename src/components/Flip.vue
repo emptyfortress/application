@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, reactive } from 'vue'
+import { ref, computed, onMounted, reactive, nextTick } from 'vue'
 import SvgIcon from '@/components/SvgIcon.vue'
 import { gsap } from 'gsap'
 import { Flip } from 'gsap/Flip'
@@ -8,62 +8,81 @@ gsap.registerPlugin(Flip)
 
 const content = ref<HTMLElement | null>(null)
 
-const pages = reactive([
-	{ id: 0, expanded: false, name: 'Процесс', icon: 'shuffle' },
-	{ id: 1, expanded: false, name: 'Формы', icon: 'subject' },
-	{ id: 2, expanded: false, name: 'Роли', icon: 'user' },
-	{ id: 3, expanded: false, name: 'Списки', icon: 'sheet' },
-])
+const pages = [
+	{ id: '0', name: 'Процесс', icon: 'shuffle' },
+	{ id: '1', name: 'Формы', icon: 'subject' },
+	{ id: '2', name: 'Роли', icon: 'user' },
+	{ id: '3', name: 'Списки', icon: 'sheet' },
+]
+
+let dogs = ref([])
+let bigDog = ref(null)
 
 onMounted(() => {
-	// gsap.from(content.value!.children, {
-	// 	y: +100,
-	// 	duration: 0.5,
-	// 	delay: 0.3,
-	// 	autoAlpha: 0,
-	// 	stagger: 0.1,
-	// 	ease: 'back.out(1.7)',
-	// })
+	dogs.value = gsap.utils.toArray('.item')
+	bigDog.value = dogs.value[0]
+
+	dogs.value.forEach((dog) => {
+		dog.addEventListener('click', (e) => changeGrid(dog))
+	})
 })
 
-const expand = ref(false)
-const doFlip = (e: App) => {
-	// const state = Flip.getState('h5')
-	console.log('flip')
-	// expand.value = !expand.value
-	// Flip.from(state, { absolute: true, duration: 1, ease: 'power2.inOut' })
+const changeGrid = (dog: any) => {
+	if (dog == bigDog.value) return
+
+	let state = Flip.getState(dogs.value)
+
+	bigDog.value.dataset.grid = dog.dataset.grid
+	dog.dataset.grid = '0'
+	bigDog.value = dog
+
+	Flip.from(state, {
+		absolute: true,
+		ease: 'power1.inOut',
+	})
 }
 </script>
 
 <template lang="pug">
-h5(:class="{fli: expand}") llaksjllsdkja
-.grido(ref="content")
-	.item(v-for="(page, index) in pages" :key="page.id" @click="doFlip(page)" :class="{expand: page.expanded}")
+.parent(ref="content")
+	.item(v-for="(page, index) in pages" :key="page.id" :data-grid="page.id")
 		.txt {{ page.name }}
 		SvgIcon.icon(:name="page.icon")
 
 </template>
 
 <style scoped lang="scss">
-.fli {
-	position: fixed;
-	top: 50%;
-	left: 50%;
-}
-.grido {
+.parent {
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr 1fr;
-	grid-template-rows: 1fr 1fr;
-	gap: 0.5rem;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: repeat(4, 1fr);
+	grid-column-gap: 0.5rem;
+	grid-row-gap: 0.5rem;
+	height: 65vh;
+	width: 100%;
+	aspect-ratio: 1;
+}
+
+.item[data-grid='0'] {
+	grid-area: 1 / 1 / 4 / 4;
+}
+.item[data-grid='1'] {
+	grid-area: 4 / 1 / 5 / 2;
+}
+.item[data-grid='2'] {
+	grid-area: 4 / 2 / 5 / 3;
+}
+.item[data-grid='3'] {
+	grid-area: 4 / 3 / 5 / 4;
 }
 
 .item {
 	cursor: pointer;
 	background-color: white;
 	padding: 1rem;
-	height: 200px;
 	position: relative;
 	color: $secondary;
+	border: 1px solid white;
 	.icon {
 		position: absolute;
 		bottom: 1rem;
@@ -73,14 +92,6 @@ h5(:class="{fli: expand}") llaksjllsdkja
 		border: 1px solid #ccc;
 		color: $primary;
 		border: 1px solid $secondary;
-	}
-	&.expand {
-		position: fixed;
-		top: 20%;
-		left: 1rem;
-		width: 100%;
-		// grid-column: 1/-1;
-		// grid-row: 1/2;
 	}
 }
 .txt {
