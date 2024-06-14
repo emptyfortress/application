@@ -108,6 +108,7 @@ q-page(padding)
 
 		.q-gutter-x-lg
 			q-btn.q-mt-sm(flat icon="mdi-plus-circle" color="primary" label="Создать" @click="action") 
+			q-btn.q-mt-sm(flat color="primary" label="Try" @click="$router.push('/try')") 
 
 	CreateDialog(v-model="dialog" @create="create")
 </template>
