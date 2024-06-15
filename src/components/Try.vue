@@ -42,6 +42,7 @@ const doExpand = () => {
 
 <template lang="pug">
 q-page(padding)
+	q-btn(flat round icon="mdi-arrow-left-circle-outline" @click="$router.back" size="lg") 
 	h5.ani try
 	.fl(@click="doFlip")
 		.start.square.ani

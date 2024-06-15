@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { RouterLink, RouterView, useRoute } from 'vue-router'
 import SvgIcon from '@/components/SvgIcon.vue'
+import { gsap } from 'gsap'
 // import LeftDrawer from '@/components/LeftDrawer.vue'
 
 // const leftDrawerOpen = ref(true)
@@ -13,6 +14,33 @@ import SvgIcon from '@/components/SvgIcon.vue'
 // // const inside = computed(() => {
 // 	return route.path == '/' ? false : true
 // })
+
+// const beforeLeave = () => {
+// 	console.log(111)
+// }
+
+const leave = async (el, done) => {
+	console.log(111)
+	await gsap.to(el, {
+		duration: 1,
+		opacity: 0,
+	})
+	done()
+}
+const beforeEnter = (el) => {
+	el.style.opacity = 0
+	// el.style.transform = 'translateY(-100px)'
+	el.style.transform = 'scale(.5)'
+}
+const enter = (el) => {
+	gsap.to(el, {
+		delay: 1,
+		duration: 0.5,
+		opacity: 1,
+		scale: 1,
+		ease: 'bounce',
+	})
+}
 </script>
 
 <template lang="pug">
@@ -43,8 +71,11 @@ q-layout(view="hHh LpR fFf")
 	q-page-container
 		.container
 			router-view(v-slot="{ Component, route }")
-				transition(:name="route.meta.transition || 'fade'" :mode="route.meta.mode || 'out-in'")
+				transition(@before-enter="beforeEnter" @enter="enter" @leave="leave" :css="false" mode="out-in")
 					component(:is="Component")
+
+
+// 	transition(:name="route.meta.transition || 'fade'" :mode="route.meta.mode || 'out-in'")
 </template>
 
 <style scoped lang="scss">
