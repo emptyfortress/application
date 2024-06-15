@@ -11,6 +11,13 @@ const squares = ref([])
 onMounted(() => {
 	squares.value = gsap.utils.toArray('.square')
 })
+// onMounted(() => {
+// 	gsap.from('.ani', {
+// 		y: 100,
+// 		opacity: 0,
+// 		stagger: 0.2,
+// 	})
+// })
 
 const doFlip = () => {
 	const state = Flip.getState(squares.value)
@@ -35,15 +42,15 @@ const doExpand = () => {
 
 <template lang="pug">
 q-page(padding)
-	h5 try
+	h5.ani try
 	.fl(@click="doFlip")
-		.start.square
-		.end.square
+		.start.square.ani
+		.end.square.ani
 
-	.fuck
+	.fuck.ani
 		Test.ic
 	br
-	.test(ref="fuck" :class="{full: expand}" @click="doExpand")
+	.test.ani(ref="fuck" :class="{full: expand}" @click="doExpand")
 </template>
 
 <style scoped lang="scss">
