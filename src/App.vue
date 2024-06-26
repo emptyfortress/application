@@ -3,21 +3,9 @@ import { ref, computed, onMounted } from 'vue'
 import { RouterLink, RouterView, useRoute } from 'vue-router'
 import SvgIcon from '@/components/SvgIcon.vue'
 import { gsap } from 'gsap'
-// import LeftDrawer from '@/components/LeftDrawer.vue'
-
-// const leftDrawerOpen = ref(true)
-// const toggleLeftDrawer = () => {
-// 	leftDrawerOpen.value = !leftDrawerOpen.value
-// }
-//
 const route = useRoute()
-// const inside = computed(() => {
-// 	return route.path == '/' ? false : true
-// })
 
-const beforeLeave = () => {
-	console.log(111)
-}
+const beforeLeave = () => {}
 
 const leave = async (el, done) => {
 	let div = document.createElement('div')
