@@ -7,10 +7,10 @@ const route = useRoute()
 
 const beforeLeave = () => {}
 
-const leave = async (el, done) => {
+const leave = async (el: any, done: any) => {
 	let div = document.createElement('div')
 	let cont = document.querySelector('#cont')
-	await cont.appendChild(div)
+	await cont?.appendChild(div)
 	await div.classList.add('cover')
 	await gsap.to(div, {
 		duration: 0.5,
@@ -20,13 +20,13 @@ const leave = async (el, done) => {
 	done()
 	div.remove()
 }
-const beforeEnter = (el) => {
+const beforeEnter = (el: any) => {
 	let div = document.createElement('div')
 	let cont = document.querySelector('#cont')
-	cont.appendChild(div)
+	cont?.appendChild(div)
 	div.classList.add('cover')
 }
-const enter = async (el, done) => {
+const enter = async (el: any, done: any) => {
 	let div = document.querySelector('.cover')
 	await gsap.fromTo(
 		'.cover',
@@ -40,7 +40,7 @@ const enter = async (el, done) => {
 			ease: 'power3.out',
 		}
 	)
-	div.remove()
+	div?.remove()
 	done()
 }
 </script>

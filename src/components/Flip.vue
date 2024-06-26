@@ -7,8 +7,10 @@ import { templateRef } from '@vueuse/core'
 
 gsap.registerPlugin(Flip)
 
-const content = templateRef('content')
-const dogs = templateRef('items')
+// const content = templateRef<null | HTMLElement>('content')
+// const dogs = templateRef<null | HTMLElement>('items')
+const content = ref()
+const items = ref()
 
 const pages = [
 	{ id: '0', name: 'Процесс', icon: 'shuffle' },
@@ -17,23 +19,21 @@ const pages = [
 	{ id: '3', name: 'Списки', icon: 'sheet' },
 ]
 
-let bigDog = ref(null)
+let bigItem = ref()
 
 onMounted(() => {
-	bigDog.value = dogs.value[0]
+	bigItem.value = items.value[0]
 })
 
 const changeGrid = (e: number) => {
-	console.log(e)
-	let dog = dogs.value[e]
-	console.log(dog)
-	if (dog == bigDog.value) return
+	let item = items.value[e]
+	if (item == bigItem.value) return
 
-	let state = Flip.getState(dogs.value)
+	let state = Flip.getState(items.value)
 
-	bigDog.value.dataset.grid = dog.dataset.grid
-	dog.dataset.grid = '0'
-	bigDog.value = dog
+	bigItem.value.dataset.grid = item.dataset.grid
+	item.dataset.grid = '0'
+	bigItem.value = item
 
 	Flip.from(state, {
 		absolute: true,
