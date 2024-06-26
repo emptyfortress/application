@@ -23,6 +23,7 @@ export const useStore = defineStore('store', {
 		tabs: 'process',
 		formName: '',
 		currentField: null as null | BusinessObject,
+		lastState: null,
 	}),
 	getters: {
 		startFormName: (state) => 'Форма "' + state.current.name + '"',

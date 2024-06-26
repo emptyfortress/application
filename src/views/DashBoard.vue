@@ -3,7 +3,7 @@ import { ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import SvgIcon from '@/components/SvgIcon.vue'
 import { useStore } from '@/stores/store'
-import Flip from '@/components/Flip.vue'
+import Swap from '@/components/Swap.vue'
 
 const props = defineProps({
 	id: {
@@ -56,7 +56,7 @@ q-page(padding)
 					q-btn(unelevated color="negative" label="Удалить приложение" @click="") 
 
 		.podzag Настройки приложения
-		Flip
+		Swap
 
 </template>
 

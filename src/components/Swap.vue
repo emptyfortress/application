@@ -47,32 +47,34 @@ const changeGrid = (e: number) => {
 	.item(v-for="(page, index) in pages" :key="page.id" :data-grid="page.id" @click="changeGrid(index)" ref="items")
 		.txt {{ page.name }}
 		SvgIcon.icon(:name="page.icon")
+	.item(data-grid="4")
 
 </template>
 
 <style scoped lang="scss">
 .parent {
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	grid-template-rows: repeat(4, 1fr);
-	grid-column-gap: 0.5rem;
-	grid-row-gap: 0.5rem;
-	height: 65vh;
-	width: 100%;
-	aspect-ratio: 1;
+	height: 700px;
+	grid-template-columns: 200px 1fr 250px;
+	grid-template-rows: repeat(3, 1fr);
+	grid-column-gap: 1rem;
+	grid-row-gap: 1rem;
 }
 
 .item[data-grid='0'] {
-	grid-area: 1 / 1 / 4 / 4;
+	grid-area: 1 / 2 / 4 / 3;
 }
 .item[data-grid='1'] {
-	grid-area: 4 / 1 / 5 / 2;
+	grid-area: 1 / 1 / 2 / 2;
 }
 .item[data-grid='2'] {
-	grid-area: 4 / 2 / 5 / 3;
+	grid-area: 2 / 1 / 3 / 2;
 }
 .item[data-grid='3'] {
-	grid-area: 4 / 3 / 5 / 4;
+	grid-area: 3 / 1 / 4 / 2;
+}
+.item[data-grid='4'] {
+	grid-area: 1 / 3 / 4 / 4;
 }
 
 .item {
