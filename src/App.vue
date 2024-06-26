@@ -20,40 +20,39 @@ const beforeLeave = () => {
 }
 
 const leave = async (el, done) => {
-	// let div = document.createElement('div')
-	// let cont = document.querySelector('#cont')
-	// await cont.appendChild(div)
-	// await div.classList.add('test')
-	// await gsap.to(div, {
-	// 	duration: 0.5,
-	// 	left: 0,
-	// 	ease: 'power3.out',
-	// 	skew: '20deg',
-	// })
+	let div = document.createElement('div')
+	let cont = document.querySelector('#cont')
+	await cont.appendChild(div)
+	await div.classList.add('cover')
+	await gsap.to(div, {
+		duration: 0.5,
+		left: 0,
+		ease: 'power3.out',
+	})
 	done()
-	// div.remove()
+	div.remove()
 }
-const beforeEnter = async (el) => {
-	// let div = document.createElement('div')
-	// let cont = document.querySelector('#cont')
-	// await cont.appendChild(div)
-	// await div.classList.add('test')
+const beforeEnter = (el) => {
+	let div = document.createElement('div')
+	let cont = document.querySelector('#cont')
+	cont.appendChild(div)
+	div.classList.add('cover')
 }
 const enter = async (el, done) => {
-	// let div = document.querySelector('.test')
-	// await gsap.fromTo(
-	// 	'.test',
-	// 	{
-	// 		left: 0,
-	// 	},
-	// 	{
-	// 		delay: 0.3,
-	// 		left: '100%',
-	// 		duration: 0.5,
-	// 		ease: 'power3.out',
-	// 	}
-	// )
-	// div.remove()
+	let div = document.querySelector('.cover')
+	await gsap.fromTo(
+		'.cover',
+		{
+			left: 0,
+		},
+		{
+			delay: 0.3,
+			left: '100%',
+			duration: 0.5,
+			ease: 'power3.out',
+		}
+	)
+	div.remove()
 	done()
 }
 </script>
@@ -86,9 +85,8 @@ q-layout(view="hHh LpR fFf")
 	q-page-container
 		#cont
 			router-view(v-slot="{ Component, route }")
-				component(:is="Component")
-				// transition(@before-enter="beforeEnter" @enter="enter" @leave="leave" :css="false" mode="out-in")
-				// 	component(:is="Component")
+				transition(@before-enter="beforeEnter" @enter="enter" @leave="leave" :css="false" mode="out-in")
+					component(:is="Component")
 
 
 // 	transition(:name="route.meta.transition || 'fade'" :mode="route.meta.mode || 'out-in'")
