@@ -55,8 +55,8 @@ const changeGrid = (e: number) => {
 .parent {
 	display: grid;
 	height: 700px;
-	grid-template-columns: 200px 1fr 250px;
-	grid-template-rows: repeat(3, 1fr);
+	grid-template-columns: 150px 1fr 250px;
+	grid-template-rows: repeat(3, 100px);
 	grid-column-gap: 1rem;
 	grid-row-gap: 1rem;
 }
@@ -80,7 +80,7 @@ const changeGrid = (e: number) => {
 .item {
 	cursor: pointer;
 	background-color: white;
-	padding: 1rem;
+	padding: 0.5rem;
 	position: relative;
 	color: $secondary;
 	border: 1px solid white;
@@ -96,7 +96,7 @@ const changeGrid = (e: number) => {
 	}
 }
 .txt {
-	text-align: center;
+	text-align: left;
 	text-transform: uppercase;
 }
 </style>

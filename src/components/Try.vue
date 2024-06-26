@@ -11,13 +11,13 @@ const squares = ref([])
 onMounted(() => {
 	squares.value = gsap.utils.toArray('.square')
 })
-// onMounted(() => {
-// 	gsap.from('.ani', {
-// 		y: 100,
-// 		opacity: 0,
-// 		stagger: 0.2,
-// 	})
-// })
+onMounted(() => {
+	gsap.from('.ani', {
+		y: 100,
+		opacity: 0,
+		stagger: 0.2,
+	})
+})
 
 const doFlip = () => {
 	const state = Flip.getState(squares.value)
