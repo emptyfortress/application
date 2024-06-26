@@ -51,7 +51,7 @@ q-page(padding)
 	.fuck.ani
 		Test.ic
 	br
-	.test.ani(ref="fuck" :class="{full: expand}" @click="doExpand")
+	.test.ani(:class="{full: expand}" @click="doExpand")
 </template>
 
 <style scoped lang="scss">
@@ -68,6 +68,7 @@ q-page(padding)
 	width: 200px;
 	height: 200px;
 	background: pink;
+
 	&.full {
 		width: 600px;
 	}

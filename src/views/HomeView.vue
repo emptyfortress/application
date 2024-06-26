@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import CreateDialog from '@/components/CreateDialog.vue'
 import { useStore } from '@/stores/store'
+import { gsap } from 'gsap'
 
 const store = useStore()
 const router = useRouter()
@@ -82,10 +83,26 @@ const create = (e: App) => {
 	store.addAppToList(e)
 }
 const selected = ref('0.1.5')
+
+const leave = async (el, done) => {
+	let div = document.createElement('div')
+	let cont = document.querySelector('#cont')
+	await cont.appendChild(div)
+	await div.classList.add('test')
+	await gsap.to(div, {
+		duration: 0.5,
+		left: 0,
+		ease: 'power3.out',
+		skew: '20deg',
+	})
+	done()
+	div.remove()
+}
 </script>
 
 <template lang="pug">
-q-page(padding)
+q-page(padding @leave="leave")
+	// .cover
 	.container
 		h4 Мои приложения ({{store.appList.length}})
 		q-table.q-mt-sm(flat
@@ -114,6 +131,27 @@ q-page(padding)
 </template>
 
 <style scoped lang="scss">
+.q-page {
+	// background: pink;
+}
+.test {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background: #ccc;
+	top: 0;
+	left: 0;
+	z-index: 2;
+}
+.cover {
+	width: 100%;
+	height: 100%;
+	background: #ccc;
+	position: fixed;
+	top: 0;
+	left: 0;
+	// z-index: 2;
+}
 .container {
 	max-width: 1200px;
 	margin: 0 auto;

@@ -10,36 +10,51 @@ import { gsap } from 'gsap'
 // 	leftDrawerOpen.value = !leftDrawerOpen.value
 // }
 //
-// const route = useRoute()
-// // const inside = computed(() => {
+const route = useRoute()
+// const inside = computed(() => {
 // 	return route.path == '/' ? false : true
 // })
 
-// const beforeLeave = () => {
-// 	console.log(111)
-// }
+const beforeLeave = () => {
+	console.log(111)
+}
 
 const leave = async (el, done) => {
-	console.log(111)
-	await gsap.to(el, {
-		duration: 1,
-		opacity: 0,
-	})
+	// let div = document.createElement('div')
+	// let cont = document.querySelector('#cont')
+	// await cont.appendChild(div)
+	// await div.classList.add('test')
+	// await gsap.to(div, {
+	// 	duration: 0.5,
+	// 	left: 0,
+	// 	ease: 'power3.out',
+	// 	skew: '20deg',
+	// })
 	done()
+	// div.remove()
 }
-const beforeEnter = (el) => {
-	el.style.opacity = 0
-	// el.style.transform = 'translateY(-100px)'
-	el.style.transform = 'scale(.5)'
+const beforeEnter = async (el) => {
+	// let div = document.createElement('div')
+	// let cont = document.querySelector('#cont')
+	// await cont.appendChild(div)
+	// await div.classList.add('test')
 }
-const enter = (el) => {
-	gsap.to(el, {
-		delay: 1,
-		duration: 0.5,
-		opacity: 1,
-		scale: 1,
-		ease: 'bounce',
-	})
+const enter = async (el, done) => {
+	// let div = document.querySelector('.test')
+	// await gsap.fromTo(
+	// 	'.test',
+	// 	{
+	// 		left: 0,
+	// 	},
+	// 	{
+	// 		delay: 0.3,
+	// 		left: '100%',
+	// 		duration: 0.5,
+	// 		ease: 'power3.out',
+	// 	}
+	// )
+	// div.remove()
+	done()
 }
 </script>
 
@@ -69,10 +84,11 @@ q-layout(view="hHh LpR fFf")
 	// LeftDrawer(v-model="leftDrawerOpen" v-show="inside")
 
 	q-page-container
-		.container
+		#cont
 			router-view(v-slot="{ Component, route }")
-				transition(@before-enter="beforeEnter" @enter="enter" @leave="leave" :css="false" mode="out-in")
-					component(:is="Component")
+				component(:is="Component")
+				// transition(@before-enter="beforeEnter" @enter="enter" @leave="leave" :css="false" mode="out-in")
+				// 	component(:is="Component")
 
 
 // 	transition(:name="route.meta.transition || 'fade'" :mode="route.meta.mode || 'out-in'")
@@ -92,6 +108,7 @@ q-layout(view="hHh LpR fFf")
 		line-height: 48px;
 	}
 }
+
 .log {
 	width: 1.3rem;
 	height: 1.3rem;
@@ -103,10 +120,9 @@ q-layout(view="hHh LpR fFf")
 	text-transform: uppercase;
 	cursor: pointer;
 }
-.container {
-	// max-width: 1400px;
-	margin: 0 2rem;
-	// background: pink;
+#cont {
+	position: relative;
+	// background: yellow;
 }
 
 @media (min-width: 1024px) {
