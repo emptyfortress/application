@@ -73,11 +73,11 @@ q-layout(view="hHh LpR fFf")
 	q-page-container
 		#cont
 			router-view(v-slot="{ Component, route }")
-				transition(@before-enter="beforeEnter" @enter="enter" @leave="leave" :css="false" mode="out-in")
+				transition(:name="route.meta.transition || 'fade'" :mode="route.meta.mode || 'out-in'")
 					component(:is="Component")
 
 
-// 	transition(:name="route.meta.transition || 'fade'" :mode="route.meta.mode || 'out-in'")
+// transition(@before-enter="beforeEnter" @enter="enter" @leave="leave" :css="false" mode="out-in")
 </template>
 
 <style scoped lang="scss">

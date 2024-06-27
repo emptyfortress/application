@@ -61,13 +61,6 @@ q-page(padding)
 	max-width: 1000px;
 	margin: 0 auto;
 }
-h4 {
-	transition: 0.2s ease all;
-	&.expand {
-		font-size: 1.2rem;
-		font-weight: 600;
-	}
-}
 .grid {
 	display: grid;
 	grid-template-columns: 2fr 1fr auto;
@@ -88,8 +81,5 @@ h4 {
 	margin-bottom: 1rem;
 	margin-top: 3rem;
 	transition: 0.2s ease all;
-	&.expand {
-		margin-top: 0;
-	}
 }
 </style>
