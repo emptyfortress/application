@@ -24,7 +24,7 @@ import VueDraggableResizable from 'vue-draggable-resizable'
 
 vue-draggable-resizable(:x="150" :y="500" :w="200" :h="150" :active="false")
 	q-card
-		p Hello! I'm a minimap.
+		p Minimap
 </template>
 
 <style scoped lang="scss">
