@@ -4,11 +4,20 @@ import VueDraggableResizable from 'vue-draggable-resizable'
 
 <template lang="pug">
 .grid
-	.bl.col
-		.inp
-		.inp
-		.inp
-		.inp
+	.bl
+		.col
+			.row.justify-between
+				h5 Редактирование формы
+				q-btn(flat color="primary" label="Выбрать форму из доступных" @click="") 
+			.inp Поле
+			.inp Поле
+			.inp Поле
+			.inp Поле
+			.inp Поле
+			.inp Поле
+
+		br
+		q-btn(unelevated color="primary" label="Превью" @click="") 
 
 
 	.bl.right Свойства
@@ -32,9 +41,10 @@ vue-draggable-resizable(:x="150" :y="500" :w="200" :h="150" :active="false")
 	gap: 0.5rem;
 }
 .inp {
-	height: 42px;
+	// height: 42px;
 	width: 200px;
 	background: #dedede;
+	padding: 0.5rem;
 }
 .center {
 	display: flex;

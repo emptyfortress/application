@@ -9,11 +9,11 @@ const store = useStore()
 const router = useRouter()
 const columns = [
 	{
-		name: 'name',
+		name: 'title',
 		required: true,
 		label: 'Название',
 		align: 'left',
-		field: 'name',
+		field: 'title',
 		sortable: true,
 	},
 	{
