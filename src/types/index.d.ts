@@ -7,6 +7,7 @@ interface BusinessObject {
 interface App {
 	id: string
 	name: string
+	title: string
 	version: string
 	descr: string
 	author: string

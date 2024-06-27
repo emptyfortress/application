@@ -6,6 +6,7 @@ export const useStore = defineStore('store', {
 			{
 				id: '0',
 				name: 'Заявка',
+				title: 'Заявка',
 				version: '0.1.5',
 				descr: 'Простая заявка',
 				author: 'Орлов П.С.',
@@ -21,7 +22,15 @@ export const useStore = defineStore('store', {
 				created: '2023-10-14',
 			},
 		],
-		app: {} as App,
+		app: {
+			id: '1',
+			name: 'main',
+			title: 'Еще заявка',
+			version: '0.1.5',
+			descr: 'Очень простая заявка',
+			author: 'Орлов П.С.',
+			created: '2023-10-14',
+		} as App,
 
 		current: {
 			id: 'id',

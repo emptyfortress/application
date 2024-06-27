@@ -39,7 +39,26 @@ const router = createRouter({
 			path: '/main',
 			name: 'main',
 			component: () => import('@/views/Main.vue'),
-			props: true,
+		},
+		{
+			path: '/process',
+			name: 'process',
+			component: () => import('@/views/Process.vue'),
+		},
+		{
+			path: '/forms',
+			name: 'forms',
+			component: () => import('@/views/Forms.vue'),
+		},
+		{
+			path: '/roles',
+			name: 'roles',
+			component: () => import('@/views/Roles.vue'),
+		},
+		{
+			path: '/list',
+			name: 'list',
+			component: () => import('@/views/List.vue'),
 		},
 		{
 			path: '/palette',

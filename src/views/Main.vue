@@ -2,20 +2,26 @@
 import { ref, computed } from 'vue'
 import { useStore } from '@/stores/store'
 import SvgIcon from '@/components/SvgIcon.vue'
+import { useRoute, useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const store = useStore()
-const currentApp = computed(() => {
-	return store.appList.find((item) => item.id == '1')
-})
-
-store.setApp(currentApp.value!)
+// const currentApp = computed(() => {
+// 	return store.appList.find((item) => item.id == '1')
+// })
+//
+// store.setApp(currentApp.value!)
 
 const pages = [
-	{ id: '0', name: 'Процесс', icon: 'shuffle' },
-	{ id: '1', name: 'Формы', icon: 'subject' },
-	{ id: '2', name: 'Роли', icon: 'user' },
-	{ id: '3', name: 'Списки', icon: 'sheet' },
+	{ id: '0', url: '/process', name: 'Процесс', icon: 'shuffle' },
+	{ id: '1', url: '/forms', name: 'Формы', icon: 'subject' },
+	{ id: '2', url: '/roles', name: 'Роли', icon: 'user' },
+	{ id: '3', url: '/lists', name: 'Списки', icon: 'sheet' },
 ]
+const goto = (e: string) => {
+	router.push(e)
+}
 </script>
 
 <template lang="pug">
@@ -23,13 +29,13 @@ q-page(padding)
 	.container
 		.grid
 			div
-				h4 {{ currentApp.name }}
-				.text-subtitle1 {{ currentApp.descr }}
+				h4 {{ store.app.title }}
+				.text-subtitle1 {{ store.app.descr }}
 			.bl
 				.text-overline version
 				.big
 					q-icon(name="mdi-source-branch" color="primary")
-					span.q-ml-sm v. {{currentApp.version }}
+					span.q-ml-sm v. {{store.app.version }}
 						q-menu
 							q-list
 								q-item(clickable)
@@ -47,7 +53,7 @@ q-page(padding)
 		.q-mt-md Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime, autem consequatur. Aperiam quis consectetur beatae et labore rerum ut optio incidunt dolor ab exercitationem aliquam, fugit dolorum aspernatur, maiores ratione!
 		.podzag Настройки приложения
 		.parent
-			.item(v-for="(page, index) in pages" :key="page.id" @click="changeGrid(index)" ref="items")
+			.item(v-for="(page, index) in pages" :key="page.id" @click="goto(page.url)")
 				.txt {{ page.name }}
 				SvgIcon.icon(:name="page.icon")
 </template>
