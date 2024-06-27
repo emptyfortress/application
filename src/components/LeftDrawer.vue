@@ -9,63 +9,55 @@ const router = useRouter()
 const store = useStore()
 
 const modelValue = defineModel()
-const draw = ref(true)
 
 const pages = [
 	{
-		id: 3,
-		title: 'Роли',
-		name: 'mask1',
-		url: '/role',
-	},
-	{
-		id: 4,
+		id: 0,
 		title: 'Процессы',
 		icon: 'mdi-shuffle-variant',
-		url: '/process',
+		url: '/editor/process',
 	},
 	{
-		id: 5,
-		title: 'Субъекты',
-		name: 'subject',
-		url: '/subject',
+		id: 1,
+		title: 'Формы',
+		icon: 'mdi-list-box-outline',
+		url: '/editor/forms',
+	},
+	{
+		id: 1,
+		title: 'Роли',
+		icon: 'mdi-account-circle-outline',
+		url: '/editor/roles',
 	},
 	{
 		id: 6,
-		title: 'Реестры',
-		name: 'sheet',
-		url: '/list',
+		title: 'Списки',
+		icon: 'mdi-script-text-outline',
+		url: '/editor/lists',
 	},
 ]
-const mini = ref(true)
-
-const calcColor = (to: string) => {
-	return route.path == to ? 'white' : ''
-}
-
-const goToApp = () => {
-	// const url = '/app/' + store.page
-	// router.push(url)
-}
+const mini = ref(false)
 </script>
 
 <template lang="pug">
-q-drawer(v-model="draw" show-if-above behavior="desktop" side="left" :width="240" :mini="modelValue")
+q-drawer(v-model="modelValue" show-if-above behavior="desktop" side="left" :width="220" :mini="store.mini")
 	q-list.q-mt-lg
 		q-item(clickable to="/")
 			q-item-section(avatar)
 				q-icon(name="mdi-home-roof")
 			q-item-section
-				q-item-label Старт
-		q-item(clickable @click="goToApp")
-			q-item-section(avatar)
-				q-icon(name="mdi-arrow-left-circle-outline")
-			q-item-section
-				q-item-label Назад
+				q-item-label Мои приложения
+
+		// q-item(clickable @click="goToApp")
+		// 	q-item-section(avatar)
+		// 		q-icon(name="mdi-arrow-left-circle-outline")
+		// 	q-item-section
+		// 		q-item-label Назад
+
 		q-item(clickable v-ripple v-for="page in pages" :to="page.url")
 			q-item-section(avatar)
 				q-icon(v-if="page.icon" :name="page.icon")
-				SvgIcon.icon(v-if="page.name" :name="page.name" :color="calcColor(page.url)")
+				SvgIcon.icon(v-if="page.name" :name="page.name")
 			q-item-section
 				q-item-label {{ page.title }}
 </template>

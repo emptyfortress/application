@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 
 export const useStore = defineStore('store', {
 	state: () => ({
+		mini: false,
 		appList: [
 			{
 				id: '0',

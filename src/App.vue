@@ -3,7 +3,11 @@ import { ref, computed, onMounted } from 'vue'
 import { RouterLink, RouterView, useRoute } from 'vue-router'
 import SvgIcon from '@/components/SvgIcon.vue'
 import { gsap } from 'gsap'
+import { useStore } from '@/stores/store'
+import LeftDrawer from '@/components/LeftDrawer.vue'
+
 const route = useRoute()
+const store = useStore()
 
 const beforeLeave = () => {}
 
@@ -43,6 +47,8 @@ const enter = async (el: any, done: any) => {
 	div?.remove()
 	done()
 }
+
+const leftDrawerOpen = ref(true)
 </script>
 
 <template lang="pug">
@@ -50,7 +56,7 @@ q-layout(view="hHh LpR fFf")
 	q-header.head
 		q-toolbar
 
-			q-toolbar-title(@click="$router.push('/')")
+			q-toolbar-title(@click="store.mini = !store.mini")
 				q-avatar
 					SvgIcon.log(name="logo")
 				span.title Конструктор приложений
@@ -68,7 +74,7 @@ q-layout(view="hHh LpR fFf")
 						q-item-section Выход
  
 
-	// LeftDrawer(v-model="leftDrawerOpen" v-show="inside")
+	LeftDrawer(v-model="leftDrawerOpen")
 
 	q-page-container
 		#cont
