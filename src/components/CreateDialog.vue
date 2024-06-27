@@ -25,7 +25,7 @@ const emit = defineEmits(['create'])
 const create = () => {
 	let tmp = {
 		id: uid(),
-		name: name.value,
+		title: name.value,
 		descr: descr.value,
 		author: 'Орлов П.С.',
 		created: '2024-05-15',
