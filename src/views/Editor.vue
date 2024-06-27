@@ -8,13 +8,7 @@ q-page(padding)
 	h5
 		q-btn(flat round icon="mdi-arrow-left-circle-outline" @click="$router.back()") 
 		span {{ store.app.title }}
-	.grd
-		.left
-			router-link.item(to='/editor/process') Процесс
-			router-link.item(to='/editor/forms') Формы
-			router-link.item(to='/editor/roles') Роли
-			router-link.item(to='/editor/lists') Списки
-		router-view
+	router-view
 </template>
 
 <style scoped lang="scss">
