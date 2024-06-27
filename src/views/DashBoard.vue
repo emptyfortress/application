@@ -21,10 +21,6 @@ const currentApp = computed(() => {
 })
 
 store.setApp(currentApp.value!)
-// const goto = (e: string) => {
-// 	const url = '/app/' + props.id + '/' + e
-// 	router.push(url)
-// }
 </script>
 
 <template lang="pug">

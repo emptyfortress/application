@@ -23,33 +23,17 @@ const router = createRouter({
 			name: 'home',
 			component: HomeView,
 		},
-		// {
-		// 	path: '/subcard',
-		// 	name: 'subcard',
-		// 	component: () => import('@/views/SubCard.vue'),
-		// 	props: true,
-		// 	meta: {
-		// 		transition: 'zoomin',
-		// 	},
-		// },
-		// {
-		// 	path: '/subcard1',
-		// 	name: 'subcard1',
-		// 	component: () => import('@/views/SubCard1.vue'),
-		// 	props: true,
-		// },
 		{
 			path: '/:id',
 			name: 'app',
 			component: () => import('@/views/DashBoard.vue'),
 			props: true,
 		},
-		// {
-		// 	path: '/split/:id',
-		// 	name: 'split',
-		// 	component: () => import('@/views/SplitView.vue'),
-		// 	props: true,
-		// },
+		{
+			path: '/main',
+			name: 'main',
+			component: () => import('@/views/Main.vue'),
+		},
 		{
 			path: '/palette',
 			name: 'palette',
@@ -60,46 +44,6 @@ const router = createRouter({
 			name: 'try',
 			component: () => import('@/components/Try.vue'),
 		},
-		// {
-		// 	path: '/scene',
-		// 	name: 'scene',
-		// 	component: () => import('@/views/SceneView.vue'),
-		// 	meta: {
-		// 		title: 'Сценарии',
-		// 	},
-		// },
-		// {
-		// 	path: '/role',
-		// 	name: 'role',
-		// 	component: () => import('@/views/RoleView.vue'),
-		// 	meta: {
-		// 		title: 'Роли',
-		// 	},
-		// },
-		// {
-		// 	path: '/process',
-		// 	name: 'process',
-		// 	component: () => import('@/views/ProcessView.vue'),
-		// 	meta: {
-		// 		title: 'Процессы',
-		// 	},
-		// },
-		// {
-		// 	path: '/subject',
-		// 	name: 'subject',
-		// 	component: () => import('@/views/SubjectView.vue'),
-		// 	meta: {
-		// 		title: 'Карточки',
-		// 	},
-		// },
-		// {
-		// 	path: '/list',
-		// 	name: 'list',
-		// 	component: () => import('@/views/ListView.vue'),
-		// 	meta: {
-		// 		title: 'Реестры',
-		// 	},
-		// },
 	],
 })
 

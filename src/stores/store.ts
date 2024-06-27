@@ -11,6 +11,15 @@ export const useStore = defineStore('store', {
 				author: 'Орлов П.С.',
 				created: '2023-10-14',
 			},
+			{
+				id: '1',
+				name: 'main',
+				title: 'Еще заявка',
+				version: '0.1.5',
+				descr: 'Очень простая заявка',
+				author: 'Орлов П.С.',
+				created: '2023-10-14',
+			},
 		],
 		app: {} as App,
 
