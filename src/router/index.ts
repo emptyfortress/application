@@ -63,9 +63,14 @@ const router = createRouter({
 					component: () => import('@/components/Roles.vue'),
 				},
 				{
-					path: 'list',
-					name: 'list',
+					path: 'lists',
+					name: 'lists',
 					component: () => import('@/components/List.vue'),
+				},
+				{
+					path: 'etap',
+					name: 'etap',
+					component: () => import('@/components/Etap.vue'),
 				},
 			],
 		},

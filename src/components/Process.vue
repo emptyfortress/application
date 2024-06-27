@@ -6,7 +6,7 @@ const store = useStore()
 <template lang="pug">
 .grid
 	.bl.center
-		.etap Этап
+		.etap(@click="$router.push('/editor/etap')") Этап
 	.bl.right Свойства
 </template>
 

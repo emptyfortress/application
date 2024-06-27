@@ -6,19 +6,19 @@ const store = useStore()
 <template lang="pug">
 q-page(padding)
 	h5
-		q-btn(flat round icon="mdi-arrow-left-circle-outline" @click="$router.push('/main')") 
+		q-btn(flat round icon="mdi-arrow-left-circle-outline" @click="$router.back()") 
 		span {{ store.app.title }}
-	.grid
+	.grd
 		.left
 			router-link.item(to='/editor/process') Процесс
 			router-link.item(to='/editor/forms') Формы
 			router-link.item(to='/editor/roles') Роли
-			router-link.item(to='/editor/list') Списки
+			router-link.item(to='/editor/lists') Списки
 		router-view
 </template>
 
 <style scoped lang="scss">
-.grid {
+.grd {
 	display: grid;
 	grid-template-columns: 200px 1fr;
 	// justify-items: start;
