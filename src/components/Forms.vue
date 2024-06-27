@@ -7,7 +7,7 @@ const store = useStore()
 .grid
 	.bl.center
 		div
-			div(v-for="n in 5") Роль {{ n }}
+			div(v-for="n in 5") Форма {{ n }}
 	.bl.right Свойства
 </template>
 

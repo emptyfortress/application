@@ -6,8 +6,8 @@ const store = useStore()
 <template lang="pug">
 .grid
 	.bl.center
-		div
-			div(v-for="n in 5") Роль {{ n }}
+		div Тут списки
+			
 	.bl.right Свойства
 </template>
 

@@ -29,36 +29,45 @@ const router = createRouter({
 			component: () => import('@/views/Main.vue'),
 			props: true,
 		},
+		// {
+		// 	path: '/:id',
+		// 	name: 'app',
+		// 	component: () => import('@/views/DashBoard.vue'),
+		// 	props: true,
+		// },
 		{
 			path: '/:id',
-			name: 'app',
-			component: () => import('@/views/DashBoard.vue'),
+			name: 'main',
+			component: () => import('@/views/Main.vue'),
 			props: true,
 		},
 		{
-			path: '/main',
-			name: 'main',
-			component: () => import('@/views/Main.vue'),
-		},
-		{
-			path: '/process',
-			name: 'process',
-			component: () => import('@/views/Process.vue'),
-		},
-		{
-			path: '/forms',
-			name: 'forms',
-			component: () => import('@/views/Forms.vue'),
-		},
-		{
-			path: '/roles',
-			name: 'roles',
-			component: () => import('@/views/Roles.vue'),
-		},
-		{
-			path: '/list',
-			name: 'list',
-			component: () => import('@/views/List.vue'),
+			path: '/editor',
+			name: 'editor',
+			component: () => import('@/views/Editor.vue'),
+			props: true,
+			children: [
+				{
+					path: 'process',
+					name: 'process',
+					component: () => import('@/components/Process.vue'),
+				},
+				{
+					path: 'forms',
+					name: 'forms',
+					component: () => import('@/components/Forms.vue'),
+				},
+				{
+					path: 'roles',
+					name: 'roles',
+					component: () => import('@/components/Roles.vue'),
+				},
+				{
+					path: 'list',
+					name: 'list',
+					component: () => import('@/components/List.vue'),
+				},
+			],
 		},
 		{
 			path: '/palette',

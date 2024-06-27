@@ -14,10 +14,10 @@ const store = useStore()
 // store.setApp(currentApp.value!)
 
 const pages = [
-	{ id: '0', url: '/process', name: 'Процесс', icon: 'shuffle' },
-	{ id: '1', url: '/forms', name: 'Формы', icon: 'subject' },
-	{ id: '2', url: '/roles', name: 'Роли', icon: 'user' },
-	{ id: '3', url: '/lists', name: 'Списки', icon: 'sheet' },
+	{ id: '0', url: '/editor/process', name: 'Процесс', icon: 'shuffle' },
+	{ id: '1', url: '/editor/forms', name: 'Формы', icon: 'subject' },
+	{ id: '2', url: '/editor/roles', name: 'Роли', icon: 'user' },
+	{ id: '3', url: '/editor/lists', name: 'Списки', icon: 'sheet' },
 ]
 const goto = (e: string) => {
 	router.push(e)

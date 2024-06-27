@@ -1,23 +1,24 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useStore } from '@/stores/store'
+const store = useStore()
+</script>
 
 <template lang="pug">
 q-page(padding)
 	h5
 		q-btn(flat round icon="mdi-arrow-left-circle-outline" @click="$router.push('/main')") 
-		span {{ store. app.title }}
+		span {{ store.app.title }}
 	.grid
 		.left
-			router-link.item(to='/process') Процесс
-			router-link.item(to='/forms') Формы
-			router-link.item(to='/roles') Роли
-			router-link.item(to='/list') Списки
-		.bl.right
-			router-view
+			router-link.item(to='/editor/process') Процесс
+			router-link.item(to='/editor/forms') Формы
+			router-link.item(to='/editor/roles') Роли
+			router-link.item(to='/editor/list') Списки
+		router-view
 </template>
 
 <style scoped lang="scss">
 .grid {
-	margin-top: 1rem;
 	display: grid;
 	grid-template-columns: 200px 1fr;
 	// justify-items: start;
@@ -25,9 +26,16 @@ q-page(padding)
 	column-gap: 1rem;
 	row-gap: 0.5rem;
 }
-.bl {
-	background: #fff;
-	height: calc(100vh - 175px);
+.item {
+	display: block;
 	padding: 1rem;
+	text-decoration: none;
+	background: #fff;
+	color: $secondary;
+	margin-bottom: 0.5rem;
+}
+.router-link-active {
+	background: $primary;
+	color: #fff;
 }
 </style>

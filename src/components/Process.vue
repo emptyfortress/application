@@ -4,28 +4,16 @@ const store = useStore()
 </script>
 
 <template lang="pug">
-q-page(padding)
-	h5
-		q-btn(flat round icon="mdi-arrow-left-circle-outline" @click="$router.push('/main')") 
-		span {{ store. app.title }}
-	.grid
-		.left
-			router-link.item(to='/process') Процесс
-			router-link.item(to='/forms') Формы
-			router-link.item(to='/roles') Роли
-			router-link.item(to='/list') Списки
-		.bl.center
-			div Тут списки
-				
-		.bl.right Свойства
+.grid
+	.bl.center
+		.etap Этап
+	.bl.right Свойства
 </template>
 
 <style scoped lang="scss">
 .grid {
-	margin-top: 1rem;
 	display: grid;
-	grid-template-columns: 200px 1fr 300px;
-	// justify-items: start;
+	grid-template-columns: 1fr 300px;
 	align-items: start;
 	column-gap: 1rem;
 	row-gap: 0.5rem;
