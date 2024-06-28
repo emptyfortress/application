@@ -1,4 +1,4 @@
-<script setup ulang="ts">
+<script setup lang="ts">
 import { ref, computed } from 'vue'
 import SvgIcon from '@/components/SvgIcon.vue'
 import { useRoute, useRouter } from 'vue-router'
@@ -14,7 +14,7 @@ const modelValue = defineModel()
 const pages = [
 	{
 		id: 0,
-		title: 'Процессы',
+		title: 'Процесс',
 		icon: 'mdi-shuffle-variant',
 		url: '/editor/process',
 	},
@@ -53,7 +53,7 @@ const enter = async (el, done) => {
 	})
 	done()
 }
-const leave = async (el, done) => {
+const leave = async (el: any, done: any) => {
 	await gsap.to('.q-item', {
 		duration: 0.4,
 		left: -50,
@@ -65,6 +65,11 @@ const leave = async (el, done) => {
 const calcUrl = computed(() => {
 	return '/' + store.app.name
 })
+const navigate = (page: any) => {
+	store.setEditor(page.title)
+	store.setEtap(null)
+	// router.push(page.url)
+}
 </script>
 
 <template lang="pug">
@@ -72,7 +77,7 @@ q-drawer.rel(v-model="modelValue" show-if-above behavior="desktop" side="left" :
 
 	transition(@enter="enter" @leave="leave" :css="false" mode="out-in")
 
-		q-list.q-mt-lg(v-if="show")
+		q-list.q-mt-xl(v-if="show")
 				q-item(clickable to="/")
 					q-item-section(avatar)
 						q-icon(name="mdi-home-roof")
@@ -85,7 +90,7 @@ q-drawer.rel(v-model="modelValue" show-if-above behavior="desktop" side="left" :
 					q-item-section
 						q-item-label {{ store.app.title }}
 
-				q-item(clickable v-ripple v-for="page in pages" :to="page.url")
+				q-item(clickable v-ripple v-for="page in pages" :to="page.url" @click="navigate(page)")
 					q-item-section(avatar)
 						q-icon(v-if="page.icon" :name="page.icon")
 						SvgIcon.icon(v-if="page.name" :name="page.name")
@@ -110,7 +115,7 @@ q-drawer.rel(v-model="modelValue" show-if-above behavior="desktop" side="left" :
 	color: white;
 }
 .q-item:first-child {
-	margin-bottom: 2rem;
+	// margin-bottom: 2rem;
 }
 .q-btn {
 	position: absolute;

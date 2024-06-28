@@ -32,21 +32,10 @@ export const useStore = defineStore('store', {
 			author: 'Орлов П.С.',
 			created: '2023-10-14',
 		} as App,
-
-		current: {
-			id: 'id',
-			type: 'bpmn:Process',
-			name: '',
-		},
-
-		tabs: 'process',
-		formName: '',
-		currentField: null as null | BusinessObject,
-		lastState: null,
+		editor: '',
+		etap: '',
 	}),
-	getters: {
-		startFormName: (state) => 'Форма "' + state.current.name + '"',
-	},
+	getters: {},
 	actions: {
 		addAppToList(e: App) {
 			this.appList.push(e)
@@ -54,17 +43,11 @@ export const useStore = defineStore('store', {
 		setApp(e: App) {
 			this.app = e
 		},
-		setCurrent(e: BusinessObject) {
-			this.current = e
+		setEditor(e: string) {
+			this.editor = e
 		},
-		setFormName(e: string) {
-			this.formName = e
-		},
-		setField(e: BusinessObject) {
-			this.currentField = e
-		},
-		clearField() {
-			this.currentField = null
+		setEtap(e: string) {
+			this.etap = e
 		},
 	},
 })

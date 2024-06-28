@@ -14,13 +14,19 @@ const store = useStore()
 // store.setApp(currentApp.value!)
 
 const pages = [
-	{ id: '0', url: '/editor/process', name: 'Процесс', icon: 'shuffle' },
-	{ id: '1', url: '/editor/forms', name: 'Формы', icon: 'subject' },
-	{ id: '2', url: '/editor/roles', name: 'Роли', icon: 'user' },
-	{ id: '3', url: '/editor/lists', name: 'Списки', icon: 'sheet' },
+	{ id: '0', url: '/editor/process', title: 'Процесс', icon: 'mdi-shuffle-variant' },
+	{ id: '1', url: '/editor/forms', title: 'Формы', icon: 'mdi-list-box-outline' },
+	{ id: '2', url: '/editor/roles', title: 'Роли', icon: 'mdi-account-circle-outline' },
+	{ id: '3', url: '/editor/lists', title: 'Списки', icon: 'mdi-script-text-outline' },
 ]
-const goto = (e: string) => {
-	router.push(e)
+// const goto = (e: string) => {
+// 	router.push(e)
+// }
+
+const navigate = (page: any) => {
+	store.setEditor(page.title)
+	store.setEtap(null)
+	router.push(page.url)
 }
 </script>
 
@@ -53,9 +59,9 @@ q-page(padding)
 		.q-mt-md Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime, autem consequatur. Aperiam quis consectetur beatae et labore rerum ut optio incidunt dolor ab exercitationem aliquam, fugit dolorum aspernatur, maiores ratione!
 		.podzag Настройки приложения
 		.parent
-			.item(v-for="(page, index) in pages" :key="page.id" @click="goto(page.url)")
-				.txt {{ page.name }}
-				SvgIcon.icon(:name="page.icon")
+			.item(v-for="(page, index) in pages" :key="page.id" @click="navigate(page)")
+				.txt {{ page.title }}
+				q-icon.icon(:name="page.icon")
 </template>
 
 <style scoped lang="scss">
@@ -102,6 +108,7 @@ q-page(padding)
 		position: absolute;
 		bottom: 1rem;
 		left: 1rem;
+		font-size: 2rem;
 	}
 	&:hover {
 		border: 1px solid #ccc;

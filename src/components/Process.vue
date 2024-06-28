@@ -1,12 +1,22 @@
 <script setup lang="ts">
+import { useRouter, useRoute } from 'vue-router'
 import { useStore } from '@/stores/store'
+
 const store = useStore()
+
+const router = useRouter()
+const route = useRoute()
+
+const goto = () => {
+	store.setEtap('Консолидация')
+	router.push('/editor/etap')
+}
 </script>
 
 <template lang="pug">
 .grid
 	.bl.center
-		.etap(@click="$router.push('/editor/etap')") Этап
+		.etap(@click="goto") Консолидация
 	.bl.right Свойства
 </template>
 
@@ -29,8 +39,8 @@ const store = useStore()
 	align-items: center;
 }
 .etap {
-	width: 100px;
-	height: 100px;
+	// width: 100px;
+	// height: 100px;
 	border: 2px solid #333;
 	padding: 1rem;
 	border-radius: 1rem;

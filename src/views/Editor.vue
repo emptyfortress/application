@@ -1,13 +1,17 @@
 <script setup lang="ts">
+import { useRoute } from 'vue-router'
 import { useStore } from '@/stores/store'
+
 const store = useStore()
+const route = useRoute()
 </script>
 
 <template lang="pug">
 q-page(padding)
 	h5
-		q-btn(flat round icon="mdi-arrow-left-circle-outline" @click="$router.back()") 
 		span {{ store.app.title }}
+		span &nbsp;—&nbsp; {{ store.editor }}
+		span(v-if="store.etap") &nbsp;—&nbsp; {{ store.etap }}
 	router-view
 </template>
 

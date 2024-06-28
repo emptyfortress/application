@@ -37,27 +37,27 @@ const router = createRouter({
 			children: [
 				{
 					path: 'process',
-					name: 'process',
+					name: 'Процесс',
 					component: () => import('@/components/Process.vue'),
 				},
 				{
 					path: 'forms',
-					name: 'forms',
+					name: 'Формы',
 					component: () => import('@/components/Forms.vue'),
 				},
 				{
 					path: 'roles',
-					name: 'roles',
+					name: 'Роли',
 					component: () => import('@/components/Roles.vue'),
 				},
 				{
 					path: 'lists',
-					name: 'lists',
+					name: 'Списки',
 					component: () => import('@/components/List.vue'),
 				},
 				{
 					path: 'etap',
-					name: 'etap',
+					name: 'Форма этапа',
 					component: () => import('@/components/Etap.vue'),
 				},
 			],
