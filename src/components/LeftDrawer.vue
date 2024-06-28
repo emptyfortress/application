@@ -42,17 +42,11 @@ const mini = ref(false)
 <template lang="pug">
 q-drawer(v-model="modelValue" show-if-above behavior="desktop" side="left" :width="220" :mini="store.mini")
 	q-list.q-mt-lg
-		q-item(clickable to="/")
+		q-item(v-if="route.name == 'main'" clickable to="/")
 			q-item-section(avatar)
 				q-icon(name="mdi-home-roof")
 			q-item-section
-				q-item-label Мои приложения
-
-		// q-item(clickable @click="goToApp")
-		// 	q-item-section(avatar)
-		// 		q-icon(name="mdi-arrow-left-circle-outline")
-		// 	q-item-section
-		// 		q-item-label Назад
+				q-item-label {{ route.params.id }}
 
 		q-item(clickable v-ripple v-for="page in pages" :to="page.url")
 			q-item-section(avatar)

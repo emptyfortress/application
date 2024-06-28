@@ -29,12 +29,6 @@ const router = createRouter({
 			component: () => import('@/views/Main.vue'),
 			props: true,
 		},
-		// {
-		// 	path: '/:id',
-		// 	name: 'app',
-		// 	component: () => import('@/views/DashBoard.vue'),
-		// 	props: true,
-		// },
 		{
 			path: '/:id',
 			name: 'main',
