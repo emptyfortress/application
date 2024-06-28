@@ -1,8 +1,9 @@
-<script setup lang="ts">
-import { ref, onMounted } from 'vue'
+<script setup ulang="ts">
+import { ref, computed } from 'vue'
 import SvgIcon from '@/components/SvgIcon.vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from '@/stores/store'
+import { gsap } from 'gsap'
 
 const route = useRoute()
 const router = useRouter()
@@ -37,23 +38,59 @@ const pages = [
 	},
 ]
 const mini = ref(false)
+
+const show = computed(() => {
+	return route.name == 'home' ? false : true
+})
+const enter = async (el, done) => {
+	await gsap.from('.q-item', {
+		y: 50,
+		opacity: 0,
+		delay: 0.1,
+		duration: 0.3,
+		stagger: 0.1,
+		ease: 'power3.out',
+	})
+	done()
+}
+const leave = async (el, done) => {
+	await gsap.to('.q-item', {
+		duration: 0.4,
+		left: -50,
+		opacity: 0,
+		ease: 'power3.out',
+	})
+	done()
+}
+const calcUrl = computed(() => {
+	return '/' + store.app.name
+})
 </script>
 
 <template lang="pug">
 q-drawer(v-model="modelValue" show-if-above behavior="desktop" side="left" :width="220" :mini="store.mini")
-	q-list.q-mt-lg
-		q-item(v-if="route.name == 'main'" clickable to="/")
-			q-item-section(avatar)
-				q-icon(name="mdi-home-roof")
-			q-item-section
-				q-item-label {{ route.params.id }}
 
-		q-item(clickable v-ripple v-for="page in pages" :to="page.url")
-			q-item-section(avatar)
-				q-icon(v-if="page.icon" :name="page.icon")
-				SvgIcon.icon(v-if="page.name" :name="page.name")
-			q-item-section
-				q-item-label {{ page.title }}
+	transition(@enter="enter" @leave="leave" :css="false" mode="out-in")
+
+		q-list.q-mt-lg(v-if="show")
+				q-item(clickable to="/")
+					q-item-section(avatar)
+						q-icon(name="mdi-home-roof")
+					q-item-section
+						q-item-label Мои приложения
+
+				q-item(clickable :to="calcUrl")
+					q-item-section(avatar)
+						q-icon(name="mdi-application-braces-outline")
+					q-item-section
+						q-item-label {{ store.app.title }}
+
+				q-item(clickable v-ripple v-for="page in pages" :to="page.url")
+					q-item-section(avatar)
+						q-icon(v-if="page.icon" :name="page.icon")
+						SvgIcon.icon(v-if="page.name" :name="page.name")
+					q-item-section
+						q-item-label {{ page.title }}
 </template>
 
 <style scoped lang="scss">

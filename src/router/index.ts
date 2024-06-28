@@ -24,12 +24,6 @@ const router = createRouter({
 			component: HomeView,
 		},
 		{
-			path: '/main',
-			name: 'main',
-			component: () => import('@/views/Main.vue'),
-			props: true,
-		},
-		{
 			path: '/:id',
 			name: 'main',
 			component: () => import('@/views/Main.vue'),

@@ -56,7 +56,7 @@ q-layout(view="hHh LpR fFf")
 	q-header.head
 		q-toolbar
 
-			q-toolbar-title(@click="store.mini = !store.mini")
+			q-toolbar-title(@click="$router.push('/')")
 				q-avatar
 					SvgIcon.log(name="logo")
 				span.title Конструктор приложений
