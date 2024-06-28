@@ -68,7 +68,7 @@ const calcUrl = computed(() => {
 </script>
 
 <template lang="pug">
-q-drawer(v-model="modelValue" show-if-above behavior="desktop" side="left" :width="220" :mini="store.mini")
+q-drawer.rel(v-model="modelValue" show-if-above behavior="desktop" side="left" :width="220" :mini="store.mini")
 
 	transition(@enter="enter" @leave="leave" :css="false" mode="out-in")
 
@@ -91,6 +91,10 @@ q-drawer(v-model="modelValue" show-if-above behavior="desktop" side="left" :widt
 						SvgIcon.icon(v-if="page.name" :name="page.name")
 					q-item-section
 						q-item-label {{ page.title }}
+
+	q-btn(v-if="show" flat round color="primary"  @click="store.mini = !store.mini" dense) 
+		q-icon(v-if="!store.mini" name="mdi-backburger")
+		q-icon(v-else name="mdi-forwardburger")
 </template>
 
 <style scoped lang="scss">
@@ -107,5 +111,10 @@ q-drawer(v-model="modelValue" show-if-above behavior="desktop" side="left" :widt
 }
 .q-item:first-child {
 	margin-bottom: 2rem;
+}
+.q-btn {
+	position: absolute;
+	left: 1rem;
+	bottom: 1rem;
 }
 </style>
