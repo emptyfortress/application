@@ -14,7 +14,7 @@ const forms = [
 <template lang="pug">
 .bl
 	q-list(separator)
-		q-item(clickable v-for="form in forms" :key="form.id" to="/editor/etap" @click="store.setEtap()")
+		q-item(clickable v-for="form in forms" :key="form.id" to="/editor/etap" @click="store.setEtap(form.label)")
 			q-item-section(avatar)
 				q-icon(name="mdi-list-box-outline")
 			q-item-section {{ form.label }}

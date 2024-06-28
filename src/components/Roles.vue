@@ -1,6 +1,6 @@
 <script setup lang="ts">
-// import { useStore } from '@/stores/store'
-// const store = useStore()
+import { useStore } from '@/stores/store'
+const store = useStore()
 const roles = [
 	{ id: 0, label: 'Роль 1' },
 	{ id: 1, label: 'Роль 2' },
@@ -13,7 +13,7 @@ const roles = [
 <template lang="pug">
 .bl
 	q-list(separator)
-		q-item(clickable v-for="role in roles" :key="role.id" to="/editor/etap")
+		q-item(clickable v-for="role in roles" :key="role.id" to="/editor/etap" @click="store.setEtap(role.label)")
 			q-item-section(avatar)
 				q-icon(name="mdi-account-circle-outline")
 			q-item-section {{ role.label }}
