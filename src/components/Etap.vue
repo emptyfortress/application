@@ -6,9 +6,9 @@ import { gsap } from 'gsap'
 onMounted(() => {
 	gsap.from('.fuck', {
 		delay: 0.5,
-		y: -600,
+		x: -600,
 		opacity: 0,
-		ease: 'bounce.out',
+		ease: 'expo.out',
 	})
 })
 </script>
