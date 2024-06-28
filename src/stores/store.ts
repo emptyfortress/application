@@ -33,7 +33,7 @@ export const useStore = defineStore('store', {
 			created: '2023-10-14',
 		} as App,
 		editor: '',
-		etap: '',
+		etap: null as null | string,
 	}),
 	getters: {},
 	actions: {
@@ -46,7 +46,7 @@ export const useStore = defineStore('store', {
 		setEditor(e: string) {
 			this.editor = e
 		},
-		setEtap(e: string) {
+		setEtap(e: string | null) {
 			this.etap = e
 		},
 	},

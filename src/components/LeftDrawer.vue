@@ -42,7 +42,7 @@ const mini = ref(false)
 const show = computed(() => {
 	return route.name == 'home' ? false : true
 })
-const enter = async (el, done) => {
+const enter = async (el: any, done: any) => {
 	await gsap.from('.q-item', {
 		y: 50,
 		opacity: 0,

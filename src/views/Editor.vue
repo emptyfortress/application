@@ -19,7 +19,7 @@ q-page(padding)
 		template(v-slot:before)
 			router-view
 		template(v-slot:after)
-			div fuck
+			div Свойства
 
 </template>
 
