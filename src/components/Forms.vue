@@ -1,6 +1,6 @@
 <script setup lang="ts">
-// import { useStore } from '@/stores/store'
-// const store = useStore()
+import { useStore } from '@/stores/store'
+const store = useStore()
 
 const forms = [
 	{ id: 0, label: 'Форма 1' },
@@ -12,42 +12,29 @@ const forms = [
 </script>
 
 <template lang="pug">
-.grid
-	.bl
-		q-list(separator)
-			q-item(clickable v-for="form in forms" :key="form.id" to="/editor/etap")
-				q-item-section(avatar)
-					q-icon(name="mdi-list-box-outline")
-				q-item-section {{ form.label }}
-				q-item-section
-					.row.items-center.q-gutter-x-sm
-						q-icon(name="mdi-shuffle-variant" size="sm")
-						span Этап {{ form.id + 1 }}
-				q-item-section(side)
-				q-btn(flat round dense icon="mdi-trash-can-outline" @click="" size="sm") 
+.bl
+	q-list(separator)
+		q-item(clickable v-for="form in forms" :key="form.id" to="/editor/etap" @click="store.setEtap()")
+			q-item-section(avatar)
+				q-icon(name="mdi-list-box-outline")
+			q-item-section {{ form.label }}
+			q-item-section
+				.row.items-center.q-gutter-x-sm
+					q-icon(name="mdi-shuffle-variant" size="sm")
+					span Этап {{ form.id + 1 }}
+			q-item-section(side)
+			q-btn(flat round dense icon="mdi-trash-can-outline" @click="" size="sm") 
 
-		br
-		q-btn(unelevated color="primary" label="Создать форму" @click="") 
+	br
+	q-btn(unelevated color="primary" label="Создать форму" @click="") 
 
-	.bl.right Свойства
 </template>
 
 <style scoped lang="scss">
-.grid {
-	display: grid;
-	grid-template-columns: 1fr 300px;
-	align-items: start;
-	column-gap: 1rem;
-	row-gap: 0.5rem;
-}
 .bl {
 	background: #fff;
-	height: calc(100vh - 175px);
+	height: calc(100vh - 150px);
 	padding: 1rem;
-}
-.center {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	margin-right: 0.5rem;
 }
 </style>

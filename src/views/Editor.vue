@@ -1,39 +1,35 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useStore } from '@/stores/store'
 
 const store = useStore()
 const route = useRoute()
+const split = ref(80)
 </script>
 
 <template lang="pug">
 q-page(padding)
-	h5
+	h6
 		span {{ store.app.title }}
 		span &nbsp;—&nbsp; {{ store.editor }}
 		span(v-if="store.etap") &nbsp;—&nbsp; {{ store.etap }}
-	router-view
+
+	q-splitter.split(v-model="split")
+		template(v-slot:before)
+			router-view
+		template(v-slot:after)
+			div fuck
+
 </template>
 
 <style scoped lang="scss">
-.grd {
-	display: grid;
-	grid-template-columns: 200px 1fr;
-	// justify-items: start;
-	align-items: start;
-	column-gap: 1rem;
-	row-gap: 0.5rem;
+.split {
+	// width: 100%;
+	height: calc(100vh - 150px);
 }
-.item {
-	display: block;
+.q-card {
+	height: 100%;
 	padding: 1rem;
-	text-decoration: none;
-	background: #fff;
-	color: $secondary;
-	margin-bottom: 0.5rem;
-}
-.router-link-active {
-	background: $primary;
-	color: #fff;
 }
 </style>

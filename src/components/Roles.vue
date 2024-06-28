@@ -11,34 +11,26 @@ const roles = [
 </script>
 
 <template lang="pug">
-.grid
-	.bl
-		q-list(separator)
-			q-item(clickable v-for="role in roles" :key="role.id" to="/editor/etap")
-				q-item-section(avatar)
-					q-icon(name="mdi-account-circle-outline")
-				q-item-section {{ role.label }}
-				q-item-section(side)
-				q-btn(flat round dense icon="mdi-trash-can-outline" @click="" size="sm") 
+.bl
+	q-list(separator)
+		q-item(clickable v-for="role in roles" :key="role.id" to="/editor/etap")
+			q-item-section(avatar)
+				q-icon(name="mdi-account-circle-outline")
+			q-item-section {{ role.label }}
+			q-item-section(side)
+			q-btn(flat round dense icon="mdi-trash-can-outline" @click="" size="sm") 
 
-		br
-		q-btn(unelevated color="primary" label="Создать роль" @click="") 
+	br
+	q-btn(unelevated color="primary" label="Создать роль" @click="") 
 
-	.bl.right Свойства
 </template>
 
 <style scoped lang="scss">
-.grid {
-	display: grid;
-	grid-template-columns: 1fr 300px;
-	align-items: start;
-	column-gap: 1rem;
-	row-gap: 0.5rem;
-}
 .bl {
 	background: #fff;
-	height: calc(100vh - 175px);
+	height: calc(100vh - 150px);
 	padding: 1rem;
+	margin-right: 0.5rem;
 }
 .center {
 	display: flex;

@@ -7,58 +7,43 @@ const store = useStore()
 const router = useRouter()
 const route = useRoute()
 
-const goto = () => {
-	store.setEtap('Консолидация')
+const goto = (e: string) => {
+	store.setEtap(e)
 	router.push('/editor/etap')
 }
 </script>
 
 <template lang="pug">
-.grid
-	.bl.center
-		.etap(@click="goto") Консолидация
-	.bl.right Свойства
+.canvas(ref="canvas")
+	.etap(@click="goto('Консолидация')") Консолидация
+	.etap.more(@click="goto('Согласование')") Согласование
 </template>
 
 <style scoped lang="scss">
-.grid {
-	display: grid;
-	grid-template-columns: 1fr 300px;
-	align-items: start;
-	column-gap: 1rem;
-	row-gap: 0.5rem;
-}
-.bl {
+.canvas {
 	background: #fff;
-	height: calc(100vh - 175px);
-	padding: 1rem;
-}
-.center {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	height: calc(100vh - 150px);
+	margin-right: 0.5rem;
+	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAAXNSR0IArs4c6QAAADBJREFUGFclioEJADAMwvSl7f8P1pfMaAsiCcT1inOPQJIlkwy3uT8JbmImh2zANh9STBXvibRbIgAAAABJRU5ErkJggg==)
+		repeat;
+	border: 1px solid #ccc;
+	position: relative;
 }
 .etap {
-	// width: 100px;
-	// height: 100px;
 	border: 2px solid #333;
 	padding: 1rem;
 	border-radius: 1rem;
 	cursor: pointer;
+	position: absolute;
+	background: #fff;
+	top: 5rem;
+	left: 13rem;
 	&:hover {
 		background: #dedede;
 	}
 }
-.item {
-	display: block;
-	padding: 1rem;
-	text-decoration: none;
-	background: #fff;
-	color: $secondary;
-	margin-bottom: 0.5rem;
-}
-.router-link-active {
-	background: $primary;
-	color: #fff;
+.more {
+	top: 9rem;
+	left: 26rem;
 }
 </style>

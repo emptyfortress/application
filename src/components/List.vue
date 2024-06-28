@@ -4,25 +4,17 @@ const store = useStore()
 </script>
 
 <template lang="pug">
-.grid
-	.bl.center
-		div Тут списки
+.bl.center
+	div Тут списки
 			
-	.bl.right Свойства
 </template>
 
 <style scoped lang="scss">
-.grid {
-	display: grid;
-	grid-template-columns: 1fr 300px;
-	align-items: start;
-	column-gap: 1rem;
-	row-gap: 0.5rem;
-}
 .bl {
 	background: #fff;
-	height: calc(100vh - 175px);
+	height: calc(100vh - 150px);
 	padding: 1rem;
+	margin-right: 0.5rem;
 }
 .center {
 	display: flex;
