@@ -1,17 +1,4 @@
-<script setup lang="ts">
-import { onMounted } from 'vue'
-import VueDraggableResizable from 'vue-draggable-resizable'
-import { gsap } from 'gsap'
-
-onMounted(() => {
-	gsap.from('.fuck', {
-		delay: 0.5,
-		x: -600,
-		opacity: 0,
-		ease: 'expo.out',
-	})
-})
-</script>
+<script setup lang="ts"></script>
 
 <template lang="pug">
 .bl
@@ -29,10 +16,6 @@ onMounted(() => {
 	br
 	q-btn(unelevated color="primary" label="Превью" @click="") 
 
-Teleport(to="body")
-	vue-draggable-resizable.fuck(:x="100" :y="-300" :w="200" :h="150" :active="false" :z="2000")
-		q-card
-			p Minimap
 </template>
 
 <style scoped lang="scss">
