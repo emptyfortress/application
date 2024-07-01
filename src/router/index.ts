@@ -57,7 +57,7 @@ const router = createRouter({
 				},
 				{
 					path: 'etap',
-					name: 'Форма этапа',
+					name: 'etap',
 					component: () => import('@/components/Etap.vue'),
 				},
 			],

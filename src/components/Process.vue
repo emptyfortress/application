@@ -23,7 +23,7 @@ const goto = (e: string) => {
 .canvas {
 	background: #fff;
 	height: calc(100vh - 150px);
-	margin-right: 0.5rem;
+	margin-right: 0.25rem;
 	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAAXNSR0IArs4c6QAAADBJREFUGFclioEJADAMwvSl7f8P1pfMaAsiCcT1inOPQJIlkwy3uT8JbmImh2zANh9STBXvibRbIgAAAABJRU5ErkJggg==)
 		repeat;
 	border: 1px solid #ccc;

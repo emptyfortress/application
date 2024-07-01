@@ -2,6 +2,7 @@
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from '@/stores/store'
+import PropertyPanel from '@/components/PropertyPanel.vue'
 import VueDraggableResizable from 'vue-draggable-resizable'
 import { gsap } from 'gsap'
 
@@ -41,7 +42,7 @@ q-page(padding)
 		template(v-slot:before)
 			router-view
 		template(v-slot:after)
-			div Свойства
+			PropertyPanel
 
 Teleport(to="body")
 	vue-draggable-resizable.fuck(:x="100" :y="-300" :w="200" :h="150" :active="false" :z="2000")

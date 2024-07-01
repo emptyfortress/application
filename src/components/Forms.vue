@@ -35,6 +35,6 @@ const forms = [
 	background: #fff;
 	height: calc(100vh - 150px);
 	padding: 1rem;
-	margin-right: 0.5rem;
+	margin-right: 0.25rem;
 }
 </style>
