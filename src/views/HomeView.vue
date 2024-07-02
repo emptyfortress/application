@@ -44,8 +44,32 @@ q-page(padding)
 						q-btn.fab(round icon="mdi-plus" color="primary") 
 
 			template(v-slot:after)
-				template(v-if="store.currentNode")
-					h6 {{ store.currentNode.data.text }}
+				.q-ml-md
+					template(v-if="store.currentNode")
+						.grid
+							h6 {{ store.currentNode.data.text }}
+									// .text-subtitle1 {{ store.app.descr }} desr
+
+							.bl
+								.text-overline version
+								.big
+									q-icon(name="mdi-source-branch" color="primary")
+									span.q-ml-sm v. 1.2.5
+										q-menu
+											q-list
+												q-item(clickable)
+													q-item-section v.0.2.0
+												q-item(clickable)
+													q-item-section v.1.1.0
+
+						.q-mt-md Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime, autem consequatur. Aperiam quis consectetur beatae et labore rerum ut optio incidunt dolor ab exercitationem aliquam, fugit dolorum aspernatur, maiores ratione!
+
+						.q-mt-lg.q-gutter-x-lg
+							q-btn(flat  icon="mdi-pencil" label="Редактировать" color="primary" @click="") 
+								q-tooltip Редактировать
+							q-btn(flat  icon="mdi-content-duplicate" label="Дублировать" color="primary" @click="") 
+								q-tooltip Дублировать
+							q-btn(unelevated color="negative" label="Удалить приложение" @click="") 
 
 	CreateDialog(v-model="dialog" @create="create")
 </template>
@@ -59,7 +83,7 @@ q-page(padding)
 	height: 100%;
 }
 .blo {
-	margin-right: 0.5rem;
+	margin-right: 1rem;
 	height: calc(100vh - 180px);
 	position: relative;
 }
@@ -67,6 +91,28 @@ q-page(padding)
 	position: absolute;
 	bottom: 1rem;
 	right: 1rem;
+}
+
+.grid {
+	display: grid;
+	grid-template-columns: 2fr auto;
+	align-items: center;
+	column-gap: 1rem;
+	row-gap: 0.5rem;
+}
+.big {
+	font-size: 1.2rem;
+	color: $primary;
+	cursor: pointer;
+}
+.text-overline {
+	line-height: 1;
+}
+.podzag {
+	font-size: 1.1rem;
+	margin-bottom: 1rem;
+	margin-top: 3rem;
+	transition: 0.2s ease all;
 }
 
 // :deep(.q-table th) {
