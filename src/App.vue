@@ -30,6 +30,7 @@ const beforeEnter = (el: any) => {
 	cont?.appendChild(div)
 	div.classList.add('cover')
 }
+
 const enter = async (el: any, done: any) => {
 	let div = document.querySelector('.cover')
 	await gsap.fromTo(
@@ -74,7 +75,7 @@ q-layout(view="hHh LpR fFf")
 						q-item-section Выход
  
 
-	LeftDrawer(v-model="leftDrawerOpen")
+	// LeftDrawer(v-model="leftDrawerOpen")
 
 	q-page-container
 		#cont
