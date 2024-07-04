@@ -4,7 +4,13 @@ import { useRoute, useRouter } from 'vue-router'
 import { useStore } from '@/stores/store'
 import PropertyPanel from '@/components/PropertyPanel.vue'
 import VueDraggableResizable from 'vue-draggable-resizable'
-import { gsap } from 'gsap'
+
+import BpmnModeler from 'bpmn-js/lib/Modeler'
+import 'bpmn-js/dist/assets/diagram-js.css'
+import 'bpmn-js/dist/assets/bpmn-js.css'
+import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css'
+import zay from '@/stores/zayavka.bpmn?raw'
+// import { gsap } from 'gsap'
 
 const store = useStore()
 const route = useRoute()
@@ -27,6 +33,29 @@ const split = ref(80)
 // 		ease: 'expo.out',
 // 	})
 // })
+
+const canv = ref()
+
+onMounted(() => {
+	var modeler = new BpmnModeler({
+		container: canv.value,
+		keyboard: {
+			bindTo: window,
+		},
+	})
+
+	modeler
+		.importXML(zay)
+		.then(function (result) {
+			const { warnings } = result
+			console.log('success !', warnings)
+			modeler.attachTo(canv.value)
+		})
+		.catch(function (err) {
+			const { warnings, message } = err
+			console.log('something went wrong:', warnings, message)
+		})
+})
 </script>
 
 <template lang="pug">
@@ -40,7 +69,11 @@ q-page
 Teleport(to="body")
 	vue-draggable-resizable.fuck(:x="100" :y="-300" :w="200" :h="150" :active="false" :z="2000")
 		q-card
-			p Minimap
+			.canv(ref="canv")
+			
+// vue-draggable-resizable(:x="100" :y="-300" :w="200" :h="150" :active="false" :z="2000")
+// 	q-card
+// 		.canv(ref="canv")
 </template>
 
 <style scoped lang="scss">
@@ -59,5 +92,13 @@ span {
 	&:hover {
 		text-decoration: underline;
 	}
+}
+.canv {
+	width: 100%;
+	height: 100%;
+	background: #fff;
+}
+:deep(.canv .djs-palette) {
+	display: none;
 }
 </style>

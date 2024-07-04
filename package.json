@@ -16,6 +16,7 @@
     "@vueuse/core": "^10.10.0",
     "animate-css-grid": "^1.5.1",
     "bpmn-js": "^17.9.0",
+    "diagram-js-minimap": "^5.1.0",
     "fast-glob": "^3.3.2",
     "gsap": "^3.12.5",
     "pinia": "^2.1.7",

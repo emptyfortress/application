@@ -8,7 +8,7 @@ import DirMenu from '@/components/DirMenu.vue'
 
 const props = defineProps<{
 	treeData: TreeNode[]
-	reset: Boolean
+	reset?: Boolean
 }>()
 
 const store = useStore()
@@ -218,19 +218,21 @@ div
 				q-icon(name="mdi-chevron-down" v-if="stat.children.length" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }").trig
 				q-icon(name="mdi-folder-outline" v-if="stat.data.type === 0").fold
 				WordHighlighter(:query="query") {{ node.text }}
-				DirMenu(
-					:stat="stat"
-					@kill="remove(stat)"
-					@add="add(stat)"
-					@addFolder="addFolder(stat)"
-					@rename="edit(stat)"
-					@duble="duble(stat)")
-				q-menu.q-px-md(no-parent-event v-model="stat.data.edit" cover anchor="top left")
-					q-input(:model-value="stat.data.text"
-					dense
-					autofocus counter
-					@keyup.enter="setText(stat, $event)"
-					)
+
+				// DirMenu(
+				// 	:stat="stat"
+				// 	@kill="remove(stat)"
+				// 	@add="add(stat)"
+				// 	@addFolder="addFolder(stat)"
+				// 	@rename="edit(stat)"
+				// 	@duble="duble(stat)")
+
+				// q-menu.q-px-md(no-parent-event v-model="stat.data.edit" cover anchor="top left")
+				// 	q-input(:model-value="stat.data.text"
+				// 	dense
+				// 	autofocus counter
+				// 	@keyup.enter="setText(stat, $event)"
+				// 	)
 </template>
 
 <style scoped lang="scss">
@@ -248,7 +250,8 @@ div
 	}
 
 	&:hover {
-		background: hsla(0, 0%, 91%);
+		// background: hsla(0, 0%, 91%);
+		background: #edf0f8;
 	}
 }
 
