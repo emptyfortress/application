@@ -12,7 +12,7 @@ const store = useStore()
 <style scoped lang="scss">
 .bl {
 	background: #fff;
-	height: calc(100vh - 150px);
+	height: var(--panel-height);
 	padding: 1rem;
 	margin-right: 0.5rem;
 }

@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
+import { useStore } from '@/stores/store'
 
 declare module 'vue-router' {
 	interface Bread {
@@ -22,12 +23,6 @@ const router = createRouter({
 			path: '/',
 			name: 'home',
 			component: HomeView,
-		},
-		{
-			path: '/:id',
-			name: 'main',
-			component: () => import('@/views/Main.vue'),
-			props: true,
 		},
 		{
 			path: '/editor',
@@ -77,7 +72,15 @@ const router = createRouter({
 
 const DEFAULT_TITLE = 'Конструктор приложений'
 router.beforeEach((to) => {
-	document.title = to.meta.title || DEFAULT_TITLE
+	const store = useStore()
+	document.title = store.currentNode?.data.text || DEFAULT_TITLE
+	if (to.path == '/') {
+		store.drawer = false
+		document.title = DEFAULT_TITLE
+	} else {
+		document.title = store.currentNode?.data.text || DEFAULT_TITLE
+	}
+	store.drawer = true
 })
 
 export default router

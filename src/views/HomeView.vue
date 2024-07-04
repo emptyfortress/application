@@ -3,17 +3,15 @@ import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import CreateDialog from '@/components/CreateDialog.vue'
 import { useStore } from '@/stores/store'
-// import { gsap } from 'gsap'
 import { myApps } from '@/stores/tree'
 import BaseTree from '@/components/BaseTree.vue'
 
 const store = useStore()
 const router = useRouter()
 
-// const goto = (evt: Event, row: any, index: number) => {
-// 	router.push(`/${row.name}`)
-// 	store.setApp(row)
-// }
+const goto = () => {
+	router.push('/editor/process')
+}
 
 const dialog = ref(false)
 
@@ -29,7 +27,6 @@ const splitterModel = ref(30)
 const hei = computed(() => {
 	return 'height: ' + (window.innerHeight - 180) + 'px;'
 })
-const treedata = []
 </script>
 
 <template lang="pug">
@@ -65,7 +62,7 @@ q-page(padding)
 						.q-mt-md Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime, autem consequatur. Aperiam quis consectetur beatae et labore rerum ut optio incidunt dolor ab exercitationem aliquam, fugit dolorum aspernatur, maiores ratione!
 
 						.q-mt-lg.q-gutter-x-lg
-							q-btn(flat  icon="mdi-pencil" label="Редактировать" color="primary" @click="") 
+							q-btn(flat  icon="mdi-pencil" label="Редактировать" color="primary" @click="goto") 
 								q-tooltip Редактировать
 							q-btn(flat  icon="mdi-content-duplicate" label="Дублировать" color="primary" @click="") 
 								q-tooltip Дублировать

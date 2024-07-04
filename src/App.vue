@@ -1,55 +1,62 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
-import { RouterLink, RouterView, useRoute } from 'vue-router'
+import { ref, computed } from 'vue'
+import { RouterLink, RouterView, useRoute, useRouter } from 'vue-router'
 import SvgIcon from '@/components/SvgIcon.vue'
 import { gsap } from 'gsap'
 import { useStore } from '@/stores/store'
 import LeftDrawer from '@/components/LeftDrawer.vue'
 
 const route = useRoute()
+const router = useRouter()
 const store = useStore()
 
-const beforeLeave = () => {}
+// const beforeLeave = () => {}
+//
+// const leave = async (el: any, done: any) => {
+// 	let div = document.createElement('div')
+// 	let cont = document.querySelector('#cont')
+// 	await cont?.appendChild(div)
+// 	await div.classList.add('cover')
+// 	await gsap.to(div, {
+// 		duration: 0.5,
+// 		left: 0,
+// 		ease: 'power3.out',
+// 	})
+// 	done()
+// 	div.remove()
+// }
+// const beforeEnter = (el: any) => {
+// 	let div = document.createElement('div')
+// 	let cont = document.querySelector('#cont')
+// 	cont?.appendChild(div)
+// 	div.classList.add('cover')
+// }
+//
+// const enter = async (el: any, done: any) => {
+// 	let div = document.querySelector('.cover')
+// 	await gsap.fromTo(
+// 		'.cover',
+// 		{
+// 			left: 0,
+// 		},
+// 		{
+// 			delay: 0.3,
+// 			left: '100%',
+// 			duration: 0.5,
+// 			ease: 'power3.out',
+// 		}
+// 	)
+// 	div?.remove()
+// 	done()
+// }
+const title = computed(() => {
+	return route.name == 'home' ? 'Конструктор приложений' : store.currentNode?.data.text
+})
 
-const leave = async (el: any, done: any) => {
-	let div = document.createElement('div')
-	let cont = document.querySelector('#cont')
-	await cont?.appendChild(div)
-	await div.classList.add('cover')
-	await gsap.to(div, {
-		duration: 0.5,
-		left: 0,
-		ease: 'power3.out',
-	})
-	done()
-	div.remove()
+const home = () => {
+	store.setCurrentNode(null)
+	router.push('/')
 }
-const beforeEnter = (el: any) => {
-	let div = document.createElement('div')
-	let cont = document.querySelector('#cont')
-	cont?.appendChild(div)
-	div.classList.add('cover')
-}
-
-const enter = async (el: any, done: any) => {
-	let div = document.querySelector('.cover')
-	await gsap.fromTo(
-		'.cover',
-		{
-			left: 0,
-		},
-		{
-			delay: 0.3,
-			left: '100%',
-			duration: 0.5,
-			ease: 'power3.out',
-		}
-	)
-	div?.remove()
-	done()
-}
-
-const leftDrawerOpen = ref(true)
 </script>
 
 <template lang="pug">
@@ -57,10 +64,10 @@ q-layout(view="hHh LpR fFf")
 	q-header.head
 		q-toolbar
 
-			q-toolbar-title(@click="$router.push('/')")
-				q-avatar
+			q-toolbar-title
+				q-avatar(@click="home")
 					SvgIcon.log(name="logo")
-				span.title Конструктор приложений
+				span.title(@click="home") {{ title }}
 
 			q-space
 			q-avatar(color="blue-2" size="32px")
@@ -75,14 +82,12 @@ q-layout(view="hHh LpR fFf")
 						q-item-section Выход
  
 
-	// LeftDrawer(v-model="leftDrawerOpen")
+	LeftDrawer(v-model="store.drawer")
 
 	q-page-container
 		#cont
 			router-view(v-slot="{ Component, route }")
 				component(:is="Component")
-				// transition(:name="route.meta.transition || 'fade'" :mode="route.meta.mode || 'out-in'")
-
 
 // transition(@before-enter="beforeEnter" @enter="enter" @leave="leave" :css="false" mode="out-in")
 </template>

@@ -4,6 +4,7 @@
 
 :root {
 	--panel-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2), -1px 0px 3px rgba(0, 0, 0, 0.2);
+	--panel-height: calc(100vh - 100px);
 }
 
 .q-splitter--vertical.q-splitter--workable > .q-splitter__separator {

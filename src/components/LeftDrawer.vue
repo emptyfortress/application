@@ -63,39 +63,26 @@ const leave = async (el: any, done: any) => {
 	done()
 }
 const calcUrl = computed(() => {
-	return '/' + store.app.name
+	return '/'
+	// return '/' + store.app.name
 })
 const navigate = (page: any) => {
-	store.setEditor(page.title)
-	store.setEtap(null)
+	// store.setEditor(page.title)
+	// store.setEtap(null)
 	// router.push(page.url)
 }
 </script>
 
 <template lang="pug">
-q-drawer.rel(v-model="modelValue" show-if-above behavior="desktop" side="left" :width="220" :mini="store.mini")
-
+q-drawer.rel(v-model="modelValue" behavior="desktop" side="left" :width="220" :mini="store.mini")
 	transition(@enter="enter" @leave="leave" :css="false" mode="out-in")
 
-		q-list.q-mt-xl(v-if="show")
-				q-item(clickable to="/")
-					q-item-section(avatar)
-						q-icon(name="mdi-home-roof")
-					q-item-section
-						q-item-label Мои приложения
-
-				q-item(clickable :to="calcUrl")
-					q-item-section(avatar)
-						q-icon(name="mdi-application-braces-outline")
-					q-item-section
-						q-item-label {{ store.app.title }}
-
-				q-item(clickable v-ripple v-for="page in pages" :to="page.url" @click="navigate(page)")
-					q-item-section(avatar)
-						q-icon(v-if="page.icon" :name="page.icon")
-						SvgIcon.icon(v-if="page.name" :name="page.name")
-					q-item-section
-						q-item-label {{ page.title }}
+		q-list(v-if="show")
+			q-item(clickable v-ripple v-for="page in pages" :to="page.url" @click="navigate(page)")
+				q-item-section(avatar)
+					q-icon(:name="page.icon")
+				q-item-section
+					q-item-label {{ page.title }}
 
 	q-btn(v-if="show" flat round color="primary"  @click="store.mini = !store.mini" dense) 
 		q-icon(v-if="!store.mini" name="mdi-backburger")
@@ -106,16 +93,9 @@ q-drawer.rel(v-model="modelValue" show-if-above behavior="desktop" side="left" :
 :deep(.q-drawer) {
 	background: transparent;
 }
-.icon {
-	height: 24px;
-	transform: translateX(-3px);
-}
 .q-item.q-router-link--active {
 	background: $primary;
 	color: white;
-}
-.q-item:first-child {
-	// margin-bottom: 2rem;
 }
 .q-btn {
 	position: absolute;

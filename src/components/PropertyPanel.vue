@@ -46,6 +46,6 @@ const prop2 = [
 .prop {
 	background: #fff;
 	margin-left: 0.5rem;
-	height: calc(100vh - 150px);
+	height: var(--panel-height);
 }
 </style>

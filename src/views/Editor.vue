@@ -19,25 +19,18 @@ const go = (e: number) => {
 	} else return
 }
 
-onMounted(() => {
-	gsap.from('.fuck', {
-		delay: 0.5,
-		x: -600,
-		opacity: 0,
-		ease: 'expo.out',
-	})
-})
+// onMounted(() => {
+// 	gsap.from('.fuck', {
+// 		delay: 0.5,
+// 		x: -600,
+// 		opacity: 0,
+// 		ease: 'expo.out',
+// 	})
+// })
 </script>
 
 <template lang="pug">
-q-page(padding)
-	h6.q-gutter-x-sm
-		span(@click="go(1)") {{ store.app.title }}
-		span(v-if="store.editor") &rarr;
-		span(@click="go(2)") {{ store.editor }}
-		span(v-if="store.etap") &rarr;
-		span(v-if="store.etap") {{ store.etap }}
-
+q-page
 	q-splitter.split(v-model="split")
 		template(v-slot:before)
 			router-view
@@ -52,8 +45,7 @@ Teleport(to="body")
 
 <style scoped lang="scss">
 .split {
-	// width: 100%;
-	height: calc(100vh - 150px);
+	height: var(--panel-height);
 }
 .q-card {
 	height: 100%;
