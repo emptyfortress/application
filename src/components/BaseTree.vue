@@ -8,6 +8,7 @@ import DirMenu from '@/components/DirMenu.vue'
 
 const props = defineProps<{
 	treeData: TreeNode[]
+	reset: Boolean
 }>()
 
 const store = useStore()

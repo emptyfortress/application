@@ -11,13 +11,13 @@ const route = useRoute()
 const router = useRouter()
 const split = ref(80)
 
-const go = (e: number) => {
-	if (e == 1) router.push(`/${store.app.title}`)
-	if (e == 2 && store.etap) {
-		router.back()
-		store.setEtap(null)
-	} else return
-}
+// const go = (e: number) => {
+// 	if (e == 1) router.push(`/${store.app.title}`)
+// 	if (e == 2 && store.etap) {
+// 		router.back()
+// 		store.setEtap(null)
+// 	} else return
+// }
 
 // onMounted(() => {
 // 	gsap.from('.fuck', {

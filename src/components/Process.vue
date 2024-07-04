@@ -16,7 +16,7 @@ const route = useRoute()
 const canvas = ref()
 
 const goto = (e: string) => {
-	store.setEtap(e)
+	// store.setEtap(e)
 	router.push('/editor/etap')
 }
 

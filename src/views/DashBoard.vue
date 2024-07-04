@@ -17,10 +17,10 @@ const route = useRoute()
 const store = useStore()
 
 const currentApp = computed(() => {
-	return store.appList.find((item) => item.name == props.id)
+	// return store.appList.find((item) => item.name == props.id)
 })
 
-store.setApp(currentApp.value!)
+// store.setApp(currentApp.value!)
 </script>
 
 <template lang="pug">

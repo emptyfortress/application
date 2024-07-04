@@ -27,7 +27,7 @@ interface NodeData {
 	selected?: boolean
 	// restrict?: boolean
 	// icon?: string
-	// type: number
+	type: number
 	// typ?: boolean
 	// drop?: boolean
 	// drag?: boolean

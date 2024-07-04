@@ -19,7 +19,7 @@ const action = () => {
 	dialog.value = !dialog.value
 }
 const create = (e: App) => {
-	store.addAppToList(e)
+	// store.addAppToList(e)
 }
 const selected = ref('0.1.5')
 const splitterModel = ref(30)

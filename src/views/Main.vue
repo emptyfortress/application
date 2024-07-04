@@ -24,8 +24,8 @@ const pages = [
 // }
 
 const navigate = (page: any) => {
-	store.setEditor(page.title)
-	store.setEtap(null)
+	// store.setEditor(page.title)
+	// store.setEtap(null)
 	router.push(page.url)
 }
 </script>
