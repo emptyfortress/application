@@ -31,6 +31,12 @@ const pages = [
 		url: '/editor/roles',
 	},
 	{
+		id: 7,
+		title: 'Состояния',
+		icon: 'mdi-state-machine',
+		url: '/editor/state',
+	},
+	{
 		id: 6,
 		title: 'Списки',
 		icon: 'mdi-script-text-outline',

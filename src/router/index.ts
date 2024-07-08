@@ -51,6 +51,11 @@ const router = createRouter({
 					component: () => import('@/components/List.vue'),
 				},
 				{
+					path: 'state',
+					name: 'States',
+					component: () => import('@/components/State.vue'),
+				},
+				{
 					path: 'etap',
 					name: 'etap',
 					component: () => import('@/components/Etap.vue'),

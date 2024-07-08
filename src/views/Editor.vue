@@ -80,6 +80,9 @@ Teleport(to="body")
 .split {
 	height: var(--panel-height);
 }
+.q-page {
+	padding-right: 1rem;
+}
 .q-card {
 	height: 100%;
 	padding: 1rem;
