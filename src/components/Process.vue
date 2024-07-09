@@ -42,6 +42,37 @@ onMounted(() => {
 			const { warnings, message } = err
 			console.log('something went wrong:', warnings, message)
 		})
+
+	var eventBus = modeler.get('eventBus')
+
+	const events = [
+		// 'element.hover',
+		// 'element.out',
+		'element.click',
+		'element.dblclick',
+		// 'element.mousedown',
+		// 'element.mouseup',
+	]
+	const myClick = eventBus.on('element.click', (e) => {
+		if (!!store.currentBO && e.element.id == store.currentBO.id) {
+			store.setCurrentBO(null)
+		} else {
+			store.setCurrentBO({
+				id: e.element.id,
+				type: e.element.type,
+				name: e.element.businessObject.name,
+			})
+		}
+	})
+
+	// events.forEach(function (event) {
+	// 	eventBus.on(event, function (e) {
+	// 		// e.element = the model element
+	// 		// e.gfx = the graphical element
+	// 		console.log(e.element)
+	// 		console.log(e.element.businessObject.name)
+	// 	})
+	// })
 })
 </script>
 
