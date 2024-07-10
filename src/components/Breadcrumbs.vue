@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-// import { useStore } from '@/stores/store'
+import { useStore } from '@/stores/store'
 import { useRouter, useRoute } from 'vue-router'
 
 const router = useRouter()
 const route = useRoute()
 
-// const store = useStore()
+const store = useStore()
 
 const calcTitle = (item: string) => {
 	switch (item) {
@@ -47,11 +47,14 @@ const bread = computed(() => {
 		url: calcUrl(item),
 	}))
 })
+const reset = () => {
+	store.setCurrentBO(null)
+}
 </script>
 
 <template lang="pug">
 q-breadcrumbs.q-ml-xl
-	q-breadcrumbs-el(v-for="br in bread" :key="br.title" :label="br.title" :to="br.url")
+	q-breadcrumbs-el(v-for="br in bread" :key="br.title" :label="br.title" :to="br.url" @click="reset")
 </template>
 
 <style scoped lang="scss"></style>

@@ -87,6 +87,7 @@ const leave = async (el: any, done: any) => {
 const navigate = (url: string) => {
 	let temp = '/' + route.params.id + '/editor/' + url
 	router.push(temp)
+	store.setCurrentBO(null)
 }
 const calcClass = (e: string) => {
 	let temp = '/' + route.params.id + '/editor/' + e

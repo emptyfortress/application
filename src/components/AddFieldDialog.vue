@@ -41,6 +41,9 @@ q-dialog(v-model="modelValue")
 				label Название
 				q-input(v-model="name" filled autofocus)
 				br
+				label Метка
+				q-input(v-model="label" filled autofocus)
+				br
 				label.q-mt-sm Тип
 				q-select(v-model="type" filled :options="options")
 

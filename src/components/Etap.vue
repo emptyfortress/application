@@ -1,8 +1,12 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import AddFieldDialog from '@/components/AddFieldDialog.vue'
 
 const router = useRouter()
 const route = useRoute()
+
+const dialog = ref(false)
 </script>
 
 <template lang="pug">
@@ -12,8 +16,9 @@ const route = useRoute()
 			h5 Форма "{{ route.params.etap }}"
 			q-btn(flat color="primary" label="Выбрать форму из доступных" @click="") 
 
-		q-btn(flat icon="mdi-plus-circle-outline" color="primary" @click="" label="Добавить поле") 
+		q-btn(flat icon="mdi-plus-circle-outline" color="primary" @click="dialog = !dialog" label="Добавить поле") 
 
+AddFieldDialog(v-model="dialog")
 </template>
 
 <style scoped lang="scss">
