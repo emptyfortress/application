@@ -18,6 +18,9 @@ const calcTitle = (item: string) => {
 			return 'Роли'
 		case 'lists':
 			return 'Списки'
+		case route.params.etap:
+			return route.params.etap
+
 		default:
 			return item
 	}
@@ -32,6 +35,9 @@ const calcUrl = (item: string) => {
 			return '/' + route.params.id + '/editor/roles'
 		case 'lists':
 			return '/' + route.params.id + '/editor/lists'
+		case route.params.etap:
+			return '/' + route.params.id + '/editor/process/' + route.params.etap
+
 		default:
 			return '/' + item
 	}
