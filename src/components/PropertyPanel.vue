@@ -30,24 +30,23 @@ const prop1 = [
 // 	{ id: 8, label: 'Реальный срок исполнения' },
 // ]
 
-const goto = () => {
-	router.push('/editor/etap')
-	store.addBread(store.currentBO.name)
+const goto = (e: string) => {
+	router.push(`/Заявка/editor/process/${e}`)
 }
 </script>
 
 <template lang="pug">
 .prop
 	template(v-if="!!store.currentBO")
-		q-list
-			q-item.ani(clickable)
-				q-item-section type: {{ store.currentBO.type }}
-			q-item.ani(clickable)
-				q-item-section name: {{ store.currentBO.name }}
-			q-item.ani(clickable)
-				q-item-section id: {{ store.currentBO.id }}
+		.grid
+			div id:
+			div {{ store.currentBO.id }}
+			div Тип:
+			div {{ store.currentBO.type }}
+			div Название:
+			.text-bold {{ store.currentBO.name }}
 
-		q-btn(unelevated color="primary" label="Edit" @click="goto") 
+		q-btn(unelevated color="primary" label="Редактировать" @click="goto(store.currentBO.name)") 
 
 	template(v-else)
 		q-list
@@ -56,9 +55,20 @@ const goto = () => {
 </template>
 
 <style scoped lang="scss">
+.grid {
+	padding: 1rem;
+	display: grid;
+	grid-template-columns: auto 1fr;
+	column-gap: 1rem;
+	row-gap: 0.5rem;
+}
 .prop {
 	background: #fff;
 	margin-left: 0.5rem;
 	height: var(--panel-height);
+}
+.q-btn {
+	display: block;
+	margin: 1rem auto;
 }
 </style>

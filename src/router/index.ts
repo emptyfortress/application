@@ -64,7 +64,7 @@ const router = createRouter({
 					component: () => import('@/components/State.vue'),
 				},
 				{
-					path: 'etap',
+					path: '/:id/editor/process/:etap',
 					name: 'Этап',
 					component: () => import('@/components/Etap.vue'),
 				},

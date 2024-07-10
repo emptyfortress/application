@@ -1,28 +1,35 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useRouter, useRoute } from 'vue-router'
+
+const router = useRouter()
+const route = useRoute()
+</script>
 
 <template lang="pug">
 .bl
 	.col
-		.row.justify-between
-			h5 Редактирование формы
+		.zag
+			h5 Форма "{{ route.params.etap }}"
 			q-btn(flat color="primary" label="Выбрать форму из доступных" @click="") 
-		.inp Поле
-		.inp Поле
-		.inp Поле
-		.inp Поле
-		.inp Поле
-		.inp Поле
 
-	br
-	q-btn(unelevated color="primary" label="Превью" @click="") 
+		q-btn(flat icon="mdi-plus-circle-outline" color="primary" @click="" label="Добавить поле") 
 
 </template>
 
 <style scoped lang="scss">
 .col {
+	height: 100%;
 	display: flex;
 	flex-direction: column;
+	justify-content: space-between;
+	align-items: start;
 	gap: 0.5rem;
+}
+.zag {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 .inp {
 	width: 200px;

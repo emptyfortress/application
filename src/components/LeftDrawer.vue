@@ -98,7 +98,7 @@ const calcClass = (e: string) => {
 q-drawer.rel(v-model="modelValue" behavior="desktop" side="left" :width="220" :mini="store.mini")
 	transition(@enter="enter" @leave="leave" :css="false" mode="out-in")
 
-		q-list
+		q-list(v-if="show")
 			q-item(clickable v-ripple v-for="page in pages" :key="page.id" @click="navigate(page.url)" :class="calcClass(page.url)")
 				q-item-section(avatar)
 					q-icon(:name="page.icon")
