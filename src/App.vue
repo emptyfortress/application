@@ -5,6 +5,7 @@ import SvgIcon from '@/components/SvgIcon.vue'
 import { gsap } from 'gsap'
 import { useStore } from '@/stores/store'
 import LeftDrawer from '@/components/LeftDrawer.vue'
+import Breadcrumbs from '@/components/Breadcrumbs.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -49,9 +50,9 @@ const store = useStore()
 // 	div?.remove()
 // 	done()
 // }
-const title = computed(() => {
-	return route.name == 'home' ? 'Конструктор приложений' : store.currentNode?.data.text
-})
+// const title = computed(() => {
+// 	return route.name == 'home' ? 'Конструктор приложений' : store.currentNode?.data.text
+// })
 
 const home = () => {
 	store.setCurrentNode(null)
@@ -64,11 +65,13 @@ q-layout(view="hHh LpR fFf")
 	q-header.head
 		q-toolbar
 
-			q-toolbar-title
-				q-avatar(@click="home")
-					SvgIcon.log(name="logo")
-				span.title(@click="home") {{ title }}
+			.row.items-center
+				q-toolbar-title
+						q-avatar(@click="home")
+							SvgIcon.log(name="logo")
+						span.title(@click="home") Конструктор приложений
 
+				Breadcrumbs(v-if="route.name !== 'home'")
 			q-space
 			q-avatar(color="blue-2" size="32px")
 				img(src="@/assets/img/user0.svg")

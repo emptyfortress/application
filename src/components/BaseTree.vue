@@ -5,6 +5,9 @@ import '@he-tree/vue/style/default.css'
 import { useStore } from '@/stores/store'
 import WordHighlighter from 'vue-word-highlighter'
 import DirMenu from '@/components/DirMenu.vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const props = defineProps<{
 	treeData: TreeNode[]
@@ -59,7 +62,8 @@ const select = (n: Stat) => {
 	tree.value.statsFlat.map((item: Stat) => (item.data.selected = false))
 	n.data.selected = true
 	store.setCurrentNode(n)
-	console.log(n)
+	router.push(n.data.text)
+	// console.log(n)
 }
 
 const toggle = (stat: any) => {

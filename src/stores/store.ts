@@ -6,6 +6,7 @@ export const useStore = defineStore('store', {
 		drawer: false,
 		currentNode: null as Stat | null,
 		currentBO: null as BusinessObject | null,
+		bread: [] as String[],
 	}),
 	getters: {},
 	actions: {
@@ -14,6 +15,13 @@ export const useStore = defineStore('store', {
 		},
 		setCurrentBO(e: BusinessObject | null) {
 			this.currentBO = e
+		},
+		setBread(e: string) {
+			this.bread = []
+			this.bread.push(e)
+		},
+		addBread(e: string) {
+			this.bread.push(e)
 		},
 	},
 })

@@ -23,9 +23,17 @@ const router = createRouter({
 			path: '/',
 			name: 'home',
 			component: HomeView,
+			children: [
+				{
+					path: ':id',
+					name: 'start',
+					component: () => import('@/components/Start.vue'),
+					props: true,
+				},
+			],
 		},
 		{
-			path: '/editor',
+			path: '/:id/editor',
 			name: 'editor',
 			component: () => import('@/views/Editor.vue'),
 			props: true,
@@ -57,7 +65,7 @@ const router = createRouter({
 				},
 				{
 					path: 'etap',
-					name: 'etap',
+					name: 'Этап',
 					component: () => import('@/components/Etap.vue'),
 				},
 			],

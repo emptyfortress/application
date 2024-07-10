@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import SvgIcon from '@/components/SvgIcon.vue'
+import { ref, computed, reactive, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from '@/stores/store'
 import { gsap } from 'gsap'
@@ -11,42 +10,59 @@ const store = useStore()
 
 const modelValue = defineModel()
 
-const pages = [
+const par = computed(() => {
+	return route.params.id
+})
+
+// const calcUrl = (e: string) => {
+// 	return '/' + route.params.id + '/editor/' + e
+// }
+
+// watch(
+// 	() => route.fullPath,
+// 	(newPath, oldPath) => {
+// 		par.value = newPath.split('/')[1]
+// 	}
+// )
+
+const pages = reactive([
 	{
 		id: 0,
 		title: 'Процесс',
 		icon: 'mdi-shuffle-variant',
-		url: '/editor/process',
+		url: 'process',
 	},
 	{
 		id: 1,
 		title: 'Формы',
 		icon: 'mdi-list-box-outline',
-		url: '/editor/forms',
+		url: 'forms',
 	},
 	{
 		id: 1,
 		title: 'Роли',
 		icon: 'mdi-account-circle-outline',
-		url: '/editor/roles',
+		url: 'roles',
+		// url: `/${par.value}/editor/roles`,
 	},
-	{
-		id: 7,
-		title: 'Состояния',
-		icon: 'mdi-state-machine',
-		url: '/editor/state',
-	},
+	// {
+	// 	id: 7,
+	// 	title: 'Состояния',
+	// 	icon: 'mdi-state-machine',
+	// 	// url: `/${par.value}/editor/state`,
+	// },
 	{
 		id: 6,
 		title: 'Списки',
 		icon: 'mdi-script-text-outline',
-		url: '/editor/lists',
+		url: 'lists',
+		// url: `/${par.value}/editor/lists`,
 	},
-]
+])
 const mini = ref(false)
 
 const show = computed(() => {
-	return route.name == 'home' ? false : true
+	return route.path.includes('editor') ? true : false
 })
 const enter = async (el: any, done: any) => {
 	await gsap.from('.q-item', {
@@ -68,14 +84,13 @@ const leave = async (el: any, done: any) => {
 	})
 	done()
 }
-const calcUrl = computed(() => {
-	return '/'
-	// return '/' + store.app.name
-})
-const navigate = (page: any) => {
-	// store.setEditor(page.title)
-	// store.setEtap(null)
-	// router.push(page.url)
+const navigate = (url: string) => {
+	let temp = '/' + route.params.id + '/editor/' + url
+	router.push(temp)
+}
+const calcClass = (e: string) => {
+	let temp = '/' + route.params.id + '/editor/' + e
+	if (temp == route.path) return 'active'
 }
 </script>
 
@@ -83,14 +98,14 @@ const navigate = (page: any) => {
 q-drawer.rel(v-model="modelValue" behavior="desktop" side="left" :width="220" :mini="store.mini")
 	transition(@enter="enter" @leave="leave" :css="false" mode="out-in")
 
-		q-list(v-if="show")
-			q-item(clickable v-ripple v-for="page in pages" :to="page.url" @click="navigate(page)")
+		q-list
+			q-item(clickable v-ripple v-for="page in pages" :key="page.id" @click="navigate(page.url)" :class="calcClass(page.url)")
 				q-item-section(avatar)
 					q-icon(:name="page.icon")
 				q-item-section
 					q-item-label {{ page.title }}
 
-	q-btn(v-if="show" flat round color="primary"  @click="store.mini = !store.mini" dense) 
+	q-btn(flat round color="primary"  @click="store.mini = !store.mini" dense) 
 		q-icon(v-if="!store.mini" name="mdi-backburger")
 		q-icon(v-else name="mdi-forwardburger")
 </template>
@@ -99,7 +114,8 @@ q-drawer.rel(v-model="modelValue" behavior="desktop" side="left" :width="220" :m
 :deep(.q-drawer) {
 	background: transparent;
 }
-.q-item.q-router-link--active {
+.q-item.q-router-link--active,
+.active {
 	background: $primary;
 	color: white;
 }

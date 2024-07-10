@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { useStore } from '@/stores/store'
 
 const store = useStore()
-const route = useRoute()
+const router = useRouter()
 
 const prop1 = [
 	{ id: 0, label: 'Владелец процесса' },
@@ -29,6 +29,11 @@ const prop1 = [
 // 	{ id: 8, label: 'Реальный срок исполнения' },
 // 	{ id: 8, label: 'Реальный срок исполнения' },
 // ]
+
+const goto = () => {
+	router.push('/editor/etap')
+	store.addBread(store.currentBO.name)
+}
 </script>
 
 <template lang="pug">
@@ -41,6 +46,8 @@ const prop1 = [
 				q-item-section name: {{ store.currentBO.name }}
 			q-item.ani(clickable)
 				q-item-section id: {{ store.currentBO.id }}
+
+		q-btn(unelevated color="primary" label="Edit" @click="goto") 
 
 	template(v-else)
 		q-list

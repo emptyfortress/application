@@ -12,6 +12,13 @@ import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css'
 import zay from '@/stores/zayavka.bpmn?raw'
 // import { gsap } from 'gsap'
 
+const props = defineProps({
+	id: {
+		type: String,
+		required: true,
+	},
+})
+
 const store = useStore()
 const route = useRoute()
 const router = useRouter()
@@ -55,6 +62,18 @@ onMounted(() => {
 			const { warnings, message } = err
 			console.log('something went wrong:', warnings, message)
 		})
+
+	if (store.currentNode == null) {
+		store.setCurrentNode({
+			data: {
+				text: 'Заявка',
+				text1: 'Описание',
+				hidden: false,
+				selected: false,
+				type: 1,
+			},
+		})
+	}
 })
 </script>
 
