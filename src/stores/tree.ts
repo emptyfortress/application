@@ -27,15 +27,15 @@ const myApps = [
 ]
 
 const etaps = [
-	{ id: 0, label: 'Создал заявку', active: false },
-	{ id: 1, label: 'Согласовать заявку', active: false },
-	{ id: 2, label: 'Исправить заявку', active: false },
-	{ id: 3, label: 'Рассмотреть заявку', active: false },
-	{ id: 4, label: 'Обработать отказ', active: false },
-	{ id: 5, label: 'Исполнить заявку', active: false },
-	{ id: 6, label: 'Принять результаты', active: false },
-	{ id: 7, label: 'Заявка отменена', active: false },
-	{ id: 8, label: 'Заявка выполнена', active: false },
+	{ id: 0, label: 'Создал заявку', selected: false },
+	{ id: 1, label: 'Согласовать заявку', selected: false },
+	{ id: 2, label: 'Исправить заявку', selected: false },
+	{ id: 3, label: 'Рассмотреть заявку', selected: false },
+	{ id: 4, label: 'Обработать отказ', selected: false },
+	{ id: 5, label: 'Исполнить заявку', selected: false },
+	{ id: 6, label: 'Принять результаты', selected: false },
+	{ id: 7, label: 'Заявка отменена', selected: false },
+	{ id: 8, label: 'Заявка выполнена', selected: false },
 ]
 
 export { myApps, etaps }

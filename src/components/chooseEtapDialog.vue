@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 import { etaps } from '@/stores/tree'
 // import { uid } from 'quasar'
 
@@ -28,6 +28,7 @@ const emit = defineEmits(['choose'])
 // 	modelValue.value = false
 // }
 // const options = ['Строка', 'Сотрудник', 'Текст', 'Кнопка', 'Кнопка действий']
+const chips = reactive(etaps)
 </script>
 
 <template lang="pug">
@@ -39,7 +40,12 @@ q-dialog(v-model="modelValue")
 
 		q-form(@submit="close")
 			q-card-section
-				q-chip(v-for="chip in etaps" :label="chip.label" :key="chip.id")
+				q-chip(v-for="chip in chips"
+					clickable
+					:label="chip.label"
+					v-model:selected="chip.selected"
+					:key="chip.id"
+					)
 				// label Метка
 				// q-input(v-model="label" filled autofocus)
 				// br
@@ -54,4 +60,12 @@ q-dialog(v-model="modelValue")
 				q-btn(unelevated color="primary" label="Выбрать" type="submit")
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.q-chip--selected {
+	background: $primary;
+	color: white;
+}
+:deep(.q-chip__icon) {
+	color: white;
+}
+</style>

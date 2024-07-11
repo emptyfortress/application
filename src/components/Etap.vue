@@ -2,11 +2,13 @@
 import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import AddFieldDialog from '@/components/AddFieldDialog.vue'
+import chooseEtapDialog from '@/components/chooseEtapDialog.vue'
 
 const router = useRouter()
 const route = useRoute()
 
 const dialog = ref(false)
+const dialog1 = ref(false)
 </script>
 
 <template lang="pug">
@@ -14,11 +16,12 @@ const dialog = ref(false)
 	.col
 		.zag
 			h5 Форма "{{ route.params.etap }}"
-			q-btn(flat color="primary" label="Выбрать форму из доступных" @click="") 
+			q-btn(flat color="primary" label="Выбрать форму из доступных" @click="dialog1 = !dialog1") 
 
 		q-btn(flat icon="mdi-plus-circle-outline" color="primary" @click="dialog = !dialog" label="Добавить поле") 
 
 AddFieldDialog(v-model="dialog")
+chooseEtapDialog(v-model="dialog1")
 </template>
 
 <style scoped lang="scss">

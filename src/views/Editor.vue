@@ -4,6 +4,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { useStore } from '@/stores/store'
 import PropertyPanel from '@/components/PropertyPanel.vue'
 import VueDraggableResizable from 'vue-draggable-resizable'
+import { uid } from 'quasar'
 
 import BpmnModeler from 'bpmn-js/lib/Modeler'
 import 'bpmn-js/dist/assets/diagram-js.css'
@@ -63,17 +64,17 @@ onMounted(() => {
 			console.log('something went wrong:', warnings, message)
 		})
 
-	if (store.currentNode == null) {
-		store.setCurrentNode({
-			data: {
-				text: 'Заявка',
-				text1: 'Описание',
-				hidden: false,
-				selected: false,
-				type: 1,
-			},
-		})
-	}
+	// if (store.currentNode == null) {
+	// 	store.setCurrentNode({
+	// 		data: {
+	// 			id: uid(),
+	// 			text: 'Заявка',
+	// 			text1: 'Описание',
+	// 			selected: false,
+	// 			type: 1,
+	// 		},
+	// 	})
+	// }
 })
 </script>
 

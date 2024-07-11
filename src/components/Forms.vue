@@ -48,7 +48,7 @@ const pagination = {
 }
 
 const dialog = ref(false)
-const choose = (e) => {
+const choose = () => {
 	dialog.value = !dialog.value
 }
 const edit = (e: string) => {
@@ -67,7 +67,7 @@ const edit = (e: string) => {
 						q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
 
 		template(v-slot:body-cell-etap="props")
-			q-td.cursor-pointer(:props="props" @click="choose(props.row.etap)")
+			q-td.cursor-pointer(:props="props" @click="choose")
 				q-chip(dense v-for="item in props.value") {{ item }}
 
 		template(v-slot:body-cell-actions="props")

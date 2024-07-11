@@ -43,7 +43,7 @@ onMounted(() => {
 			console.log('something went wrong:', warnings, message)
 		})
 
-	var eventBus = modeler.get('eventBus')
+	var eventBus: any = modeler.get('eventBus')
 
 	const events = [
 		// 'element.hover',
@@ -53,7 +53,7 @@ onMounted(() => {
 		// 'element.mousedown',
 		// 'element.mouseup',
 	]
-	const myClick = eventBus.on('element.click', (e) => {
+	const myClick = eventBus.on('element.click', (e: any) => {
 		if (!!store.currentBO && e.element.id == store.currentBO.id) {
 			store.setCurrentBO(null)
 		} else {
