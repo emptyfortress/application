@@ -11,7 +11,7 @@ import 'bpmn-js/dist/assets/diagram-js.css'
 import 'bpmn-js/dist/assets/bpmn-js.css'
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css'
 import zay from '@/stores/zayavka.bpmn?raw'
-// import { gsap } from 'gsap'
+import { gsap } from 'gsap'
 
 const props = defineProps({
 	id: {
@@ -33,14 +33,14 @@ const split = ref(80)
 // 	} else return
 // }
 
-// onMounted(() => {
-// 	gsap.from('.fuck', {
-// 		delay: 0.5,
-// 		x: -600,
-// 		opacity: 0,
-// 		ease: 'expo.out',
-// 	})
-// })
+onMounted(() => {
+	gsap.from('.fuck', {
+		delay: 0.5,
+		x: -600,
+		opacity: 0,
+		ease: 'expo.out',
+	})
+})
 
 const canv = ref()
 
@@ -86,14 +86,11 @@ q-page
 		template(v-slot:after)
 			PropertyPanel
 
-Teleport(to="body")
-	vue-draggable-resizable.fuck(:x="100" :y="-300" :w="200" :h="150" :active="false" :z="2000")
-		q-card
-			.canv(ref="canv")
+	Teleport(to="body")
+		vue-draggable-resizable.fuck(:x="100" :y="-300" :w="100" :h="100" :active="false" :z="2000")
+			q-card
+				.canv(ref="canv")
 			
-// vue-draggable-resizable(:x="100" :y="-300" :w="200" :h="150" :active="false" :z="2000")
-// 	q-card
-// 		.canv(ref="canv")
 </template>
 
 <style scoped lang="scss">

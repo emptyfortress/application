@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { uid } from 'quasar'
 
 const modelValue = defineModel<boolean>()
 
 const name = ref('')
+const label = ref('')
 const type = ref('Строка')
 
 const close = () => {
@@ -17,12 +17,14 @@ const emit = defineEmits(['create'])
 
 const create = () => {
 	let tmp = {
-		id: uid(),
+		id: +new Date(),
 		name: name.value,
 		type: type.value,
+		label: label.value,
 	}
 	emit('create', tmp)
 	name.value = ''
+	label.value = ''
 	type.value = ''
 	modelValue.value = false
 }

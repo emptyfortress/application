@@ -62,7 +62,7 @@ const edit = (e: string) => {
 	q-table(flat :columns="cols" :rows="forms" :pagination="pagination")
 		template(v-slot:body-cell-name="props")
 			q-td(:props="props")
-				div {{ props.row.name }}
+				div Форма "{{ props.row.name }}"
 					q-popup-edit(v-model="props.row.name" title="Название формы" auto-save v-slot="scope")
 						q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
 

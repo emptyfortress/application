@@ -47,7 +47,7 @@ const goto = (e: string) => {
 			div Название:
 			.text-bold {{ store.currentBO.name }}
 
-		q-btn(unelevated color="primary" label="Редактировать" @click="goto(store.currentBO.name)") 
+		q-btn(unelevated color="primary" label="Настроить форму" @click="goto(store.currentBO.name)") 
 
 	template(v-else)
 		q-list
