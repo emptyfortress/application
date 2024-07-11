@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { useStore } from '@/stores/store'
 
 const store = useStore()
 const router = useRouter()
+const route = useRoute()
 
 const prop1 = [
 	{ id: 0, label: 'Владелец процесса' },
@@ -31,7 +32,7 @@ const prop1 = [
 // ]
 
 const goto = (e: string) => {
-	router.push(`/Заявка/editor/process/${e}`)
+	router.push(`/${route.params.id}/editor/process/${e}`)
 }
 </script>
 
