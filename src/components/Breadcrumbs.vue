@@ -35,8 +35,9 @@ const calcUrl = (item: string) => {
 			return '/' + route.params.id + '/editor/roles'
 		case 'lists':
 			return '/' + route.params.id + '/editor/lists'
+
 		case route.params.etap:
-			return '/' + route.params.id + '/editor/process/' + route.params.etap
+			return '/' + route.params.id + '/editor/process'
 
 		default:
 			return '/' + item
@@ -53,14 +54,20 @@ const bread = computed(() => {
 		url: calcUrl(item),
 	}))
 })
-const reset = () => {
+const reset = (url: string) => {
+	let arr = url.split('/')
+	// console.log(arr.length)
+	if (arr.length == 4) {
+		// console.log('fuck')
+	}
 	store.setCurrentBO(null)
 }
 </script>
 
 <template lang="pug">
 q-breadcrumbs.q-ml-xl
-	q-breadcrumbs-el(v-for="br in bread" :key="br.title" :label="br.title" :to="br.url" @click="reset")
+	q-breadcrumbs-el(v-for="br in bread" :key="br.title" :label="br.title" :to="br.url" @click="reset(br.url)")
+	q-breadcrumbs-el(v-if="route.name == 'Этап'") Форма
 </template>
 
 <style scoped lang="scss"></style>

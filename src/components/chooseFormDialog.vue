@@ -28,9 +28,11 @@ const selected = computed(() => {
 	return chips.filter((item: any) => item.selected == true)
 })
 const store = useStore()
+
 const loadForm = () => {
 	store.selectForm()
 	close()
+	reset()
 }
 </script>
 

@@ -4,6 +4,7 @@ export const useStore = defineStore('store', {
 	state: () => ({
 		mini: false,
 		drawer: false,
+		drawer1: false,
 		currentNode: null as Stat | null,
 		currentBO: null as BusinessObject | null,
 		bread: [] as String[],
@@ -11,6 +12,9 @@ export const useStore = defineStore('store', {
 	}),
 	getters: {},
 	actions: {
+		toggleDrawer() {
+			this.drawer1 = !this.drawer1
+		},
 		setCurrentNode(e: Stat | null) {
 			this.currentNode = e
 		},
@@ -26,6 +30,9 @@ export const useStore = defineStore('store', {
 		},
 		selectForm() {
 			this.formSelected = true
+		},
+		unselectForm() {
+			this.formSelected = false
 		},
 	},
 })

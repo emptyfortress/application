@@ -21,6 +21,8 @@ const create = () => {
 		name: name.value,
 		type: type.value,
 		label: label.value,
+		visible: true,
+		readonly: false,
 	}
 	emit('create', tmp)
 	name.value = ''

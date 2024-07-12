@@ -49,11 +49,12 @@ onMounted(() => {
 		// 'element.hover',
 		// 'element.out',
 		'element.click',
-		'element.dblclick',
+		// 'element.dblclick',
 		// 'element.mousedown',
 		// 'element.mouseup',
 	]
 	const myClick = eventBus.on('element.click', (e: any) => {
+		console.log(e.element.id)
 		if (!!store.currentBO && e.element.id == store.currentBO.id) {
 			store.setCurrentBO(null)
 		} else {

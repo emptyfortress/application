@@ -6,6 +6,7 @@ import { gsap } from 'gsap'
 import { useStore } from '@/stores/store'
 import LeftDrawer from '@/components/LeftDrawer.vue'
 import Breadcrumbs from '@/components/Breadcrumbs.vue'
+import FieldDrawer from '@/components/FieldDrawer.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -61,7 +62,7 @@ const home = () => {
 </script>
 
 <template lang="pug">
-q-layout(view="hHh LpR fFf")
+q-layout(view="hHr LpR fFf")
 	q-header.head
 		q-toolbar
 
@@ -86,6 +87,7 @@ q-layout(view="hHh LpR fFf")
  
 
 	LeftDrawer(v-model="store.drawer")
+	FieldDrawer
 
 	q-page-container
 		#cont
