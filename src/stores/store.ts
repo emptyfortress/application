@@ -7,6 +7,7 @@ export const useStore = defineStore('store', {
 		currentNode: null as Stat | null,
 		currentBO: null as BusinessObject | null,
 		bread: [] as String[],
+		formSelected: false,
 	}),
 	getters: {},
 	actions: {
@@ -22,6 +23,9 @@ export const useStore = defineStore('store', {
 		},
 		addBread(e: string) {
 			this.bread.push(e)
+		},
+		selectForm() {
+			this.formSelected = true
 		},
 	},
 })

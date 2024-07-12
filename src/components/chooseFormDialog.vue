@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref, reactive, computed } from 'vue'
 import { etaps } from '@/stores/tree'
-// import { uid } from 'quasar'
+import { useStore } from '@/stores/store'
 
 const modelValue = defineModel<boolean>()
 
@@ -24,6 +24,14 @@ const reset = () => {
 		item.selected = false
 	})
 }
+const selected = computed(() => {
+	return chips.filter((item: any) => item.selected == true)
+})
+const store = useStore()
+const loadForm = () => {
+	store.selectForm()
+	close()
+}
 </script>
 
 <template lang="pug">
@@ -33,7 +41,7 @@ q-dialog(v-model="modelValue")
 		q-card-section
 			.text-h6 Выбрать форму для этапа
 
-		q-form(@submit="close")
+		q-form(@submit="loadForm")
 			q-card-section
 				q-chip(v-for="chip in chips"
 					clickable
@@ -47,7 +55,7 @@ q-dialog(v-model="modelValue")
 				q-btn(flat color="primary" label="Отмена" @click="close")
 				q-space
 				q-btn(flat color="primary" label="Сбросить" @click="reset")
-				q-btn(unelevated color="primary" label="Выбрать" type="submit")
+				q-btn(unelevated color="primary" label="Выбрать" type="submit" :disable="selected.length == 0")
 </template>
 
 <style scoped lang="scss">

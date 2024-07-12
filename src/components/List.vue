@@ -14,7 +14,7 @@ const store = useStore()
 	background: #fff;
 	height: var(--panel-height);
 	padding: 1rem;
-	margin-right: 0.5rem;
+	margin-right: 0.25rem;
 }
 .center {
 	display: flex;

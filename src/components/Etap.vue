@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import AddFieldDialog from '@/components/AddFieldDialog.vue'
 import chooseFormDialog from '@/components/chooseFormDialog.vue'
 import draggable from 'vuedraggable'
+import { useStore } from '@/stores/store'
 
 const router = useRouter()
 const route = useRoute()
@@ -24,12 +25,31 @@ const list2 = ref([
 	{ type: 'Сотрудник', label: 'Автор', name: 'Автор', id: 1 },
 	{ type: 'Дата', label: 'Дата создания', name: 'Дата создания', id: 2 },
 ])
+const list3 = [
+	{ id: 0, label: 'Поле 1', name: 'Поле 1', type: '' },
+	{ id: 1, label: 'Поле 2', name: 'Поле 2', type: '' },
+	{ id: 2, label: 'Поле 3', name: 'Поле 3', type: '' },
+	{ id: 3, label: 'Поле 4', name: 'Поле 4', type: '' },
+	{ id: 4, label: 'Поле 5', name: 'Поле 5', type: '' },
+	{ id: 5, label: 'Поле 6', name: 'Поле 6', type: '' },
+	{ id: 6, label: 'Поле 7', name: 'Поле 7', type: '' },
+	{ id: 7, label: 'Поле 8', name: 'Поле 8', type: '' },
+	{ id: 8, label: 'Поле 9', name: 'Поле 9', type: '' },
+]
 const addField = (tmp: any) => {
 	list1.value.push(tmp)
 }
 const remove = (e: number) => {
 	list2.value.splice(e, 1)
 }
+
+const store = useStore()
+watch(
+	() => store.formSelected,
+	() => {
+		list2.value = [...list3]
+	}
+)
 </script>
 
 <template lang="pug">
@@ -105,7 +125,7 @@ chooseFormDialog(v-model="dialog1")
 	background: #fff;
 	height: var(--panel-height);
 	padding: 1rem;
-	margin-right: 0.5rem;
+	margin-right: 0.25rem;
 	position: relative;
 }
 .grid {
