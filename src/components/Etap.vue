@@ -12,27 +12,65 @@ const dialog1 = ref(false)
 const name = ref(route.params.etap)
 
 const list2 = ref([
-	{ type: 'Сотрудник', label: 'Автор', name: 'Автор', id: 1, visible: true, readonly: true },
 	{
-		type: 'Дата',
+		id: 1,
+		type: 'select',
+		typ: 'Сотрудник',
+		label: 'Автор',
+		name: 'Автор',
+		visible: true,
+		readonly: true,
+		options: ['Иванов', 'Петров', 'Орлов'],
+	},
+	{
+		id: 2,
+		type: 'date',
+		typ: 'Дата',
 		label: 'Дата создания',
 		name: 'Дата создания',
-		id: 2,
 		visible: true,
 		readonly: true,
 	},
 ])
-const list3 = [
-	{ id: 0, label: 'Поле 1', name: 'Поле 1', type: '', visible: true, readonly: false },
-	{ id: 1, label: 'Поле 2', name: 'Поле 2', type: '', visible: true, readonly: false },
-	{ id: 2, label: 'Поле 3', name: 'Поле 3', type: '', visible: true, readonly: false },
-	{ id: 3, label: 'Поле 4', name: 'Поле 4', type: '', visible: true, readonly: false },
-	{ id: 4, label: 'Поле 5', name: 'Поле 5', type: '', visible: true, readonly: false },
-	{ id: 5, label: 'Поле 6', name: 'Поле 6', type: '', visible: true, readonly: false },
-	{ id: 6, label: 'Поле 7', name: 'Поле 7', type: '', visible: true, readonly: false },
-	{ id: 7, label: 'Поле 8', name: 'Поле 8', type: '', visible: true, readonly: false },
-	{ id: 8, label: 'Поле 9', name: 'Поле 9', type: '', visible: true, readonly: false },
-]
+const list3 = ref([
+	{
+		id: 0,
+		label: 'Поле 1',
+		name: 'Поле 1',
+		type: 'text',
+		typ: 'Placeholder',
+		visible: true,
+		readonly: false,
+	},
+	{
+		id: 1,
+		type: 'select',
+		typ: 'Сотрудник',
+		label: 'Автор',
+		name: 'Автор',
+		visible: true,
+		readonly: true,
+		options: ['Иванов', 'Петров', 'Орлов'],
+	},
+	{
+		id: 2,
+		type: 'date',
+		typ: 'Дата',
+		label: 'Дата создания',
+		name: 'Дата создания',
+		visible: true,
+		readonly: true,
+	},
+	{
+		id: 3,
+		label: 'Поле 2',
+		name: 'Поле 2',
+		type: 'text',
+		typ: 'Placeholder',
+		visible: true,
+		readonly: false,
+	},
+])
 const remove = (e: number) => {
 	list2.value.splice(e, 1)
 }
@@ -42,7 +80,7 @@ watch(
 	() => store.formSelected,
 	() => {
 		if (store.formSelected == true) {
-			list2.value = [...list3]
+			list2.value = [...list3.value]
 			store.unselectForm()
 		}
 	}
@@ -72,7 +110,8 @@ watch(
 
 				template(#item="{ element, index }")
 					.node1
-						q-input(dense filled v-model="element.name" :disable="element.readonly" :class="{op: !element.visible}")
+						FormKit(:type="element.type" :label="element.label" :placeholder="element.typ" :options="element.options")
+						// q-input(dense filled v-model="element.name" :disable="element.readonly" :class="{op: !element.visible}")
 						div
 							q-btn(dense flat round @click="element.visible = !element.visible" size="sm") 
 								q-icon(name="mdi-eye" v-if="element.visible")
@@ -129,6 +168,9 @@ chooseFormDialog(v-model="dialog1")
 	&.ghost {
 		opacity: 0.5;
 		background: #c8ebfb;
+	}
+	&:hover {
+		outline: 2px solid #ffaa5b;
 	}
 }
 .op {
