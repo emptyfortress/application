@@ -52,13 +52,12 @@ watch(
 <template lang="pug">
 .bl
 	.zag
-		div
-			h5 Форма "{{ name }}"
-				q-popup-edit(v-model="name" title="Название формы" auto-save v-slot="scope")
-					q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
-		.cl
-			q-btn(flat color="primary" icon="mdi-form-select" label="Выбрать форму из доступных" @click="dialog1 = !dialog1") 
-			q-btn(flat color="primary" icon="mdi-menu" label="Показать поля" @click="store.toggleDrawer") 
+		q-btn(flat color="primary" icon="mdi-menu" label="Показать поля" @click="store.toggleDrawer") 
+		q-btn(flat color="primary" icon="mdi-form-select" label="Выбрать форму из доступных" @click="dialog1 = !dialog1") 
+
+	h5.q-mt-md Форма "{{ name }}"
+		q-popup-edit(v-model="name" title="Название формы" auto-save v-slot="scope")
+			q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
 
 	.grid
 		.list

@@ -43,10 +43,10 @@ const addField = (tmp: any) => {
 </script>
 
 <template lang="pug">
-q-drawer(v-model="store.drawer1" side="right" :width="420" overlay bordered elevated)
+q-drawer.rel(v-model="store.drawer1" side="left" :width="240" overlay bordered elevated)
+	q-btn.close(flat round dense icon="mdi-close-circle" color="primary" @click="store.toggleDrawer") 
 	.sid
-		q-btn(unelevated color="primary" label="Закрыть" @click="store.toggleDrawer") 
-		.zg Список доступных полей:
+		.zg Доступные поля:
 
 	draggable(
 		class="list-group"
@@ -55,15 +55,9 @@ q-drawer(v-model="store.drawer1" side="right" :width="420" overlay bordered elev
 		:group="{ name: 'people', pull: 'clone', put: false }"
 		itemKey="id")
 
-		template(#header)
-			.node
-				.text-bold Название
-				.text-bold Тип поля
-
 		template(#item="{ element, index }")
 			.node
 				.name {{ element.name }}
-				.type {{ element.type }}
 
 	q-btn.q-mt-md(flat icon="mdi-plus-circle-outline" color="primary" @click="dialog = !dialog" label="Добавить поле") 
 
@@ -75,16 +69,18 @@ AddFieldDialog(v-model="dialog" @create="addField")
 	padding: 1rem;
 }
 .zg {
-	margin-bottom: 0.5rem;
-	margin-top: 2rem;
 	font-weight: 600;
+}
+.hh {
+	font-size: 0.8rem;
+	border-bottom: 1px solid #ccc;
 }
 .node {
 	padding: 5px 1rem;
 	background: #fff;
 	cursor: pointer;
-	display: grid;
-	grid-template-columns: 1fr 1fr 0.5fr;
+	// display: grid;
+	// grid-template-columns: 1fr 1fr 0.5fr;
 	&:hover {
 		background: #eee;
 	}
@@ -92,5 +88,10 @@ AddFieldDialog(v-model="dialog" @create="addField")
 		opacity: 0.5;
 		background: #c8ebfb;
 	}
+}
+.close {
+	position: absolute;
+	top: 0.3rem;
+	right: 0.3rem;
 }
 </style>
