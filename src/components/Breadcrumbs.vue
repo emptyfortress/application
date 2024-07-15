@@ -19,7 +19,7 @@ const calcTitle = (item: string) => {
 		case 'lists':
 			return 'Списки'
 		case route.params.etap:
-			return decodeURIComponent(route.params.etap)
+			return decodeURIComponent(route.params.etap.toString())
 
 		default:
 			return decodeURIComponent(item)
