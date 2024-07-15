@@ -5,33 +5,47 @@ const modelValue = defineModel<boolean>()
 
 const name = ref('')
 const label = ref('')
-const type = ref('Строка')
+const typ = ref('Строка')
 
 const close = () => {
 	name.value = ''
-	type.value = ''
+	typ.value = ''
 	modelValue.value = false
 }
 
 const emit = defineEmits(['create'])
 
+const calcType = (e: string) => {
+	switch (e) {
+		case 'Строка':
+			return 'text'
+		case 'Текст':
+			return 'textarea'
+		case 'Дата':
+			return 'date'
+		default:
+			return 'select'
+	}
+}
 const create = () => {
 	let tmp = {
 		id: +new Date(),
 		name: name.value,
-		type: type.value,
 		label: label.value,
+		type: calcType(typ.value),
+		typ: typ.value,
 		visible: true,
 		readonly: false,
 		selected: false,
+		options: ['Иванов', 'Петров', 'Орлов'],
 	}
 	emit('create', tmp)
 	name.value = ''
 	label.value = ''
-	type.value = ''
+	typ.value = ''
 	modelValue.value = false
 }
-const options = ['Строка', 'Сотрудник', 'Текст', 'Кнопка', 'Кнопка действий']
+const options = ['Строка', 'Текст', 'Сотрудник', 'Дата']
 </script>
 
 <template lang="pug">
@@ -50,7 +64,7 @@ q-dialog(v-model="modelValue")
 				q-input(v-model="name" filled autofocus)
 				br
 				label.q-mt-sm Тип
-				q-select(v-model="type" filled :options="options")
+				q-select(v-model="typ" filled :options="options")
 
 			q-card-actions.q-mx-sm.q-mb-md(align="right")
 				q-btn(flat color="primary" label="Отмена" @click="close")
