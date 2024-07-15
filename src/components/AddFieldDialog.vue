@@ -23,6 +23,7 @@ const create = () => {
 		label: label.value,
 		visible: true,
 		readonly: false,
+		selected: false,
 	}
 	emit('create', tmp)
 	name.value = ''

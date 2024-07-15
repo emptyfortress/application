@@ -20,6 +20,7 @@ const list2 = ref([
 		name: 'Автор',
 		visible: true,
 		readonly: true,
+		selected: false,
 		options: ['Иванов', 'Петров', 'Орлов'],
 	},
 	{
@@ -30,6 +31,7 @@ const list2 = ref([
 		name: 'Дата создания',
 		visible: true,
 		readonly: true,
+		selected: false,
 	},
 ])
 const list3 = ref([
@@ -41,6 +43,7 @@ const list3 = ref([
 		typ: 'Placeholder',
 		visible: true,
 		readonly: false,
+		selected: false,
 	},
 	{
 		id: 1,
@@ -51,6 +54,7 @@ const list3 = ref([
 		visible: true,
 		readonly: true,
 		options: ['Иванов', 'Петров', 'Орлов'],
+		selected: false,
 	},
 	{
 		id: 2,
@@ -60,6 +64,7 @@ const list3 = ref([
 		name: 'Дата создания',
 		visible: true,
 		readonly: true,
+		selected: false,
 	},
 	{
 		id: 3,
@@ -69,6 +74,7 @@ const list3 = ref([
 		typ: 'Placeholder',
 		visible: true,
 		readonly: false,
+		selected: false,
 	},
 ])
 const remove = (e: number) => {
@@ -85,6 +91,12 @@ watch(
 		}
 	}
 )
+const select = (e: any) => {
+	list2.value.map((item: any) => {
+		item.selected = false
+	})
+	e.selected = !e.selected
+}
 </script>
 
 <template lang="pug">
@@ -109,10 +121,9 @@ watch(
 				itemKey="id")
 
 				template(#item="{ element, index }")
-					.node1
+					.node1(@click="select(element)" :class="{selected: element.selected}")
 						FormKit(:type="element.type" :label="element.label" :placeholder="element.typ" :options="element.options")
-						// q-input(dense filled v-model="element.name" :disable="element.readonly" :class="{op: !element.visible}")
-						div
+						.bt
 							q-btn(dense flat round @click="element.visible = !element.visible" size="sm") 
 								q-icon(name="mdi-eye" v-if="element.visible")
 								q-icon(name="mdi-eye-off" v-else)
@@ -152,25 +163,35 @@ chooseFormDialog(v-model="dialog1")
 }
 .grid {
 	margin-top: 1rem;
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	// justify-items: start;
-	// align-items: stretch;
 	column-gap: 3rem;
 	row-gap: 0.5rem;
 }
+.list-group {
+	max-width: 300px;
+}
 .node1 {
+	// max-width: 300px;
 	padding: 0.5rem;
 	background: #fff;
-	display: grid;
-	grid-template-columns: 1fr auto;
-	align-items: center;
+	position: relative;
+	margin-bottom: 2px;
+	.bt {
+		position: absolute;
+		top: -26px;
+		right: 0;
+		background: #ffaa5b;
+		display: none;
+	}
 	&.ghost {
 		opacity: 0.5;
 		background: #c8ebfb;
 	}
-	&:hover {
+	&:hover,
+	&.selected {
 		outline: 2px solid #ffaa5b;
+		.bt {
+			display: block;
+		}
 	}
 }
 .op {

@@ -17,6 +17,7 @@ const list1 = ref([
 		readonly: true,
 		visible: true,
 		options: ['Иванов', 'Петров', 'Орлов'],
+		selected: false,
 	},
 	{
 		id: 5,
@@ -26,6 +27,7 @@ const list1 = ref([
 		typ: 'Дата',
 		visible: true,
 		readonly: true,
+		selected: false,
 	},
 	{
 		id: 6,
@@ -35,6 +37,7 @@ const list1 = ref([
 		typ: 'Дата',
 		visible: true,
 		readonly: false,
+		selected: false,
 	},
 	{
 		id: 7,
@@ -44,6 +47,7 @@ const list1 = ref([
 		typ: 'Строка',
 		visible: true,
 		readonly: false,
+		selected: false,
 	},
 	{
 		id: 8,
@@ -53,6 +57,7 @@ const list1 = ref([
 		typ: 'Текст',
 		visible: true,
 		readonly: false,
+		selected: false,
 	},
 ])
 

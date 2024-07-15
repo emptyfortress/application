@@ -19,10 +19,10 @@ const calcTitle = (item: string) => {
 		case 'lists':
 			return 'Списки'
 		case route.params.etap:
-			return route.params.etap
+			return decodeURIComponent(route.params.etap)
 
 		default:
-			return item
+			return decodeURIComponent(item)
 	}
 }
 const calcUrl = (item: string) => {
