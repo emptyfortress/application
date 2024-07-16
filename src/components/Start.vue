@@ -48,9 +48,9 @@ const goto = () => {
 			.q-mt-lg.q-gutter-x-lg
 				q-btn(flat  icon="mdi-pencil" label="Редактировать" color="primary" @click="goto") 
 					q-tooltip Редактировать
-				q-btn(flat  icon="mdi-content-duplicate" label="Дублировать" color="primary" @click="") 
+				q-btn(flat  icon="mdi-content-duplicate" label="Дублировать" color="primary" @click="store.dub = true") 
 					q-tooltip Дублировать
-				q-btn(unelevated color="negative" label="Удалить приложение" @click="") 
+				q-btn(unelevated color="negative" label="Удалить приложение" @click="store.del = true") 
 </template>
 
 <style scoped lang="scss">

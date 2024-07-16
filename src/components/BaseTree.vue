@@ -45,25 +45,26 @@ watch(query, (newValue) => {
 	} else clearFilter()
 })
 
-// watchEffect(() => {
-// 	if (store.del === true) {
-// 		tree.value.remove(store.currentNode)
-// 		store.setCurrentNode(null)
-// 		store.del = false
-// 	}
-// 	if (store.dub === true) {
-// 		let temp = {
-// 			text: store.currentNode!.data.text + '-copy',
-// 			text1: store.currentNode!.data.text1,
-// 			hidden: false,
-// 			type: 1,
-// 		}
-// 		tree.value.add(temp, store.currentNode!.parent)
-// 		let one = tree.value.getStat(temp)
-// 		select(one)
-// 		store.toggleDub()
-// 	}
-// })
+watchEffect(() => {
+	if (store.del === true) {
+		tree.value.remove(store.currentNode)
+		store.setCurrentNode(null)
+		store.del = false
+	}
+	if (store.dub === true) {
+		let temp = {
+			text: store.currentNode!.data.text + '-copy',
+			descr: store.currentNode!.data.descr,
+			hidden: false,
+			type: 1,
+			selected: true,
+		}
+		tree.value.add(temp, store.currentNode!.parent)
+		let one = tree.value.getStat(temp)
+		select(one)
+		store.dub = false
+	}
+})
 
 const tree = ref()
 

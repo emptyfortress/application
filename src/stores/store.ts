@@ -10,6 +10,8 @@ export const useStore = defineStore('store', {
 		bread: [] as String[],
 		formSelected: false,
 		currentField: null as Field | null,
+		del: false,
+		dub: false,
 	}),
 	getters: {},
 	actions: {
