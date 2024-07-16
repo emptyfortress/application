@@ -40,8 +40,8 @@ q-dialog(v-model="modelValue")
 
 		q-card-section
 			FormKit(type="form" id="newapp" submit-label="Создать" @submit="create")
-				FormKit(type="text" name="name" label="Название" help="Назовите ваше приложение" validation="required|length:3")
-				FormKit(type="textarea" name="descr" label="Описание" help="Что будет делать ваше приложение?")
+				FormKit(type="text" autofocus name="name" label="Название" help="Назовите ваше приложение" validation="required|length:3")
+				FormKit(type="textarea" name="descr" label="Описание" help="Что будет делать ваше приложение?" validation="required|length:3")
 
 </template>
 
