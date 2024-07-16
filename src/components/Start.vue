@@ -30,7 +30,7 @@ const goto = () => {
 					q-popup-edit(v-model="store.currentNode.data.descr" title="Описание приложения" auto-save v-slot="scope")
 						q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
 
-			.bl
+			.bl(v-if="store.currentNode.data.type == 1")
 				.text-overline version
 				.big
 					q-icon(name="mdi-source-branch" color="primary")
@@ -42,14 +42,15 @@ const goto = () => {
 								q-item(clickable)
 									q-item-section v.1.1.0
 
-		.q-mt-md Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime, autem consequatur. Aperiam quis consectetur beatae et labore rerum ut optio incidunt dolor ab exercitationem aliquam, fugit dolorum aspernatur, maiores ratione!
+		template(v-if="store.currentNode.data.type == 1")
+			.q-mt-md Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime, autem consequatur. Aperiam quis consectetur beatae et labore rerum ut optio incidunt dolor ab exercitationem aliquam, fugit dolorum aspernatur, maiores ratione!
 
-		.q-mt-lg.q-gutter-x-lg
-			q-btn(flat  icon="mdi-pencil" label="Редактировать" color="primary" @click="goto") 
-				q-tooltip Редактировать
-			q-btn(flat  icon="mdi-content-duplicate" label="Дублировать" color="primary" @click="") 
-				q-tooltip Дублировать
-			q-btn(unelevated color="negative" label="Удалить приложение" @click="") 
+			.q-mt-lg.q-gutter-x-lg
+				q-btn(flat  icon="mdi-pencil" label="Редактировать" color="primary" @click="goto") 
+					q-tooltip Редактировать
+				q-btn(flat  icon="mdi-content-duplicate" label="Дублировать" color="primary" @click="") 
+					q-tooltip Дублировать
+				q-btn(unelevated color="negative" label="Удалить приложение" @click="") 
 </template>
 
 <style scoped lang="scss">
