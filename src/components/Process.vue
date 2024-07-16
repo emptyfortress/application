@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import BpmnModeler from 'bpmn-js/lib/Modeler'
 import 'bpmn-js/dist/assets/diagram-js.css'
 import 'bpmn-js/dist/assets/bpmn-js.css'
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css'
 import zay from '@/stores/zayavka.bpmn?raw'
+import empty from '@/stores/empty.bpmn?raw'
 import minimapModule from 'diagram-js-minimap'
 import 'diagram-js-minimap/assets/diagram-js-minimap.css'
 
@@ -22,6 +23,10 @@ const goto = (e: string) => {
 	router.push('/editor/etap')
 }
 
+const bpmn = computed(() => {
+	return store.currentNode?.data.file ? zay : empty
+})
+
 onMounted(() => {
 	var modeler = new BpmnModeler({
 		container: canvas.value,
@@ -32,7 +37,7 @@ onMounted(() => {
 	})
 
 	modeler
-		.importXML(zay)
+		.importXML(bpmn.value)
 		.then(function (result) {
 			const { warnings } = result
 			console.log('success !', warnings)

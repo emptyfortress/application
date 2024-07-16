@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
-import CreateDialog from '@/components/CreateDialog.vue'
 import { useStore } from '@/stores/store'
 import { myApps } from '@/stores/tree'
 import BaseTree from '@/components/BaseTree.vue'
@@ -14,15 +13,6 @@ const goto = () => {
 	store.setBread('Процесс')
 }
 
-const dialog = ref(false)
-
-const action = () => {
-	dialog.value = !dialog.value
-}
-const create = (e: App) => {
-	// store.addAppToList(e)
-}
-const selected = ref('0.1.5')
 const splitterModel = ref(30)
 
 const hei = computed(() => {
@@ -39,12 +29,9 @@ q-page(padding)
 				.blo
 					q-scroll-area.list
 						BaseTree(:treeData="myApps")
-						q-btn.fab(round icon="mdi-plus" color="primary") 
 
 			template(v-slot:after)
 				router-view
-
-	CreateDialog(v-model="dialog" @create="create")
 </template>
 
 <style scoped lang="scss">
@@ -59,10 +46,5 @@ q-page(padding)
 	margin-right: 1rem;
 	height: calc(100vh - 180px);
 	position: relative;
-}
-.fab {
-	position: absolute;
-	bottom: 1rem;
-	right: 1rem;
 }
 </style>

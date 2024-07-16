@@ -22,8 +22,13 @@ const goto = () => {
 	template(v-if="store.currentNode")
 		.grid
 			div
-				h6 {{ props.id }}
-				.text-subtitle1 Описание приложение краткое
+				h6 {{ store.currentNode.data.text }}
+					q-popup-edit(v-model="store.currentNode.data.text" title="Название приложения" auto-save v-slot="scope")
+						q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
+
+				.text-subtitle1 {{ store.currentNode.data.descr }}
+					q-popup-edit(v-model="store.currentNode.data.descr" title="Описание приложения" auto-save v-slot="scope")
+						q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
 
 			.bl
 				.text-overline version

@@ -93,8 +93,8 @@ watch(
 		}
 	}
 )
-const select = (e: Fiels) => {
-	list2.value.map((item: Fiels) => {
+const select = (e: Field) => {
+	list2.value.map((item: Field) => {
 		item.selected = false
 	})
 	e.selected = !e.selected

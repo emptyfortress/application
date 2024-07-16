@@ -15,27 +15,16 @@ const name = ref('')
 const descr = ref('')
 
 const close = () => {
-	name.value = ''
-	descr.value = ''
 	modelValue.value = false
 }
 
 const emit = defineEmits(['create'])
 
-const create = () => {
-	let tmp = {
-		id: uid(),
-		title: name.value,
-		descr: descr.value,
-		author: 'Орлов П.С.',
-		created: '2024-05-15',
-		icon: icon.value + 1,
-	}
-	emit('create', tmp)
-	name.value = ''
-	descr.value = ''
-	icon.value += 1
-	modelValue.value = false
+const create = (data: any) => {
+	data.id = +new Date()
+	data.text = data.name
+	emit('create', data)
+	close()
 }
 </script>
 
@@ -49,19 +38,10 @@ q-dialog(v-model="modelValue")
 			.text-h6(v-if="props.mode == 'role'") Создать роль 
 
 		q-card-section
-			label Название
-			q-input(v-model="name" filled autofocus)
-			br
-			label.q-mt-sm Описание
-			q-input(v-model="descr" filled)
+			FormKit(type="form" id="newapp" submit-label="Создать" @submit="create")
+				FormKit(type="text" name="name" label="Название" help="Назовите ваше приложение" validation="required|length:3")
+				FormKit(type="textarea" name="descr" label="Описание" help="Что будет делать ваше приложение?")
 
-		q-card-actions.q-mx-sm.q-mb-md(align="right")
-			q-btn(flat color="primary" label="Отмена" @click="close")
-			q-btn(unelevated color="primary" label="Создать" @click="create" :disable="!name.length")
 </template>
 
-<style scoped lang="scss">
-.q-input {
-	font-size: 1.2rem;
-}
-</style>
+<style scoped lang="scss"></style>

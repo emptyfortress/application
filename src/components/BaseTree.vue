@@ -1,18 +1,21 @@
 <script setup lang="ts">
-import { ref, reactive, computed, watch, watchEffect, onMounted } from 'vue'
+import { ref, reactive, computed, watch, watchEffect, onMounted, nextTick } from 'vue'
 import { Draggable } from '@he-tree/vue'
 import '@he-tree/vue/style/default.css'
 import { useStore } from '@/stores/store'
 import WordHighlighter from 'vue-word-highlighter'
 import DirMenu from '@/components/DirMenu.vue'
 import { useRouter } from 'vue-router'
+import CreateDialog from '@/components/CreateDialog.vue'
 
 const router = useRouter()
 
 const props = defineProps<{
-	treeData: TreeNode[]
+	treeData: NodeData[]
 	reset?: Boolean
 }>()
+
+const myTree = ref(props.treeData)
 
 const store = useStore()
 const query = ref('')
@@ -22,19 +25,25 @@ const clearFilter = () => {
 	tree.value.statsFlat.map((item: Stat) => (item.hidden = false))
 }
 
-// watch(query, (newValue) => {
-// 	if (newValue !== '') {
-// 		tree.value.statsFlat.map((stat: Stat) => {
-// 			stat.hidden = true
-// 			if (stat.data.text.toLowerCase().includes(query.value.toLowerCase())) {
-// 				stat.hidden = false
-// 				for (const parentStat of tree.value.iterateParent(stat, { withSelf: false })) {
-// 					parentStat.hidden = false
-// 				}
-// 			}
-// 		})
-// 	} else clearFilter()
-// })
+const dialog = ref(false)
+
+const action = () => {
+	dialog.value = !dialog.value
+}
+
+watch(query, (newValue) => {
+	if (newValue !== '') {
+		tree.value.statsFlat.map((stat: Stat) => {
+			stat.hidden = true
+			if (stat.data.text.toLowerCase().includes(query.value.toLowerCase())) {
+				stat.hidden = false
+				for (const parentStat of tree.value.iterateParent(stat, { withSelf: false })) {
+					parentStat.hidden = false
+				}
+			}
+		})
+	} else clearFilter()
+})
 
 // watchEffect(() => {
 // 	if (store.del === true) {
@@ -63,141 +72,77 @@ const select = (n: Stat) => {
 	n.data.selected = true
 	store.setCurrentNode(n)
 	router.push(n.data.text)
-	// console.log(n)
 }
 
 const toggle = (stat: any) => {
 	stat.open = !stat.open
 }
 
-// const add = (e: Stat) => {
-// 	if (e.data.type === 0) {
-// 		tree.value.add({ text: 'New item', text1: 'Здесь описание', hidden: false, type: 1 }, e)
-// 	} else {
-// 		tree.value.add({ text: 'New item', text1: 'Здесь описание', hidden: false, type: 1 }, e.parent)
-// 	}
-// }
+const add = (e: NodeData) => {
+	const tmp = tree.value.getStat(store.currentNode?.data)
+	if (store.currentNode?.data.type == 0) {
+		tree.value.add(e, tmp)
+	} else tree.value.add(e, tmp.parent)
+	select(tree.value.getStat(e))
+}
 
-// const addFolder = (e: Stat) => {
-// 	if (e.data.type === 0) {
-// 		tree.value.add({ text: 'New folder', hidden: false, type: 0 }, e)
-// 	} else {
-// 		tree.value.add({ text: 'New folder', hidden: false, type: 0 }, e.parent)
-// 	}
-// }
+const addFromMenu = (e: Stat) => {
+	store.setCurrentNode(e)
+	dialog.value = true
+}
 
-// const remove = (e: Stat) => {
-// 	tree.value.remove(e)
-// 	if (e === store.currentNode) {
-// 		store.setCurrentNode(null)
-// 	}
-// }
+const addFolder = (e: Stat) => {
+	if (e.data.type === 0) {
+		tree.value.add({ text: 'New folder', hidden: false, type: 0 }, e)
+	} else {
+		tree.value.add({ text: 'New folder', hidden: false, type: 0 }, e.parent)
+	}
+}
 
-// const duble = (e: Stat) => {
-// 	let temp = {
-// 		text: e.data.text + '-copy',
-// 		text1: e.data.text1,
-// 		hidden: false,
-// 		type: 1,
-// 	}
-// 	tree.value.add(temp, e.parent)
-// 	select(tree.value.getStat(temp))
-// }
+const remove = (e: Stat) => {
+	tree.value.remove(e)
+	if (e === store.currentNode) {
+		store.setCurrentNode(null)
+	}
+}
 
-// const edit = (e: Stat) => {
-// 	e.data.edit = true
-// }
+const duble = (e: Stat) => {
+	let temp = {
+		text: e.data.text + '-copy',
+		descr: e.data.descr,
+		hidden: false,
+		type: 1,
+	}
+	tree.value.add(temp, e.parent)
+	select(tree.value.getStat(temp))
+}
 
-// const setText = (e: Stat, ev: any) => {
-// 	e.data.text = ev.target.value
-// 	e.data.edit = false
-// }
+const edit = (e: Stat) => {
+	e.data.edit = true
+}
+
+const setText = (e: Stat, ev: any) => {
+	e.data.text = ev.target.value
+	e.data.edit = false
+}
 
 const isDrop = (e: any) => {
 	if (e.data.type == 0) return true
 	else return false
 }
 
-// const adding = {
-// 	text: 'Задания на контроле',
-// 	text1: 'Описание поиска',
-// 	hidden: false,
-// 	selected: false,
-// 	type: 1,
-// 	fields: [
-// 		{
-// 			id: 1,
-// 			check: true,
-// 			sort: true,
-// 			filter: true,
-// 			type: 2,
-// 			label: 'Тип',
-// 			options: ['Документ', 'Задание', 'Группа заданий', 'Любой'],
-// 			val: 'Документ',
-// 			notset: false,
-// 		},
-// 		{
-// 			id: 2,
-// 			check: true,
-// 			sort: true,
-// 			filter: true,
-// 			type: 2,
-// 			label: 'Вид карточки',
-// 			val: 'Любой',
-// 			options: [
-// 				'Любой',
-// 				'Заявка',
-// 				'Договор',
-// 				'Письмо',
-// 				'Входящий',
-// 				'Исходящий',
-// 				'Приказ',
-// 				'Заявление',
-// 				'Письмо',
-// 				'Черновик',
-// 			],
-// 			notset: false,
-// 		},
-// 	],
+// const initial = (stat: any) => {
+// 	if (props.reset == false) {
+// 		return stat
+// 	} else {
+// 		stat.data.selected = false
+// 		return stat
+// 	}
 // }
-
-const initial = (stat: any) => {
-	if (props.reset == false) {
-		return stat
-	} else {
-		stat.data.selected = false
-		return stat
-	}
-}
-
-// onMounted(() => {
-// 	if (props.load === true) {
-// 		tree.value.add(adding, tree.value.rootChildren[0])
-// 		select(tree.value.getStat(adding))
-// 	}
-// })
-
-// const mychips = useChips()
-
-// watch(
-// 	() => mychips.count,
-// 	() => {
-// 		let temp = {
-// 			text: mychips.newSearchItem,
-// 			text1: 'Описание поиска',
-// 			hidden: false,
-// 			selected: true,
-// 			type: 1,
-// 		}
-// 		tree.value.add(temp, tree.value.rootChildren[0])
-// 		select(tree.value.getStat(temp))
-// 		store.setCurrentNode(tree.value.getStat(temp))
-// 	}
-// )
 </script>
 
 <template lang="pug">
-div
+.tr
 	q-form.quick
 		q-input(dense
 			v-model="query"
@@ -209,13 +154,12 @@ div
 			template(v-slot:prepend)
 				q-icon(name="mdi-magnify")
 
-	Draggable(v-model="props.treeData"
+	Draggable(v-model="myTree"
 		ref="tree"
 		treeLine
 		:treeLineOffset="18"
 		:indent="30"
 		:eachDroppable="isDrop"
-		:statHandler="initial"
 		:watermark="false")
 		template(#default="{ node, stat }")
 			.node(@click="select(stat)" :class="{ 'selected': stat.data.selected }")
@@ -223,23 +167,34 @@ div
 				q-icon(name="mdi-folder-outline" v-if="stat.data.type === 0").fold
 				WordHighlighter(:query="query") {{ node.text }}
 
-				// DirMenu(
-				// 	:stat="stat"
-				// 	@kill="remove(stat)"
-				// 	@add="add(stat)"
-				// 	@addFolder="addFolder(stat)"
-				// 	@rename="edit(stat)"
-				// 	@duble="duble(stat)")
+				DirMenu(
+					:stat="stat"
+					@kill="remove(stat)"
+					@add="addFromMenu(stat)"
+					@addFolder="addFolder(stat)"
+					@rename="edit(stat)"
+					@duble="duble(stat)")
 
-				// q-menu.q-px-md(no-parent-event v-model="stat.data.edit" cover anchor="top left")
-				// 	q-input(:model-value="stat.data.text"
-				// 	dense
-				// 	autofocus counter
-				// 	@keyup.enter="setText(stat, $event)"
-				// 	)
+				q-menu.q-px-md(no-parent-event v-model="stat.data.edit" cover anchor="top left")
+					q-input(:model-value="stat.data.text"
+					dense
+					autofocus counter
+					@keyup.enter="setText(stat, $event)"
+					)
+	q-btn.fab(round icon="mdi-plus" color="primary" @click="dialog = !dialog" :disable="store.currentNode == null") 
+	CreateDialog(v-model="dialog" @create="add")
 </template>
 
 <style scoped lang="scss">
+.tr {
+	height: calc(100vh - 180px);
+	position: relative;
+}
+.fab {
+	position: absolute;
+	bottom: 1rem;
+	right: 1rem;
+}
 .node {
 	padding: 4px 8px;
 	cursor: pointer;

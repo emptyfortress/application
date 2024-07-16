@@ -6,7 +6,7 @@ type Field = {
 	typ: string
 	readonly: boolean
 	visible: boolean
-	options: string[]
+	options?: string[]
 	selected: boolean
 }
 
@@ -17,47 +17,23 @@ interface BusinessObject {
 }
 
 interface App {
-	id: string
+	id: number
 	name: string
-	title: string
-	version: string
-	descr: string
-	author: string
-	created: string
-	icon?: number
+	file?: string
+	version?: string
+	descr?: string
+	author?: string
+	created?: string
 }
 
-interface NodeData {
-	id: string
+interface NodeData extends App {
+	// id: number
 	text: string
-	text1: string
-	// text2: string
-	// text3?: string
-	// inp?: string
-	// edit?: boolean
-	attribute?: boolean
+	// descr?: string
 	selected?: boolean
-	// restrict?: boolean
-	// icon?: string
+	hidden?: boolean
 	type: number
-	// typ?: boolean
-	// drop?: boolean
-	// drag?: boolean
-	// parents?: string[]
-	// fields: Select[]
-	// man?: boolean
-	// date?: boolean
-	// state?: boolean
-	// ruk?: boolean
-	// vis?: boolean
-	// check?: boolean
-	// sort?: boolean
-	// label?: string
-	// inp?: boolean
-	// focus?: boolean
-	// kind?: number
-	// synparents: string[]
-	// syn: string[]
+	edit?: boolean
 }
 
 interface Stat {
