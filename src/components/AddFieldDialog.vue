@@ -12,7 +12,6 @@ const close = () => {
 	typ.value = ''
 	modelValue.value = false
 }
-
 const emit = defineEmits(['create'])
 
 const calcType = (e: string) => {

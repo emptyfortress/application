@@ -4,6 +4,7 @@ import { useRouter, useRoute } from 'vue-router'
 import chooseFormDialog from '@/components/chooseFormDialog.vue'
 import draggable from 'vuedraggable'
 import { useStore } from '@/stores/store'
+import { onClickOutside } from '@vueuse/core'
 
 const router = useRouter()
 const route = useRoute()
@@ -97,6 +98,13 @@ const select = (e: any) => {
 	})
 	e.selected = !e.selected
 }
+const target = ref(null)
+
+onClickOutside(target, (event) =>
+	list2.value.map((item) => {
+		item.selected = false
+	})
+)
 </script>
 
 <template lang="pug">
@@ -109,30 +117,29 @@ const select = (e: any) => {
 		q-popup-edit(v-model="name" title="Название формы" auto-save v-slot="scope")
 			q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
 
-	.grid
-		.list
-			.drop(v-if="list2.length == 0")
-				span Перетащите сюда нужное поле
-			draggable(
-				class="list-group"
-				:list="list2"
-				group="people"
-				ghost-class="ghost"
-				itemKey="id")
+	.list
+		.drop(v-if="list2.length == 0")
+			span Перетащите сюда нужное поле
+		draggable(
+			class="list-group"
+			:list="list2"
+			group="people"
+			ghost-class="ghost"
+			itemKey="id")
 
-				template(#item="{ element, index }")
-					.node1(@click="select(element)" :class="{selected: element.selected}")
-						FormKit(:type="element.type" :label="element.label" :placeholder="element.typ" :options="element.options")
-						.bt
-							q-btn(dense flat round @click="element.visible = !element.visible" size="sm") 
-								q-icon(name="mdi-eye" v-if="element.visible")
-								q-icon(name="mdi-eye-off" v-else)
+			template(#item="{ element, index }")
+				.node1(ref="target" @click="select(element)" :class="{selected: element.selected}")
+					FormKit(:type="element.type" :label="element.label" :placeholder="element.typ" :options="element.options")
+					.bt
+						q-btn(dense flat round @click="element.visible = !element.visible" size="sm") 
+							q-icon(name="mdi-eye" v-if="element.visible")
+							q-icon(name="mdi-eye-off" v-else)
 
-							q-btn(dense flat round @click="element.readonly = !element.readonly" size="sm") 
-								q-icon(name="mdi-pencil-off" v-if="element.readonly")
-								q-icon(name="mdi-pencil" v-else)
+						q-btn(dense flat round @click="element.readonly = !element.readonly" size="sm") 
+							q-icon(name="mdi-pencil-off" v-if="element.readonly")
+							q-icon(name="mdi-pencil" v-else)
 
-							q-btn(dense flat round icon="mdi-close" @click="remove(index)" size="sm") 
+						q-btn(dense flat round icon="mdi-close" @click="remove(index)" size="sm") 
 
 chooseFormDialog(v-model="dialog1")
 
@@ -161,10 +168,8 @@ chooseFormDialog(v-model="dialog1")
 	margin-right: 0.25rem;
 	position: relative;
 }
-.grid {
+.sec {
 	margin-top: 1rem;
-	column-gap: 3rem;
-	row-gap: 0.5rem;
 }
 .list-group {
 	max-width: 300px;
