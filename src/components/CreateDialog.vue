@@ -23,6 +23,7 @@ const emit = defineEmits(['create'])
 const create = (data: any) => {
 	data.id = +new Date()
 	data.text = data.name
+	data.type = 1
 	emit('create', data)
 	close()
 }
