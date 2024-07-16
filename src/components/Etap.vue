@@ -89,20 +89,23 @@ watch(
 		if (store.formSelected == true) {
 			list2.value = [...list3.value]
 			store.unselectForm()
+			store.setField(null)
 		}
 	}
 )
-const select = (e: any) => {
-	list2.value.map((item: any) => {
+const select = (e: Fiels) => {
+	list2.value.map((item: Fiels) => {
 		item.selected = false
 	})
 	e.selected = !e.selected
+	store.setField(e)
 }
 const target = ref(null)
 
 onClickOutside(target, (event) =>
 	list2.value.map((item) => {
 		item.selected = false
+		store.setField(null)
 	})
 )
 </script>

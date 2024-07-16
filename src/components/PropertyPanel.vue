@@ -25,7 +25,7 @@ const goto = (e: string) => {
 
 <template lang="pug">
 .prop
-	template(v-if="!!store.currentBO")
+	template(v-if="route.name == 'Процесс' && !!store.currentBO")
 		.grid
 			div id:
 			div {{ store.currentBO.id }}
@@ -36,10 +36,19 @@ const goto = (e: string) => {
 
 		q-btn(unelevated color="primary" label="Настроить форму" @click="goto(store.currentBO.name)") 
 
-	template(v-else)
+	template(v-if="route.name == 'Процесс' && store.currentBO == null")
 		q-list
 			q-item.ani(clickable v-for="item in prop1" :key="item.id")
 				q-item-section {{ item.label }}
+
+
+
+	template(v-if="route.name == 'Этап' && !!store.currentField")
+		.q-pa-md.text-bold {{ store.currentField?.name }}
+
+	template(v-if="route.name == 'Этап' && store.currentField == null")
+		.q-pa-md Здесь общие настройки формы
+
 </template>
 
 <style scoped lang="scss">

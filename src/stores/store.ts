@@ -9,6 +9,7 @@ export const useStore = defineStore('store', {
 		currentBO: null as BusinessObject | null,
 		bread: [] as String[],
 		formSelected: false,
+		currentField: null as Field | null,
 	}),
 	getters: {},
 	actions: {
@@ -33,6 +34,9 @@ export const useStore = defineStore('store', {
 		},
 		unselectForm() {
 			this.formSelected = false
+		},
+		setField(e: Field | null) {
+			this.currentField = e
 		},
 	},
 })

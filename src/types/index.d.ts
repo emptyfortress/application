@@ -1,3 +1,15 @@
+type Field = {
+	id: number
+	type: string
+	label: string
+	name: string
+	typ: string
+	readonly: boolean
+	visible: boolean
+	options: string[]
+	selected: boolean
+}
+
 interface BusinessObject {
 	id: string
 	type: string
