@@ -129,6 +129,19 @@ const chips = reactive([
 		q-chip(v-model:selected="one") {{ name }}
 		q-chip(v-for="el in chips" clickable v-model:selected="el.selected") {{ el.label}}
 
+	.done
+		div
+			div Рассмотрите предоженную заявку и примите решение.
+			div
+				|Срок:  
+				span.text-bold 11.04.2024
+			div
+				|Исполнитель:  
+				span.text-bold Орлов П.С.
+		q-card-actions.q-pa-none
+			q-btn(flat color="primary" label="Делегировать") 
+			q-btn(unelevated color="negative" label="Отказать") 
+			q-btn(unelevated color="primary" label="Согласовать") 
 
 	.list
 		.drop(v-if="list2.length == 0")
@@ -165,8 +178,13 @@ chooseFormDialog(v-model="dialog1")
 	}
 }
 .list {
+	border-top: 1px solid #ccc;
 	min-height: 100px;
 	width: 100%;
+	background: #eee;
+	padding: 0.5rem;
+	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAAXNSR0IArs4c6QAAADhJREFUGFctjMERADAIwsL+MxZHoYetL8gFBSCJpAFsRwW9LAVPYUEVPvTUfHX9iDMn2h/fFtnVBb6XHglDcS5IAAAAAElFTkSuQmCC)
+		repeat;
 }
 .zag {
 	width: 100%;
@@ -231,5 +249,12 @@ chooseFormDialog(v-model="dialog1")
 }
 :deep(.q-chip__icon) {
 	color: #fff;
+}
+.done {
+	background: #eee;
+	padding: 1rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: start;
 }
 </style>
