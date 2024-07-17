@@ -8,3 +8,5 @@ declare module '*.vue' {
 
 declare module 'vue-draggable-resizable' {}
 declare module 'diagram-js-minimap' {}
+// declare module "vue-draggable-resizable" {}
+declare module 'vue-ts-responsive-grid-layout'

@@ -4,7 +4,7 @@ import { useRouter, useRoute } from 'vue-router'
 import chooseFormDialog from '@/components/chooseFormDialog.vue'
 import draggable from 'vuedraggable'
 import { useStore } from '@/stores/store'
-import { onClickOutside } from '@vueuse/core'
+import { onClickOutside, useKeyModifier } from '@vueuse/core'
 import { GridItem, GridLayout } from 'vue-ts-responsive-grid-layout'
 
 const router = useRouter()
@@ -109,8 +109,7 @@ onClickOutside(target, (event) =>
 		store.setField(null)
 	})
 )
-// const one = ref(true)
-const one = true
+let one = true
 const chips = reactive([
 	{ label: 'Задача', selected: true },
 	{ label: 'Еще задача', selected: true },
@@ -123,14 +122,8 @@ const layout = reactive([
 		h: 6,
 		i: 0,
 	},
-	// {
-	// 	x: 6,
-	// 	y: 0,
-	// 	w: 6,
-	// 	h: 6,
-	// 	i: 1,
-	// },
 ])
+const isDraggable = useKeyModifier('Alt', { initial: false })
 </script>
 
 <template lang="pug">
@@ -169,8 +162,8 @@ const layout = reactive([
 			:layout.sync="layout"
 			:col-num="12"
 			:row-height="30"
-			:is-draggable="true"
-			:is-resizable="true"
+			:is-draggable="isDraggable"
+			:is-resizable="isDraggable"
 			:is-bounded="true"
 			:is-mirrored="false"
 			:vertical-compact="true"
@@ -188,8 +181,8 @@ const layout = reactive([
 				:key="item.i")
 
 				.section
-					q-icon.close(name="mdi-close" @click="remove(index)" dense)
-					q-icon.resize(name="mdi-resize-bottom-right" @click="" dense size="16px") 
+					q-icon.close(v-show="isDraggable" name="mdi-close" @click="remove(index)" dense)
+					q-icon.resize(v-show="isDraggable" name="mdi-resize-bottom-right" @click="" dense size="16px") 
 	
 					// draggable(
 						class="list-group"
@@ -212,7 +205,8 @@ const layout = reactive([
 
 									q-btn(dense flat round icon="mdi-close" @click="remove(index)" size="sm") 
 
-		q-btn.fab(round color="primary" icon="mdi-plus" @click="store.addWidget" ) 
+		q-btn.fab(round color="primary" icon="mdi-plus" @click="" ) 
+		q-btn.fab1(round color="primary" icon="mdi-help" @click="store.addWidget" ) 
 chooseFormDialog(v-model="dialog1")
 
 </template>
@@ -350,5 +344,15 @@ chooseFormDialog(v-model="dialog1")
 	right: 1rem;
 	z-index: 6003;
 	transition: 0.3s ease all;
+}
+.fab1 {
+	position: absolute;
+	bottom: 1rem;
+	left: 1rem;
+	z-index: 6003;
+	transition: 0.3s ease all;
+}
+.vue-grid-layout {
+	min-height: calc(100vh - 360px);
 }
 </style>
