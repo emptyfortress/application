@@ -5,6 +5,7 @@ import chooseFormDialog from '@/components/chooseFormDialog.vue'
 import draggable from 'vuedraggable'
 import { useStore } from '@/stores/store'
 import { onClickOutside } from '@vueuse/core'
+import { GridItem, GridLayout } from 'vue-ts-responsive-grid-layout'
 
 const router = useRouter()
 const route = useRoute()
@@ -108,10 +109,27 @@ onClickOutside(target, (event) =>
 		store.setField(null)
 	})
 )
-const one = ref(true)
+// const one = ref(true)
+const one = true
 const chips = reactive([
 	{ label: 'Задача', selected: true },
 	{ label: 'Еще задача', selected: true },
+])
+const layout = reactive([
+	{
+		x: 0,
+		y: 0,
+		w: 6,
+		h: 6,
+		i: 0,
+	},
+	// {
+	// 	x: 6,
+	// 	y: 0,
+	// 	w: 6,
+	// 	h: 6,
+	// 	i: 1,
+	// },
 ])
 </script>
 
@@ -146,27 +164,55 @@ const chips = reactive([
 	.list
 		.drop(v-if="list2.length == 0")
 			span Перетащите сюда нужное поле
-		draggable(
-			class="list-group"
-			:list="list2"
-			group="people"
-			ghost-class="ghost"
-			itemKey="id")
 
-			template(#item="{ element, index }")
-				.node1(ref="target" @click="select(element)" :class="{selected: element.selected}")
-					FormKit(:type="element.type" :label="element.label" :placeholder="element.typ" :options="element.options")
-					.bt
-						q-btn(dense flat round @click="element.visible = !element.visible" size="sm") 
-							q-icon(name="mdi-eye" v-if="element.visible")
-							q-icon(name="mdi-eye-off" v-else)
+		GridLayout(ref="grid"
+			:layout.sync="layout"
+			:col-num="12"
+			:row-height="30"
+			:is-draggable="true"
+			:is-resizable="true"
+			:is-bounded="true"
+			:is-mirrored="false"
+			:vertical-compact="true"
+			:margin="[5, 5]"
+			:show-close-button="false"
+			:use-css-transforms="true")
+	
+			GridItem(v-for="( item ) in layout"
+				:x="item.x"
+				:y="item.y"
+				:w="item.w"
+				:h="item.h"
+				:i="item.i"
+				:show-close-button="false"
+				:key="item.i")
 
-						q-btn(dense flat round @click="element.readonly = !element.readonly" size="sm") 
-							q-icon(name="mdi-pencil-off" v-if="element.readonly")
-							q-icon(name="mdi-pencil" v-else)
+				.section
+					q-icon.close(name="mdi-close" @click="remove(index)" dense)
+					q-icon.resize(name="mdi-resize-bottom-right" @click="" dense size="16px") 
+	
+					// draggable(
+						class="list-group"
+						:list="list2"
+						group="people"
+						ghost-class="ghost"
+						itemKey="id")
 
-						q-btn(dense flat round icon="mdi-close" @click="remove(index)" size="sm") 
+						template(#item="{ element, index }")
+							.node1(ref="target" @click="select(element)" :class="{selected: element.selected}")
+								FormKit(:type="element.type" :label="element.label" :placeholder="element.typ" :options="element.options")
+								.bt
+									q-btn(dense flat round @click="element.visible = !element.visible" size="sm") 
+										q-icon(name="mdi-eye" v-if="element.visible")
+										q-icon(name="mdi-eye-off" v-else)
 
+									q-btn(dense flat round @click="element.readonly = !element.readonly" size="sm") 
+										q-icon(name="mdi-pencil-off" v-if="element.readonly")
+										q-icon(name="mdi-pencil" v-else)
+
+									q-btn(dense flat round icon="mdi-close" @click="remove(index)" size="sm") 
+
+		q-btn.fab(round color="primary" icon="mdi-plus" @click="store.addWidget" ) 
 chooseFormDialog(v-model="dialog1")
 
 </template>
@@ -179,9 +225,7 @@ chooseFormDialog(v-model="dialog1")
 }
 .list {
 	border-top: 1px solid #ccc;
-	min-height: 100px;
 	width: 100%;
-	background: #eee;
 	padding: 0.5rem;
 	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAAXNSR0IArs4c6QAAADhJREFUGFctjMERADAIwsL+MxZHoYetL8gFBSCJpAFsRwW9LAVPYUEVPvTUfHX9iDMn2h/fFtnVBb6XHglDcS5IAAAAAElFTkSuQmCC)
 		repeat;
@@ -200,7 +244,7 @@ chooseFormDialog(v-model="dialog1")
 }
 .bl {
 	background: #fff;
-	height: var(--panel-height);
+	min-height: var(--panel-height);
 	padding: 1rem;
 	margin-right: 0.25rem;
 	position: relative;
@@ -256,5 +300,55 @@ chooseFormDialog(v-model="dialog1")
 	display: flex;
 	justify-content: space-between;
 	align-items: start;
+	// height: 200px;
+	// height: var(--panel-height);
+}
+.section {
+	border: 2px solid blue;
+	height: 100%;
+	width: 100%;
+	z-index: 1001;
+	position: relative;
+	// overflow: hidden;
+	// background: #eee;
+}
+.close {
+	position: absolute;
+	right: 3px;
+	top: 3px;
+	cursor: pointer;
+}
+:deep(.vue-grid-item) {
+	touch-action: none;
+	position: relative;
+}
+.resize {
+	position: absolute;
+	right: 3px;
+	bottom: 3px;
+	cursor: pointer;
+}
+:deep(.vue-grid-item.vue-grid-placeholder) {
+	background: green !important;
+	opacity: 0.2;
+	// z-index: -1;
+}
+:deep(.vue-draggable-dragging) {
+	z-index: 1000;
+	box-shadow: 3px 3px 17px rgba(0, 0, 0, 0.4);
+}
+.move {
+	transition: 0.2s ease all;
+}
+:deep(.vue-grid-item) {
+	touch-action: none;
+	position: relative;
+}
+.fab {
+	position: absolute;
+	bottom: 1rem;
+	right: 1rem;
+	z-index: 6003;
+	transition: 0.3s ease all;
 }
 </style>

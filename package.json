@@ -25,6 +25,7 @@
     "vue": "^3.4.21",
     "vue-draggable-resizable": "^3.0.0",
     "vue-router": "^4.3.0",
+    "vue-ts-responsive-grid-layout": "^1.2.9",
     "vue-word-highlighter": "^1.2.4",
     "vuedraggable": "^4.1.0"
   },
