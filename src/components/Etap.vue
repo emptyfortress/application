@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, reactive, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import chooseFormDialog from '@/components/chooseFormDialog.vue'
 import draggable from 'vuedraggable'
@@ -108,17 +108,27 @@ onClickOutside(target, (event) =>
 		store.setField(null)
 	})
 )
+const one = ref(true)
+const chips = reactive([
+	{ label: 'Задача', selected: true },
+	{ label: 'Еще задача', selected: true },
+])
 </script>
 
 <template lang="pug">
 .bl
 	.zag
 		q-btn(flat color="primary" icon="mdi-menu" label="Показать поля" @click="store.toggleDrawer") 
-		q-btn(flat color="primary" icon="mdi-form-select" label="Выбрать форму из доступных" @click="dialog1 = !dialog1") 
+		h5 Форма "{{ name }}"
+			q-popup-edit(v-model="name" title="Название формы" auto-save v-slot="scope")
+				q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
+		q-btn(flat color="primary" icon="mdi-form-select" label="Выбрать форму" @click="dialog1 = !dialog1") 
 
-	h5.q-mt-md Форма "{{ name }}"
-		q-popup-edit(v-model="name" title="Название формы" auto-save v-slot="scope")
-			q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
+	.use
+		span Данная форма используется в задачах:
+		q-chip(v-model:selected="one") {{ name }}
+		q-chip(v-for="el in chips" clickable v-model:selected="el.selected") {{ el.label}}
+
 
 	.list
 		.drop(v-if="list2.length == 0")
@@ -162,7 +172,13 @@ chooseFormDialog(v-model="dialog1")
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
+	align-items: start;
+	h5 {
+		text-align: center;
+	}
+}
+.q-chip {
+	padding: 0 7px;
 }
 .bl {
 	background: #fff;
@@ -204,5 +220,16 @@ chooseFormDialog(v-model="dialog1")
 }
 .op {
 	opacity: 0.2;
+}
+.use {
+	margin: 1rem;
+	text-align: center;
+}
+.q-chip--selected {
+	background: $accent;
+	color: white;
+}
+:deep(.q-chip__icon) {
+	color: #fff;
 }
 </style>

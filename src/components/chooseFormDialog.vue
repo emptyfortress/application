@@ -41,7 +41,7 @@ q-dialog(v-model="modelValue")
 	q-card(style="min-width: 400px;")
 		q-btn.close(round color="negative" icon="mdi-close" v-close-popup)
 		q-card-section
-			.text-h6 Выбрать форму для этапа
+			.text-h6 Выбрать форму из доступных
 
 		q-form(@submit="loadForm")
 			q-card-section
