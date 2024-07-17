@@ -155,21 +155,18 @@ const isDraggable = useKeyModifier('Alt', { initial: false })
 			q-btn(unelevated color="primary" label="Согласовать") 
 
 	.list
-		.drop(v-if="list2.length == 0")
-			span Перетащите сюда нужное поле
 
-		GridLayout(ref="grid"
+		GridLayout(
 			:layout.sync="layout"
 			:col-num="12"
 			:row-height="30"
 			:is-draggable="isDraggable"
-			:is-resizable="isDraggable"
 			:is-bounded="true"
 			:is-mirrored="false"
 			:vertical-compact="true"
 			:margin="[5, 5]"
 			:show-close-button="false"
-			:use-css-transforms="true")
+			:use-css-transforms="false")
 	
 			GridItem(v-for="( item ) in layout"
 				:x="item.x"
@@ -180,11 +177,14 @@ const isDraggable = useKeyModifier('Alt', { initial: false })
 				:show-close-button="false"
 				:key="item.i")
 
-				.section
+				.sect
 					q-icon.close(v-show="isDraggable" name="mdi-close" @click="remove(index)" dense)
 					q-icon.resize(v-show="isDraggable" name="mdi-resize-bottom-right" @click="" dense size="16px") 
+
+					.drop(v-if="list2.length == 0")
+						span Перетащите сюда нужное поле
 	
-					// draggable(
+					draggable(
 						class="list-group"
 						:list="list2"
 						group="people"
@@ -246,9 +246,6 @@ chooseFormDialog(v-model="dialog1")
 .sec {
 	margin-top: 1rem;
 }
-.list-group {
-	max-width: 300px;
-}
 .node1 {
 	// max-width: 300px;
 	padding: 0.5rem;
@@ -297,14 +294,12 @@ chooseFormDialog(v-model="dialog1")
 	// height: 200px;
 	// height: var(--panel-height);
 }
-.section {
-	border: 2px solid blue;
+.sect {
+	border: 1px solid blue;
 	height: 100%;
 	width: 100%;
 	z-index: 1001;
 	position: relative;
-	// overflow: hidden;
-	// background: #eee;
 }
 .close {
 	position: absolute;
@@ -354,5 +349,9 @@ chooseFormDialog(v-model="dialog1")
 }
 .vue-grid-layout {
 	min-height: calc(100vh - 360px);
+}
+.drop {
+	margin: 1rem;
+	text-align: center;
 }
 </style>
