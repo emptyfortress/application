@@ -137,7 +137,7 @@ const isDraggable = useKeyModifier('Alt', { initial: false })
 
 	.use
 		span Данная форма используется в задачах:
-		q-chip(v-model:selected="one") {{ name }}
+		q-chip(selected) {{ name }}
 		q-chip(v-for="el in chips" clickable v-model:selected="el.selected") {{ el.label}}
 
 	.done
