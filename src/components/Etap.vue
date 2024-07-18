@@ -254,7 +254,7 @@ chooseFormDialog(v-model="dialog1")
 	margin-bottom: 2px;
 	.bt {
 		position: absolute;
-		top: -26px;
+		top: 0;
 		right: 0;
 		background: #ffaa5b;
 		display: none;
@@ -300,6 +300,7 @@ chooseFormDialog(v-model="dialog1")
 	width: 100%;
 	z-index: 1001;
 	position: relative;
+	overflow: hidden;
 }
 .close {
 	position: absolute;

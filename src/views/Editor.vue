@@ -25,14 +25,6 @@ const route = useRoute()
 const router = useRouter()
 const split = ref(80)
 
-// const go = (e: number) => {
-// 	if (e == 1) router.push(`/${store.app.title}`)
-// 	if (e == 2 && store.etap) {
-// 		router.back()
-// 		store.setEtap(null)
-// 	} else return
-// }
-
 onMounted(() => {
 	gsap.from('.fuck', {
 		delay: 0.5,
@@ -80,7 +72,7 @@ onMounted(() => {
 
 <template lang="pug">
 q-page
-	q-splitter.split(v-model="split")
+	q-splitter.split(v-model="split" :limits="[50, 100]")
 		template(v-slot:before)
 			router-view
 		template(v-slot:after)
