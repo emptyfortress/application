@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useStore } from '@/stores/store'
+import FieldLib from '@/components/FieldLib.vue'
 
 const store = useStore()
 const router = useRouter()
@@ -21,34 +23,44 @@ const prop1 = [
 const goto = (e: string) => {
 	router.push(`/${route.params.id}/editor/process/${e}`)
 }
+const tabs = ref('property')
 </script>
 
 <template lang="pug">
 .prop
-	template(v-if="route.name == 'Процесс' && !!store.currentBO")
-		.grid
-			div id:
-			div {{ store.currentBO.id }}
-			div Тип:
-			div {{ store.currentBO.type }}
-			div Название:
-			.text-bold {{ store.currentBO.name }}
+	q-tabs(v-model="tabs" dense active-color="primary" indicator-color="primary")
+		q-tab(name="property" label="Свойства")
+		q-tab(name="lib" label="Библиотека" v-if="route.name == 'Этап'")
+	q-separator
+	q-tab-panels(v-model="tabs" animated)
+		q-tab-panel(name="property")
 
-		q-btn(unelevated color="primary" label="Настроить форму" @click="goto(store.currentBO.name)") 
+			template(v-if="route.name == 'Процесс' && !!store.currentBO")
+				.grid
+					div id:
+					div {{ store.currentBO.id }}
+					div Тип:
+					div {{ store.currentBO.type }}
+					div Название:
+					.text-bold {{ store.currentBO.name }}
 
-	template(v-if="route.name == 'Процесс' && store.currentBO == null")
-		q-list
-			q-item.ani(clickable v-for="item in prop1" :key="item.id")
-				q-item-section {{ item.label }}
+				q-btn(unelevated color="primary" label="Настроить форму" @click="goto(store.currentBO.name)") 
+
+			template(v-if="route.name == 'Процесс' && store.currentBO == null")
+				q-list
+					q-item.ani(clickable v-for="item in prop1" :key="item.id")
+						q-item-section {{ item.label }}
 
 
 
-	template(v-if="route.name == 'Этап' && !!store.currentField")
-		.q-pa-md.text-bold {{ store.currentField?.name }}
+			template(v-if="route.name == 'Этап' && !!store.currentField")
+				.q-pa-md.text-bold {{ store.currentField?.name }}
 
-	template(v-if="route.name == 'Этап' && store.currentField == null")
-		.q-pa-md Здесь общие настройки формы
+			template(v-if="route.name == 'Этап' && store.currentField == null")
+				.q-pa-md Здесь общие настройки формы
 
+		q-tab-panel(name="lib")
+			FieldLib
 </template>
 
 <style scoped lang="scss">

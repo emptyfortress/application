@@ -23,7 +23,7 @@ const props = defineProps({
 const store = useStore()
 const route = useRoute()
 const router = useRouter()
-const split = ref(80)
+const split = ref(75)
 
 onMounted(() => {
 	gsap.from('.fuck', {

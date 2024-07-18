@@ -96,7 +96,7 @@ const calcClass = (e: string) => {
 </script>
 
 <template lang="pug">
-q-drawer.rel(v-model="modelValue" side="left" :width="240" :mini="store.mini")
+q-drawer.rel(v-model="modelValue" side="left" :width="180" :mini="store.mini")
 	transition(@enter="enter" @leave="leave" :css="false" mode="out-in")
 
 		q-list(v-if="show")
