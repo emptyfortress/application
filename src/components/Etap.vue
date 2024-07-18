@@ -144,11 +144,9 @@ const isDraggable = useKeyModifier('Alt', { initial: false })
 const over = ref(false)
 
 const onDragOver = () => {
-	console.log(111)
 	over.value = true
 }
 const onDrop = () => {
-	console.log(222)
 	layout.push({
 		x: 0,
 		y: 6,
