@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 import { useStore } from '@/stores/store'
 import draggable from 'vuedraggable'
 import AddFieldDialog from '@/components/AddFieldDialog.vue'
@@ -84,6 +84,8 @@ div
 
 	q-btn.q-mt-md(flat icon="mdi-plus-circle-outline" color="primary" @click="dialog = !dialog" label="Добавить поле") 
 
+	.node(draggable="true") fuck
+
 AddFieldDialog(v-model="dialog" @create="addField")
 </template>
 
@@ -116,5 +118,11 @@ AddFieldDialog(v-model="dialog" @create="addField")
 	position: absolute;
 	top: 0.3rem;
 	right: 0.3rem;
+}
+.blo {
+	width: 100%;
+	// width: 200px;
+	height: 100%;
+	background: #ccc;
 }
 </style>

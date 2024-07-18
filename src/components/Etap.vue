@@ -79,8 +79,17 @@ const list3 = ref([
 		selected: false,
 	},
 ])
+
 const remove = (e: number) => {
 	list2.value.splice(e, 1)
+}
+
+const remove1 = (e: number) => {
+	// console.log(e)
+	let temp = [...document.getElementsByClassName('vue-grid-item')]
+	temp.forEach((el) => el.classList.add('move'))
+	layout.splice(e, 1)
+	// list2.value.splice(e, 1)
 }
 
 const store = useStore()
@@ -122,18 +131,42 @@ const layout = reactive([
 		h: 6,
 		i: 0,
 	},
+	{
+		x: 6,
+		y: 0,
+		w: 6,
+		h: 6,
+		i: 1,
+	},
 ])
 const isDraggable = useKeyModifier('Alt', { initial: false })
+
+const over = ref(false)
+
+const onDragOver = () => {
+	console.log(111)
+	over.value = true
+}
+const onDrop = () => {
+	console.log(222)
+	layout.push({
+		x: 0,
+		y: 6,
+		w: 5,
+		h: 6,
+		i: 4,
+	})
+}
 </script>
 
 <template lang="pug">
 .bl
 	.zag
-		q-btn(flat color="primary" icon="mdi-menu" label="Показать поля" @click="store.toggleDrawer") 
+		q-btn(flat color="primary" icon="mdi-form-select" label="Выбрать форму" @click="dialog1 = !dialog1") 
 		h5 Форма "{{ name }}"
 			q-popup-edit(v-model="name" title="Название формы" auto-save v-slot="scope")
 				q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
-		q-btn(flat color="primary" icon="mdi-form-select" label="Выбрать форму" @click="dialog1 = !dialog1") 
+		q-btn(flat color="primary" icon="mdi-state-select" label="Выбрать форму" @click="dialog1 = !dialog1") 
 
 	.use
 		span Данная форма используется в задачах:
@@ -154,19 +187,27 @@ const isDraggable = useKeyModifier('Alt', { initial: false })
 			q-btn(unelevated color="negative" label="Отказать") 
 			q-btn(unelevated color="primary" label="Согласовать") 
 
-	.list
+	.list(
+		@dragover.prevent
+		@dragenter.prevent
+		@dragenter="onDragOver"
+		@drop="onDrop"
+		:class="{over : over}"
+		)
 
 		GridLayout(
 			:layout.sync="layout"
 			:col-num="12"
 			:row-height="30"
 			:is-draggable="isDraggable"
+			:is-resizable="isDraggable"
 			:is-bounded="true"
 			:is-mirrored="false"
 			:vertical-compact="true"
 			:margin="[5, 5]"
 			:show-close-button="false"
-			:use-css-transforms="false")
+			:use-css-transforms="false"
+			)
 	
 			GridItem(v-for="( item ) in layout"
 				:x="item.x"
@@ -177,14 +218,16 @@ const isDraggable = useKeyModifier('Alt', { initial: false })
 				:show-close-button="false"
 				:key="item.i")
 
+				// .sect
+
 				.sect
-					q-icon.close(v-show="isDraggable" name="mdi-close" @click="remove(index)" dense)
+					q-icon.close(v-show="isDraggable" name="mdi-close" @click="remove1(item.i)" dense)
 					q-icon.resize(v-show="isDraggable" name="mdi-resize-bottom-right" @click="" dense size="16px") 
 
 					.drop(v-if="list2.length == 0")
 						span Перетащите сюда нужное поле
 	
-					draggable(
+					// draggable(
 						class="list-group"
 						:list="list2"
 						group="people"
@@ -223,6 +266,9 @@ chooseFormDialog(v-model="dialog1")
 	padding: 0.5rem;
 	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAAXNSR0IArs4c6QAAADhJREFUGFctjMERADAIwsL+MxZHoYetL8gFBSCJpAFsRwW9LAVPYUEVPvTUfHX9iDMn2h/fFtnVBb6XHglDcS5IAAAAAElFTkSuQmCC)
 		repeat;
+	&.over {
+		background: #ccc;
+	}
 }
 .zag {
 	width: 100%;
@@ -350,6 +396,7 @@ chooseFormDialog(v-model="dialog1")
 }
 .vue-grid-layout {
 	min-height: calc(100vh - 360px);
+	// transition: height 200ms ease;
 }
 .drop {
 	margin: 1rem;

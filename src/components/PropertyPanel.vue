@@ -23,7 +23,7 @@ const prop1 = [
 const goto = (e: string) => {
 	router.push(`/${route.params.id}/editor/process/${e}`)
 }
-const tabs = ref('property')
+const tabs = ref('lib')
 </script>
 
 <template lang="pug">
