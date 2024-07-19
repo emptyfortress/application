@@ -72,8 +72,14 @@ const dragStart = (type: number) => {
 
 <template lang="pug">
 div
-	.sid
-		.zg Доступные поля:
+	.zg Блоки для разметки
+	.node(:draggable="true" @dragstart="dragStart(1)") Шапка на всю ширину
+	.node(:draggable="true" @dragstart="dragStart(1)") Простая секция
+	.node(:draggable="true" @dragstart="dragStart(1)") Две колонки
+
+	q-separator.q-my-md
+
+	.zg Доступные поля:
 
 	draggable(
 		class="list-group"
@@ -90,7 +96,6 @@ div
 
 	q-btn.q-mt-md(flat icon="mdi-plus-circle-outline" color="primary" @click="dialog = !dialog" label="Добавить поле") 
 
-	.node(:draggable="true" @dragstart="dragStart(1)") Секция
 
 AddFieldDialog(v-model="dialog" @create="addField")
 </template>

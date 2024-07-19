@@ -24,6 +24,7 @@ const create = (data: any) => {
 	data.id = +new Date()
 	data.text = data.name
 	data.type = 1
+	data.card = data.card
 	emit('create', data)
 	close()
 }

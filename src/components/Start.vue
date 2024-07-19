@@ -43,6 +43,9 @@ const goto = () => {
 									q-item-section v.1.1.0
 
 		template(v-if="store.currentNode.data.type == 1")
+			.row.q-mt-lg.q-gutter-md
+				.text-bold Карточка:
+				div {{ store.currentNode.data.text }}
 			.q-mt-md Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime, autem consequatur. Aperiam quis consectetur beatae et labore rerum ut optio incidunt dolor ab exercitationem aliquam, fugit dolorum aspernatur, maiores ratione!
 
 			.q-mt-lg.q-gutter-x-lg

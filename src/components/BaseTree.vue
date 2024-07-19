@@ -7,7 +7,6 @@ import WordHighlighter from 'vue-word-highlighter'
 import DirMenu from '@/components/DirMenu.vue'
 import { useRouter } from 'vue-router'
 import CreateDialog from '@/components/CreateDialog.vue'
-import { useStorage } from '@vueuse/core'
 
 const router = useRouter()
 
@@ -73,8 +72,6 @@ const select = (n: Stat) => {
 	tree.value.statsFlat.map((item: Stat) => (item.data.selected = false))
 	n.data.selected = true
 	store.setCurrentNode(n)
-	// curr.value = null
-	// curr.value = useStorage('dv-store', { ...n.data })
 	localStorage.setItem('app', JSON.stringify(n.data))
 	router.push(n.data.text)
 }
