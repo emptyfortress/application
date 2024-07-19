@@ -27,6 +27,7 @@ const create = (data: any) => {
 	emit('create', data)
 	close()
 }
+const card = ref(true)
 </script>
 
 <template lang="pug">
@@ -41,7 +42,9 @@ q-dialog(v-model="modelValue")
 		q-card-section
 			FormKit(type="form" id="newapp" submit-label="Создать" @submit="create")
 				FormKit(type="text" autofocus name="name" label="Название" help="Назовите ваше приложение" validation="required|length:3")
-				FormKit(type="textarea" name="descr" label="Описание" help="Что будет делать ваше приложение?" validation="required|length:3")
+				FormKit(type="textarea" name="descr" label="Описание" help="Что будет делать ваше приложение?")
+				FormKit(type="checkbox" v-model="card" name="check" label="Карточка использует название приложения")
+				FormKit(v-if="!card" type="text" name="cardname" label="Карточка" help="Какая карточка будет использоваться" validation="required|length:3")
 
 </template>
 
