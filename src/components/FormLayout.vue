@@ -83,7 +83,7 @@ GridLayout.list(
 
 <style scoped lang="scss">
 .list {
-	min-height: calc(100vh - 340px);
+	min-height: calc(100vh - 345px);
 	border-top: 1px solid #ccc;
 	width: 100%;
 	padding: 0.5rem;
