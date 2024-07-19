@@ -7,6 +7,7 @@ import FormLayout from '@/components/FormLayout.vue'
 .bl
 	FormTop
 	FormLayout
+	q-btn(round color="primary" icon="mdi-help" size="sm") 
 
 </template>
 
@@ -17,5 +18,10 @@ import FormLayout from '@/components/FormLayout.vue'
 	padding: 1rem;
 	margin-right: 0.25rem;
 	position: relative;
+}
+.q-btn {
+	position: absolute;
+	bottom: 1rem;
+	right: 1rem;
 }
 </style>

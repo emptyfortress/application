@@ -3,6 +3,7 @@ import { ref, reactive, computed } from 'vue'
 import { GridItem, GridLayout } from 'vue-ts-responsive-grid-layout'
 import { useLayoutStore } from '@/stores/layout'
 import FormSection from '@/components/FormSection.vue'
+import { useKeyModifier } from '@vueuse/core'
 
 const lstore = useLayoutStore()
 
@@ -41,6 +42,7 @@ const calcClass = computed(() => {
 	if (green.value == true) return 'green'
 	if (red.value == true) return 'red'
 })
+const isDraggable = useKeyModifier('Alt')
 </script>
 
 <template lang="pug">
@@ -48,9 +50,9 @@ GridLayout.list(
 	:layout.sync="lstore.layout"
 	:col-num="12"
 	:row-height="30"
-	:is-draggable="true"
+	:is-draggable="isDraggable"
 	:is-resizable="true"
-	:is-bounded="false"
+	:is-bounded="true"
 	:is-mirrored="false"
 	:vertical-compact="true"
 	:margin="[5, 5]"
@@ -82,7 +84,7 @@ GridLayout.list(
 
 <style scoped lang="scss">
 .list {
-	min-height: calc(100vh - 360px);
+	min-height: calc(100vh - 340px);
 	border-top: 1px solid #ccc;
 	width: 100%;
 	padding: 0.5rem;
@@ -116,9 +118,9 @@ GridLayout.list(
 	touch-action: none;
 	position: relative;
 }
-.vue-grid-layout {
-	min-height: calc(100vh - 360px);
-}
+// .vue-grid-layout {
+// 	min-height: calc(100vh - 360px);
+// }
 .sect {
 	border: 1px solid blue;
 	height: 100%;

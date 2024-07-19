@@ -4,29 +4,7 @@ import draggable from 'vuedraggable'
 import { onClickOutside } from '@vueuse/core'
 import { useStore } from '@/stores/store'
 
-const list2 = ref([
-	{
-		id: 1,
-		type: 'select',
-		typ: 'Сотрудник',
-		label: 'Автор',
-		name: 'Автор',
-		visible: true,
-		readonly: true,
-		selected: false,
-		options: ['Иванов', 'Петров', 'Орлов'],
-	},
-	{
-		id: 2,
-		type: 'date',
-		typ: 'Дата',
-		label: 'Дата создания',
-		name: 'Дата создания',
-		visible: true,
-		readonly: true,
-		selected: false,
-	},
-])
+const list2 = ref([])
 const list3 = ref([
 	{
 		id: 0,
@@ -107,7 +85,7 @@ const remove = (e: number) => {
 .drophere(v-if="list2.length == 0")
 	span Перетащите сюда нужное поле из библиотеки справа.
 
-// draggable(
+draggable(
 	class="list-group"
 	:list="list2"
 	group="people"
