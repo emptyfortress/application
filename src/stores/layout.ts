@@ -4,6 +4,7 @@ import { defineStore } from 'pinia'
 export const useLayoutStore = defineStore('layout', () => {
 	const index = ref(2)
 	const colNum = ref(12)
+	const dragType = ref(0)
 	const layout = reactive([
 		{
 			x: 0,
@@ -29,6 +30,9 @@ export const useLayoutStore = defineStore('layout', () => {
 	const removeSection = (e: number) => {
 		layout.splice(e, 1)
 	}
+	const setDragType = (e: number) => {
+		dragType.value = e
+	}
 
-	return { layout, addSection, removeSection }
+	return { layout, addSection, removeSection, setDragType, dragType }
 })

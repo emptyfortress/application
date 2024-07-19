@@ -12,6 +12,7 @@ export const useStore = defineStore('store', {
 		currentField: null as Field | null,
 		del: false,
 		dub: false,
+		tabs: 'property',
 	}),
 	getters: {},
 	actions: {

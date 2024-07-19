@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
-import { useStore } from '@/stores/store'
 import draggable from 'vuedraggable'
 import AddFieldDialog from '@/components/AddFieldDialog.vue'
+import { useLayoutStore } from '@/stores/layout'
 
-const store = useStore()
+const lstore = useLayoutStore()
+
 const dialog = ref(false)
 
 const list1 = ref([
@@ -64,6 +65,9 @@ const list1 = ref([
 const addField = (tmp: any) => {
 	list1.value.push(tmp)
 }
+const dragStart = (type: number) => {
+	lstore.setDragType(type)
+}
 </script>
 
 <template lang="pug">
@@ -76,7 +80,9 @@ div
 		:list="list1"
 		ghost-class="ghost"
 		:group="{ name: 'people', pull: 'clone', put: false }"
-		itemKey="id")
+		itemKey="id"
+		@dragstart="dragStart(2)"
+		)
 
 		template(#item="{ element, index }")
 			.node
@@ -84,7 +90,7 @@ div
 
 	q-btn.q-mt-md(flat icon="mdi-plus-circle-outline" color="primary" @click="dialog = !dialog" label="Добавить поле") 
 
-	.node(draggable="true") fuck
+	.node(:draggable="true" @dragstart="dragStart(1)") Секция
 
 AddFieldDialog(v-model="dialog" @create="addField")
 </template>

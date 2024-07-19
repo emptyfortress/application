@@ -23,16 +23,16 @@ const prop1 = [
 const goto = (e: string) => {
 	router.push(`/${route.params.id}/editor/process/${e}`)
 }
-const tabs = ref('property')
+// const tabs = ref('property')
 </script>
 
 <template lang="pug">
 .prop
-	q-tabs(v-model="tabs" dense active-color="primary" indicator-color="primary")
+	q-tabs(v-model="store.tabs" dense active-color="primary" indicator-color="primary")
 		q-tab(name="property" label="Свойства")
 		q-tab(name="lib" label="Библиотека" v-if="route.name == 'Этап'")
 	q-separator
-	q-tab-panels(v-model="tabs" animated)
+	q-tab-panels(v-model="store.tabs" animated)
 		q-tab-panel(name="property")
 
 			template(v-if="route.name == 'Процесс' && !!store.currentBO")

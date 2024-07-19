@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref, reactive, computed } from 'vue'
 import { GridItem, GridLayout } from 'vue-ts-responsive-grid-layout'
 import { useLayoutStore } from '@/stores/layout'
 import FormSection from '@/components/FormSection.vue'
@@ -12,69 +12,89 @@ const remove = (e: number) => {
 	lstore.removeSection(e)
 }
 
-const over = ref(false)
+const green = ref(false)
+const red = ref(false)
 
 const onDragEnter = () => {
-	over.value = true
+	console.log(lstore.dragType)
+	if (lstore.dragType == 1) {
+		green.value = true
+	}
+	if (lstore.dragType == 2) {
+		red.value = true
+	}
 }
 const onDragLeave = () => {
-	over.value = false
+	green.value = false
+	red.value = false
 }
-const onDrop = () => {
-	lstore.addSection()
-	over.value = false
+const onDrop = (evt: DragEvent, type: number) => {
+	const typ = evt.dataTransfer.getData('type')
+	if (lstore.dragType == 1) {
+		lstore.addSection()
+	}
+	green.value = false
+	red.value = false
+	lstore.setDragType(0)
 }
+const calcClass = computed(() => {
+	if (green.value == true) return 'green'
+	if (red.value == true) return 'red'
+})
 </script>
 
 <template lang="pug">
-.list(
+GridLayout.list(
+	:layout.sync="lstore.layout"
+	:col-num="12"
+	:row-height="30"
+	:is-draggable="true"
+	:is-resizable="true"
+	:is-bounded="false"
+	:is-mirrored="false"
+	:vertical-compact="true"
+	:margin="[5, 5]"
+	:show-close-button="false"
+	:use-css-transforms="false"
 	@dragover.prevent
-	@dragleave.prevent="onDragLeave"
 	@dragenter.prevent="onDragEnter"
+	@dragleave="onDragLeave"
 	@drop="onDrop"
-	:class="{over : over}"
+	:class="calcClass"
 	)
 
-	GridLayout(
-		:layout.sync="lstore.layout"
-		:col-num="12"
-		:row-height="30"
-		:is-draggable="true"
-		:is-resizable="true"
-		:is-bounded="true"
-		:is-mirrored="false"
-		:vertical-compact="true"
-		:margin="[5, 5]"
+	GridItem(v-for="( item, index ) in lstore.layout"
+		:x="item.x"
+		:y="item.y"
+		:w="item.w"
+		:h="item.h"
+		:i="item.i"
 		:show-close-button="false"
-		:use-css-transforms="false"
-		)
-
-		GridItem(v-for="( item, index ) in lstore.layout"
-			:x="item.x"
-			:y="item.y"
-			:w="item.w"
-			:h="item.h"
-			:i="item.i"
-			:show-close-button="false"
-			:key="item.i")
+		:key="item.i")
 
 
-			.sect
-				q-icon.close(name="mdi-close-box" @click="remove(index)" dense)
-				q-icon.resize(name="mdi-resize-bottom-right" @click="" dense size="16p") 
+		.sect
+			q-icon.close(name="mdi-close-box" @click="remove(index)" dense)
+			q-icon.resize(name="mdi-resize-bottom-right" @click="" dense size="16p") 
 
-				FormSection
+			FormSection
 </template>
 
 <style scoped lang="scss">
 .list {
+	min-height: calc(100vh - 360px);
 	border-top: 1px solid #ccc;
 	width: 100%;
 	padding: 0.5rem;
 	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAAXNSR0IArs4c6QAAADhJREFUGFctjMERADAIwsL+MxZHoYetL8gFBSCJpAFsRwW9LAVPYUEVPvTUfHX9iDMn2h/fFtnVBb6XHglDcS5IAAAAAElFTkSuQmCC)
 		repeat;
-	&.over {
-		background: #ccc;
+	&.green {
+		background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAAXNSR0IArs4c6QAAAEVJREFUGFc1jMEJwDAQw+Rh2mUzTC5DlfsH8na5pP1YIIQlhGUEYBHZXW4LAzL0HCUF9gEwnvjLrzVEhtVm872uXdXU3wu++R1o8/ljbgAAAABJRU5ErkJggg==)
+			repeat;
+	}
+	&.red {
+		background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAAXNSR0IArs4c6QAAADtJREFUGFdFjMENwCAQw5z9F4RBCi9wddVJ/TlOlACEYAFw52PSgQJLLlO738sZu2Tr7u5YxrkVv1+aXpDQGwTZMqKrAAAAAElFTkSuQmCC)
+			repeat;
 	}
 }
 :deep(.vue-grid-item) {
