@@ -55,18 +55,6 @@ onMounted(() => {
 			const { warnings, message } = err
 			console.log('something went wrong:', warnings, message)
 		})
-
-	// if (store.currentNode == null) {
-	// 	store.setCurrentNode({
-	// 		data: {
-	// 			id: uid(),
-	// 			text: 'Заявка',
-	// 			text1: 'Описание',
-	// 			selected: false,
-	// 			type: 1,
-	// 		},
-	// 	})
-	// }
 })
 </script>
 
