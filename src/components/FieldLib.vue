@@ -121,8 +121,8 @@ AddFieldDialog(v-model="dialog" @create="addField")
 		background: #eee;
 	}
 	&.ghost {
-		opacity: 0.5;
-		background: #c8ebfb;
+		opacity: 0.7;
+		background: #ceeccd;
 	}
 }
 .close {

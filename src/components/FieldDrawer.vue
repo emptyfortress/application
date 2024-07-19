@@ -70,17 +70,16 @@ const addField = (tmp: any) => {
 q-drawer.rel(v-model="store.drawer1" side="left" :width="240" overlay bordered elevated)
 	q-btn.close(flat round dense icon="mdi-close-circle" color="primary" @click="store.toggleDrawer") 
 	.sid
-		.zg Доступные поля:
+		.zg Доступные поля fuck:
 
 	draggable(
 		class="list-group"
 		:list="list1"
-		ghost-class="ghost"
 		:group="{ name: 'people', pull: 'clone', put: false }"
 		itemKey="id")
 
 		template(#item="{ element, index }")
-			.node
+			div
 				.name {{ element.name }}
 
 	q-btn.q-mt-md(flat icon="mdi-plus-circle-outline" color="primary" @click="dialog = !dialog" label="Добавить поле") 
@@ -95,23 +94,15 @@ AddFieldDialog(v-model="dialog" @create="addField")
 .zg {
 	font-weight: 600;
 }
-.hh {
-	font-size: 0.8rem;
-	border-bottom: 1px solid #ccc;
-}
 .node {
-	padding: 5px 1rem;
-	background: #fff;
-	cursor: pointer;
+	// padding: 5px 1rem;
+	// background: #fff;
+	// cursor: pointer;
 	// display: grid;
 	// grid-template-columns: 1fr 1fr 0.5fr;
-	&:hover {
-		background: #eee;
-	}
-	&.ghost {
-		opacity: 0.5;
-		background: #c8ebfb;
-	}
+	// &:hover {
+	// 	background: #eee;
+	// }
 }
 .close {
 	position: absolute;
