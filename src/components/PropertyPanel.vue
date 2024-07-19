@@ -28,9 +28,9 @@ const goto = (e: string) => {
 
 <template lang="pug">
 .prop
-	q-tabs(v-model="store.tabs" dense active-color="primary" indicator-color="primary")
-		q-tab(name="property" label="Свойства")
-		q-tab(name="lib" label="Библиотека" v-if="route.name == 'Этап'")
+	q-tabs(v-model="store.tabs" dense active-color="primary" indicator-color="primary" inline-label)
+		q-tab(name="property" icon="mdi-tune-variant" label="Свойства")
+		q-tab(name="lib" icon="mdi-book-outline" label="Библиотека" v-if="route.name == 'Этап'")
 	q-separator
 	q-tab-panels(v-model="store.tabs" animated)
 		q-tab-panel(name="property")

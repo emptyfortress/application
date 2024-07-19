@@ -7,7 +7,8 @@ import FormLayout from '@/components/FormLayout.vue'
 .bl
 	FormTop
 	FormLayout
-	q-btn(round color="primary" icon="mdi-help" size="sm") 
+	q-btn.prev(color="primary" label="Просмотр" size="sm") 
+	q-btn.help(round color="primary" icon="mdi-help" size="sm") 
 
 </template>
 
@@ -19,9 +20,14 @@ import FormLayout from '@/components/FormLayout.vue'
 	margin-right: 0.25rem;
 	position: relative;
 }
-.q-btn {
+.help {
 	position: absolute;
 	bottom: 1rem;
 	right: 1rem;
+}
+.prev {
+	position: absolute;
+	bottom: 1rem;
+	left: 1rem;
 }
 </style>
