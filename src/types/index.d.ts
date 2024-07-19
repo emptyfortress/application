@@ -24,6 +24,7 @@ interface App {
 	descr?: string
 	author?: string
 	created?: string
+	card?: string
 }
 
 interface NodeData extends App {

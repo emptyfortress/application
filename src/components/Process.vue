@@ -23,7 +23,7 @@ const goto = (e: string) => {
 	router.push('/editor/etap')
 }
 
-const curr = JSON.parse(localStorage.getItem('app'))
+const curr = JSON.parse(localStorage.getItem('app')!)
 
 const bpmn = computed(() => {
 	return curr.file ? zay : empty

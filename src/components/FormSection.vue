@@ -4,7 +4,7 @@ import draggable from 'vuedraggable'
 import { onClickOutside } from '@vueuse/core'
 import { useStore } from '@/stores/store'
 
-const list2 = ref([])
+const list2 = ref<Field[]>([])
 const list3 = ref([
 	{
 		id: 0,

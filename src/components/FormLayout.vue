@@ -29,8 +29,7 @@ const onDragLeave = () => {
 	green.value = false
 	red.value = false
 }
-const onDrop = (evt: DragEvent, type: number) => {
-	const typ = evt.dataTransfer.getData('type')
+const onDrop = () => {
 	if (lstore.dragType == 1) {
 		lstore.addSection()
 	}
