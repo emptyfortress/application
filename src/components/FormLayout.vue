@@ -6,33 +6,31 @@ import FormSection from '@/components/FormSection.vue'
 
 const lstore = useLayoutStore()
 
-const remove1 = (e: number) => {
+const remove = (e: number) => {
 	let temp = [...document.getElementsByClassName('vue-grid-item')]
 	temp.forEach((el) => el.classList.add('move'))
-	layout.splice(e, 1)
+	lstore.removeSection(e)
 }
 
 const over = ref(false)
 
-const onDragOver = () => {
+const onDragEnter = () => {
 	over.value = true
 }
+const onDragLeave = () => {
+	over.value = false
+}
 const onDrop = () => {
-	layout.push({
-		x: 0,
-		y: 6,
-		w: 5,
-		h: 6,
-		i: 4,
-	})
+	lstore.addSection()
+	over.value = false
 }
 </script>
 
 <template lang="pug">
 .list(
 	@dragover.prevent
-	@dragenter.prevent
-	@dragenter="onDragOver"
+	@dragleave.prevent="onDragLeave"
+	@dragenter.prevent="onDragEnter"
 	@drop="onDrop"
 	:class="{over : over}"
 	)
@@ -51,7 +49,7 @@ const onDrop = () => {
 		:use-css-transforms="false"
 		)
 
-		GridItem(v-for="( item ) in lstore.layout"
+		GridItem(v-for="( item, index ) in lstore.layout"
 			:x="item.x"
 			:y="item.y"
 			:w="item.w"
@@ -60,35 +58,12 @@ const onDrop = () => {
 			:show-close-button="false"
 			:key="item.i")
 
-			FormSection
 
-			// .sect
-				q-icon.close(name="mdi-close-bo" @click="remove1(item.i)" dense)
+			.sect
+				q-icon.close(name="mdi-close-box" @click="remove(index)" dense)
 				q-icon.resize(name="mdi-resize-bottom-right" @click="" dense size="16p") 
 
-				.drop(v-if="list2.length == 0")
-					span Перетащите сюда нужное поле из библиотеки справа.
-
-				draggable(
-					class="list-group"
-					:list="list2"
-					group="people"
-					ghost-class="ghost"
-					itemKey="id")
-
-					template(#item="{ element, index }")
-						.node1(ref="target" @click="select(element)" :class="{selected: element.selected}")
-							FormKit(:type="element.type" :label="element.label" :placeholder="element.typ" :options="element.options")
-							.bt
-								q-btn(dense flat @click="element.visible = !element.visible" size="sm") 
-									q-icon(name="mdi-eye" v-if="element.visible")
-									q-icon(name="mdi-eye-off" v-else)
-
-								q-btn(dense flat @click="element.readonly = !element.readonly" size="sm") 
-									q-icon(name="mdi-pencil-off" v-if="element.readonly")
-									q-icon(name="mdi-pencil" v-else)
-
-								q-btn(dense flat icon="mdi-close" @click="remove(index)" size="sm") 
+				FormSection
 </template>
 
 <style scoped lang="scss">
@@ -123,5 +98,25 @@ const onDrop = () => {
 }
 .vue-grid-layout {
 	min-height: calc(100vh - 360px);
+}
+.sect {
+	border: 1px solid blue;
+	height: 100%;
+	width: 100%;
+	z-index: 1001;
+	position: relative;
+	overflow: hidden;
+}
+.close {
+	position: absolute;
+	right: 0;
+	top: 0;
+	cursor: pointer;
+}
+.resize {
+	position: absolute;
+	right: 3px;
+	bottom: 3px;
+	cursor: pointer;
 }
 </style>

@@ -2,12 +2,8 @@ import { ref, computed, reactive } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useLayoutStore = defineStore('layout', () => {
-	// const count = ref(0)
-	// const name = ref('Eduardo')
-	// const doubleCount = computed(() => count.value * 2)
-	// function increment() {
-	// 	count.value++
-	// }
+	const index = ref(2)
+	const colNum = ref(12)
 	const layout = reactive([
 		{
 			x: 0,
@@ -17,14 +13,22 @@ export const useLayoutStore = defineStore('layout', () => {
 			i: 0,
 			data: {},
 		},
-		{
-			x: 6,
-			y: 0,
-			w: 6,
-			h: 6,
-			i: 1,
-		},
 	])
 
-	return { layout }
+	const addSection = () => {
+		layout.push({
+			x: (layout.length * 3) % (colNum.value || 12),
+			y: layout.length + (colNum.value || 12), // puts it at the bottom
+			w: 3,
+			h: 3,
+			i: index.value,
+			data: {},
+		})
+		index.value += 1
+	}
+	const removeSection = (e: number) => {
+		layout.splice(e, 1)
+	}
+
+	return { layout, addSection, removeSection }
 })

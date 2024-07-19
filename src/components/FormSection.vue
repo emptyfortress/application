@@ -104,33 +104,29 @@ const remove = (e: number) => {
 </script>
 
 <template lang="pug">
-.sect
-	q-icon.close(name="mdi-close-bo" @click="remove1(item.i)" dense)
-	q-icon.resize(name="mdi-resize-bottom-right" @click="" dense size="16p") 
+.drophere(v-if="list2.length == 0")
+	span Перетащите сюда нужное поле из библиотеки справа.
 
-	.drophere(v-if="list2.length == 0")
-		span Перетащите сюда нужное поле из библиотеки справа.
+// draggable(
+	class="list-group"
+	:list="list2"
+	group="people"
+	ghost-class="ghost"
+	itemKey="id")
 
-	draggable(
-		class="list-group"
-		:list="list2"
-		group="people"
-		ghost-class="ghost"
-		itemKey="id")
+	template(#item="{ element, index }")
+		.node1(ref="target" @click="select(element)" :class="{selected: element.selected}")
+			FormKit(:type="element.type" :label="element.label" :placeholder="element.typ" :options="element.options")
+			.bt
+				q-btn(dense flat @click="element.visible = !element.visible" size="sm") 
+					q-icon(name="mdi-eye" v-if="element.visible")
+					q-icon(name="mdi-eye-off" v-else)
 
-		template(#item="{ element, index }")
-			.node1(ref="target" @click="select(element)" :class="{selected: element.selected}")
-				FormKit(:type="element.type" :label="element.label" :placeholder="element.typ" :options="element.options")
-				.bt
-					q-btn(dense flat @click="element.visible = !element.visible" size="sm") 
-						q-icon(name="mdi-eye" v-if="element.visible")
-						q-icon(name="mdi-eye-off" v-else)
+				q-btn(dense flat @click="element.readonly = !element.readonly" size="sm") 
+					q-icon(name="mdi-pencil-off" v-if="element.readonly")
+					q-icon(name="mdi-pencil" v-else)
 
-					q-btn(dense flat @click="element.readonly = !element.readonly" size="sm") 
-						q-icon(name="mdi-pencil-off" v-if="element.readonly")
-						q-icon(name="mdi-pencil" v-else)
-
-					q-btn(dense flat icon="mdi-close" @click="remove(index)" size="sm") 
+				q-btn(dense flat icon="mdi-close" @click="remove(index)" size="sm") 
 </template>
 
 <style scoped lang="scss">
