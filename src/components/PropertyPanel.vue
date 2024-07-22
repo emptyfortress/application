@@ -60,7 +60,11 @@ const goto = (e: string) => {
 				.q-pa-md.text-bold Здесь свойства данного блока
 
 			template(v-if="route.name == 'Этап' && store.currentField == null && store.currentBlock == null")
-				.q-pa-md Здесь общие настройки формы
+				.q-ma-md Здесь общие настройки формы
+				br
+				br
+				br
+				.q-ma-md Настройки общего лейаута - выбор колонок и пр.
 
 		q-tab-panel(name="lib")
 			FieldLib
