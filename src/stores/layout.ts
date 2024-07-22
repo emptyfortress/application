@@ -13,7 +13,6 @@ export const useLayoutStore = defineStore('layout', () => {
 			h: 6,
 			i: 0,
 			selected: false,
-			data: {},
 		},
 	])
 
@@ -25,7 +24,6 @@ export const useLayoutStore = defineStore('layout', () => {
 			h: 3,
 			i: index.value,
 			selected: false,
-			data: {},
 		})
 		index.value += 1
 	}

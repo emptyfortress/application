@@ -1,3 +1,11 @@
+type Block = {
+	x: number
+	y: number
+	w: number
+	h: number
+	i: number
+	selected: boolean
+}
 type Field = {
 	id: number
 	type: string

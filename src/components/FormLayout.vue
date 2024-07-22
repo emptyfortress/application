@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { ref, reactive, computed } from 'vue'
 import { GridItem, GridLayout } from 'vue-ts-responsive-grid-layout'
-import { useLayoutStore } from '@/stores/layout'
 import FormSection from '@/components/FormSection.vue'
 import { useKeyModifier } from '@vueuse/core'
 import { onClickOutside } from '@vueuse/core'
+import { useStore } from '@/stores/store'
+import { useLayoutStore } from '@/stores/layout'
 
+const store = useStore()
 const lstore = useLayoutStore()
 
 const remove = (e: number) => {
@@ -47,10 +49,14 @@ const isDraggable = useKeyModifier('Alt')
 const select = (e: any) => {
 	lstore.unselectBlock()
 	e.selected = !e.selected
+	store.setCurrentBlock(e)
 }
 
 const target = ref([])
-onClickOutside(target, (event) => lstore.unselectBlock())
+onClickOutside(target, (event) => {
+	lstore.unselectBlock()
+	store.setCurrentBlock(null)
+})
 </script>
 
 <template lang="pug">

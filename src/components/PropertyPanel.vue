@@ -56,7 +56,10 @@ const goto = (e: string) => {
 			template(v-if="route.name == 'Этап' && !!store.currentField")
 				.q-pa-md.text-bold {{ store.currentField?.name }}
 
-			template(v-if="route.name == 'Этап' && store.currentField == null")
+			template(v-if="route.name == 'Этап' && store.currentField == null && store.currentBlock")
+				.q-pa-md.text-bold Здесь свойства данного блока
+
+			template(v-if="route.name == 'Этап' && store.currentField == null && store.currentBlock == null")
 				.q-pa-md Здесь общие настройки формы
 
 		q-tab-panel(name="lib")

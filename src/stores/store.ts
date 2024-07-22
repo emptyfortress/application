@@ -10,6 +10,7 @@ export const useStore = defineStore('store', {
 		bread: [] as String[],
 		formSelected: false,
 		currentField: null as Field | null,
+		currentBlock: null as Block | null,
 		del: false,
 		dub: false,
 		tabs: 'property',
@@ -40,6 +41,9 @@ export const useStore = defineStore('store', {
 		},
 		setField(e: Field | null) {
 			this.currentField = e
+		},
+		setCurrentBlock(e: Block | null) {
+			this.currentBlock = e
 		},
 	},
 })
