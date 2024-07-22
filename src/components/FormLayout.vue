@@ -52,7 +52,7 @@ const select = (e: any) => {
 	store.setCurrentBlock(e)
 }
 
-const target = ref([])
+const target: any = ref([])
 onClickOutside(target, (event) => {
 	lstore.unselectBlock()
 	store.setCurrentBlock(null)
