@@ -4,6 +4,7 @@ import { GridItem, GridLayout } from 'vue-ts-responsive-grid-layout'
 import { useLayoutStore } from '@/stores/layout'
 import FormSection from '@/components/FormSection.vue'
 import { useKeyModifier } from '@vueuse/core'
+import { onClickOutside } from '@vueuse/core'
 
 const lstore = useLayoutStore()
 
@@ -42,6 +43,14 @@ const calcClass = computed(() => {
 	if (red.value == true) return 'red'
 })
 const isDraggable = useKeyModifier('Alt')
+
+const select = (e: any) => {
+	lstore.unselectBlock()
+	e.selected = !e.selected
+}
+
+const target = ref([])
+onClickOutside(target, (event) => lstore.unselectBlock())
 </script>
 
 <template lang="pug">
@@ -65,13 +74,17 @@ GridLayout.list(
 	)
 
 	GridItem(v-for="( item, index ) in lstore.layout"
+		ref="target"
 		:x="item.x"
 		:y="item.y"
 		:w="item.w"
 		:h="item.h"
 		:i="item.i"
 		:show-close-button="false"
-		:key="item.i")
+		:key="item.i"
+		@click="select(item)"
+		:class="{selected : item.selected}"
+		)
 
 
 		.sect
@@ -128,6 +141,10 @@ GridLayout.list(
 	position: relative;
 	overflow: hidden;
 }
+.selected .sect {
+	border: 2px solid blue;
+}
+
 .close {
 	position: absolute;
 	right: 0;

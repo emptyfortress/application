@@ -12,6 +12,7 @@ export const useLayoutStore = defineStore('layout', () => {
 			w: 6,
 			h: 6,
 			i: 0,
+			selected: false,
 			data: {},
 		},
 	])
@@ -23,6 +24,7 @@ export const useLayoutStore = defineStore('layout', () => {
 			w: 3,
 			h: 3,
 			i: index.value,
+			selected: false,
 			data: {},
 		})
 		index.value += 1
@@ -34,5 +36,11 @@ export const useLayoutStore = defineStore('layout', () => {
 		dragType.value = e
 	}
 
-	return { layout, addSection, removeSection, setDragType, dragType }
+	const unselectBlock = () => {
+		layout.map((item) => {
+			item.selected = false
+		})
+	}
+
+	return { layout, addSection, removeSection, setDragType, dragType, unselectBlock }
 })

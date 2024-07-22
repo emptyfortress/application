@@ -80,4 +80,7 @@ const goto = (e: string) => {
 	display: block;
 	margin: 1rem auto;
 }
+.q-tab-panel {
+	padding: 0;
+}
 </style>

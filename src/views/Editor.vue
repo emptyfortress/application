@@ -60,7 +60,7 @@ onMounted(() => {
 
 <template lang="pug">
 q-page
-	q-splitter.split(v-model="split" :limits="[50, 100]")
+	q-splitter.split(v-model="split" :limits="[10, 100]")
 		template(v-slot:before)
 			router-view
 		template(v-slot:after)

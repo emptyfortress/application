@@ -71,30 +71,35 @@ const dragStart = (type: number) => {
 </script>
 
 <template lang="pug">
-div
-	.zg Блоки для разметки
-	.node(:draggable="true" @dragstart="dragStart(1)") Шапка на всю ширину
-	.node(:draggable="true" @dragstart="dragStart(1)") Простая секция
-	.node(:draggable="true" @dragstart="dragStart(1)") Две колонки
+q-list.q-mt-md
+	q-expansion-item(label="Шаблоны" expand-separator header-class="bold")
+		.node(:draggable="true" @dragstart="dragStart(1)") Две колонки
+		.node(:draggable="true" @dragstart="dragStart(1)") Шапка и две колонки
+		.node(:draggable="true" @dragstart="dragStart(1)") Одна колонка на всю ширину
 
-	q-separator.q-my-md
 
-	.zg Доступные поля:
+	q-expansion-item(label="Блоки" expand-separator header-class="bold")
+		.node(:draggable="true" @dragstart="dragStart(1)") Простая секция
+		.node(:draggable="true" @dragstart="dragStart(1)") Секция на всю ширину
+		.node(:draggable="true" @dragstart="dragStart(1)") Секция в 1/2 ширины
+		.node(:draggable="true" @dragstart="dragStart(1)") Секция в 1/3 ширины
 
-	draggable(
-		class="list-group"
-		:list="list1"
-		ghost-class="ghost"
-		:group="{ name: 'people', pull: 'clone', put: false }"
-		itemKey="id"
-		@dragstart="dragStart(2)"
-		)
 
-		template(#item="{ element, index }")
-			.node
-				.name {{ element.name }}
+	q-expansion-item(label="Доступные поля" expand-separator header-class="bold")
+		draggable(
+			class="list-group"
+			:list="list1"
+			ghost-class="ghost"
+			:group="{ name: 'people', pull: 'clone', put: false }"
+			itemKey="id"
+			@dragstart="dragStart(2)"
+			)
 
-	q-btn.q-mt-md(flat icon="mdi-plus-circle-outline" color="primary" @click="dialog = !dialog" label="Добавить поле") 
+			template(#item="{ element, index }")
+				.node
+					.name {{ element.name }}
+
+		q-btn.q-mt-md(flat icon="mdi-plus-circle-outline" color="primary" @click="dialog = !dialog" label="Добавить поле") 
 
 
 AddFieldDialog(v-model="dialog" @create="addField")
@@ -135,5 +140,9 @@ AddFieldDialog(v-model="dialog" @create="addField")
 	// width: 200px;
 	height: 100%;
 	background: #ccc;
+}
+:deep(.bold .q-item__label) {
+	font-weight: 600;
+	color: $primary;
 }
 </style>

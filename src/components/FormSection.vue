@@ -109,14 +109,6 @@ draggable(
 </template>
 
 <style scoped lang="scss">
-.sect {
-	border: 1px solid blue;
-	height: 100%;
-	width: 100%;
-	z-index: 1001;
-	position: relative;
-	overflow: hidden;
-}
 .node1 {
 	padding: 0.5rem;
 	background: #fff;
