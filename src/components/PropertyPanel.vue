@@ -64,7 +64,9 @@ const goto = (e: string) => {
 				br
 				br
 				br
-				.q-ma-md Настройки общего лейаута - выбор колонок и пр.
+				.q-ma-md.text-bold Разметка
+				q-img(src="@/assets/img/control.png")
+				q-img(src="@/assets/img/control1.png")
 
 		q-tab-panel(name="lib")
 			FieldLib
