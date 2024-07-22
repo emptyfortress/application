@@ -83,7 +83,9 @@ const remove = (e: number) => {
 
 <template lang="pug">
 .drophere(v-if="list2.length == 0")
-	span Перетащите сюда нужное поле из библиотеки справа.
+	div Расположите секцию на странице.
+	div Добавьте доп.секции из библиотеки, если нужно.
+	div Перетащите сюда нужное поле из библиотеки справа.
 
 draggable(
 	class="list-group"
