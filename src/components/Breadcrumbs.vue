@@ -18,6 +18,9 @@ const calcTitle = (item: string) => {
 			return 'Роли'
 		case 'lists':
 			return 'Списки'
+		case 'request':
+			return 'Запрос'
+
 		case route.params.etap:
 			store.tabs = 'property'
 			return decodeURIComponent(route.params.etap.toString())
@@ -46,7 +49,7 @@ const calcUrl = (item: string) => {
 			return '/' + route.params.id + '/editor/process'
 
 		case route.params.req:
-			return '/' + route.params.id + '/editor/list'
+			return '/' + route.params.id + '/editor/lists'
 
 		default:
 			return '/' + item
