@@ -55,6 +55,7 @@ const router = createRouter({
 				},
 				{
 					path: 'lists',
+					props: true,
 					name: 'Списки',
 					component: () => import('@/components/List.vue'),
 				},
@@ -67,6 +68,11 @@ const router = createRouter({
 					path: '/:id/editor/process/:etap',
 					name: 'Этап',
 					component: () => import('@/components/Etap.vue'),
+				},
+				{
+					path: '/:id/editor/request/:req',
+					name: 'Запрос',
+					component: () => import('@/components/Request.vue'),
 				},
 			],
 		},

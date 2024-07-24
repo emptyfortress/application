@@ -18,11 +18,6 @@ const router = useRouter()
 const route = useRoute()
 const canvas = ref()
 
-const goto = (e: string) => {
-	// store.setEtap(e)
-	router.push('/editor/etap')
-}
-
 const curr = JSON.parse(localStorage.getItem('app')!)
 
 const bpmn = computed(() => {
