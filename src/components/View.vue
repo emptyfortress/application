@@ -2,7 +2,7 @@
 import { ref, computed } from 'vue'
 import draggable from 'vuedraggable'
 
-const list = ref<ColNode[]>([])
+const list = ref([])
 
 const remove = (el: any) => {
 	list.value.splice(el, 1)
