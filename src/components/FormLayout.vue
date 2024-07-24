@@ -11,7 +11,8 @@ const store = useStore()
 const lstore = useLayoutStore()
 
 const remove = (e: number) => {
-	let temp = [...document.getElementsByClassName('vue-grid-item')]
+	let list = document.getElementsByClassName('vue-grid-item')
+	let temp = Array.from(list)
 	temp.forEach((el) => el.classList.add('move'))
 	lstore.removeSection(e)
 }
