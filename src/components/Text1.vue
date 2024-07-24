@@ -256,70 +256,66 @@ const addAll = (e: Option) => {
 </script>
 
 <template lang="pug">
-q-page(padding)
-	.container
-		.zagg
-			div Простой поиск
-			q-btn(v-if="condList?.length > 0" unelevated color="primary" label="Перейти в конструктор" @click="" size="sm")
+div
+	.zagg
+		div Показывать карточки, удовлетворяющие поисковому запросу:
+		q-btn(v-if="condList?.length > 0" unelevated color="primary" label="Перейти в конструктор" @click="" size="sm")
 
-		.q-mt-md(v-if="condList?.length > 0")
-			div(v-for="item in condList")
-				SimpleQuery(:arr="item" @remove="remCond(item)")
-				.oper(@click="toggleAnd(item)" :class="{and : item.and}")
-					span(v-if="item.and") И
-					span(v-else) ИЛИ
-		br
-		q-input(v-model="query" dense @clear="query = ''" @focus="test" placeholder="Что ищем?")
-			template(v-slot:prepend)
-				q-chip(v-for="key in keys" :key="key.id" removable @remove="remove(key)" :class="{man: key.kind == 11 || key.dvalue}" ) {{key.text}}
-			template(v-slot:append)
-				q-btn(v-if="keys.length | query.length" flat round icon="mdi-close" @click="reset" dense) 
-				q-btn(v-if="searchActive" unelevated label="Искать" color="primary" @click="" size="sm") 
-				q-btn(v-if="searchActive" unelevated round icon="mdi-plus" color="primary" @click="addCond" size="sm") 
-					q-tooltip Добавить условие
+	.q-mt-md(v-if="condList?.length > 0")
+		div(v-for="item in condList")
+			SimpleQuery(:arr="item" @remove="remCond(item)")
+			.oper(@click="toggleAnd(item)" :class="{and : item.and}")
+				span(v-if="item.and") И
+				span(v-else) ИЛИ
+	br
+	q-input(v-model="query" dense @clear="query = ''" @focus="test" placeholder="Что ищем?")
+		template(v-slot:prepend)
+			q-chip(v-for="key in keys" :key="key.id" removable @remove="remove(key)" :class="{man: key.kind == 11 || key.dvalue}" ) {{key.text}}
+		template(v-slot:append)
+			q-btn(v-if="keys.length | query.length" flat round icon="mdi-close" @click="reset" dense) 
+			q-btn(v-if="searchActive" unelevated label="Искать" color="primary" @click="" size="sm") 
+			q-btn(v-if="searchActive" unelevated round icon="mdi-plus" color="primary" @click="addCond" size="sm") 
+				q-tooltip Добавить условие
 
-		.grid
-			transition(name="slide-right" mode="out-in")
-				q-list.list(v-if="showFirst")
-					Level0(v-model:options="options" v-model:query="query" @addKey="add" @addAllKey="addAll")
+	.grid
+		transition(name="slide-right" mode="out-in")
+			q-list.list(v-if="showFirst")
+				Level0(v-model:options="options" v-model:query="query" @addKey="add" @addAllKey="addAll")
 
-			transition(name="slide-right" mode="out-in")
-				q-list.list(v-if="keys.length > 0" )
-					Level1(v-model:options="keys[0].children" v-model:query="query" @addKey="add1")
+		transition(name="slide-right" mode="out-in")
+			q-list.list(v-if="keys.length > 0" )
+				Level1(v-model:options="keys[0].children" v-model:query="query" @addKey="add1")
 
-			transition(name="slide-right" mode="out-in")
-				q-list.list(v-if="keys.length > 1" )
-					Level1(v-model:options="keys[1].children" v-model:query="query" @addKey="add2")
+		transition(name="slide-right" mode="out-in")
+			q-list.list(v-if="keys.length > 1" )
+				Level1(v-model:options="keys[1].children" v-model:query="query" @addKey="add2")
 
-			transition(name="slide-right" mode="out-in")
-				q-list.list(v-if="keys.length > 2" )
-					Level1(v-model:options="keys[2].children" v-model:query="query" @addKey="add3")
+		transition(name="slide-right" mode="out-in")
+			q-list.list(v-if="keys.length > 2" )
+				Level1(v-model:options="keys[2].children" v-model:query="query" @addKey="add3")
 
-			transition(name="slide-right" mode="out-in")
-				div(v-if="keys.at(-1)?.kind == 5 || keyMan !== null")
-					q-list.list
-						q-select(v-model="man" outlined bg-color="white" dense :options="fio")
-							template(v-slot:prepend)
-								q-icon(name="mdi-book-open-page-variant-outline")
-						Level1(v-model:options="manDetails" v-model:query="query" @addKey="addMan")
+		transition(name="slide-right" mode="out-in")
+			div(v-if="keys.at(-1)?.kind == 5 || keyMan !== null")
+				q-list.list
+					q-select(v-model="man" outlined bg-color="white" dense :options="fio")
+						template(v-slot:prepend)
+							q-icon(name="mdi-book-open-page-variant-outline")
+					Level1(v-model:options="manDetails" v-model:query="query" @addKey="addMan")
 
-			transition(name="slide-right" mode="out-in")
-				q-list.list(v-if="keys.at(-1)?.kind == 0 || keys.at(-1)?.kind == 1 || keys.at(-1)?.kind == 4 || keys.at(-1)?.word == true")
-					Level1(v-model:options="str1" v-model:query="query" @addKey="addKeyWord")
+		transition(name="slide-right" mode="out-in")
+			q-list.list(v-if="keys.at(-1)?.kind == 0 || keys.at(-1)?.kind == 1 || keys.at(-1)?.kind == 4 || keys.at(-1)?.word == true")
+				Level1(v-model:options="str1" v-model:query="query" @addKey="addKeyWord")
 
-			transition(name="slide-right" mode="out-in")
-				q-list.list(v-if="keys.at(-1)?.kind == 2 || keyDate !== null")
-					Level1(v-model:options="datee" v-model:query="query" @addKey="addDate")
+		transition(name="slide-right" mode="out-in")
+			q-list.list(v-if="keys.at(-1)?.kind == 2 || keyDate !== null")
+				Level1(v-model:options="datee" v-model:query="query" @addKey="addDate")
 
-			transition(name="slide-right" mode="out-in")
-				q-list.list(v-if="keys.at(-1)?.date == true || keyDateValue !== null")
-					LevelDate(@add="addDValue")
+		transition(name="slide-right" mode="out-in")
+			q-list.list(v-if="keys.at(-1)?.date == true || keyDateValue !== null")
+				LevelDate(@add="addDValue")
 </template>
 
 <style scoped lang="scss">
-.container {
-	max-width: 1200px;
-}
 .zagg {
 	font-size: 1.4rem;
 	display: flex;

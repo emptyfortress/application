@@ -4,7 +4,6 @@ import Text1 from '@/components/Text1.vue'
 
 <template lang="pug">
 .bl
-	h2 Hello
 	Text1
 </template>
 
