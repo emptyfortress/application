@@ -1,16 +1,22 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import draggable from 'vuedraggable'
 
-const list = ref<ColNode[]>([
-	{
-		id: 0,
-		name: 'fuck',
-	},
-])
+const list = ref<ColNode[]>([])
 
 const remove = (el: any) => {
 	list.value.splice(el, 1)
+}
+
+const col = computed(() => {
+	return list.value.length
+})
+const insert = () => {
+	console.log('fuck')
+	// console.log(drag.dragNode)
+	// if (drag.dragNode) {
+	// 	list.value.push(drag.dragNode)
+	// }
 }
 </script>
 
@@ -23,6 +29,7 @@ const remove = (el: any) => {
 		class="list-group"
 		ghost-class="ghost"
 		group="people"
+		@drop='insert'
 		)
 
 		template(#item="{ element, index }")
