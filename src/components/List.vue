@@ -25,8 +25,8 @@ const list = [
 const request = (e: string) => {
 	router.push(`/${props.id}/editor/lists/${e}/request`)
 }
-const view = () => {
-	router.push('/view')
+const view = (e: string) => {
+	router.push(`/${props.id}/editor/lists/${e}/view`)
 }
 </script>
 
@@ -48,7 +48,7 @@ const view = () => {
 			.q-ma-md Lorem ipsum dolor sit amet consectetur adipisicing elit. At voluptatibus maxime, iure quam, doloremque esse fuga officiis ea porro totam dolor, blanditiis ipsum facere nulla quisquam! Quibusdam totam quis autem.
 			q-card-actions
 				q-btn(unelevated color='primary' label='Редактировать запрос' @click='request(item.label)' size='sm') 
-				q-btn(unelevated color='primary' label='Редактировать представление' @click='view' size='sm') 
+				q-btn(unelevated color='primary' label='Редактировать представление' @click='view(item.label)' size='sm') 
 	br
 	q-btn.q-ml-md(unelevated color='primary' label='Создать список') 
 			

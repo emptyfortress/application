@@ -74,6 +74,11 @@ const router = createRouter({
 					name: 'Запрос',
 					component: () => import('@/components/Request.vue'),
 				},
+				{
+					path: '/:id/editor/lists/:req/view',
+					name: 'Представление',
+					component: () => import('@/components/View.vue'),
+				},
 			],
 		},
 		{

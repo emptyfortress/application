@@ -20,6 +20,8 @@ const calcTitle = (item: string) => {
 			return 'Списки'
 		case 'request':
 			return 'Запрос'
+		case 'view':
+			return 'Представление'
 
 		case route.params.etap:
 			store.tabs = 'property'
