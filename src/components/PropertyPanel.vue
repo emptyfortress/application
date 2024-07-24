@@ -3,7 +3,8 @@ import { ref } from 'vue'
 import { onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useStore } from '@/stores/store'
-import FieldLib from '@/components/FieldLib.vue'
+import CommonLib from '@/components/CommonLib.vue'
+import FieldList from '@/components/FieldList.vue'
 
 const store = useStore()
 const router = useRouter()
@@ -34,6 +35,9 @@ const goto = (e: string) => {
 	q-separator
 	q-tab-panels(v-model="store.tabs" animated)
 		q-tab-panel(name="property")
+
+			template(v-if="route.name == 'Представление'")
+				FieldList
 
 			template(v-if="route.name == 'Процесс' && !!store.currentBO")
 				.grid
@@ -69,7 +73,7 @@ const goto = (e: string) => {
 				q-img(src="@/assets/img/control1.png")
 
 		q-tab-panel(name="lib")
-			FieldLib
+			CommonLib
 </template>
 
 <style scoped lang="scss">

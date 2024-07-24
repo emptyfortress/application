@@ -5,7 +5,7 @@ import draggable from 'vuedraggable'
 const list = ref<ColNode[]>([
 	{
 		id: 0,
-		text: 'fuck',
+		name: 'fuck',
 	},
 ])
 
@@ -22,13 +22,11 @@ const remove = (el: any) => {
 		tag="ul"
 		class="list-group"
 		ghost-class="ghost"
-		:ondragover="end"
-		:ondrop="insert"
-		:group="{ name: 'data', pull: 'clone', put: false }"
+		group="people"
 		)
 
 		template(#item="{ element, index }")
-			li.list-group-item {{ element.text }}
+			li.list-group-item {{ element.name }}
 				q-btn.close(flat round icon="mdi-close" @click="remove(index)" size="xs" dense) 
 </template>
 
@@ -41,7 +39,7 @@ const remove = (el: any) => {
 }
 ul:empty:after {
 	display: block;
-	content: 'Пусто. Настройте колонки, перетащив их из дерева справа.';
+	content: 'Пусто. Настройте колонки, перетащив их из списка справа.';
 	width: 100%;
 	text-align: center;
 	color: rgba(0, 0, 0, 0.5);
@@ -49,6 +47,7 @@ ul:empty:after {
 	line-height: 75px;
 	border-radius: 4px;
 	font-size: 0.9rem;
+	background: #eeecec;
 }
 .list-group {
 	// box-sizing: border-box;
