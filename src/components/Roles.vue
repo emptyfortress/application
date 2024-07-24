@@ -26,12 +26,6 @@ const roles = [
 </template>
 
 <style scoped lang="scss">
-.bl {
-	background: #fff;
-	height: var(--panel-height);
-	padding: 1rem;
-	margin-right: 0.25rem;
-}
 .center {
 	display: flex;
 	justify-content: center;

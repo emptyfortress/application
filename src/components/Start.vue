@@ -30,7 +30,7 @@ const goto = () => {
 					q-popup-edit(v-model="store.currentNode.data.descr" title="Описание приложения" auto-save v-slot="scope")
 						q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
 
-			.bl(v-if="store.currentNode.data.type == 1")
+			div(v-if="store.currentNode.data.type == 1")
 				.text-overline version
 				.big
 					q-icon(name="mdi-source-branch" color="primary")

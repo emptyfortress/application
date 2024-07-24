@@ -13,13 +13,6 @@ import FormLayout from '@/components/FormLayout.vue'
 </template>
 
 <style scoped lang="scss">
-.bl {
-	background: #fff;
-	min-height: var(--panel-height);
-	padding: 1rem;
-	margin-right: 0.25rem;
-	position: relative;
-}
 .help {
 	position: absolute;
 	bottom: 1rem;

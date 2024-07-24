@@ -83,11 +83,4 @@ const edit = (e: string) => {
 chooseEtapDialog(v-model="dialog")
 </template>
 
-<style scoped lang="scss">
-.bl {
-	background: #fff;
-	height: var(--panel-height);
-	padding: 1rem;
-	margin-right: 0.25rem;
-}
-</style>
+<style scoped lang="scss"></style>
