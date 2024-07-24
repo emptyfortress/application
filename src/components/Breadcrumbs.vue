@@ -22,6 +22,10 @@ const calcTitle = (item: string) => {
 			store.tabs = 'property'
 			return decodeURIComponent(route.params.etap.toString())
 
+		case route.params.req:
+			// store.tabs = 'property'
+			return decodeURIComponent(route.params.req.toString())
+
 		default:
 			store.tabs = 'property'
 			return decodeURIComponent(item)
@@ -40,6 +44,9 @@ const calcUrl = (item: string) => {
 
 		case route.params.etap:
 			return '/' + route.params.id + '/editor/process'
+
+		case route.params.req:
+			return '/' + route.params.id + '/editor/list'
 
 		default:
 			return '/' + item

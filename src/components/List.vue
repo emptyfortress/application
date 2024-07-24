@@ -23,7 +23,7 @@ const list = [
 ]
 
 const request = (e: string) => {
-	router.push(`/${props.id}/editor/request/${e}`)
+	router.push(`/${props.id}/editor/lists/${e}`)
 }
 const view = () => {
 	router.push('/view')

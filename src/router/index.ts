@@ -70,7 +70,7 @@ const router = createRouter({
 					component: () => import('@/components/Etap.vue'),
 				},
 				{
-					path: '/:id/editor/request/:req',
+					path: '/:id/editor/lists/:req',
 					name: 'Запрос',
 					component: () => import('@/components/Request.vue'),
 				},
