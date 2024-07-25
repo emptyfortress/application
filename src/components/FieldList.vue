@@ -68,44 +68,67 @@ const dragStart = (type: number) => {
 const addField = (tmp: any) => {
 	list1.value.push(tmp)
 }
+const group = ref([])
+const options = [
+	{ label: 'Обрезать', value: 'cut' },
+	{ label: 'Переносить', value: 'move' },
+]
 </script>
 
 <template lang="pug">
-div
+.q-ma-md
+	.info Настройте порядок и видимость колонок.
+	q-separator.q-my-md
 	draggable(
 		class="list-group"
 		:list="list1"
 		ghost-class="ghost"
-		:group="{ name: 'people', pull: 'clone', put: false }"
 		itemKey="id"
 		@dragstart="dragStart(2)"
 		)
 
 		template(#item="{ element, index }")
-			.node
-				.name {{ element.name }}
+			.nod
+				.drag
+				q-checkbox(v-model="element.visible" :label='element.name' dense)
+	q-separator.q-my-md
+	.info Порядок отображения строк
+	q-option-group(
+		:options="options"
+		type="radio"
+		v-model="group"
+		dense
+		)
 
-	q-btn.q-mt-md(flat icon="mdi-plus-circle-outline" color="primary" @click="dialog = !dialog" label="Добавить поле") 
 </template>
 
 <style scoped lang="scss">
-.node {
-	padding: 5px 1rem;
+.nod {
+	padding: 5px 1rem 5px 20px;
 	background: #fff;
 	cursor: pointer;
-	// display: grid;
-	// grid-template-columns: 1fr 1fr 0.5fr;
+	position: relative;
+	margin-bottom: 1px;
 	&:hover {
-		background: #eee;
+		background: #efefef;
+		// box-shadow:
+		// 	1px 1px 5px rgba($color: #000, $alpha: 0.3),
+		// 	-1px -1px 5px rgba($color: #000, $alpha: 0.2);
+		z-index: 5;
 	}
 	&.ghost {
 		opacity: 0.7;
-		background: #ceeccd;
+		// background: #ceeccd;
+		background: #d2f1f9;
 	}
-}
-.close {
-	position: absolute;
-	top: 0.3rem;
-	right: 0.3rem;
+	.drag {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 10px;
+		height: 100%;
+		background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAAXNSR0IArs4c6QAAADNJREFUGFcVycENwDAMw0BywKiz1h5QQQC+jqrQV9mZimLLv9sv532ZmSaxgrvbnDynhQsMkhcgcIQwPgAAAABJRU5ErkJggg==)
+			repeat;
+	}
 }
 </style>
