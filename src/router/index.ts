@@ -77,6 +77,7 @@ const router = createRouter({
 				{
 					path: '/:id/editor/lists/:req/view',
 					name: 'Представление',
+					props: true,
 					component: () => import('@/components/View.vue'),
 				},
 			],

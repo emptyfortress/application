@@ -7,68 +7,11 @@ import { useLayoutStore } from '@/stores/layout'
 const lstore = useLayoutStore()
 const dialog = ref(false)
 
-const list1 = ref([
-	{
-		id: 4,
-		type: 'select',
-		label: 'Автор',
-		name: 'Автор',
-		typ: 'Сотрудник',
-		readonly: true,
-		visible: true,
-		options: ['Иванов', 'Петров', 'Орлов'],
-		selected: false,
-	},
-	{
-		id: 5,
-		type: 'date',
-		label: 'Дата создания',
-		name: 'Дата создания',
-		typ: 'Дата',
-		visible: true,
-		readonly: true,
-		selected: false,
-	},
-	{
-		id: 6,
-		type: 'date',
-		label: 'Дата изменения',
-		name: 'Дата изменения',
-		typ: 'Дата',
-		visible: true,
-		readonly: false,
-		selected: false,
-	},
-	{
-		id: 7,
-		type: 'text',
-		label: 'Название',
-		name: 'Название',
-		typ: 'Строка',
-		visible: true,
-		readonly: false,
-		selected: false,
-	},
-	{
-		id: 8,
-		type: 'textarea',
-		label: 'Содержание',
-		name: 'Содержание',
-		typ: 'Текст',
-		visible: true,
-		readonly: false,
-		selected: false,
-	},
-])
-
 const dragStart = (type: number) => {
 	lstore.setDragType(type)
 }
 
-const addField = (tmp: any) => {
-	list1.value.push(tmp)
-}
-const group = ref([])
+const group = ref('cut')
 const options = [
 	{ label: 'Обрезать', value: 'cut' },
 	{ label: 'Переносить', value: 'move' },
@@ -81,7 +24,7 @@ const options = [
 	q-separator.q-my-md
 	draggable(
 		class="list-group"
-		:list="list1"
+		:list="lstore.fields"
 		ghost-class="ghost"
 		itemKey="id"
 		@dragstart="dragStart(2)"

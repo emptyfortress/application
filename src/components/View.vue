@@ -1,52 +1,51 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import draggable from 'vuedraggable'
+import { useLayoutStore } from '@/stores/layout'
 
-const list = ref([])
+const props = defineProps({
+	req: {
+		type: String,
+		required: true,
+	},
+})
 
-const remove = (el: any) => {
-	list.value.splice(el, 1)
-}
+const lstore = useLayoutStore()
 
 const col = computed(() => {
-	return list.value.length
+	return lstore.fieldsVisible.length
 })
-const insert = () => {
-	console.log('fuck')
-	// console.log(drag.dragNode)
-	// if (drag.dragNode) {
-	// 	list.value.push(drag.dragNode)
-	// }
-}
 </script>
 
 <template lang="pug">
 .bl
-	.zagg Настройка представления
-	draggable(:list='list'
-		item-key="id"
-		tag="ul"
-		class="list-group"
-		ghost-class="ghost"
-		group="people"
-		@drop='insert'
-		)
+	.zagg
+		span Настройка представления
+		span.edit {{ props.req }}
+			q-popup-edit(v-model="props.req" auto-save v-slot="scope")
+				q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
+	br
 
-		template(#item="{ element, index }")
-			li.list-group-item {{ element.name }}
-				q-btn.close(flat round icon="mdi-close" @click="remove(index)" size="xs" dense) 
+	ul.list-group
+		li(v-for="item in lstore.fieldsVisible" :key='item.id')
+			.list-group-item() {{ item.name }}
+			.data -- data --
+			.data -- data --
+			.data -- data --
+			.data -- data --
+
 </template>
 
 <style scoped lang="scss">
 .zagg {
 	font-size: 1.4rem;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+}
+.edit {
+	margin-left: 1rem;
+	border-bottom: 1px dotted $primary;
 }
 ul:empty:after {
 	display: block;
-	content: 'Пусто. Настройте колонки, перетащив их из списка справа.';
+	content: 'Пусто. Настройте колонки, включив их видимость в панели свойств.';
 	width: 100%;
 	text-align: center;
 	color: rgba(0, 0, 0, 0.5);
@@ -67,39 +66,20 @@ ul:empty:after {
 	padding: 1px;
 	gap: 2px;
 }
+.data {
+	padding: 0.7rem 1rem;
+}
 .list-group-item {
-	// font-size: v-bind(headsize);
-	// background: v-bind('view.head.bgColor');
-	cursor: move;
-	// color: v-bind('view.head.fontColor');
 	padding: 0.7rem 1rem;
 	line-height: 1.2;
 	position: relative;
-	// text-align: v-bind('view.head.align');
-	// font-weight: v-bind('view.head.weight');
-	// font-style: v-bind('view.head.style');
 	border: 1px solid #e0e0e0;
 	min-width: 127px;
-	.close {
-		position: absolute;
-		top: 1px;
-		right: 1px;
-		visibility: hidden;
-	}
-	&:hover .close {
-		visibility: visible;
-	}
 }
 ul,
 li {
 	margin: 0;
 	padding: 0;
 	list-style: none;
-}
-.ghost {
-	padding: 0.5rem 1rem;
-	// height: 75px;
-	opacity: 0.5;
-	background: #ccc;
 }
 </style>
