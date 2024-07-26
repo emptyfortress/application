@@ -37,14 +37,18 @@ q-dialog(v-model="modelValue")
 		q-btn.close(round color="negative" icon="mdi-close" v-close-popup)
 		q-card-section
 			.text-h6(v-if="props.mode == 'app'") Новое приложение
-			.text-h6(v-if="props.mode == 'scene'") Создать сценарий 
 			.text-h6(v-if="props.mode == 'role'") Создать роль 
+			.text-h6(v-if="props.mode == 'list'") Создать список
 
 		q-card-section
 			FormKit(type="form" id="newapp" submit-label="Создать" @submit="create")
-				FormKit(type="text" autofocus name="name" label="Название" help="Назовите ваше приложение" validation="required|length:3")
-				FormKit(type="textarea" name="descr" label="Описание" help="Что будет делать ваше приложение?")
-				FormKit(type="checkbox" v-model="card" name="check" label="Карточка использует название приложения")
+				FormKit(v-if='props.mode == "app"'  type="text" autofocus name="name" label="Название" help="Назовите ваше приложение" validation="required|length:3")
+				FormKit(v-if='props.mode == "app"' type="textarea" name="descr" label="Описание" help="Что будет делать ваше приложение?")
+
+				FormKit(v-if='props.mode == "list"' type="text" autofocus name="name" label="Название" validation="required|length:3")
+				FormKit(v-if='props.mode == "list"' type="textarea" name="descr" label="Описание")
+
+				FormKit(v-if='props.mode == "app"' type="checkbox" v-model="card" name="check" label="Карточка использует название приложения")
 				FormKit(v-if="!card" type="text" name="cardname" label="Карточка" help="Какая карточка будет использоваться" validation="required|length:3")
 
 </template>

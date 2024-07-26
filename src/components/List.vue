@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useStore } from '@/stores/store'
 import { requests } from '@/stores/tree'
+import CreateDialog from '@/components/CreateDialog.vue'
 
 const props = defineProps({
 	id: {
@@ -21,6 +23,8 @@ const request = (e: string) => {
 const view = (e: string) => {
 	router.push(`/${props.id}/editor/lists/${e}/view`)
 }
+
+const dialog = ref(false)
 </script>
 
 <template lang="pug">
@@ -43,8 +47,9 @@ const view = (e: string) => {
 				q-btn(unelevated color='primary' label='Редактировать запрос' @click='request(item.label)' size='sm') 
 				q-btn(unelevated color='primary' label='Редактировать представление' @click='view(item.label)' size='sm') 
 	br
-	q-btn.q-ml-md(unelevated color='primary' label='Создать список') 
-			
+	q-btn.q-ml-md(unelevated color='primary' label='Создать список' @click='dialog = !dialog') 
+
+CreateDialog(v-model="dialog" mode='list')
 </template>
 
 <style scoped lang="scss">
