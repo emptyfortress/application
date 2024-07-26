@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useRouter, useRoute } from 'vue-router'
 import { useStore } from '@/stores/store'
+import { requests } from '@/stores/tree'
 
 const props = defineProps({
 	id: {
@@ -14,14 +15,6 @@ const route = useRoute()
 
 const store = useStore()
 
-const list = [
-	{ id: 0, label: 'Все карточки', descr: 'все доступные карточки' },
-	{ id: 1, label: 'Список 1', descr: 'здесь описание списка' },
-	{ id: 2, label: 'Список 2', descr: 'здесь описание списка' },
-	{ id: 3, label: 'Список 3', descr: 'здесь описание списка' },
-	{ id: 4, label: 'Список 4', descr: 'здесь описание списка' },
-]
-
 const request = (e: string) => {
 	router.push(`/${props.id}/editor/lists/${e}/request`)
 }
@@ -33,7 +26,7 @@ const view = (e: string) => {
 <template lang="pug">
 .bl
 	q-list()
-		q-expansion-item(icon='mdi-script-text-outline' v-for='item in list' :key='item.id' popup)
+		q-expansion-item(icon='mdi-script-text-outline' v-for='item in requests' :key='item.id' popup)
 			template(v-slot:header)
 				q-item-section(avatar)
 					q-icon(name='mdi-script-text-outline')

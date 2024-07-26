@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
 import { useRoute } from 'vue-router'
-import chooseFormDialog from '@/components/chooseFormDialog.vue'
+import chooseDialog from '@/components/chooseDialog.vue'
 
 const route = useRoute()
 const name = ref(route.params.etap)
@@ -16,11 +16,10 @@ const dialog = ref(false)
 
 <template lang="pug">
 .zag
-	q-btn(flat color="primary" icon="mdi-form-select" label="Выбрать форму" @click="dialog = !dialog") 
 	h5 Форма "{{ name }}"
 		q-popup-edit(v-model="name" title="Название формы" auto-save v-slot="scope")
 			q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
-	q-btn(flat color="primary" icon="mdi-state-machine" label="Выбрать состояние" @click="") 
+	q-btn(flat color="primary" icon="mdi-content-duplicate" label="Выбрать форму" @click="dialog = !dialog") 
 
 .use
 	span Данная форма используется в задачах:
@@ -41,7 +40,7 @@ const dialog = ref(false)
 		q-btn(unelevated color="negative" label="Отказать") 
 		q-btn(unelevated color="primary" label="Согласовать") 
 
-chooseFormDialog(v-model="dialog")
+chooseDialog(v-model="dialog")
 </template>
 
 <style scoped lang="scss">
@@ -52,6 +51,7 @@ chooseFormDialog(v-model="dialog")
 	align-items: start;
 	h5 {
 		text-align: center;
+		border-bottom: 1px dotted $primary;
 	}
 }
 .q-chip {

@@ -1,8 +1,15 @@
 <script setup lang="ts">
 import { ref, reactive, computed } from 'vue'
-import { etaps } from '@/stores/tree'
+import { etaps, requests } from '@/stores/tree'
 import { useStore } from '@/stores/store'
 
+const props = defineProps({
+	kind: {
+		type: String,
+		required: true,
+		default: 'form',
+	},
+})
 const modelValue = defineModel<boolean>()
 
 const close = () => {
@@ -11,21 +18,38 @@ const close = () => {
 
 const emit = defineEmits(['choose'])
 
-const chips = reactive(etaps)
+// const chips = reactive(etaps)
+
+const etapsNew = ref(etaps)
+const req = ref(requests)
+
+const chips = computed(() => {
+	switch (props.kind) {
+		case 'form':
+			return etapsNew.value
+		case 'request':
+			return req.value
+		case 'view':
+			return req.value
+		default:
+			return etaps.value
+	}
+	return
+})
 
 const select = (e: any) => {
-	chips.map((item: any) => {
+	chips.value.map((item: any) => {
 		item.selected = false
 	})
 	e.selected = true
 }
 const reset = () => {
-	chips.map((item: any) => {
+	chips.value.map((item: any) => {
 		item.selected = false
 	})
 }
 const selected = computed(() => {
-	return chips.filter((item: any) => item.selected == true)
+	return chips.value.filter((item: any) => item.selected == true)
 })
 const store = useStore()
 
@@ -34,6 +58,20 @@ const loadForm = () => {
 	close()
 	reset()
 }
+
+const name = computed(() => {
+	switch (props.kind) {
+		case 'form':
+			return 'форму'
+		case 'request':
+			return 'запрос'
+		case 'view':
+			return 'представление'
+		default:
+			return 'форму'
+	}
+})
+const copy = ref(true)
 </script>
 
 <template lang="pug">
@@ -41,7 +79,7 @@ q-dialog(v-model="modelValue")
 	q-card(style="min-width: 400px;")
 		q-btn.close(round color="negative" icon="mdi-close" v-close-popup)
 		q-card-section
-			.text-h6 Выбрать форму из доступных
+			.text-h6 Выбрать {{ name }} из доступных
 
 		q-form(@submit="loadForm")
 			q-card-section
@@ -52,6 +90,9 @@ q-dialog(v-model="modelValue")
 					:key="chip.id"
 					@click="select(chip)"
 					)
+
+			q-card-section
+				q-checkbox(v-model='copy' label='Создать копию' dense)
 
 			q-card-actions.q-mx-sm.q-mb-md(align="right")
 				q-btn(flat color="primary" label="Отмена" @click="close")

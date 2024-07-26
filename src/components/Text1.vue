@@ -9,6 +9,14 @@ import Level1 from '@/components/Level1.vue'
 import Level0 from '@/components/Level0.vue'
 import LevelDate from '@/components/LevelDate.vue'
 import SimpleQuery from '@/components/SimpleQuery.vue'
+import chooseDialog from '@/components/chooseDialog.vue'
+
+const props = defineProps({
+	req: {
+		type: String,
+		required: true,
+	},
+})
 
 const query = ref('')
 const keys = ref<Option[]>([])
@@ -253,13 +261,18 @@ const addAll = (e: Option) => {
 		showFirst.value = false
 	}
 }
+
+const dialog = ref(false)
 </script>
 
 <template lang="pug">
 div
-	.zagg
-		div Показывать карточки, удовлетворяющие поисковому запросу:
-		q-btn(v-if="condList?.length > 0" unelevated color="primary" label="Перейти в конструктор" @click="" size="sm")
+	.zag
+		h5 Поисковый запрос "{{ props.req }}"
+			q-popup-edit(v-model="props.req" title="Название запроса" auto-save v-slot="scope")
+				q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
+
+		q-btn(flat color="primary" icon="mdi-content-duplicate" label="Выбрать запрос" @click="dialog = !dialog") 
 
 	.q-mt-md(v-if="condList?.length > 0")
 		div(v-for="item in condList")
@@ -313,14 +326,27 @@ div
 		transition(name="slide-right" mode="out-in")
 			q-list.list(v-if="keys.at(-1)?.date == true || keyDateValue !== null")
 				LevelDate(@add="addDValue")
+chooseDialog(v-model="dialog" kind='request')
 </template>
 
 <style scoped lang="scss">
-.zagg {
-	font-size: 1.4rem;
+.zag {
+	width: 100%;
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
+	align-items: start;
+	h5 {
+		text-align: center;
+		border-bottom: 1px dotted $primary;
+	}
+}
+
+.zagg {
+	font-size: 1.4rem;
+	margin-bottom: 1rem;
+	.edit {
+		border-bottom: 1px dotted $primary;
+	}
 }
 .q-input {
 	font-size: 1.2rem;

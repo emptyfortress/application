@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useLayoutStore } from '@/stores/layout'
+import chooseDialog from '@/components/chooseDialog.vue'
 
 const props = defineProps({
 	req: {
@@ -14,17 +15,20 @@ const lstore = useLayoutStore()
 const col = computed(() => {
 	return lstore.fieldsVisible.length
 })
+
+const dialog = ref(false)
 </script>
 
 <template lang="pug">
 .bl
-	.zagg
-		span Настройка представления
-		span.edit {{ props.req }}
-			q-popup-edit(v-model="props.req" auto-save v-slot="scope")
+	.zag
+		h5 Настройка представления "{{ props.req }}"
+			q-popup-edit(v-model="props.req" title="Название представления" auto-save v-slot="scope")
 				q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
-	br
 
+		q-btn(flat color="primary" icon="mdi-content-duplicate" label="Выбрать представление" @click="dialog = !dialog") 
+
+	br
 	ul.list-group
 		li(v-for="item in lstore.fieldsVisible" :key='item.id')
 			.list-group-item() {{ item.name }}
@@ -33,14 +37,24 @@ const col = computed(() => {
 			.data -- data --
 			.data -- data --
 
+chooseDialog(v-model="dialog" kind='view')
 </template>
 
 <style scoped lang="scss">
+.zag {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: start;
+	h5 {
+		text-align: center;
+		border-bottom: 1px dotted $primary;
+	}
+}
 .zagg {
 	font-size: 1.4rem;
 }
 .edit {
-	margin-left: 1rem;
 	border-bottom: 1px dotted $primary;
 }
 ul:empty:after {

@@ -41,4 +41,12 @@ const etaps = [
 	{ id: 8, label: 'Заявка выполнена', selected: false },
 ]
 
-export { myApps, etaps }
+const requests = [
+	{ id: 0, label: 'Все карточки', descr: 'все доступные карточки', long: '', selected: false },
+	{ id: 1, label: 'Список 1', descr: 'Описание списка 1', long: '', selected: false },
+	{ id: 2, label: 'Список 2', descr: 'Описание списка 2', long: '', selected: false },
+	{ id: 3, label: 'Список 3', descr: 'Описание списка 3', long: '', selected: false },
+	{ id: 4, label: 'Список 4', descr: 'Описание списка 4', long: '', selected: false },
+]
+
+export { myApps, etaps, requests }

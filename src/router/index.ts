@@ -72,6 +72,7 @@ const router = createRouter({
 				{
 					path: '/:id/editor/lists/:req/request',
 					name: 'Запрос',
+					props: true,
 					component: () => import('@/components/Request.vue'),
 				},
 				{
