@@ -32,9 +32,8 @@ const chips = computed(() => {
 		case 'view':
 			return req.value
 		default:
-			return etaps.value
+			return etaps
 	}
-	return
 })
 
 const select = (e: any) => {
