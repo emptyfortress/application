@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useStore } from '@/stores/store'
@@ -24,10 +24,6 @@ const prop1 = [
 const goto = (e: string) => {
 	router.push(`/${route.params.id}/editor/process/${e}`)
 }
-// const tabs = ref('property')
-const compName = computed(() => {
-	return store.currentField.name
-})
 </script>
 
 <template lang="pug">
@@ -63,7 +59,7 @@ const compName = computed(() => {
 				.q-pa-md.text-bold {{ store.currentField?.name }}
 				.q-ma-md
 					FormKit(type='text' label='Название поля')
-					FormKit(type='text' label='Метка' v-model='compName')
+					FormKit(type='text' label='Метка' v-model='store.currentField.name')
 					FormKit(type='checkbox' label='Readonly')
 					FormKit(type='checkbox' label='Visible')
 

@@ -43,7 +43,6 @@ const calcClass = computed(() => {
 	if (green.value == true) return 'green'
 	if (red.value == true) return 'red'
 })
-// const isDraggable = useKeyModifier('Alt')
 
 const select = (e: any) => {
 	lstore.unselectBlock()
@@ -51,11 +50,9 @@ const select = (e: any) => {
 	store.setCurrentBlock(e)
 }
 
-const unselect = (e: ClickEvent) => {
-	if (e.target.classList == 'vue-grid-layout list') {
-		lstore.unselectBlock()
-		store.setCurrentBlock(null)
-	}
+const unselect = () => {
+	lstore.unselectBlock()
+	store.setCurrentBlock(null)
 }
 </script>
 
@@ -88,7 +85,7 @@ GridLayout.list(
 		:i="item.i"
 		:show-close-button="false"
 		:key="item.i"
-		@click="select(item)"
+		@click.stop="select(item)"
 		dragAllowFrom='.draghandle'
 		:class="{selected : item.selected}"
 		)
