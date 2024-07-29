@@ -7,7 +7,7 @@ export const useLayoutStore = defineStore('layout', () => {
 	const dragType = ref(0)
 	const layout = reactive([
 		{
-			x: 0,
+			x: 3,
 			y: 0,
 			w: 6,
 			h: 6,

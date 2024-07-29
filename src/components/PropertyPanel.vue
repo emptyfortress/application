@@ -65,12 +65,14 @@ const goto = (e: string) => {
 
 			template(v-if="route.name == 'Этап' && store.currentField == null && store.currentBlock == null")
 				.q-ma-md Здесь общие настройки формы
+				.q-ma-md.text-red Выбор карточки для текущей функции
+				.q-ma-md.text-red Состояния карточки
 				br
 				br
 				br
-				.q-ma-md.text-bold Разметка
-				q-img(src="@/assets/img/control.png")
-				q-img(src="@/assets/img/control1.png")
+				// .q-ma-md.text-bold Разметка
+				// q-img(src="@/assets/img/control.png")
+				// q-img(src="@/assets/img/control1.png")
 
 		q-tab-panel(name="lib")
 			CommonLib

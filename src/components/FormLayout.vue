@@ -21,7 +21,6 @@ const green = ref(false)
 const red = ref(false)
 
 const onDragEnter = () => {
-	console.log(lstore.dragType)
 	if (lstore.dragType == 1) {
 		green.value = true
 	}
@@ -45,7 +44,7 @@ const calcClass = computed(() => {
 	if (green.value == true) return 'green'
 	if (red.value == true) return 'red'
 })
-const isDraggable = useKeyModifier('Alt')
+// const isDraggable = useKeyModifier('Alt')
 
 const select = (e: any) => {
 	lstore.unselectBlock()
@@ -65,7 +64,7 @@ GridLayout.list(
 	:layout.sync="lstore.layout"
 	:col-num="12"
 	:row-height="30"
-	:is-draggable="isDraggable"
+	:is-draggable="true"
 	:is-resizable="true"
 	:is-bounded="true"
 	:is-mirrored="false"
@@ -90,11 +89,13 @@ GridLayout.list(
 		:show-close-button="false"
 		:key="item.i"
 		@click="select(item)"
+		dragAllowFrom='.draghandle'
 		:class="{selected : item.selected}"
 		)
 
 
 		.sect
+			.draghandle
 			q-icon.close(name="mdi-close-box" @click="remove(index)" dense)
 			q-icon.resize(name="mdi-resize-bottom-right" @click="" dense size="16p") 
 
@@ -118,10 +119,6 @@ GridLayout.list(
 			repeat;
 	}
 }
-:deep(.vue-grid-item) {
-	touch-action: none;
-	position: relative;
-}
 :deep(.vue-grid-item.vue-grid-placeholder) {
 	background: green !important;
 	opacity: 0.2;
@@ -137,9 +134,6 @@ GridLayout.list(
 	touch-action: none;
 	position: relative;
 }
-// .vue-grid-layout {
-// 	min-height: calc(100vh - 360px);
-// }
 .sect {
 	border: 1px solid blue;
 	height: 100%;
@@ -147,6 +141,22 @@ GridLayout.list(
 	z-index: 1001;
 	position: relative;
 	overflow: hidden;
+	.draghandle {
+		content: '';
+		display: none;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 32px;
+		height: 32px;
+		background: blue;
+		cursor: move;
+		z-index: 1000;
+		border-radius: 0 0 1rem 0;
+	}
+	&:hover .draghandle {
+		display: block;
+	}
 }
 .selected .sect {
 	border: 2px solid blue;
