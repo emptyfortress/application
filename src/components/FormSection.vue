@@ -49,15 +49,6 @@ const list3 = ref([
 	},
 ])
 
-const target = ref(null)
-
-onClickOutside(target, (event) =>
-	list2.value.map((item) => {
-		item.selected = false
-		store.setField(null)
-	})
-)
-
 const store = useStore()
 watch(
 	() => store.formSelected,
@@ -69,6 +60,19 @@ watch(
 		}
 	}
 )
+
+watch(
+	() => store.currentBlock,
+	() => {
+		if (store.currentBlock == null) {
+			list2.value.map((item: Field) => {
+				item.selected = false
+			})
+			store.setField(null)
+		}
+	}
+)
+
 const select = (e: Field) => {
 	list2.value.map((item: Field) => {
 		item.selected = false
@@ -83,7 +87,6 @@ const remove = (e: number) => {
 
 <template lang="pug">
 .drophere(v-if="list2.length == 0")
-	div Переместите секцию, зажав Alt.
 	div Перетащите сюда нужное поле из библиотеки справа.
 
 draggable(
@@ -94,7 +97,7 @@ draggable(
 	itemKey="id")
 
 	template(#item="{ element, index }")
-		.node1(ref="target" @click="select(element)" :class="{selected: element.selected}")
+		.node1(@click="select(element)" :class="{selected: element.selected}")
 			FormKit(:type="element.type" :label="element.label" :placeholder="element.typ" :options="element.options")
 			.bt
 				q-btn(dense flat @click="element.visible = !element.visible" size="sm") 

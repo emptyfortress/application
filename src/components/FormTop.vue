@@ -40,7 +40,7 @@ const dialog = ref(false)
 		q-btn(unelevated color="negative" label="Отказать") 
 		q-btn(unelevated color="primary" label="Согласовать") 
 
-chooseDialog(v-model="dialog")
+chooseDialog(v-model="dialog" kind='form')
 </template>
 
 <style scoped lang="scss">

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useStore } from '@/stores/store'
@@ -25,6 +25,9 @@ const goto = (e: string) => {
 	router.push(`/${route.params.id}/editor/process/${e}`)
 }
 // const tabs = ref('property')
+const compName = computed(() => {
+	return store.currentField.name
+})
 </script>
 
 <template lang="pug">
@@ -56,9 +59,13 @@ const goto = (e: string) => {
 						q-item-section {{ item.label }}
 
 
-
 			template(v-if="route.name == 'Этап' && !!store.currentField")
 				.q-pa-md.text-bold {{ store.currentField?.name }}
+				.q-ma-md
+					FormKit(type='text' label='Название поля')
+					FormKit(type='text' label='Метка' v-model='compName')
+					FormKit(type='checkbox' label='Readonly')
+					FormKit(type='checkbox' label='Visible')
 
 			template(v-if="route.name == 'Этап' && store.currentField == null && store.currentBlock")
 				.q-pa-md.text-bold Здесь свойства данного блока
@@ -67,12 +74,6 @@ const goto = (e: string) => {
 				.q-ma-md Здесь общие настройки формы
 				.q-ma-md.text-red Выбор карточки для текущей функции
 				.q-ma-md.text-red Состояния карточки
-				br
-				br
-				br
-				// .q-ma-md.text-bold Разметка
-				// q-img(src="@/assets/img/control.png")
-				// q-img(src="@/assets/img/control1.png")
 
 		q-tab-panel(name="lib")
 			CommonLib

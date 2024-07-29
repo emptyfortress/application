@@ -44,7 +44,16 @@ const create = () => {
 	typ.value = ''
 	modelValue.value = false
 }
-const options = ['Строка', 'Текст', 'Сотрудник', 'Дата']
+const options = [
+	'Строка',
+	'Текст',
+	'Дата/время',
+	'Ссылка на справочник',
+	'Выбор из списка',
+	'Чек-бокс',
+	'Радиобаттон',
+	'Файл',
+]
 </script>
 
 <template lang="pug">

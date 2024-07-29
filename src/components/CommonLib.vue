@@ -84,6 +84,9 @@ q-list.q-mt-md
 		.node(:draggable="true" @dragstart="dragStart(1)") Секция в 1/2 ширины
 		.node(:draggable="true" @dragstart="dragStart(1)") Секция в 1/3 ширины
 
+	q-expansion-item(label="Элементы интерфейса" expand-separator header-class="bold")
+		.node(:draggable="true" @dragstart="dragStart(1)") Электронная подпись
+		.node(:draggable="true" @dragstart="dragStart(1)") Кнопка
 
 	q-expansion-item(label="Доступные поля" expand-separator header-class="bold")
 		draggable(

@@ -3,7 +3,6 @@ import { ref, reactive, computed } from 'vue'
 import { GridItem, GridLayout } from 'vue-ts-responsive-grid-layout'
 import FormSection from '@/components/FormSection.vue'
 import { useKeyModifier } from '@vueuse/core'
-import { onClickOutside } from '@vueuse/core'
 import { useStore } from '@/stores/store'
 import { useLayoutStore } from '@/stores/layout'
 
@@ -52,11 +51,12 @@ const select = (e: any) => {
 	store.setCurrentBlock(e)
 }
 
-const target: any = ref([])
-onClickOutside(target, (event) => {
-	lstore.unselectBlock()
-	store.setCurrentBlock(null)
-})
+const unselect = (e: ClickEvent) => {
+	if (e.target.classList == 'vue-grid-layout list') {
+		lstore.unselectBlock()
+		store.setCurrentBlock(null)
+	}
+}
 </script>
 
 <template lang="pug">
@@ -77,10 +77,10 @@ GridLayout.list(
 	@dragleave="onDragLeave"
 	@drop="onDrop"
 	:class="calcClass"
+	@click='unselect'
 	)
 
 	GridItem(v-for="( item, index ) in lstore.layout"
-		ref="target"
 		:x="item.x"
 		:y="item.y"
 		:w="item.w"
