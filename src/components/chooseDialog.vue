@@ -91,7 +91,7 @@ q-dialog(v-model="modelValue")
 					)
 
 			q-card-section
-				q-checkbox(v-model='copy' label='Создать копию' dense)
+			// 	q-checkbox(v-model='copy' label='Создать копию' dense disable)
 
 			q-card-actions.q-mx-sm.q-mb-md(align="right")
 				q-btn(flat color="primary" label="Отмена" @click="close")

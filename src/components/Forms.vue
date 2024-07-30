@@ -11,14 +11,14 @@ const store = useStore()
 
 const forms = ref([
 	{ id: 0, name: 'Создал заявку', etap: ['Cоздал заявку'] },
-	{ id: 1, name: 'Согласовать заявку', etap: ['Согласовал заявку', 'Исправил заявку'] },
+	{ id: 1, name: 'Согласовать заявку', etap: ['Согласовал заявку'] },
 	{ id: 2, name: 'Исправить заявку', etap: ['Исправил заявку'] },
 	{ id: 3, name: 'Рассмотреть заявку', etap: ['Согласовал заявку'] },
 	{ id: 4, name: 'Обработать отказ', etap: ['Согласовал заявку'] },
 	{ id: 5, name: 'Исполнить заявку', etap: ['Согласовал заявку'] },
 	{ id: 6, name: 'Принять результаты', etap: ['Принял результаты'] },
-	{ id: 7, name: 'Заявка отменена', etap: [] },
-	{ id: 8, name: 'Заявка выполнена', etap: [] },
+	{ id: 7, name: 'Заявка отменена', etap: ['Отмена заяки'] },
+	{ id: 8, name: 'Заявка выполнена', etap: ['Финиш'] },
 ])
 const cols = [
 	{
@@ -74,11 +74,11 @@ const edit = (e: string) => {
 			q-td.text-right
 				.q-gutter-x-sm
 					q-btn(flat round dense icon="mdi-pencil" color="primary" @click="edit(props.row.name)" size="sm") 
-					q-btn(flat round dense icon="mdi-content-duplicate" color="primary" @click="" size="sm") 
+					// q-btn(flat round dense icon="mdi-content-duplicate" color="primary" @click="" size="sm") 
 					q-btn(flat round dense icon="mdi-trash-can-outline" color="primary" @click="" size="sm") 
 
-	br
-	q-btn(unelevated color="primary" label="Создать форму" @click="") 
+	// br
+	// q-btn(unelevated color="primary" label="Создать форму" @click="") 
 
 chooseEtapDialog(v-model="dialog")
 </template>
