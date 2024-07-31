@@ -100,14 +100,6 @@ draggable(
 		.node1(@click="select(element)" :class="{selected: element.selected}")
 			FormKit(:type="element.type" :label="element.label" :placeholder="element.typ" :options="element.options")
 			.bt
-				q-btn(dense flat @click="element.visible = !element.visible" size="sm") 
-					q-icon(name="mdi-eye" v-if="element.visible")
-					q-icon(name="mdi-eye-off" v-else)
-
-				q-btn(dense flat @click="element.readonly = !element.readonly" size="sm") 
-					q-icon(name="mdi-pencil-off" v-if="element.readonly")
-					q-icon(name="mdi-pencil" v-else)
-
 				q-btn(dense flat icon="mdi-close" @click="remove(index)" size="sm") 
 </template>
 

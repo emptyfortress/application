@@ -1,6 +1,5 @@
-import { ref, computed, reactive, nextTick } from 'vue'
+import { ref, computed, reactive } from 'vue'
 import { defineStore } from 'pinia'
-import { useKeyModifier } from '@vueuse/core'
 
 export const useLayoutStore = defineStore('layout', () => {
 	const index = ref(2)
@@ -8,9 +7,9 @@ export const useLayoutStore = defineStore('layout', () => {
 	const dragType = ref(0)
 	const layout = reactive([
 		{
-			x: 3,
+			x: 1,
 			y: 0,
-			w: 6,
+			w: 10,
 			h: 6,
 			i: 0,
 			selected: false,
