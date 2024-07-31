@@ -3,6 +3,11 @@ import { ref } from 'vue'
 import { useLayoutStore } from '@/stores/layout'
 
 const lstore = useLayoutStore()
+
+const preview = () => {
+	const url = 'https://medium.com'
+	window.open(url, '_blank').focus()
+}
 </script>
 
 <template lang="pug">
@@ -21,7 +26,7 @@ br
 	q-icon(name="mdi-monitor" size='18px') 
 	q-tooltip.bg-purple(anchor="center right" self="center left") Десктоп
 br
-.square(@click='lstore.togglePreview' :class='{selected: lstore.preview}')
+.square(@click='preview' :class='{selected: lstore.preview}')
 	q-icon(name="mdi-eye" size='18px') 
 	q-tooltip.bg-purple(anchor="center right" self="center left") Превью
 </template>
