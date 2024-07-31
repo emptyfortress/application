@@ -1,5 +1,6 @@
-import { ref, computed, reactive } from 'vue'
+import { ref, computed, reactive, nextTick } from 'vue'
 import { defineStore } from 'pinia'
+import { useKeyModifier } from '@vueuse/core'
 
 export const useLayoutStore = defineStore('layout', () => {
 	const index = ref(2)
@@ -100,15 +101,43 @@ export const useLayoutStore = defineStore('layout', () => {
 		})
 	}
 
+	const mode = ref('phone')
+
+	const move = ref(false)
+	const toggleMove = () => {
+		move.value = !move.value
+	}
+
+	const preview = ref(false)
+
+	const togglePreview = () => {
+		preview.value = !preview.value
+	}
+	const calcMode = (e: string) => {
+		if (mode.value == e) {
+			return 'selected'
+		} else return ''
+	}
+	const setMode = (e: string) => {
+		mode.value = e
+	}
+
 	return {
 		layout,
 		dragType,
 		fields,
 		fieldsVisible,
 		fieldLength,
+		mode,
+		move,
+		preview,
 		addSection,
 		removeSection,
 		setDragType,
 		unselectBlock,
+		togglePreview,
+		calcMode,
+		setMode,
+		toggleMove,
 	}
 })

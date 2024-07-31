@@ -77,9 +77,6 @@ const edit = (e: string) => {
 					// q-btn(flat round dense icon="mdi-content-duplicate" color="primary" @click="" size="sm") 
 					q-btn(flat round dense icon="mdi-trash-can-outline" color="primary" @click="" size="sm") 
 
-	// br
-	// q-btn(unelevated color="primary" label="Создать форму" @click="") 
-
 chooseEtapDialog(v-model="dialog")
 </template>
 

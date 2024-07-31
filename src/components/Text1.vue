@@ -2,7 +2,7 @@
 import { ref, computed, watch, reactive } from 'vue'
 import type { Option } from '@/types/enum'
 import { Kind } from '@/types/enum'
-import { zero } from '@/stores/options'
+import { zero } from '@/stores/options1'
 import { manDetails, datee, str } from '@/stores/conditions'
 
 import Level1 from '@/components/Level1.vue'

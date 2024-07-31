@@ -2,7 +2,6 @@
 import { ref, reactive, computed } from 'vue'
 import { GridItem, GridLayout } from 'vue-ts-responsive-grid-layout'
 import FormSection from '@/components/FormSection.vue'
-import { useKeyModifier } from '@vueuse/core'
 import { useStore } from '@/stores/store'
 import { useLayoutStore } from '@/stores/layout'
 
@@ -54,6 +53,9 @@ const unselect = () => {
 	lstore.unselectBlock()
 	store.setCurrentBlock(null)
 }
+const height = computed(() => {
+	return lstore.mode == 'phone' ? 'calc(100vh - 340px)' : 'calc(100vh - 285px)'
+})
 </script>
 
 <template lang="pug">
@@ -61,7 +63,7 @@ GridLayout.list(
 	:layout.sync="lstore.layout"
 	:col-num="12"
 	:row-height="30"
-	:is-draggable="true"
+	:is-draggable='lstore.move'
 	:is-resizable="true"
 	:is-bounded="true"
 	:is-mirrored="false"
@@ -86,7 +88,6 @@ GridLayout.list(
 		:show-close-button="false"
 		:key="item.i"
 		@click.stop="select(item)"
-		dragAllowFrom='.draghandle'
 		:class="{selected : item.selected}"
 		)
 
@@ -97,13 +98,14 @@ GridLayout.list(
 			q-icon.resize(name="mdi-resize-bottom-right" @click="" dense size="16p") 
 
 			FormSection
+
 </template>
 
 <style scoped lang="scss">
 .list {
-	min-height: calc(100vh - 345px);
+	// min-height: calc(100vh - 297px);
+	min-height: v-bind(height);
 	border-top: 1px solid #ccc;
-	width: 100%;
 	padding: 0.5rem;
 	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAAXNSR0IArs4c6QAAADhJREFUGFctjMERADAIwsL+MxZHoYetL8gFBSCJpAFsRwW9LAVPYUEVPvTUfHX9iDMn2h/fFtnVBb6XHglDcS5IAAAAAElFTkSuQmCC)
 		repeat;
@@ -132,31 +134,15 @@ GridLayout.list(
 	position: relative;
 }
 .sect {
-	border: 1px solid blue;
 	height: 100%;
 	width: 100%;
 	z-index: 1001;
 	position: relative;
 	overflow: hidden;
-	.draghandle {
-		content: '';
-		display: none;
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 32px;
-		height: 32px;
-		background: blue;
-		cursor: move;
-		z-index: 1000;
-		border-radius: 0 0 1rem 0;
-	}
-	&:hover .draghandle {
-		display: block;
-	}
+	background: #fefefe;
 }
 .selected .sect {
-	border: 2px solid blue;
+	border: 1px solid blue;
 }
 
 .close {
