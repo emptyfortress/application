@@ -6,7 +6,7 @@ const lstore = useLayoutStore()
 
 const preview = () => {
 	const url = 'https://medium.com'
-	window.open(url, '_blank').focus()
+	window.open(url, '_blank')!.focus()
 }
 </script>
 
@@ -26,7 +26,7 @@ br
 	q-icon(name="mdi-monitor" size='18px') 
 	q-tooltip.bg-primary(anchor="center right" self="center left") Десктоп
 br
-.square(@click='preview' :class='{selected: lstore.preview}')
+.square(@click='preview')
 	q-icon(name="mdi-eye" size='18px') 
 	q-tooltip.bg-primary(anchor="center right" self="center left") Превью
 </template>
