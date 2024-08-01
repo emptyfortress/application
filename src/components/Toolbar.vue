@@ -13,22 +13,22 @@ const preview = () => {
 <template lang="pug">
 .square(@click='lstore.toggleMove' :class='{selected: lstore.move}')
 	q-icon(name="mdi-arrow-all" size='18px') 
-	q-tooltip.bg-purple(anchor="center right" self="center left") Двигать блоки
+	q-tooltip.bg-primary(anchor="center right" self="center left") Двигать блоки
 
 br
 .square(@click='lstore.setMode("phone")' :class='lstore.calcMode("phone")')
 	q-icon(name="mdi-cellphone" size='18px') 
-	q-tooltip.bg-purple(anchor="center right" self="center left") Телефон
+	q-tooltip.bg-primary(anchor="center right" self="center left") Телефон
 .square(@click='lstore.setMode("tablet")' :class='lstore.calcMode("tablet")')
 	q-icon(name="mdi-tablet" size='18px') 
-	q-tooltip.bg-purple(anchor="center right" self="center left") Планшет
+	q-tooltip.bg-primary(anchor="center right" self="center left") Планшет
 .square(@click='lstore.setMode("desk")' :class='lstore.calcMode("desk")')
 	q-icon(name="mdi-monitor" size='18px') 
-	q-tooltip.bg-purple(anchor="center right" self="center left") Десктоп
+	q-tooltip.bg-primary(anchor="center right" self="center left") Десктоп
 br
 .square(@click='preview' :class='{selected: lstore.preview}')
 	q-icon(name="mdi-eye" size='18px') 
-	q-tooltip.bg-purple(anchor="center right" self="center left") Превью
+	q-tooltip.bg-primary(anchor="center right" self="center left") Превью
 </template>
 
 <style scoped lang="scss">
