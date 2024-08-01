@@ -6,11 +6,6 @@ import PropertyPanel from '@/components/PropertyPanel.vue'
 import VueDraggableResizable from 'vue-draggable-resizable'
 import { uid } from 'quasar'
 
-// import BpmnModeler from 'bpmn-js/lib/Modeler'
-// import 'bpmn-js/dist/assets/diagram-js.css'
-// import 'bpmn-js/dist/assets/bpmn-js.css'
-// import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css'
-// import zay from '@/stores/zayavka.bpmn?raw'
 import { gsap } from 'gsap'
 
 const props = defineProps({
@@ -33,29 +28,6 @@ onMounted(() => {
 		ease: 'expo.out',
 	})
 })
-
-// const canv = ref()
-
-// onMounted(() => {
-// 	var modeler = new BpmnModeler({
-// 		container: canv.value,
-// 		keyboard: {
-// 			bindTo: window,
-// 		},
-// 	})
-//
-// 	modeler
-// 		.importXML(zay)
-// 		.then(function (result) {
-// 			const { warnings } = result
-// 			console.log('success !', warnings)
-// 			modeler.attachTo(canv.value)
-// 		})
-// 		.catch(function (err) {
-// 			const { warnings, message } = err
-// 			console.log('something went wrong:', warnings, message)
-// 		})
-// })
 </script>
 
 <template lang="pug">
@@ -67,8 +39,9 @@ q-page
 			PropertyPanel
 
 	Teleport(to="body")
-		vue-draggable-resizable.fuck(:x="100" :y="-300" :w="250" :h="150" :active="false" :z="2000")
+		vue-draggable-resizable.fuck(:x="100" :y="-300" :w="250" :h="150" :active="false" :z="2000" :handles='["br"]' drag-handle='.bar')
 			q-card
+				.bar Навигация
 				q-img(src='@/assets/img/preview.png')
 			
 </template>
@@ -82,22 +55,16 @@ q-page
 }
 .q-card {
 	height: 100%;
+	overflow: hidden;
 }
-h6 {
-	color: $primary;
+.bar {
+	height: 26px;
+	background: #dedede;
+	text-align: center;
+	font-size: 0.9rem;
+	line-height: 26px;
 }
-span {
-	cursor: pointer;
-	&:hover {
-		text-decoration: underline;
-	}
-}
-.canv {
-	width: 100%;
-	height: 100%;
-	background: #fff;
-}
-:deep(.canv .djs-palette) {
-	display: none;
+.fuck {
+	border: 1px solid #aaa;
 }
 </style>
