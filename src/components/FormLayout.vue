@@ -19,12 +19,12 @@ const green = ref(false)
 const red = ref(false)
 
 const onDragEnter = () => {
-	if (lstore.dragType == 1) {
-		green.value = true
-	}
-	if (lstore.dragType == 2) {
+	// if (lstore.dragType == 1) {
+	// 	green.value = true
+	// }
+	if (lstore.dragType == 5) {
 		red.value = true
-	}
+	} else green.value = true
 }
 const onDragLeave = () => {
 	green.value = false
@@ -33,6 +33,12 @@ const onDragLeave = () => {
 const onDrop = () => {
 	if (lstore.dragType == 1) {
 		lstore.addSection()
+	}
+	if (lstore.dragType == 2) {
+		lstore.addColumns()
+	}
+	if (lstore.dragType == 3) {
+		lstore.addHead()
 	}
 	green.value = false
 	red.value = false

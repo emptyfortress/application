@@ -10,7 +10,7 @@ export const useLayoutStore = defineStore('layout', () => {
 			x: 1,
 			y: 0,
 			w: 10,
-			h: 6,
+			h: 4,
 			i: 0,
 			selected: false,
 		},
@@ -94,6 +94,62 @@ export const useLayoutStore = defineStore('layout', () => {
 		dragType.value = e
 	}
 
+	const addColumns = () => {
+		let col = {
+			x: 0,
+			y: layout.length + (colNum.value || 12), // puts it at the bottom
+			w: 6,
+			h: 3,
+			i: index.value,
+			selected: false,
+		}
+		index.value += 1
+		let col1 = {
+			x: 6,
+			y: layout.length + (colNum.value || 12), // puts it at the bottom
+			w: 6,
+			h: 3,
+			i: index.value,
+			selected: false,
+		}
+		index.value += 1
+		layout.push(col)
+		layout.push(col1)
+	}
+
+	const addHead = () => {
+		let col = {
+			x: 0,
+			y: layout.length + (colNum.value || 12), // puts it at the bottom
+			w: 12,
+			h: 3,
+			i: index.value,
+			selected: false,
+		}
+		index.value += 1
+		let col1 = {
+			x: 0,
+			y: layout.length + (colNum.value || 12), // puts it at the bottom
+			w: 6,
+			h: 3,
+			i: index.value,
+			selected: false,
+		}
+		index.value += 1
+		let col2 = {
+			x: 6,
+			y: layout.length + (colNum.value || 12), // puts it at the bottom
+			w: 6,
+			h: 3,
+			i: index.value,
+			selected: false,
+		}
+		index.value += 1
+		layout.push(col)
+		layout.push(col1)
+		layout.push(col2)
+	}
+
 	const unselectBlock = () => {
 		layout.map((item) => {
 			item.selected = false
@@ -138,5 +194,7 @@ export const useLayoutStore = defineStore('layout', () => {
 		calcMode,
 		setMode,
 		toggleMove,
+		addColumns,
+		addHead,
 	}
 })

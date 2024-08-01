@@ -143,5 +143,6 @@ draggable(
 .drophere {
 	margin: 1rem;
 	text-align: center;
+	color: #bbb;
 }
 </style>
