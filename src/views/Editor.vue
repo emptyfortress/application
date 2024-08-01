@@ -6,11 +6,11 @@ import PropertyPanel from '@/components/PropertyPanel.vue'
 import VueDraggableResizable from 'vue-draggable-resizable'
 import { uid } from 'quasar'
 
-import BpmnModeler from 'bpmn-js/lib/Modeler'
-import 'bpmn-js/dist/assets/diagram-js.css'
-import 'bpmn-js/dist/assets/bpmn-js.css'
-import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css'
-import zay from '@/stores/zayavka.bpmn?raw'
+// import BpmnModeler from 'bpmn-js/lib/Modeler'
+// import 'bpmn-js/dist/assets/diagram-js.css'
+// import 'bpmn-js/dist/assets/bpmn-js.css'
+// import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css'
+// import zay from '@/stores/zayavka.bpmn?raw'
 import { gsap } from 'gsap'
 
 const props = defineProps({
@@ -34,28 +34,28 @@ onMounted(() => {
 	})
 })
 
-const canv = ref()
+// const canv = ref()
 
-onMounted(() => {
-	var modeler = new BpmnModeler({
-		container: canv.value,
-		keyboard: {
-			bindTo: window,
-		},
-	})
-
-	modeler
-		.importXML(zay)
-		.then(function (result) {
-			const { warnings } = result
-			console.log('success !', warnings)
-			modeler.attachTo(canv.value)
-		})
-		.catch(function (err) {
-			const { warnings, message } = err
-			console.log('something went wrong:', warnings, message)
-		})
-})
+// onMounted(() => {
+// 	var modeler = new BpmnModeler({
+// 		container: canv.value,
+// 		keyboard: {
+// 			bindTo: window,
+// 		},
+// 	})
+//
+// 	modeler
+// 		.importXML(zay)
+// 		.then(function (result) {
+// 			const { warnings } = result
+// 			console.log('success !', warnings)
+// 			modeler.attachTo(canv.value)
+// 		})
+// 		.catch(function (err) {
+// 			const { warnings, message } = err
+// 			console.log('something went wrong:', warnings, message)
+// 		})
+// })
 </script>
 
 <template lang="pug">
@@ -67,9 +67,9 @@ q-page
 			PropertyPanel
 
 	Teleport(to="body")
-		vue-draggable-resizable.fuck(:x="100" :y="-300" :w="100" :h="100" :active="false" :z="2000")
+		vue-draggable-resizable.fuck(:x="100" :y="-300" :w="250" :h="150" :active="false" :z="2000")
 			q-card
-				.canv(ref="canv")
+				q-img(src='@/assets/img/preview.png')
 			
 </template>
 
@@ -82,7 +82,6 @@ q-page
 }
 .q-card {
 	height: 100%;
-	padding: 1rem;
 }
 h6 {
 	color: $primary;
