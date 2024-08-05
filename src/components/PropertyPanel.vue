@@ -24,6 +24,34 @@ const prop1 = [
 const goto = (e: string) => {
 	router.push(`/${route.params.id}/editor/process/${e}`)
 }
+const cols = [
+	{
+		name: 'form',
+		field: 'form',
+		required: true,
+		label: 'Форма',
+		align: 'left',
+		sortable: true,
+	},
+	{
+		name: 'role',
+		field: 'role',
+		required: true,
+		label: 'Роль',
+		align: 'left',
+		sortable: true,
+	},
+]
+const rows = [
+	{
+		form: 'Рассмотреть заявку',
+		role: 'Контролер',
+	},
+	{
+		form: 'default',
+		role: 'Все',
+	},
+]
 </script>
 
 <template lang="pug">
@@ -47,7 +75,13 @@ const goto = (e: string) => {
 					div Название:
 					.text-bold {{ store.currentBO.name }}
 
-				q-btn(unelevated color="primary" label="Настроить форму" @click="goto(store.currentBO.name)") 
+				.show Условия показа формы
+				q-table(:columns='cols' :rows='rows' hide-bottom flat)
+
+
+				q-btn(flat color="primary" icon='mdi-plus' label="Добавить") 
+				br
+				q-btn.btn(unelevated color="primary" label="Настроить форму" @click="goto(store.currentBO.name)") 
 
 			template(v-if="route.name == 'Процесс' && store.currentBO == null")
 				q-list
@@ -88,11 +122,16 @@ const goto = (e: string) => {
 	margin-left: 0.5rem;
 	height: var(--panel-height);
 }
-.q-btn {
+.btn {
 	display: block;
 	margin: 1rem auto;
 }
 .q-tab-panel {
 	padding: 0;
+}
+.show {
+	font-size: 0.9rem;
+	margin: 0 1rem;
+	margin-top: 1rem;
 }
 </style>

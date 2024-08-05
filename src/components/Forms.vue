@@ -10,15 +10,15 @@ const route = useRoute()
 const store = useStore()
 
 const forms = ref([
-	{ id: 0, name: 'Создал заявку', etap: ['Cоздал заявку'] },
-	{ id: 1, name: 'Согласовать заявку', etap: ['Согласовал заявку'] },
-	{ id: 2, name: 'Исправить заявку', etap: ['Исправил заявку'] },
-	{ id: 3, name: 'Рассмотреть заявку', etap: ['Согласовал заявку'] },
-	{ id: 4, name: 'Обработать отказ', etap: ['Согласовал заявку'] },
-	{ id: 5, name: 'Исполнить заявку', etap: ['Согласовал заявку'] },
-	{ id: 6, name: 'Принять результаты', etap: ['Принял результаты'] },
-	{ id: 7, name: 'Заявка отменена', etap: ['Отмена заяки'] },
-	{ id: 8, name: 'Заявка выполнена', etap: ['Финиш'] },
+	{ id: 0, name: 'Создал заявку', etap: ['Cоздал заявку'], role: ['Все'] },
+	{ id: 1, name: 'Согласовать заявку', etap: ['Согласовал заявку'], role: ['Все'] },
+	{ id: 2, name: 'Исправить заявку', etap: ['Исправил заявку'], role: ['Все'] },
+	{ id: 3, name: 'Рассмотреть заявку', etap: ['Согласовал заявку'], role: ['Все'] },
+	{ id: 4, name: 'Обработать отказ', etap: ['Согласовал заявку'], role: ['Все'] },
+	{ id: 5, name: 'Исполнить заявку', etap: ['Согласовал заявку'], role: ['Все'] },
+	{ id: 6, name: 'Принять результаты', etap: ['Принял результаты'], role: ['Все'] },
+	{ id: 7, name: 'Заявка отменена', etap: ['Отмена заяки'], role: ['Все'] },
+	{ id: 8, name: 'Заявка выполнена', etap: ['Финиш'], role: ['Все'] },
 ])
 const cols = [
 	{
@@ -32,6 +32,13 @@ const cols = [
 		name: 'etap',
 		label: 'Этапы',
 		field: 'etap',
+		align: 'left',
+		sortable: true,
+	},
+	{
+		name: 'role',
+		label: 'Роли',
+		field: 'role',
 		align: 'left',
 		sortable: true,
 	},
@@ -67,6 +74,10 @@ const edit = (e: string) => {
 						q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
 
 		template(v-slot:body-cell-etap="props")
+			q-td.cursor-pointer(:props="props" @click="choose")
+				q-chip(dense v-for="item in props.value") {{ item }}
+
+		template(v-slot:body-cell-role="props")
 			q-td.cursor-pointer(:props="props" @click="choose")
 				q-chip(dense v-for="item in props.value") {{ item }}
 
