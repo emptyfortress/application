@@ -45,6 +45,9 @@ const rows = [
 		role: 'Все',
 	},
 ]
+const goto = (e: string) => {
+	router.push(`/${route.params.id}/editor/process/${e}`)
+}
 </script>
 
 <template lang="pug">
