@@ -1,3 +1,8 @@
+type Role = {
+	id: number
+	label: string
+	selected: boolean
+}
 interface Option {
 	id: string
 	text: string

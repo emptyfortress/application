@@ -13,7 +13,8 @@ export const useStore = defineStore('store', {
 		currentBlock: null as Block | null,
 		del: false,
 		dub: false,
-		tabs: 'property',
+		tabs: 'role',
+		currentRole: { id: 0, label: 'Роль 1', selected: true },
 	}),
 	getters: {},
 	actions: {
@@ -44,6 +45,9 @@ export const useStore = defineStore('store', {
 		},
 		setCurrentBlock(e: Block | null) {
 			this.currentBlock = e
+		},
+		selectRole(e: Role) {
+			this.currentRole = e
 		},
 	},
 })
