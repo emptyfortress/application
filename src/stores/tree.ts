@@ -40,6 +40,17 @@ const etaps = [
 	{ id: 7, label: 'Заявка отменена', selected: false },
 	{ id: 8, label: 'Заявка выполнена', selected: false },
 ]
+const forms = [
+	{ id: 0, label: 'Создал заявку', selected: false },
+	{ id: 1, label: 'Согласовать заявку', selected: false },
+	{ id: 2, label: 'Исправить заявку', selected: false },
+	{ id: 3, label: 'Рассмотреть заявку', selected: false },
+	{ id: 4, label: 'Обработать отказ', selected: false },
+	{ id: 5, label: 'Исполнить заявку', selected: false },
+	{ id: 6, label: 'Принять результаты', selected: false },
+	{ id: 7, label: 'Заявка отменена', selected: false },
+	{ id: 8, label: 'Заявка выполнена', selected: false },
+]
 
 const requests = [
 	{ id: 0, label: 'Все карточки', descr: 'все доступные карточки', long: '', selected: false },
@@ -49,4 +60,4 @@ const requests = [
 	{ id: 4, label: 'Список 4', descr: 'Описание списка 4', long: '', selected: false },
 ]
 
-export { myApps, etaps, requests }
+export { myApps, etaps, forms, requests }

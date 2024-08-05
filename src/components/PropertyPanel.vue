@@ -10,10 +10,6 @@ import CommonProp from '@/components/CommonProp.vue'
 const store = useStore()
 const router = useRouter()
 const route = useRoute()
-
-const goto = (e: string) => {
-	router.push(`/${route.params.id}/editor/process/${e}`)
-}
 </script>
 
 <template lang="pug">
