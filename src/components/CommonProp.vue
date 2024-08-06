@@ -64,13 +64,8 @@ template(v-if="route.name == 'Процесс' && !!store.currentBO")
 		div Название:
 		.text-bold {{ store.currentBO.name }}
 
-	.show Условия показа формы
-	q-table(:columns='cols' :rows='rows' hide-bottom flat)
-
-
-	q-btn(flat color="primary" icon='mdi-plus' label="Добавить") 
-	br
 	q-btn.btn(unelevated color="primary" label="Настроить форму" @click="goto(store.currentBO.name)") 
+	q-btn.btn(unelevated color="primary" label="Редактировать форму" @click="goto(store.currentBO.name)") 
 
 template(v-if="route.name == 'Процесс' && store.currentBO == null")
 	q-list
