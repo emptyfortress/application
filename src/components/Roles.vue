@@ -9,6 +9,7 @@ const roles = reactive([
 		id: 0,
 		label: 'Роль 1',
 		selected: true,
+		description: 'Самая первая роль',
 		conditions: [
 			{ id: 0, etaps: ['Создал заявку', 'Согласовать заявку'], form: 'Форма 1', dis: true },
 		],
@@ -17,24 +18,23 @@ const roles = reactive([
 		id: 1,
 		label: 'Роль 2',
 		selected: false,
-		conditions: [
-			{ id: 0, etaps: ['Создал заявку', 'Согласовать заявку'], form: 'Форма 2', dis: true },
-		],
+		description: 'Описание роли',
+		conditions: [{ id: 0, etaps: ['Согласовать заявку'], form: 'Форма 2', dis: true }],
 	},
 	{
 		id: 2,
 		label: 'Роль 3',
 		selected: false,
-		conditions: [
-			{ id: 0, etaps: ['Создал заявку', 'Согласовать заявку'], form: 'Суперформа', dis: true },
-		],
+		description: 'Описание роли',
+		conditions: [{ id: 0, etaps: ['Обработать отказ'], form: 'Форма 3', dis: true }],
 	},
 	{
 		id: 3,
 		label: 'Роль 4',
 		selected: false,
+		description: 'Описание роли',
 		conditions: [
-			{ id: 0, etaps: ['Создал заявку', 'Согласовать заявку'], form: 'Форма 3', dis: true },
+			{ id: 0, etaps: ['Создал заявку', 'Согласовать заявку'], form: 'Форма 4', dis: true },
 		],
 	},
 ])
@@ -51,10 +51,12 @@ const select = (e: Role) => {
 .bl
 	h5 Роли
 	q-list(separator)
+
 		q-item(clickable v-for="role in roles" :key="role.id" @click="select(role)" :class="{selected: role.selected}")
 			q-item-section(avatar)
 				q-icon(name="mdi-account-circle-outline")
 			q-item-section {{ role.label }}
+			q-item-section {{ role.description }}
 			q-item-section(side)
 			q-btn(flat round dense icon="mdi-trash-can-outline" @click="" size="sm") 
 

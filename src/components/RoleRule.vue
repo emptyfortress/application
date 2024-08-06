@@ -33,19 +33,22 @@ const filt = (e: any) => {
 
 <template lang="pug">
 .q-ma-md
-	div Условия показа формы для {{ store.currentRole.label }}
+	.hd Условия показа форм для {{ store.currentRole.label }}
 	q-markup-table(flat)
 		thead
 			tr
 				th.text-left Этап
 				th.text-left Форма
+				th
 
 		draggable(v-model="store.currentRole.conditions" tag="tbody" item-key="name")
 			template(#item="{ element, index }")
-				tr
+				tr(:class='{dis: element.dis}')
 					td
 						div(v-for="etap in element.etaps") {{ etap }}
 					td {{ element.form }}
+					td
+						q-btn(v-if='!element.dis' flat round dense icon="mdi-trash-can-outline" @click="" size='sm') 
 
 	br
 	q-btn(flat color="primary" icon='mdi-plus' label="Добавить условие" @click="toggle" size='sm') 
@@ -53,4 +56,12 @@ const filt = (e: any) => {
 	ConditionDialog(v-model="dialog" :etaps='activeList' @choose='filt')
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.hd {
+	font-size: 1.1rem;
+	font-weight: 600;
+}
+.dis {
+	background: #ffefcc;
+}
+</style>
