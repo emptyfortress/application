@@ -5,11 +5,38 @@ import { useStore } from '@/stores/store'
 const store = useStore()
 
 const roles = reactive([
-	{ id: 0, label: 'Роль 1', selected: true },
-	{ id: 1, label: 'Роль 2', selected: false },
-	{ id: 2, label: 'Роль 3', selected: false },
-	{ id: 3, label: 'Роль 4', selected: false },
-	{ id: 4, label: 'Роль 5', selected: false },
+	{
+		id: 0,
+		label: 'Роль 1',
+		selected: true,
+		conditions: [
+			{ id: 0, etaps: ['Создал заявку', 'Согласовать заявку'], form: 'Форма 1', dis: true },
+		],
+	},
+	{
+		id: 1,
+		label: 'Роль 2',
+		selected: false,
+		conditions: [
+			{ id: 0, etaps: ['Создал заявку', 'Согласовать заявку'], form: 'Форма 2', dis: true },
+		],
+	},
+	{
+		id: 2,
+		label: 'Роль 3',
+		selected: false,
+		conditions: [
+			{ id: 0, etaps: ['Создал заявку', 'Согласовать заявку'], form: 'Суперформа', dis: true },
+		],
+	},
+	{
+		id: 3,
+		label: 'Роль 4',
+		selected: false,
+		conditions: [
+			{ id: 0, etaps: ['Создал заявку', 'Согласовать заявку'], form: 'Форма 3', dis: true },
+		],
+	},
 ])
 const select = (e: Role) => {
 	roles.map((item) => {

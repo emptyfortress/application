@@ -1,7 +1,14 @@
+type Condition = {
+	id: number
+	etaps: string[]
+	form: string
+	dis: boolean
+}
 type Role = {
 	id: number
 	label: string
 	selected: boolean
+	conditions: Condition[]
 }
 interface Option {
 	id: string

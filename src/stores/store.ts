@@ -14,7 +14,14 @@ export const useStore = defineStore('store', {
 		del: false,
 		dub: false,
 		tabs: 'role',
-		currentRole: { id: 0, label: 'Роль 1', selected: true },
+		currentRole: {
+			id: 0,
+			label: 'Роль 1',
+			selected: true,
+			conditions: [
+				{ id: 0, etaps: ['Создал заявку', 'Согласовать заявку'], form: 'Форма 1', dis: true },
+			],
+		},
 	}),
 	getters: {},
 	actions: {
@@ -48,6 +55,9 @@ export const useStore = defineStore('store', {
 		},
 		selectRole(e: Role) {
 			this.currentRole = e
+		},
+		addConditionRole(e: Condition) {
+			this.currentRole.conditions.push(e)
 		},
 	},
 })
