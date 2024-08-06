@@ -91,7 +91,6 @@ q-dialog(v-model="modelValue")
 							@click='select(chip)'
 							) Форма {{ chip.label }}
 
-			// div {{activeList}}
 			q-card-actions.q-mx-sm.q-mb-md(align="right")
 				q-btn(flat color="primary" label="Отмена" v-close-popup)
 				q-btn(unelevated color="primary" label="Добавить условие" type="submit")
@@ -108,8 +107,6 @@ q-dialog(v-model="modelValue")
 .grid {
 	display: grid;
 	grid-template-columns: 1.5fr 2fr;
-	// justify-items: start;
-	// align-items: stretch;
 	column-gap: 1rem;
 }
 </style>

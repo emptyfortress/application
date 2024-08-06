@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import draggable from 'vuedraggable'
 import { useStore } from '@/stores/store'
 import ConditionDialog from '@/components/ConditionDialog.vue'
 
@@ -29,6 +28,10 @@ const toggle = () => {
 const filt = (e: any) => {
 	list.value = [...e]
 }
+
+const remove = (e: number) => {
+	store.removeCondition(e)
+}
 </script>
 
 <template lang="pug">
@@ -41,14 +44,13 @@ const filt = (e: any) => {
 				th.text-left Форма
 				th
 
-		draggable(v-model="store.currentRole.conditions" tag="tbody" item-key="name")
-			template(#item="{ element, index }")
-				tr(:class='{dis: element.dis}')
-					td
-						div(v-for="etap in element.etaps") {{ etap }}
-					td {{ element.form }}
-					td
-						q-btn(v-if='!element.dis' flat round dense icon="mdi-trash-can-outline" @click="" size='sm') 
+		tbody
+			tr(v-for="(element, index) in store.currentRole.conditions" :key='element.id' :class='{dis: element.dis}')
+				td
+					div(v-for="etap in element.etaps") {{ etap }}
+				td {{ element.form }}
+				td
+					q-btn(v-if='!element.dis' flat round dense icon="mdi-trash-can-outline" @click="remove(index)" size='sm') 
 
 	br
 	q-btn(flat color="primary" icon='mdi-plus' label="Добавить условие" @click="toggle" size='sm') 
