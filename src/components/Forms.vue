@@ -71,6 +71,11 @@ const edit = (e: string) => {
 const options = ['Этап 1', 'Этап 2', 'Этап 3']
 const options1 = ['Роль 1', 'Роль 2', 'Роль 3']
 const options2 = ['Состояние 1', 'Состояние 2', 'Состояние 3']
+
+const goto = (e: string) => {
+	let url = '/' + route.params.id + '/editor/process/' + e
+	router.push(url)
+}
 </script>
 
 <template lang="pug">
@@ -87,7 +92,7 @@ const options2 = ['Состояние 1', 'Состояние 2', 'Состоя�
 				// 	q-item-label {{ form.etap }}
 				q-item-section(side)
 					.row.q-gutter-x-sm
-						q-btn(flat round icon='mdi-pencil-outline' color='primary' dense size='sm' @click.stop='') 
+						q-btn(flat round icon='mdi-pencil-outline' color='primary' dense size='sm' @click.stop='goto(form.label)') 
 						q-btn(flat round icon='mdi-content-duplicate' color='primary' dense size='sm' @click.stop='') 
 						q-btn(flat round icon='mdi-trash-can-outline' color='primary' dense size='sm' @click.stop='') 
 			q-card
