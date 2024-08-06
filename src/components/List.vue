@@ -29,8 +29,9 @@ const dialog = ref(false)
 
 <template lang="pug">
 .bl
-	q-list()
-		q-expansion-item(icon='mdi-script-text-outline' v-for='item in requests' :key='item.id' popup)
+	h5 Списки
+	q-list(separator)
+		q-expansion-item(icon='mdi-script-text-outline' v-for='item in requests' :key='item.id')
 			template(v-slot:header)
 				q-item-section(avatar)
 					q-icon(name='mdi-script-text-outline')
@@ -60,5 +61,6 @@ CreateDialog(v-model="dialog" mode='list')
 }
 :deep(.q-expansion-item--expanded .q-expansion-item__container) {
 	border: 1px solid $primary;
+	margin-bottom: 1rem;
 }
 </style>
