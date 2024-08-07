@@ -114,6 +114,7 @@ const duble = (e: Stat) => {
 		descr: e.data.descr,
 		hidden: false,
 		type: 1,
+		version: '0.0.0',
 	}
 	tree.value.add(temp, e.parent)
 	select(tree.value.getStat(temp))

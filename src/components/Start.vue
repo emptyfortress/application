@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
 import { useStore } from '@/stores/store'
 import { useRouter } from 'vue-router'
+import { myApps } from '@/stores/tree'
 
 const props = defineProps({
 	id: {
@@ -15,6 +17,11 @@ const router = useRouter()
 const goto = () => {
 	router.push(`/${props.id}/editor/process`)
 }
+
+const card = ref('')
+onMounted(() => {
+	card.value = store.currentNode.data.text
+})
 </script>
 
 <template lang="pug">
@@ -22,11 +29,14 @@ const goto = () => {
 	template(v-if="store.currentNode")
 		.grid
 			div
-				h6 {{ store.currentNode.data.text }}
+				h6
+					span.edit {{ store.currentNode.data.text }}
 					q-popup-edit(v-model="store.currentNode.data.text" title="Название приложения" auto-save v-slot="scope")
 						q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
 
-				.text-subtitle1 {{ store.currentNode.data.descr }}
+				.text-subtitle1
+					span.edit(v-if='store.currentNode.data.descr') {{ store.currentNode.data.descr }}
+					span.edit(v-else) Описание приложения
 					q-popup-edit(v-model="store.currentNode.data.descr" title="Описание приложения" auto-save v-slot="scope")
 						q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
 
@@ -34,7 +44,7 @@ const goto = () => {
 				.text-overline version
 				.big
 					q-icon(name="mdi-source-branch" color="primary")
-					span.q-ml-sm v. 1.2.5
+					span.q-ml-sm v. {{ store.currentNode.data.version}}
 						q-menu
 							q-list
 								q-item(clickable)
@@ -43,16 +53,23 @@ const goto = () => {
 									q-item-section v.1.1.0
 
 		template(v-if="store.currentNode.data.type == 1")
-			.row.q-mt-lg.q-gutter-md
+			.grid1
+				.text-bold Создано:
+				div 21.10.24  15:40
+				.text-bold Автор:
+				div Орлов П.С.
+				div &nbsp;
+				div &nbsp;
 				.text-bold Карточка:
-				div {{ store.currentNode.data.text }}
-			.q-mt-md Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime, autem consequatur. Aperiam quis consectetur beatae et labore rerum ut optio incidunt dolor ab exercitationem aliquam, fugit dolorum aspernatur, maiores ratione!
+				div
+					span.edit {{ store.currentNode.data.card }}
+					q-popup-edit(v-model="store.currentNode.data.card" title="Карточка" auto-save v-slot="scope")
+						q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
 
-			.q-mt-lg.q-gutter-x-lg
-				q-btn(flat  icon="mdi-pencil" label="Редактировать" color="primary" @click="goto") 
-					q-tooltip Редактировать
+			q-card-actions.q-mt-xl
+				q-btn(unelevated  icon="mdi-pencil" label="Настроить приложение" color="primary" @click="goto") 
+				q-space
 				q-btn(flat  icon="mdi-content-duplicate" label="Дублировать" color="primary" @click="store.dub = true") 
-					q-tooltip Дублировать
 				q-btn(unelevated color="negative" label="Удалить приложение" @click="store.del = true") 
 </template>
 
@@ -71,5 +88,25 @@ const goto = () => {
 	align-items: center;
 	column-gap: 1rem;
 	row-gap: 0.5rem;
+}
+.grid1 {
+	margin-top: 1rem;
+	display: grid;
+	grid-template-columns: auto 1fr;
+	// justify-items: start;
+	// align-items: stretch;
+	column-gap: 1rem;
+}
+.app {
+	width: 200px;
+	height: 200px;
+	background: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+}
+.edit {
+	border-bottom: 1px dotted $primary;
 }
 </style>
