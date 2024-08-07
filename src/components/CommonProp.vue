@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useStore } from '@/stores/store'
 import FieldList from '@/components/FieldList.vue'
+import { useStorage } from '@vueuse/core'
 
 const store = useStore()
 const route = useRoute()
@@ -48,6 +50,7 @@ const rows = [
 const goto = (e: string) => {
 	router.push(`/${route.params.id}/editor/process/${e}`)
 }
+const app = useStorage('app', {})
 </script>
 
 <template lang="pug">
@@ -56,21 +59,41 @@ template(v-if="route.name == 'Представление'")
 	FieldList
 
 template(v-if="route.name == 'Процесс' && !!store.currentBO")
+	q-card-section
+		h6.text-center {{ store.currentBO.name }}
 	.grid
-		div id:
-		div {{ store.currentBO.id }}
-		div Тип:
-		div {{ store.currentBO.type }}
 		div Название:
 		.text-bold {{ store.currentBO.name }}
+		div Тип:
+		div {{ store.currentBO.type }}
+		div id:
+		div {{ store.currentBO.id }}
 
-	q-btn.btn(unelevated color="primary" label="Настроить форму" @click="goto(store.currentBO.name)") 
-	q-btn.btn(unelevated color="primary" label="Редактировать форму" @click="goto(store.currentBO.name)") 
+	br
+	q-markup-table(flat v-if='store.currentBO.type == "bpmn:Task"')
+		thead
+			tr
+				th.text-left Роль
+				th.text-left Форма
+		tbody
+			tr
+				td Инициатор
+				td
+					q-btn(unelevated color="primary" label="Настроить" @click="" size='sm') 
+			tr
+				td Все остальные
+				td
+					q-btn(unelevated color="primary" label="Настроить" @click="" size='sm') 
+
 
 template(v-if="route.name == 'Процесс' && store.currentBO == null")
-	q-list
-		q-item.ani(clickable v-for="item in prop1" :key="item.id")
-			q-item-section {{ item.label }}
+	q-card-section
+		h6.text-center {{ app.text }}
+		q-list
+			q-item.ani(clickable v-for="item in prop1" :key="item.id")
+				q-item-section {{ item.label }}
+	br
+	q-btn.btn(outline color="primary" icon='mdi-play' label="Запустить процесс" @click="") 
 
 
 template(v-if="route.name == 'Этап' && !!store.currentField")
@@ -97,7 +120,7 @@ template(v-if='route.name == "Роли"')
 
 <style scoped lang="scss">
 .grid {
-	padding: 1rem;
+	padding: 0 1rem;
 	display: grid;
 	grid-template-columns: auto 1fr;
 	column-gap: 1rem;

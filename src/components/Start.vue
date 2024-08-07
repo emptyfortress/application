@@ -20,7 +20,7 @@ const goto = () => {
 
 const card = ref('')
 onMounted(() => {
-	card.value = store.currentNode.data.text
+	card.value = store.currentNode?.data.text
 })
 </script>
 
@@ -34,7 +34,7 @@ onMounted(() => {
 					q-popup-edit(v-model="store.currentNode.data.text" title="Название приложения" auto-save v-slot="scope")
 						q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
 
-				.text-subtitle1
+				.text-subtitle1(v-if='store.currentNode.data.type == 1')
 					span.edit(v-if='store.currentNode.data.descr') {{ store.currentNode.data.descr }}
 					span.edit(v-else) Описание приложения
 					q-popup-edit(v-model="store.currentNode.data.descr" title="Описание приложения" auto-save v-slot="scope")

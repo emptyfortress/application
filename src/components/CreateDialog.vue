@@ -11,7 +11,7 @@ const props = defineProps({
 const icon = ref(3)
 const modelValue = defineModel<boolean>()
 
-const name = ref('')
+const name = ref('Мое приложение')
 const descr = ref('')
 
 const close = () => {
@@ -25,7 +25,7 @@ const create = (data: any) => {
 	data.text = data.name
 	data.card = data.name
 	data.type = 1
-	data.card = data.card
+	data.card = data.cardname
 	data.version = '0.0.0'
 	emit('create', data)
 	close()
@@ -44,7 +44,7 @@ q-dialog(v-model="modelValue")
 
 		q-card-section
 			FormKit(type="form" id="newapp" submit-label="Создать" @submit="create")
-				FormKit(v-if='props.mode == "app"'  type="text" autofocus name="name" label="Название" help="Назовите ваше приложение" validation="required|length:3")
+				FormKit(v-if='props.mode == "app"'  type="text" autofocus name="name" label="Название" value='Мое приложение' help="Назовите ваше приложение" validation="required|length:3")
 				FormKit(v-if='props.mode == "app"' type="textarea" name="descr" label="Описание" help="Что будет делать ваше приложение?")
 
 				FormKit(v-if='props.mode == "list"' type="text" autofocus name="name" label="Название" validation="required|length:3")

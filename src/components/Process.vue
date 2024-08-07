@@ -5,8 +5,7 @@ import 'bpmn-js/dist/assets/diagram-js.css'
 import 'bpmn-js/dist/assets/bpmn-js.css'
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css'
 import zay from '@/stores/zayavka.bpmn?raw'
-import empty from '@/stores/empty.bpmn?raw'
-import minimapModule from 'diagram-js-minimap'
+import empty from '@/stores/simple.bpmn?raw'
 import 'diagram-js-minimap/assets/diagram-js-minimap.css'
 
 import { useRouter, useRoute } from 'vue-router'
@@ -30,7 +29,6 @@ onMounted(() => {
 		keyboard: {
 			bindTo: window,
 		},
-		additionalModules: [minimapModule],
 	})
 
 	modeler
@@ -56,7 +54,6 @@ onMounted(() => {
 		// 'element.mouseup',
 	]
 	const myClick = eventBus.on('element.click', (e: any) => {
-		console.log(e.element.id)
 		if (!!store.currentBO && e.element.id == store.currentBO.id) {
 			store.setCurrentBO(null)
 		} else {
