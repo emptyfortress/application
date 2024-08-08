@@ -4,6 +4,8 @@ import { useRouter, useRoute } from 'vue-router'
 import { useStore } from '@/stores/store'
 import FieldList from '@/components/FieldList.vue'
 import { useStorage } from '@vueuse/core'
+import draggable from 'vuedraggable'
+import ConditionDialog1 from '@/components/ConditionDialog1.vue'
 
 const store = useStore()
 const route = useRoute()
@@ -37,20 +39,28 @@ const cols = [
 		sortable: true,
 	},
 ]
-const rows = [
+const list = ref([
 	{
-		form: 'Рассмотреть заявку',
-		role: 'Контролер',
+		id: 0,
+		role: 'Инициатор',
+		form: 'Редактирование',
 	},
 	{
-		form: 'default',
-		role: 'Все',
+		id: 1,
+		role: 'Все остальные',
+		form: 'Просмотр',
 	},
-]
+])
+
 const goto = (e: string) => {
 	router.push(`/${route.params.id}/editor/process/${e}`)
 }
 const app = useStorage('app', {})
+
+const dialog = ref(false)
+const toggle = () => {
+	dialog.value = !dialog.value
+}
 </script>
 
 <template lang="pug">
@@ -70,21 +80,24 @@ template(v-if="route.name == 'Процесс' && !!store.currentBO")
 		div {{ store.currentBO.id }}
 
 	br
-	q-markup-table(flat v-if='store.currentBO.type == "bpmn:Task"')
+	q-markup-table(bordered flat v-if='store.currentBO.type == "bpmn:Task"')
 		thead
 			tr
 				th.text-left Роль
 				th.text-left Форма
-		tbody
-			tr
-				td Инициатор
-				td
-					q-btn(unelevated color="primary" label="Настроить" @click="goto(store.currentBO.name)" size='sm') 
-			tr
-				td Все остальные
-				td
-					q-btn(unelevated color="primary" label="Настроить" @click="goto(store.currentBO.name)" size='sm') 
+				th
+		draggable(v-model="list" tag="tbody" item-key="id")
+			template(#item="{ element }")
+				tr(scope='row' @click='toggle')
+					td {{ element.role }}
+					td {{ element.form }}
+					td.text-right
+						q-btn(flat round color="primary" icon='mdi-pencil-outline' dense @click.stop="goto(store.currentBO.name)" size='sm') 
+						q-btn(flat round color="primary" icon='mdi-trash-can-outline' dense @click.stop="" size='sm') 
 
+	q-btn.q-ma-md(unelevated color="primary" label="Добавить" @click="toggle" size='sm') 
+
+	ConditionDialog1(v-model="dialog")
 
 template(v-if="route.name == 'Процесс' && store.currentBO == null")
 	q-card-section
