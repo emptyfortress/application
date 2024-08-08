@@ -84,6 +84,11 @@ const router = createRouter({
 			],
 		},
 		{
+			path: '/emulate',
+			name: 'emulate',
+			component: () => import('@/views/Emulate.vue'),
+		},
+		{
 			path: '/palette',
 			name: 'palette',
 			component: () => import('@/views/Palette.vue'),

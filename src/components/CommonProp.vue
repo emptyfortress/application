@@ -67,6 +67,9 @@ const add = (e: any) => {
 const remove = (n: number) => {
 	list.value.splice(n, 1)
 }
+const emulate = () => {
+	router.push('/emulate')
+}
 </script>
 
 <template lang="pug">
@@ -112,7 +115,7 @@ template(v-if="route.name == 'Процесс' && store.currentBO == null")
 			q-item.ani(clickable v-for="item in prop1" :key="item.id")
 				q-item-section {{ item.label }}
 	br
-	q-btn.btn(outline color="primary" icon='mdi-play' label="Запустить процесс" @click="") 
+	q-btn.btn(outline color="primary" icon='mdi-play' label="Запустить процесс" @click="emulate") 
 
 
 template(v-if="route.name == 'Этап' && !!store.currentField")

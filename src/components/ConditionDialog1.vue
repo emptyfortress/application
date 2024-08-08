@@ -43,7 +43,6 @@ const add = () => {
 	modelValue.value = false
 	list.map((item: any) => (item.selected = false))
 	list1.map((item: any) => (item.selected = false))
-	// chips1.map((item) => (item.selected = false))
 }
 
 const select = (e: any) => {
