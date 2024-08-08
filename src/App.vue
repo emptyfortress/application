@@ -6,6 +6,7 @@ import { gsap } from 'gsap'
 import { useStore } from '@/stores/store'
 import LeftDrawer from '@/components/LeftDrawer.vue'
 import Breadcrumbs from '@/components/Breadcrumbs.vue'
+import { useStorage } from '@vueuse/core'
 
 const route = useRoute()
 const router = useRouter()
@@ -58,20 +59,27 @@ const home = () => {
 	store.setCurrentNode(null)
 	router.push('/')
 }
+const app = useStorage('app', {})
 </script>
 
 <template lang="pug">
 q-layout(view="hHr LpR fFf")
 	q-header.head
 		q-toolbar
+			.tool(v-if='route.name == "emulate"')
+				q-btn(unelevated color="primary" icon='mdi-arrow-left-circle' label="Назад" @click="$router.back" v-if='route.name == "emulate"') 
+				.center
+					div {{ app.text }}
+					div ->
+					div Здесь название этапа
+				div
 
-			.row.items-center
-				q-toolbar-title
-						q-avatar(@click="home")
-							SvgIcon.log(name="logo")
-						span.title(@click="home") Конструктор приложений
+			q-toolbar-title(v-else)
+					q-avatar(@click="home")
+						SvgIcon.log(name="logo")
+					span.title(@click="home") Конструктор приложений
 
-				Breadcrumbs(v-if="route.name !== 'home'")
+			Breadcrumbs(v-if="route.name !== 'home' && route.name !== 'emulate'")
 			q-space
 			q-avatar(color="blue-2" size="32px")
 				img(src="@/assets/img/user0.svg")
@@ -150,5 +158,15 @@ q-layout(view="hHr LpR fFf")
 	border-radius: 8px;
 	background: teal;
 	display: inline-block;
+}
+.tool {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.center {
+	display: flex;
+	gap: 1rem;
 }
 </style>

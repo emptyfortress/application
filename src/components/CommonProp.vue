@@ -21,24 +21,6 @@ const prop1 = [
 	{ id: 5, label: 'Реальная трудоемкость, ч/ч' },
 	{ id: 5, label: 'Реальная трудоемкость, руб' },
 ]
-const cols = [
-	{
-		name: 'form',
-		field: 'form',
-		required: true,
-		label: 'Форма',
-		align: 'left',
-		sortable: true,
-	},
-	{
-		name: 'role',
-		field: 'role',
-		required: true,
-		label: 'Роль',
-		align: 'left',
-		sortable: true,
-	},
-]
 const list = ref([
 	{
 		id: 0,
@@ -114,8 +96,7 @@ template(v-if="route.name == 'Процесс' && store.currentBO == null")
 		q-list
 			q-item.ani(clickable v-for="item in prop1" :key="item.id")
 				q-item-section {{ item.label }}
-	br
-	q-btn.btn(outline color="primary" icon='mdi-play' label="Запустить процесс" @click="emulate") 
+
 
 
 template(v-if="route.name == 'Этап' && !!store.currentField")
@@ -138,6 +119,10 @@ template(v-if='route.name == "Роли"')
 	.q-pa-md
 		.text-bold {{ store.currentRole?.label }}
 		div Тут свойства роли
+
+template(v-if='route.name == "Процесс" || route.name == "Этап"')
+	br
+	q-btn.btn(outline color="primary" icon='mdi-play' label="Запустить процесс" @click="emulate") 
 </template>
 
 <style scoped lang="scss">
