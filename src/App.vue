@@ -71,17 +71,18 @@ q-layout(view="hHr LpR fFf")
 				.center
 					div {{ app.text }}
 					div ->
-					div Здесь название этапа
+					div этап: Создание
+					div ->
+					div роль: Инициатор
 				div
 
 			q-toolbar-title(v-else)
-					q-avatar(@click="home")
-						SvgIcon.log(name="logo")
-					span.title(@click="home") Конструктор приложений
+				q-avatar(@click="home")
+					SvgIcon.log(name="logo")
+				span.title(@click="home") Конструктор приложений
 
 			Breadcrumbs(v-if="route.name !== 'home' && route.name !== 'emulate'")
-			q-space
-			q-avatar(color="blue-2" size="32px")
+			q-space q-avatar(color="blue-2" size="32px")
 				img(src="@/assets/img/user0.svg")
 				q-menu
 					q-item(clickable v-close-popup)

@@ -50,7 +50,7 @@ const remove = (n: number) => {
 	list.value.splice(n, 1)
 }
 const emulate = () => {
-	router.push('/emulate')
+	router.push('/emulate/1')
 }
 </script>
 
@@ -122,7 +122,7 @@ template(v-if='route.name == "Роли"')
 
 template(v-if='route.name == "Процесс" || route.name == "Этап"')
 	br
-	q-btn.btn(outline color="primary" icon='mdi-play' label="Запустить процесс" @click="emulate") 
+	q-btn.btn(outline color="primary" icon='mdi-play' label='Запустить процесс' @click='emulate') 
 </template>
 
 <style scoped lang="scss">
