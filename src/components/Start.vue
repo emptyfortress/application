@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, computed } from 'vue'
 import { useStore } from '@/stores/store'
 import { useRouter } from 'vue-router'
 import { myApps } from '@/stores/tree'
@@ -18,9 +18,13 @@ const goto = () => {
 	router.push(`/${props.id}/editor/process`)
 }
 
-const card = ref('')
-onMounted(() => {
-	card.value = store.currentNode?.data.text
+const cardname = computed({
+	get() {
+		return store.currentNode?.data.cardname || store.currentNode?.data.text
+	},
+	set(newValue) {
+		store.currentNode.data.cardname = newValue
+	},
 })
 </script>
 
@@ -62,8 +66,8 @@ onMounted(() => {
 				div &nbsp;
 				.text-bold Карточка:
 				div
-					span.edit {{ store.currentNode.data.card }}
-					q-popup-edit(v-model="store.currentNode.data.card" title="Карточка" auto-save v-slot="scope")
+					span.edit {{ cardname }}
+					q-popup-edit(v-model="cardname" title="Карточка" auto-save v-slot="scope")
 						q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
 
 			q-card-actions.q-mt-xl

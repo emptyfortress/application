@@ -79,11 +79,11 @@ template(v-if="route.name == 'Процесс' && !!store.currentBO")
 			tr
 				td Инициатор
 				td
-					q-btn(unelevated color="primary" label="Настроить" @click="" size='sm') 
+					q-btn(unelevated color="primary" label="Настроить" @click="goto(store.currentBO.name)" size='sm') 
 			tr
 				td Все остальные
 				td
-					q-btn(unelevated color="primary" label="Настроить" @click="" size='sm') 
+					q-btn(unelevated color="primary" label="Настроить" @click="goto(store.currentBO.name)" size='sm') 
 
 
 template(v-if="route.name == 'Процесс' && store.currentBO == null")

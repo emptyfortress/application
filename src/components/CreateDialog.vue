@@ -23,9 +23,8 @@ const emit = defineEmits(['create'])
 const create = (data: any) => {
 	data.id = +new Date()
 	data.text = data.name
-	data.card = data.name
+	data.card = card.value
 	data.type = 1
-	data.card = data.cardname
 	data.version = '0.0.0'
 	emit('create', data)
 	close()
