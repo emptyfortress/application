@@ -16,32 +16,36 @@ const list = reactive([
 	{ id: 3, role: 'Рассматривающий', selected: false },
 	{ id: 4, role: 'Все остальные', selected: false },
 ])
+const selection = computed(() => {
+	return list.filter((item) => item.selected)
+})
 
 const list1 = reactive([
 	{ id: 2, form: 'Создание', selected: false },
 	{ id: 3, form: 'Просмотр', selected: false },
 	{ id: 4, form: 'Редактирование', selected: false },
 ])
+const selection1 = computed(() => {
+	return list1.filter((item) => item.selected)
+})
 
 const store = useStore()
 
-// const add = () => {
-// 	let tmp = {
-// 		id: +new Date(),
-// 		etaps: selection.value.etaps,
-// 		form: selection.value.form,
-// 		dis: false,
-// 	}
-// 	store.addConditionRole(tmp)
-// 	modelValue.value = false
-// 	list.value = list.value.filter((item: Etap) => !item.selected)
-// 	chips1.map((item) => (item.selected = false))
-// }
+const emit = defineEmits(['add'])
+const add = () => {
+	let tmp = {
+		id: +new Date(),
+		role: selection.value[0].role,
+		form: selection1.value[0].form,
+		dis: false,
+	}
+	emit('add', tmp)
+	modelValue.value = false
+	list.map((item: any) => (item.selected = false))
+	list1.map((item: any) => (item.selected = false))
+	// chips1.map((item) => (item.selected = false))
+}
 
-// const chips1 = reactive(forms)
-
-// const form = ref(false)
-//
 const select = (e: any) => {
 	list.map((item: any) => {
 		item.selected = false
@@ -54,18 +58,6 @@ const select1 = (e: any) => {
 	})
 	e.selected = true
 }
-
-// const selection = computed(() => {
-// 	let et = list.value.filter((a: Etap) => a.selected).map((e: Etap) => e.etap)
-// 	let fo = chips1.filter((item: any) => item.selected).map((e: any) => e.label)
-// 	return {
-// 		etaps: et,
-// 		form: fo[0],
-// 	}
-// })
-// const selAll = () => {
-// 	list.value.map((item) => (item.selected = true))
-// }
 </script>
 
 <template lang="pug">

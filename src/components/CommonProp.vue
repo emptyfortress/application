@@ -61,6 +61,12 @@ const dialog = ref(false)
 const toggle = () => {
 	dialog.value = !dialog.value
 }
+const add = (e: any) => {
+	list.value.push(e)
+}
+const remove = (n: number) => {
+	list.value.splice(n, 1)
+}
 </script>
 
 <template lang="pug">
@@ -87,17 +93,17 @@ template(v-if="route.name == 'Процесс' && !!store.currentBO")
 				th.text-left Форма
 				th
 		draggable(v-model="list" tag="tbody" item-key="id")
-			template(#item="{ element }")
+			template(#item="{ element, index }")
 				tr(scope='row' @click='toggle')
 					td {{ element.role }}
 					td {{ element.form }}
 					td.text-right
 						q-btn(flat round color="primary" icon='mdi-pencil-outline' dense @click.stop="goto(store.currentBO.name)" size='sm') 
-						q-btn(flat round color="primary" icon='mdi-trash-can-outline' dense @click.stop="" size='sm') 
+						q-btn(flat round color="primary" icon='mdi-trash-can-outline' dense @click.stop="remove(index)" size='sm') 
 
 	q-btn.q-ma-md(unelevated color="primary" label="Добавить" @click="toggle" size='sm') 
 
-	ConditionDialog1(v-model="dialog")
+	ConditionDialog1(v-model="dialog" @add='add')
 
 template(v-if="route.name == 'Процесс' && store.currentBO == null")
 	q-card-section
