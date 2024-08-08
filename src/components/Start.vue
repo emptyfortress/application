@@ -20,10 +20,10 @@ const goto = () => {
 
 const cardname = computed({
 	get() {
-		return store.currentNode?.data.cardname || store.currentNode?.data.text
+		return store.currentNode?.data.card || store.currentNode?.data.text
 	},
 	set(newValue) {
-		store.currentNode.data.cardname = newValue
+		store.currentNode!.data.card = newValue
 	},
 })
 </script>
