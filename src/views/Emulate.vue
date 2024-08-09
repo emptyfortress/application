@@ -2,8 +2,13 @@
 import { ref } from 'vue'
 import { computed } from 'vue'
 import VueDraggableResizable from 'vue-draggable-resizable'
-import { useStorage } from '@vueuse/core'
 import FormTopEmulate from '@/components/FormTopEmulate.vue'
+import { useRouter } from 'vue-router'
+import { useStore } from '@/stores/store'
+import { useStorage } from '@vueuse/core'
+
+const store = useStore()
+const router = useRouter()
 
 const props = defineProps({
 	page: {
@@ -11,13 +16,19 @@ const props = defineProps({
 		required: true,
 	},
 })
-const app = useStorage('app', localStorage)
 
 const pic = computed(() => {
 	return `/form${props.page}.png`
 })
 const role = ref('Инициатор')
 const options = ['Инициатор', 'Руководитель', 'Все остальные']
+
+const app = useStorage('app', localStorage)
+const bo = useStorage('bo', localStorage)
+const edit = () => {
+	let url = '/' + app.value.text + '/editor/process/' + bo.value.name
+	router.push(url)
+}
 </script>
 
 <template lang="pug">
@@ -25,10 +36,12 @@ q-page
 
 	.preview
 		.center
-			div этап: Создание
+			div этап: {{ bo.name}}
 			div
 			div роль:
 			q-select(v-model="role" dense fulled :options='options')
+			q-space
+			q-btn(flat color="primary" label="Настроить" dense @click="edit") 
 		FormTopEmulate
 		q-img(:src='pic')
 

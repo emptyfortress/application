@@ -10,6 +10,7 @@ import 'diagram-js-minimap/assets/diagram-js-minimap.css'
 
 import { useRouter, useRoute } from 'vue-router'
 import { useStore } from '@/stores/store'
+import { useStorage } from '@vueuse/core'
 
 const store = useStore()
 
@@ -17,11 +18,9 @@ const router = useRouter()
 const route = useRoute()
 const canvas = ref()
 
-// const curr = JSON.parse(localStorage.getItem('app')!)
-
+const app = useStorage('app', localStorage)
 const bpmn = computed(() => {
-	// return curr.file ? zay : empty
-	return empty
+	return app.value.file ? zay : empty
 })
 
 onMounted(() => {
@@ -58,11 +57,13 @@ onMounted(() => {
 		if (!!store.currentBO && e.element.id == store.currentBO.id) {
 			store.setCurrentBO(null)
 		} else {
-			store.setCurrentBO({
+			let tmp = {
 				id: e.element.id,
 				type: e.element.type,
 				name: e.element.businessObject.name,
-			})
+			}
+			localStorage.setItem('bo', JSON.stringify(tmp))
+			store.setCurrentBO(tmp)
 		}
 	})
 
