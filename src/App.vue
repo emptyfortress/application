@@ -59,7 +59,7 @@ const home = () => {
 	store.setCurrentNode(null)
 	router.push('/')
 }
-const app = useStorage('app', {})
+const app = useStorage('app', localStorage)
 </script>
 
 <template lang="pug">

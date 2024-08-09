@@ -17,10 +17,11 @@ const router = useRouter()
 const route = useRoute()
 const canvas = ref()
 
-const curr = JSON.parse(localStorage.getItem('app')!)
+// const curr = JSON.parse(localStorage.getItem('app')!)
 
 const bpmn = computed(() => {
-	return curr.file ? zay : empty
+	// return curr.file ? zay : empty
+	return empty
 })
 
 onMounted(() => {
