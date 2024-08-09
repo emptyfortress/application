@@ -37,7 +37,7 @@ const list = ref([
 const goto = (e: string) => {
 	router.push(`/${route.params.id}/editor/process/${e}`)
 }
-const app = useStorage('app', {})
+const app = useStorage('app', localStorage)
 
 const dialog = ref(false)
 const toggle = () => {

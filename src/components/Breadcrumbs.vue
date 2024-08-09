@@ -2,11 +2,13 @@
 import { computed } from 'vue'
 import { useStore } from '@/stores/store'
 import { useRouter, useRoute } from 'vue-router'
+import { useStorage } from '@vueuse/core'
 
 const router = useRouter()
 const route = useRoute()
 
 const store = useStore()
+const app = useStorage('app', localStorage)
 
 const calcTitle = (item: string) => {
 	switch (item) {
@@ -22,6 +24,8 @@ const calcTitle = (item: string) => {
 			return 'Запрос'
 		case 'view':
 			return 'Представление'
+		case 'emulate':
+			return
 
 		case route.params.etap:
 			store.tabs = 'property'
@@ -76,12 +80,19 @@ const reset = (url: string) => {
 	}
 	store.setCurrentBO(null)
 }
+const back = () => {
+	let url = '/' + app.value.text + '/editor/process'
+	router.push(url)
+}
 </script>
 
 <template lang="pug">
 q-breadcrumbs.q-ml-xl
 	q-breadcrumbs-el(v-for="br in bread" :key="br.title" :label="br.title" :to="br.url" @click="reset(br.url)")
 	q-breadcrumbs-el(v-if="route.name == 'Этап'") Форма
+	template(v-if='route.name == "emulate"' )
+		h6 Процесс "{{ app.text }}"
+		q-btn.q-ml-lg(unelevated color="accent" label="Отмена" @click="back" size='sm')
 </template>
 
 <style scoped lang="scss"></style>

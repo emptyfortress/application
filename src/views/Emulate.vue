@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { computed } from 'vue'
 import VueDraggableResizable from 'vue-draggable-resizable'
 import { useStorage } from '@vueuse/core'
@@ -10,16 +11,24 @@ const props = defineProps({
 		required: true,
 	},
 })
-const app = useStorage('app', {})
+const app = useStorage('app', localStorage)
 
 const pic = computed(() => {
 	return `/form${props.page}.png`
 })
+const role = ref('Инициатор')
+const options = ['Инициатор', 'Руководитель', 'Все остальные']
 </script>
 
 <template lang="pug">
 q-page
+
 	.preview
+		.center
+			div этап: Создание
+			div
+			div роль:
+			q-select(v-model="role" dense fulled :options='options')
 		FormTopEmulate
 		q-img(:src='pic')
 
@@ -46,5 +55,16 @@ q-page
 }
 .fuck {
 	border: 1px solid #aaa;
+}
+.tool {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.center {
+	display: flex;
+	gap: 1rem;
+	align-items: center;
 }
 </style>
