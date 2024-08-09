@@ -38,6 +38,7 @@ const goto = (e: string) => {
 	router.push(`/${route.params.id}/editor/process/${e}`)
 }
 const app = useStorage('app', localStorage)
+// const bo = ref(useStorage('bo', {}))
 
 const dialog = ref(false)
 const toggle = () => {
@@ -64,11 +65,13 @@ template(v-if="route.name == 'Процесс' && !!store.currentBO")
 		h6.text-center {{ store.currentBO.name }}
 	.grid
 		div Название:
-		.text-bold {{ store.currentBO.name }}
-		div Тип:
-		div {{ store.currentBO.type }}
-		div id:
-		div {{ store.currentBO.id }}
+		.text-bold(v-if='store.currentBO.type == "bpmn:ExclusiveGateway"') Шлюз
+		.text-bold(v-else) {{ store.currentBO.name }}
+		div Исполнитель:
+		.text-bold {{ store.currentBO.lane.name }}
+		div Исходы:
+		div
+			.text-bold(v-for="item in store.currentBO.outgoing") {{ item.name }}
 
 	br
 	q-markup-table(bordered flat v-if='store.currentBO.type == "bpmn:Task"')
