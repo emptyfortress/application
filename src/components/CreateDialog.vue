@@ -23,7 +23,6 @@ const emit = defineEmits(['create'])
 const create = (data: any) => {
 	data.id = +new Date()
 	data.text = data.name
-	data.card = card.value
 	data.type = 1
 	data.version = '0.0.0'
 	emit('create', data)
@@ -48,9 +47,6 @@ q-dialog(v-model="modelValue")
 
 				FormKit(v-if='props.mode == "list"' type="text" autofocus name="name" label="Название" validation="required|length:3")
 				FormKit(v-if='props.mode == "list"' type="textarea" name="descr" label="Описание")
-
-				FormKit(v-if='props.mode == "app"' type="checkbox" v-model="card" name="check" label="Карточка использует название приложения")
-				FormKit(v-if="!card" type="text" name="cardname" label="Карточка" help="Какая карточка будет использоваться" validation="required|length:3")
 
 </template>
 

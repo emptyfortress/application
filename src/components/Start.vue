@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { useStore } from '@/stores/store'
 import { useRouter } from 'vue-router'
 import { myApps } from '@/stores/tree'
@@ -17,15 +17,6 @@ const router = useRouter()
 const goto = () => {
 	router.push(`/${props.id}/editor/process`)
 }
-
-const cardname = computed({
-	get() {
-		return store.currentNode?.data.cardname || store.currentNode?.data.text
-	},
-	set(newValue) {
-		store.currentNode.data.cardname = newValue
-	},
-})
 </script>
 
 <template lang="pug">
@@ -64,11 +55,6 @@ const cardname = computed({
 				div Орлов П.С.
 				div &nbsp;
 				div &nbsp;
-				.text-bold Карточка:
-				div
-					span.edit {{ cardname }}
-					q-popup-edit(v-model="cardname" title="Карточка" auto-save v-slot="scope")
-						q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
 
 			q-card-actions.q-mt-xl
 				q-btn(unelevated  icon="mdi-pencil" label="Настроить приложение" color="primary" @click="goto") 
