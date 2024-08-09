@@ -66,7 +66,7 @@ const app = useStorage('app', {})
 q-layout(view="hHr LpR fFf")
 	q-header.head
 		q-toolbar
-			.tool(v-if='route.name == "emulate"')
+			// .tool(v-if='route.name == "emulate"')
 				q-btn(unelevated color="primary" icon='mdi-arrow-left-circle' label="Назад" @click="$router.back" v-if='route.name == "emulate"') 
 				.center
 					div {{ app.text }}
@@ -76,13 +76,15 @@ q-layout(view="hHr LpR fFf")
 					div роль: Инициатор
 				div
 
-			q-toolbar-title(v-else)
+			q-toolbar-title()
 				q-avatar(@click="home")
 					SvgIcon.log(name="logo")
 				span.title(@click="home") Конструктор приложений
 
-			Breadcrumbs(v-if="route.name !== 'home' && route.name !== 'emulate'")
-			q-space q-avatar(color="blue-2" size="32px")
+			Breadcrumbs(v-if="route.name !== 'home'")
+
+			q-space
+			q-avatar(color="blue-2" size="32px")
 				img(src="@/assets/img/user0.svg")
 				q-menu
 					q-item(clickable v-close-popup)
@@ -92,7 +94,6 @@ q-layout(view="hHr LpR fFf")
 						q-item-section О программе
 					q-item(clickable v-close-popup)
 						q-item-section Выход
- 
 
 	LeftDrawer(v-model="store.drawer")
 
