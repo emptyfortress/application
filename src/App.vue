@@ -60,6 +60,8 @@ const home = () => {
 	router.push('/')
 }
 const app = useStorage('app', {})
+const role = ref('Инициатор')
+const options = ['Инициатор', 'Руководитель', 'Все остальные']
 </script>
 
 <template lang="pug">
@@ -67,14 +69,16 @@ q-layout(view="hHr LpR fFf")
 	q-header.head
 		q-toolbar
 			.tool(v-if='route.name == "emulate"')
-				q-btn(unelevated color="primary" icon='mdi-arrow-left-circle' label="Назад" @click="$router.back" v-if='route.name == "emulate"') 
+				q-btn(unelevated color="primary" label="Закрыть" ) 
 				.center
 					div {{ app.text }}
 					div ->
 					div этап: Создание
 					div ->
-					div роль: Инициатор
+					div роль:
+					q-select(v-model="role" dense filled :options='options')
 				div
+					q-btn(unelevated color="primary" label="Настроить форму" ) 
 
 			q-toolbar-title(v-else)
 				q-avatar(@click="home")
@@ -169,5 +173,6 @@ q-layout(view="hHr LpR fFf")
 .center {
 	display: flex;
 	gap: 1rem;
+	align-items: center;
 }
 </style>
