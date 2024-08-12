@@ -53,15 +53,6 @@ onMounted(() => {
 			store.setCurrentBO(null)
 			localStorage.setItem('bo', '')
 		} else {
-			// let tmp = {
-			// 	id: e.element.id,
-			// 	type: e.element.type,
-			// 	name: e.element.businessObject.name,
-			// 	lane: e.element.businessObject.lanes[0],
-			// 	outgoing: e.element.businessObject.outgoing,
-			// }
-			// localStorage.setItem('bo', JSON.stringify(tmp))
-			// store.setCurrentBO(tmp)
 			localStorage.setItem('bo', JSON.stringify(e.element.businessObject))
 			store.setCurrentBO(e.element.businessObject)
 		}
@@ -108,22 +99,22 @@ onMounted(() => {
 	top: 9rem;
 	left: 26rem;
 }
-:deep(.bpmn-icon-group) {
-	display: none;
-}
-:deep(.bpmn-icon-data-store) {
-	display: none;
-}
-:deep(.bpmn-icon-data-object) {
-	display: none;
-}
-:deep(.bpmn-icon-subprocess-expanded) {
-	display: none;
-}
-:deep(.bpmn-icon-space-tool) {
-	display: none;
-}
-:deep(.bpmn-icon-lasso-tool) {
-	display: none;
-}
+// :deep(.bpmn-icon-group) {
+// 	display: none;
+// }
+// :deep(.bpmn-icon-data-store) {
+// 	display: none;
+// }
+// :deep(.bpmn-icon-data-object) {
+// 	display: none;
+// }
+// :deep(.bpmn-icon-subprocess-expanded) {
+// 	display: none;
+// }
+// :deep(.bpmn-icon-space-tool) {
+// 	display: none;
+// }
+// :deep(.bpmn-icon-lasso-tool) {
+// 	display: none;
+// }
 </style>

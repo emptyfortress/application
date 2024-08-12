@@ -25,12 +25,12 @@ const list = ref([
 	{
 		id: 0,
 		role: 'Инициатор',
-		form: 'Редактирование',
+		form: null,
 	},
 	{
 		id: 1,
 		role: 'Все остальные',
-		form: 'Просмотр',
+		form: null,
 	},
 ])
 
@@ -69,13 +69,15 @@ template(v-if="route.name == 'Процесс' && !!store.currentBO")
 		.text-bold(v-else) {{ store.currentBO.name }}
 		template(v-if='store.currentBO.$type == "bpmn:Task"')
 			div Исполнитель:
-			.text-bold {{ store.currentBO.lanes[0].name }}
+			.text-bold {{ store.currentBO.lanes[0]?.name }}
+
 			div Исходы:
 			div
 				.text-bold(v-for="item in store.currentBO.outgoing") {{ item.name }}
 
 	br
-	template(v-if='store.currentBO.type == "bpmn:Task"')
+	.q-mx-md(v-if='store.currentBO.$type == "bpmn:Task"')
+		.text-bold Что видит пользователь?
 		q-markup-table(bordered flat)
 			thead
 				tr
@@ -86,10 +88,12 @@ template(v-if="route.name == 'Процесс' && !!store.currentBO")
 				template(#item="{ element, index }")
 					tr(scope='row' @click='toggle')
 						td {{ element.role }}
-						td {{ element.form }}
+						td
+							span(v-if='!!element.form') {{ element.form }}
+							q-btn(v-else flat color="primary" label="Создать" @click.stop="goto(store.currentBO.name)" size='sm') 
 						td.text-right
-							q-btn(flat round color="primary" icon='mdi-pencil-outline' dense @click.stop="goto(store.currentBO.name)" size='sm') 
-							q-btn(flat round color="primary" icon='mdi-trash-can-outline' dense @click.stop="remove(index)" size='sm') 
+							q-btn(v-if='element.form' flat round color="primary" icon='mdi-pencil-outline' dense @click.stop="goto(store.currentBO.name)" size='sm') 
+							q-btn(v-if='element.form' flat round color="primary" icon='mdi-trash-can-outline' dense @click.stop="remove(index)" size='sm') 
 
 		q-btn.q-ma-md(unelevated color="primary" label="Добавить" @click="toggle" size='sm') 
 

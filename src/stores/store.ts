@@ -34,14 +34,8 @@ export const useStore = defineStore('store', {
 		setCurrentBO(e: any | null) {
 			this.currentBO = e
 		},
-		addToBO(e: any) {
-			this.currentBO.form = {
-				name: 'one',
-				layout: {
-					x: 4,
-					y: 3,
-				},
-			}
+		addFormToBO(e: any) {
+			this.currentBO.form = e
 		},
 		setBread(e: string) {
 			this.bread = []
