@@ -108,4 +108,22 @@ onMounted(() => {
 	top: 9rem;
 	left: 26rem;
 }
+:deep(.bpmn-icon-group) {
+	display: none;
+}
+:deep(.bpmn-icon-data-store) {
+	display: none;
+}
+:deep(.bpmn-icon-data-object) {
+	display: none;
+}
+:deep(.bpmn-icon-subprocess-expanded) {
+	display: none;
+}
+:deep(.bpmn-icon-space-tool) {
+	display: none;
+}
+:deep(.bpmn-icon-lasso-tool) {
+	display: none;
+}
 </style>
