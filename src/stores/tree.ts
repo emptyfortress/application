@@ -29,6 +29,16 @@ const myApps = [
 				file: 'zay',
 				version: '1.1.1',
 			},
+			{
+				id: 3,
+				text: 'Новое приложение',
+				card: 'Newcard',
+				descr: 'Мое новое приложение',
+				hidden: false,
+				selected: false,
+				type: 1,
+				version: '0.0.0',
+			},
 		],
 	},
 ]
