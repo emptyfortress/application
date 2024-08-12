@@ -46,20 +46,24 @@ onMounted(() => {
 	var eventBus: any = modeler.get('eventBus')
 
 	const events = ['element.click']
+
 	const myClick = eventBus.on('element.click', (e: any) => {
+		console.log(e.element.businessObject)
 		if (!!store.currentBO && e.element.id == store.currentBO.id) {
 			store.setCurrentBO(null)
 			localStorage.setItem('bo', '')
 		} else {
-			let tmp = {
-				id: e.element.id,
-				type: e.element.type,
-				name: e.element.businessObject.name,
-				lane: e.element.businessObject.lanes[0],
-				outgoing: e.element.businessObject.outgoing,
-			}
-			localStorage.setItem('bo', JSON.stringify(tmp))
-			store.setCurrentBO(tmp)
+			// let tmp = {
+			// 	id: e.element.id,
+			// 	type: e.element.type,
+			// 	name: e.element.businessObject.name,
+			// 	lane: e.element.businessObject.lanes[0],
+			// 	outgoing: e.element.businessObject.outgoing,
+			// }
+			// localStorage.setItem('bo', JSON.stringify(tmp))
+			// store.setCurrentBO(tmp)
+			localStorage.setItem('bo', JSON.stringify(e.element.businessObject))
+			store.setCurrentBO(e.element.businessObject)
 		}
 	})
 

@@ -55,7 +55,7 @@
       <bpmn:outgoing>Flow_14mq7uv</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="Flow_1nrfrmz" name="На согласование" sourceRef="Event_1t7b10m" targetRef="Activity_13ysreu" />
-    <bpmn:sequenceFlow id="Flow_0wjrh6w" name="На согалсование" sourceRef="Activity_0kpt2qn" targetRef="Activity_13ysreu" />
+    <bpmn:sequenceFlow id="Flow_0wjrh6w" name="На согласование" sourceRef="Activity_0kpt2qn" targetRef="Activity_13ysreu" />
     <bpmn:sequenceFlow id="Flow_14mq7uv" name="На согласование" sourceRef="Gateway_1g3408c" targetRef="Activity_13ysreu" />
     <bpmn:sequenceFlow id="Flow_04wa84o" sourceRef="Activity_13ysreu" targetRef="Gateway_13s3wl9" />
     <bpmn:sequenceFlow id="Flow_0fy9oaf" name="Не согласовано" sourceRef="Gateway_13s3wl9" targetRef="Activity_0kpt2qn" />

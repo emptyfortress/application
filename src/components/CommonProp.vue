@@ -65,31 +65,33 @@ template(v-if="route.name == 'Процесс' && !!store.currentBO")
 		h6.text-center {{ store.currentBO.name }}
 	.grid
 		div Название:
-		.text-bold(v-if='store.currentBO.type == "bpmn:ExclusiveGateway"') Шлюз
+		.text-bold(v-if='store.currentBO.$type == "bpmn:ExclusiveGateway"') Шлюз
 		.text-bold(v-else) {{ store.currentBO.name }}
-		div Исполнитель:
-		.text-bold {{ store.currentBO.lane.name }}
-		div Исходы:
-		div
-			.text-bold(v-for="item in store.currentBO.outgoing") {{ item.name }}
+		template(v-if='store.currentBO.$type == "bpmn:Task"')
+			div Исполнитель:
+			.text-bold {{ store.currentBO.lanes[0].name }}
+			div Исходы:
+			div
+				.text-bold(v-for="item in store.currentBO.outgoing") {{ item.name }}
 
 	br
-	q-markup-table(bordered flat v-if='store.currentBO.type == "bpmn:Task"')
-		thead
-			tr
-				th.text-left Роль
-				th.text-left Форма
-				th
-		draggable(v-model="list" tag="tbody" item-key="id")
-			template(#item="{ element, index }")
-				tr(scope='row' @click='toggle')
-					td {{ element.role }}
-					td {{ element.form }}
-					td.text-right
-						q-btn(flat round color="primary" icon='mdi-pencil-outline' dense @click.stop="goto(store.currentBO.name)" size='sm') 
-						q-btn(flat round color="primary" icon='mdi-trash-can-outline' dense @click.stop="remove(index)" size='sm') 
+	template(v-if='store.currentBO.type == "bpmn:Task"')
+		q-markup-table(bordered flat)
+			thead
+				tr
+					th.text-left Роль
+					th.text-left Форма
+					th
+			draggable(v-model="list" tag="tbody" item-key="id")
+				template(#item="{ element, index }")
+					tr(scope='row' @click='toggle')
+						td {{ element.role }}
+						td {{ element.form }}
+						td.text-right
+							q-btn(flat round color="primary" icon='mdi-pencil-outline' dense @click.stop="goto(store.currentBO.name)" size='sm') 
+							q-btn(flat round color="primary" icon='mdi-trash-can-outline' dense @click.stop="remove(index)" size='sm') 
 
-	q-btn.q-ma-md(unelevated color="primary" label="Добавить" @click="toggle" size='sm') 
+		q-btn.q-ma-md(unelevated color="primary" label="Добавить" @click="toggle" size='sm') 
 
 	ConditionDialog1(v-model="dialog" @add='add')
 

@@ -6,7 +6,7 @@ export const useStore = defineStore('store', {
 		drawer: false,
 		drawer1: false,
 		currentNode: null as Stat | null,
-		currentBO: null as BusinessObject | null,
+		currentBO: null as any | null,
 		bread: [] as String[],
 		formSelected: false,
 		currentField: null as Field | null,
@@ -31,8 +31,17 @@ export const useStore = defineStore('store', {
 		setCurrentNode(e: Stat | null) {
 			this.currentNode = e
 		},
-		setCurrentBO(e: BusinessObject | null) {
+		setCurrentBO(e: any | null) {
 			this.currentBO = e
+		},
+		addToBO(e: any) {
+			this.currentBO.form = {
+				name: 'one',
+				layout: {
+					x: 4,
+					y: 3,
+				},
+			}
 		},
 		setBread(e: string) {
 			this.bread = []
