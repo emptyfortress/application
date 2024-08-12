@@ -4,9 +4,11 @@ import { GridItem, GridLayout } from 'vue-ts-responsive-grid-layout'
 import FormSection from '@/components/FormSection.vue'
 import { useStore } from '@/stores/store'
 import { useLayoutStore } from '@/stores/layout'
+import { useStorage } from '@vueuse/core'
 
 const store = useStore()
 const lstore = useLayoutStore()
+const app = useStorage('app', localStorage)
 
 const remove = (e: number) => {
 	let list = document.getElementsByClassName('vue-grid-item')
@@ -66,7 +68,7 @@ const height = computed(() => {
 
 <template lang="pug">
 GridLayout.list(
-	:layout.sync="lstore.layout"
+	:layout.sync="app.forms[0].layout"
 	:col-num="12"
 	:row-height="30"
 	:is-draggable='lstore.move'
@@ -85,7 +87,7 @@ GridLayout.list(
 	@click='unselect'
 	)
 
-	GridItem(v-for="( item, index ) in lstore.layout"
+	GridItem(v-for="( item, index ) in app.forms[0].layout"
 		:x="item.x"
 		:y="item.y"
 		:w="item.w"

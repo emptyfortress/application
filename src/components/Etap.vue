@@ -7,7 +7,10 @@ import Toolbar from '@/components/Toolbar.vue'
 import { useRoute } from 'vue-router'
 import chooseDialog from '@/components/chooseDialog.vue'
 import { useLayoutStore } from '@/stores/layout'
+import { useStore } from '@/stores/store'
+import { useStorage } from '@vueuse/core'
 
+const store = useStore()
 const lstore = useLayoutStore()
 const route = useRoute()
 const name = ref(route.params.etap)
@@ -26,6 +29,8 @@ watchEffect(() => {
 			return (width.value = '100%')
 	}
 })
+
+const app = useStorage('app', localStorage)
 </script>
 
 <template lang="pug">
@@ -44,10 +49,12 @@ watchEffect(() => {
 		h5 Форма "{{ name }}"
 			q-popup-edit(v-model="name" title="Название формы" auto-save v-slot="scope")
 				q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
-		q-btn(flat color="primary" icon="mdi-content-duplicate" label="Выбрать форму" @click="dialog = !dialog") 
+		div
+			q-btn(v-if='app.forms.length > 1' flat color="primary" icon="mdi-content-duplicate" label="Выбрать форму" @click="dialog = !dialog") 
+			q-btn(flat color="primary" label="Сохранить" @click="dialog = !dialog") 
 
 	.inner
-		FormTop
+		FormTop(v-if='!!app.file')
 		FormLayout
 
 chooseDialog(v-model="dialog" kind='form')
@@ -74,7 +81,7 @@ chooseDialog(v-model="dialog" kind='form')
 	}
 }
 .inner {
-	margin: 0 auto;
+	margin: 1rem auto;
 	width: v-bind(width);
 }
 </style>

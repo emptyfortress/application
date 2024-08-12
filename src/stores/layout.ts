@@ -5,6 +5,7 @@ export const useLayoutStore = defineStore('layout', () => {
 	const index = ref(2)
 	const colNum = ref(12)
 	const dragType = ref(0)
+	const forms = ref([])
 	const layout = reactive([
 		{
 			x: 1,
@@ -186,6 +187,7 @@ export const useLayoutStore = defineStore('layout', () => {
 		mode,
 		move,
 		preview,
+		forms,
 		addSection,
 		removeSection,
 		setDragType,

@@ -80,7 +80,7 @@ q-dialog(v-model="modelValue")
 		q-card-section
 			.text-h6 Выбрать {{ name }} из доступных
 
-		q-form(@submit="loadForm")
+		q-form(@submit="loadForm" )
 			q-card-section
 				q-chip(v-for="chip in chips"
 					clickable
@@ -89,9 +89,6 @@ q-dialog(v-model="modelValue")
 					:key="chip.id"
 					@click="select(chip)"
 					)
-
-			q-card-section
-			// 	q-checkbox(v-model='copy' label='Создать копию' dense disable)
 
 			q-card-actions.q-mx-sm.q-mb-md(align="right")
 				q-btn(flat color="primary" label="Отмена" @click="close")

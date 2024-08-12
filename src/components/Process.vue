@@ -19,6 +19,7 @@ const route = useRoute()
 const canvas = ref()
 
 const app = useStorage('app', localStorage)
+
 const bpmn = computed(() => {
 	return app.value.file ? zay : empty
 })

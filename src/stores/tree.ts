@@ -17,6 +17,24 @@ const myApps = [
 				type: 1,
 				file: 'zay',
 				version: '1.2.0',
+				forms: [
+					{
+						id: 0,
+						name: 'Создание',
+						layout: [
+							{
+								x: 1,
+								y: 0,
+								w: 6,
+								h: 4,
+								i: 0,
+								selected: false,
+							},
+						],
+					},
+					{ id: 1, name: 'Просмотр', layout: [] },
+					{ id: 2, name: 'Редактирование', layout: [] },
+				],
 			},
 			{
 				id: 2,
@@ -28,6 +46,11 @@ const myApps = [
 				type: 1,
 				file: 'zay',
 				version: '1.1.1',
+				forms: [
+					{ id: 0, name: 'Создание', layout: [] },
+					{ id: 1, name: 'Просмотр', layout: [] },
+					{ id: 2, name: 'Редактирование', layout: [] },
+				],
 			},
 			{
 				id: 3,
@@ -38,6 +61,22 @@ const myApps = [
 				selected: false,
 				type: 1,
 				version: '0.0.0',
+				forms: [
+					{
+						id: 0,
+						name: 'Создание',
+						layout: [
+							{
+								x: 1,
+								y: 0,
+								w: 10,
+								h: 4,
+								i: 0,
+								selected: false,
+							},
+						],
+					},
+				],
 			},
 		],
 	},
