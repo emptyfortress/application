@@ -6,8 +6,10 @@ import FieldList from '@/components/FieldList.vue'
 import { useStorage } from '@vueuse/core'
 import draggable from 'vuedraggable'
 import ConditionDialog1 from '@/components/ConditionDialog1.vue'
+import { useForms } from '@/stores/forms'
 
 const store = useStore()
+const myform = useForms()
 const route = useRoute()
 const router = useRouter()
 
@@ -53,6 +55,11 @@ const remove = (n: number) => {
 const emulate = () => {
 	router.push('/emulate/1')
 }
+
+const addform = () => {
+	myform.addForm('Этап 2', 'Руководитель', 'Просмотр')
+	// store.currentBO.forms = [{ role: 'Role 1', form: 'Fuck' }]
+}
 </script>
 
 <template lang="pug">
@@ -64,11 +71,13 @@ template(v-if="route.name == 'Процесс' && !!store.currentBO")
 	q-card-section
 		h6.text-center {{ store.currentBO.name }}
 	.grid
+		div id:
+		div {{ store.currentBO.id}}
 		div Название:
 		.text-bold(v-if='store.currentBO.$type == "bpmn:ExclusiveGateway"') Шлюз
 		.text-bold(v-else) {{ store.currentBO.name }}
 
-		template(v-if='store.currentBO.$type == "bpmn:Task"')
+		template(v-if='store.currentBO.$type == "bpmn:Task" || store.currentBO.$type == "bpmn:Event"')
 			div Исполнитель:
 			.text-bold {{ store.currentBO.lanes[0]?.name }}
 
@@ -78,7 +87,7 @@ template(v-if="route.name == 'Процесс' && !!store.currentBO")
 				.text-bold(v-for="item in store.currentBO.outgoing") {{ item.name }}
 
 	br
-	.q-mx-md(v-if='store.currentBO.$type == "bpmn:Task"')
+	.q-mx-md(v-if='store.currentBO.$type == "bpmn:Task" || store.currentBO.name == "Старт"')
 		.text-bold Что видит пользователь?
 		q-markup-table(bordered flat)
 			thead
@@ -86,19 +95,18 @@ template(v-if="route.name == 'Процесс' && !!store.currentBO")
 					th.text-left Роль
 					th.text-left Форма
 					th
-			// draggable(v-model="store.currentBO.forms" tag="tbody" item-key="id")
-			draggable(v-model="store.currentNode.data.forms" tag="tbody" item-key="id")
+			draggable(v-model="myform.formList" tag="tbody" item-key="id")
 				template(#item="{ element, index }")
-					tr(scope='row' @click='toggle')
+					tr.cursor-pointer(scope='row' @click='toggle')
 						td {{ element.role }}
 						td 
-							span(v-if='store.currentNode.data.id < 3') {{ element.name }}
+							span(v-if='!!store.currentBO.forms' @click.stop="goto(store.currentBO.name)") {{ element.form }}
 							q-btn(v-else flat color="primary" label="Создать" @click.stop="goto(store.currentBO.name)" size='sm') 
 						td.text-right
-							q-btn(v-if='element.form' flat round color="primary" icon='mdi-pencil-outline' dense @click.stop="goto(store.currentBO.name)" size='sm') 
-							q-btn(v-if='element.form' flat round color="primary" icon='mdi-trash-can-outline' dense @click.stop="remove(index)" size='sm') 
+							q-btn(flat round color="primary" icon='mdi-trash-can-outline' dense @click.stop="remove(index)" size='sm') 
 
 		q-btn.q-ma-md(unelevated color="primary" label="Добавить" @click="toggle" size='sm') 
+		q-btn.q-ma-md(unelevated color="primary" label="Добавить1" @click="addform" size='sm') 
 
 	ConditionDialog1(v-model="dialog" @add='add')
 
@@ -153,5 +161,9 @@ template(v-if='route.name == "Процесс" || route.name == "Этап"')
 .btn {
 	display: block;
 	margin: 1rem auto;
+}
+td span {
+	color: $primary;
+	text-decoration: underline;
 }
 </style>

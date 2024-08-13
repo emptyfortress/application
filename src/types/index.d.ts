@@ -46,7 +46,7 @@ type Field = {
 
 interface BusinessObject {
 	id: string
-	type: string
+	$type: string
 	name: string
 }
 

@@ -4,15 +4,18 @@ import FormTop from '@/components/FormTop.vue'
 import FormLayout from '@/components/FormLayout.vue'
 import VueDraggableResizable from 'vue-draggable-resizable'
 import Toolbar from '@/components/Toolbar.vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import chooseDialog from '@/components/chooseDialog.vue'
 import { useLayoutStore } from '@/stores/layout'
 import { useStore } from '@/stores/store'
 import { useStorage } from '@vueuse/core'
+import { useForms } from '@/stores/forms'
 
 const store = useStore()
 const lstore = useLayoutStore()
+const myform = useForms()
 const route = useRoute()
+const router = useRouter()
 const name = ref(route.params.etap)
 const dialog = ref(false)
 
@@ -31,6 +34,11 @@ watchEffect(() => {
 })
 
 const app = useStorage('app', localStorage)
+
+const save = () => {
+	myform.addForm(store.currentBO.name, 'Good', name)
+	router.back()
+}
 </script>
 
 <template lang="pug">
@@ -51,7 +59,7 @@ const app = useStorage('app', localStorage)
 				q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
 		div
 			q-btn(v-if='app.forms.length > 1' flat color="primary" icon="mdi-content-duplicate" label="Выбрать форму" @click="dialog = !dialog") 
-			q-btn(flat color="primary" label="Сохранить" @click="dialog = !dialog") 
+			q-btn(flat color="primary" label="Сохранить" @click="save") 
 
 	.inner
 		FormTop(v-if='!!app.file')

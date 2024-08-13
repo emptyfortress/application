@@ -49,13 +49,14 @@ onMounted(() => {
 	const events = ['element.click']
 
 	const myClick = eventBus.on('element.click', (e: any) => {
-		console.log(e.element.businessObject)
+		// console.log(e.element.businessObject)
 		if (!!store.currentBO && e.element.id == store.currentBO.id) {
 			store.setCurrentBO(null)
 			localStorage.setItem('bo', '')
 		} else {
-			localStorage.setItem('bo', JSON.stringify(e.element.businessObject))
-			store.setCurrentBO(e.element.businessObject)
+			let tmp = e.element.businessObject
+			localStorage.setItem('bo', JSON.stringify(tmp))
+			store.setCurrentBO(tmp)
 		}
 	})
 
@@ -100,22 +101,22 @@ onMounted(() => {
 	top: 9rem;
 	left: 26rem;
 }
-// :deep(.bpmn-icon-group) {
-// 	display: none;
-// }
-// :deep(.bpmn-icon-data-store) {
-// 	display: none;
-// }
-// :deep(.bpmn-icon-data-object) {
-// 	display: none;
-// }
-// :deep(.bpmn-icon-subprocess-expanded) {
-// 	display: none;
-// }
-// :deep(.bpmn-icon-space-tool) {
-// 	display: none;
-// }
-// :deep(.bpmn-icon-lasso-tool) {
-// 	display: none;
-// }
+:deep(.bpmn-icon-group) {
+	display: none;
+}
+:deep(.bpmn-icon-data-store) {
+	display: none;
+}
+:deep(.bpmn-icon-data-object) {
+	display: none;
+}
+:deep(.bpmn-icon-subprocess-expanded) {
+	display: none;
+}
+:deep(.bpmn-icon-space-tool) {
+	display: none;
+}
+:deep(.bpmn-icon-lasso-tool) {
+	display: none;
+}
 </style>

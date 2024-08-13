@@ -13,17 +13,17 @@ const modelValue = defineModel<boolean>()
 
 const list = reactive([
 	{ id: 2, role: 'Инициатор', selected: false },
-	{ id: 3, role: 'Рассматривающий', selected: false },
-	{ id: 4, role: 'Все остальные', selected: false },
+	// { id: 3, role: 'Рассматривающий', selected: false },
+	// { id: 4, role: 'Все остальные', selected: false },
 ])
 const selection = computed(() => {
 	return list.filter((item) => item.selected)
 })
 
 const list1 = reactive([
-	{ id: 2, form: 'Создание', selected: false },
-	{ id: 3, form: 'Просмотр', selected: false },
-	{ id: 4, form: 'Редактирование', selected: false },
+	// { id: 2, form: 'Создание', selected: false },
+	// { id: 3, form: 'Просмотр', selected: false },
+	// { id: 4, form: 'Редактирование', selected: false },
 ])
 const selection1 = computed(() => {
 	return list1.filter((item) => item.selected)
@@ -91,7 +91,7 @@ q-dialog(v-model="modelValue")
 
 			q-card-actions.q-mx-sm.q-mb-md(align="right")
 				q-btn(flat color="primary" label="Отмена" v-close-popup)
-				q-btn(unelevated color="primary" label="Добавить условие" type="submit")
+				q-btn(unelevated color="primary" label="Сохранить" type="submit")
 </template>
 
 <style scoped lang="scss">
