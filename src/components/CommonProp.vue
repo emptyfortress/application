@@ -45,10 +45,10 @@ const toggle = () => {
 	dialog.value = !dialog.value
 }
 const add = (e: any) => {
-	list.value.push(e)
+	// list.value.push(e)
 }
 const remove = (n: number) => {
-	list.value.splice(n, 1)
+	// list.value.splice(n, 1)
 }
 const emulate = () => {
 	router.push('/emulate/1')
