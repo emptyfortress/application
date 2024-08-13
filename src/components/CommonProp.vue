@@ -21,18 +21,18 @@ const prop1 = [
 	{ id: 5, label: 'Реальная трудоемкость, ч/ч' },
 	{ id: 5, label: 'Реальная трудоемкость, руб' },
 ]
-const list = ref([
-	{
-		id: 0,
-		role: 'Инициатор',
-		form: null,
-	},
-	{
-		id: 1,
-		role: 'Все остальные',
-		form: null,
-	},
-])
+// const list = ref([
+// 	{
+// 		id: 0,
+// 		role: 'Инициатор',
+// 		form: null,
+// 	},
+// 	{
+// 		id: 1,
+// 		role: 'Все остальные',
+// 		form: null,
+// 	},
+// ])
 
 const goto = (e: string) => {
 	router.push(`/${route.params.id}/editor/process/${e}`)
@@ -84,12 +84,12 @@ template(v-if="route.name == 'Процесс' && !!store.currentBO")
 					th.text-left Роль
 					th.text-left Форма
 					th
-			draggable(v-model="list" tag="tbody" item-key="id")
+			draggable(v-model="store.currentNode.data.forms" tag="tbody" item-key="id")
 				template(#item="{ element, index }")
 					tr(scope='row' @click='toggle')
 						td {{ element.role }}
-						td
-							span(v-if='!!element.form') {{ element.form }}
+						td 
+							span(v-if='store.currentNode.data.id < 3') {{ element.name }}
 							q-btn(v-else flat color="primary" label="Создать" @click.stop="goto(store.currentBO.name)" size='sm') 
 						td.text-right
 							q-btn(v-if='element.form' flat round color="primary" icon='mdi-pencil-outline' dense @click.stop="goto(store.currentBO.name)" size='sm') 

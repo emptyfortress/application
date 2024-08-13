@@ -21,6 +21,7 @@ const myApps = [
 					{
 						id: 0,
 						name: 'Создание',
+						role: 'Инициатор',
 						layout: [
 							{
 								x: 1,
@@ -32,8 +33,8 @@ const myApps = [
 							},
 						],
 					},
-					{ id: 1, name: 'Просмотр', layout: [] },
-					{ id: 2, name: 'Редактирование', layout: [] },
+					{ id: 1, name: 'Редактирование', role: 'Руководитель', layout: [] },
+					{ id: 2, name: 'Просмотр', role: 'Все остальные', layout: [] },
 				],
 			},
 			{
@@ -47,9 +48,9 @@ const myApps = [
 				file: 'zay',
 				version: '1.1.1',
 				forms: [
-					{ id: 0, name: 'Создание', layout: [] },
-					{ id: 1, name: 'Просмотр', layout: [] },
-					{ id: 2, name: 'Редактирование', layout: [] },
+					{ id: 0, name: 'Создание', role: 'Инициатор', layout: [] },
+					{ id: 1, name: 'Редактирование', role: 'Руководитель', layout: [] },
+					{ id: 2, name: 'Просмотр', role: 'Все остальные', layout: [] },
 				],
 			},
 			{
@@ -65,6 +66,7 @@ const myApps = [
 					{
 						id: 0,
 						name: 'Создание',
+						role: 'Инициатор',
 						layout: [
 							{
 								x: 1,
