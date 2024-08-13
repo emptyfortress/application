@@ -67,10 +67,12 @@ template(v-if="route.name == 'Процесс' && !!store.currentBO")
 		div Название:
 		.text-bold(v-if='store.currentBO.$type == "bpmn:ExclusiveGateway"') Шлюз
 		.text-bold(v-else) {{ store.currentBO.name }}
+
 		template(v-if='store.currentBO.$type == "bpmn:Task"')
 			div Исполнитель:
 			.text-bold {{ store.currentBO.lanes[0]?.name }}
 
+		template(v-if='store.currentBO.$type == "bpmn:Task" || store.currentBO.$type == "bpmn:ExclusiveGateway"')
 			div Исходы:
 			div
 				.text-bold(v-for="item in store.currentBO.outgoing") {{ item.name }}
@@ -84,6 +86,7 @@ template(v-if="route.name == 'Процесс' && !!store.currentBO")
 					th.text-left Роль
 					th.text-left Форма
 					th
+			// draggable(v-model="store.currentBO.forms" tag="tbody" item-key="id")
 			draggable(v-model="store.currentNode.data.forms" tag="tbody" item-key="id")
 				template(#item="{ element, index }")
 					tr(scope='row' @click='toggle')
