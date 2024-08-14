@@ -36,7 +36,8 @@ watchEffect(() => {
 const app = useStorage('app', localStorage)
 
 const save = () => {
-	myform.addForm(store.currentBO.name, 'Good', name)
+	myform.editForm(name)
+	myform.ind = null
 	router.back()
 }
 </script>

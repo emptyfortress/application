@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import BpmnModeler from 'bpmn-js/lib/Modeler'
+// import CoreModule from 'diagram-js/lib/core'
 import 'bpmn-js/dist/assets/diagram-js.css'
 import 'bpmn-js/dist/assets/bpmn-js.css'
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css'
@@ -11,8 +12,10 @@ import 'diagram-js-minimap/assets/diagram-js-minimap.css'
 import { useRouter, useRoute } from 'vue-router'
 import { useStore } from '@/stores/store'
 import { useStorage } from '@vueuse/core'
+import { useForms } from '@/stores/forms'
 
 const store = useStore()
+const myform = useForms()
 
 const router = useRouter()
 const route = useRoute()
@@ -49,7 +52,7 @@ onMounted(() => {
 	const events = ['element.click']
 
 	const myClick = eventBus.on('element.click', (e: any) => {
-		// console.log(e.element.businessObject)
+		// console.log(e.element.businessObject.$parent.flowElements)
 		if (!!store.currentBO && e.element.id == store.currentBO.id) {
 			store.setCurrentBO(null)
 			localStorage.setItem('bo', '')
@@ -59,6 +62,15 @@ onMounted(() => {
 			store.setCurrentBO(tmp)
 		}
 	})
+
+	modeler.on('commandStack.changed', () => {
+		// user modeled something or
+		let all = modeler._definitions.rootElements[1].flowElements
+		myform.setAllBO(all)
+	})
+
+	// console.log(CoreModule.elementRegistry)
+	// console.log(CoreModule.elementRegistry[1].prototype.getAll())
 
 	// events.forEach(function (event) {
 	// 	eventBus.on(event, function (e) {

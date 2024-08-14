@@ -36,7 +36,10 @@ const prop1 = [
 // 	},
 // ])
 
-const goto = (e: string) => {
+const goto = (e: string, ind: number) => {
+	console.log(e)
+	console.log(ind)
+	myform.ind = ind
 	router.push(`/${route.params.id}/editor/process/${e}`)
 }
 const app = useStorage('app', localStorage)
@@ -95,13 +98,13 @@ template(v-if="route.name == 'Процесс' && !!store.currentBO")
 					th.text-left Роль
 					th.text-left Форма
 					th
-			draggable(v-model="myform.formList" tag="tbody" item-key="id")
+			draggable(v-model="myform.calcList" tag="tbody" item-key="id")
 				template(#item="{ element, index }")
 					tr.cursor-pointer(scope='row' @click='toggle')
 						td {{ element.role }}
 						td 
-							span(v-if='!!store.currentBO.forms' @click.stop="goto(store.currentBO.name)") {{ element.form }}
-							q-btn(v-else flat color="primary" label="Создать" @click.stop="goto(store.currentBO.name)" size='sm') 
+							span(v-if='!!element.form' @click.stop="goto(element.form, index)") {{ element.form }}
+							q-btn(v-else flat color="primary" label="Создать" @click.stop="goto(store.currentBO.name, index)" size='sm') 
 						td.text-right
 							q-btn(flat round color="primary" icon='mdi-trash-can-outline' dense @click.stop="remove(index)" size='sm') 
 
