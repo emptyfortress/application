@@ -60,7 +60,8 @@ const emulate = () => {
 }
 
 const addform = () => {
-	myform.addForm('Этап 2', 'Руководитель', 'Просмотр')
+	// myform.addForm('Этап 2', 'Руководитель', 'Просмотр')
+	myform.fuck('fuck')
 	// store.currentBO.forms = [{ role: 'Role 1', form: 'Fuck' }]
 }
 </script>
@@ -70,27 +71,26 @@ const addform = () => {
 template(v-if="route.name == 'Представление'")
 	FieldList
 
-template(v-if="route.name == 'Процесс' && !!store.currentBO")
+template(v-if="route.name == 'Процесс' && !!myform.currentBO")
 	q-card-section
-		h6.text-center {{ store.currentBO.name }}
+		h6.text-center {{ myform.currentBO.name }}
 	.grid
 		div id:
-		div {{ store.currentBO.id}}
+		div {{ myform.currentBO.id}}
 		div Название:
-		.text-bold(v-if='store.currentBO.$type == "bpmn:ExclusiveGateway"') Шлюз
-		.text-bold(v-else) {{ store.currentBO.name }}
+		.text-bold(v-if='myform.currentBO.$type == "bpmn:ExclusiveGateway"') Шлюз
+		.text-bold(v-else) {{ myform.currentBO.name }}
 
-		template(v-if='store.currentBO.$type == "bpmn:Task" || store.currentBO.$type == "bpmn:Event"')
+		template(v-if='myform.currentBO.$type == "bpmn:Task" || myform.currentBO.$type == "bpmn:StartEvent" || myform.currentBO.$type == "bpmn:EndEvent" || myform.currentBO.$type == "bpmn:ExclusiveGateway"')
 			div Исполнитель:
-			.text-bold {{ store.currentBO.lanes[0]?.name }}
+			.text-bold {{ myform.currentRole }}
 
-		template(v-if='store.currentBO.$type == "bpmn:Task" || store.currentBO.$type == "bpmn:ExclusiveGateway"')
 			div Исходы:
 			div
-				.text-bold(v-for="item in store.currentBO.outgoing") {{ item.name }}
+				.text-bold(v-for="item in myform.currentBO.outgoing") {{ item.name }}
 
 	br
-	.q-mx-md(v-if='store.currentBO.$type == "bpmn:Task" || store.currentBO.name == "Старт"')
+	.q-mx-md(v-if='myform.currentBO.$type == "bpmn:Task" || myform.currentBO.name == "Старт"')
 		.text-bold Что видит пользователь?
 		q-markup-table(bordered flat)
 			thead
@@ -98,7 +98,7 @@ template(v-if="route.name == 'Процесс' && !!store.currentBO")
 					th.text-left Роль
 					th.text-left Форма
 					th
-			draggable(v-model="myform.calcList" tag="tbody" item-key="id")
+			// draggable(v-model="myform.calcList" tag="tbody" item-key="id")
 				template(#item="{ element, index }")
 					tr.cursor-pointer(scope='row' @click='toggle')
 						td {{ element.role }}
@@ -113,7 +113,7 @@ template(v-if="route.name == 'Процесс' && !!store.currentBO")
 
 	ConditionDialog1(v-model="dialog" @add='add')
 
-template(v-if="route.name == 'Процесс' && store.currentBO == null")
+template(v-if="route.name == 'Процесс' && myform.currentBO == null")
 	q-card-section
 		h6.text-center {{ app.text }}
 		q-list

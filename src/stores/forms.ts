@@ -1,8 +1,8 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-import { useStore } from '@/stores/store'
+// import { useStore } from '@/stores/store'
 
-const store = useStore()
+// const store = useStore()
 
 type Row = {
 	etap: string
@@ -15,12 +15,25 @@ export const useForms = defineStore('forms', () => {
 	const setAllBO = (e: any) => {
 		allBO.value = e
 	}
-	const roles = ref<string[]>([])
+	// const roles = ref<string[]>([])
 
 	const currentBO = ref()
 	const setCurrentBO = (e: any) => {
 		currentBO.value = e
 	}
+	const fuck = (e: string) => {
+		currentBO.value.form = e
+		console.log('fuck')
+	}
+	const currentRole = computed(() => {
+		return currentBO.value.lanes[0].name
+	})
+	const currentEtap = computed(() => {
+		return currentBO.value.name
+	})
+	const roles = computed(() => {
+		return currentBO.value.$parent.laneSets[0].lanes
+	})
 
 	const formList = ref<Row[]>([
 		{
@@ -40,11 +53,11 @@ export const useForms = defineStore('forms', () => {
 		},
 	])
 
-	const calcList = computed(() => {
-		return formList.value.filter((item) => {
-			return item.etap == store.currentBO.name
-		})
-	})
+	// const calcList = computed(() => {
+	// 	return formList.value.filter((item) => {
+	// 		return item.etap == store.currentBO.name
+	// 	})
+	// })
 
 	const addForm = (etap: string, role: string, form: string) => {
 		let row = { etap: etap, role: role, form: form }
@@ -63,10 +76,14 @@ export const useForms = defineStore('forms', () => {
 		setAllBO,
 
 		currentBO,
+		currentRole,
+		currentEtap,
+		roles,
 		setCurrentBO,
+		fuck,
 
 		formList,
-		calcList,
+		// calcList,
 		ind,
 		addForm,
 		editForm,

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import BpmnModeler from 'bpmn-js/lib/Modeler'
-// import CoreModule from 'diagram-js/lib/core'
 import 'bpmn-js/dist/assets/diagram-js.css'
 import 'bpmn-js/dist/assets/bpmn-js.css'
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css'
@@ -52,14 +51,14 @@ onMounted(() => {
 	const events = ['element.click']
 
 	const myClick = eventBus.on('element.click', (e: any) => {
-		// console.log(e.element.businessObject.$parent.flowElements)
+		console.log(e.element.businessObject)
 		if (!!store.currentBO && e.element.id == store.currentBO.id) {
-			store.setCurrentBO(null)
+			myform.setCurrentBO(null)
 			localStorage.setItem('bo', '')
 		} else {
 			let tmp = e.element.businessObject
 			localStorage.setItem('bo', JSON.stringify(tmp))
-			store.setCurrentBO(tmp)
+			myform.setCurrentBO(e.element.businessObject)
 		}
 	})
 
@@ -68,9 +67,6 @@ onMounted(() => {
 		let all = modeler._definitions.rootElements[1].flowElements
 		myform.setAllBO(all)
 	})
-
-	// console.log(CoreModule.elementRegistry)
-	// console.log(CoreModule.elementRegistry[1].prototype.getAll())
 
 	// events.forEach(function (event) {
 	// 	eventBus.on(event, function (e) {
