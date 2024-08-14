@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { ref, reactive, computed } from 'vue'
+import { ref, reactive, computed, watch } from 'vue'
 // import { forms } from '@/stores/tree'
 import { useStore } from '@/stores/store'
+import { useForms } from '@/stores/forms'
 
 // interface Etap {
 // 	id: number
@@ -11,11 +12,22 @@ import { useStore } from '@/stores/store'
 
 const modelValue = defineModel<boolean>()
 
-const list = reactive([
-	{ id: 2, role: 'Инициатор', selected: false },
-	// { id: 3, role: 'Рассматривающий', selected: false },
-	// { id: 4, role: 'Все остальные', selected: false },
-])
+const temp = ref()
+const myform = useForms()
+const list = ref([])
+
+watch(modelValue, (val) => {
+	if (val) {
+		list.value = myform.roles.map((item) => {
+			return {
+				id: item.id,
+				role: item.name,
+				selected: false,
+			}
+		})
+	}
+})
+
 const selection = computed(() => {
 	return list.filter((item) => item.selected)
 })
@@ -46,7 +58,7 @@ const add = () => {
 }
 
 const select = (e: any) => {
-	list.map((item: any) => {
+	list.value.map((item: any) => {
 		item.selected = false
 	})
 	e.selected = true
@@ -79,6 +91,7 @@ q-dialog(v-model="modelValue")
 							:key="chip.id"
 							@click='select(chip)'
 							)
+						div {{ temp }}
 					div
 						.text-bold Формы
 						q-chip(v-for="chip in list1"

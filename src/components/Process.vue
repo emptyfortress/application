@@ -54,10 +54,10 @@ onMounted(() => {
 		console.log(e.element.businessObject)
 		if (!!store.currentBO && e.element.id == store.currentBO.id) {
 			myform.setCurrentBO(null)
-			localStorage.setItem('bo', '')
+			// localStorage.setItem('bo', '')
 		} else {
 			let tmp = e.element.businessObject
-			localStorage.setItem('bo', JSON.stringify(tmp))
+			// localStorage.setItem('bo', JSON.stringify(tmp))
 			myform.setCurrentBO(e.element.businessObject)
 		}
 	})

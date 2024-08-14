@@ -98,7 +98,7 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO")
 					th.text-left Роль
 					th.text-left Форма
 					th
-			// draggable(v-model="myform.calcList" tag="tbody" item-key="id")
+			draggable(v-model="myform.currentBO.form" tag="tbody" item-key="id")
 				template(#item="{ element, index }")
 					tr.cursor-pointer(scope='row' @click='toggle')
 						td {{ element.role }}

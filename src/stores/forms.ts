@@ -15,15 +15,17 @@ export const useForms = defineStore('forms', () => {
 	const setAllBO = (e: any) => {
 		allBO.value = e
 	}
-	// const roles = ref<string[]>([])
 
 	const currentBO = ref()
 	const setCurrentBO = (e: any) => {
 		currentBO.value = e
 	}
 	const fuck = (e: string) => {
-		currentBO.value.form = e
-		console.log('fuck')
+		currentBO.value.form = []
+		currentBO.value.form.push({
+			role: currentRole,
+			form: e,
+		})
 	}
 	const currentRole = computed(() => {
 		return currentBO.value.lanes[0].name
