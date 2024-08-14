@@ -98,7 +98,7 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO")
 					th.text-left Роль
 					th.text-left Форма
 					th
-			draggable(v-model="myform.currentBO.form" tag="tbody" item-key="id")
+			draggable(v-if='myform.currentBO.form.length > 0' v-model="myform.currentBO.form" tag="tbody" item-key="id")
 				template(#item="{ element, index }")
 					tr.cursor-pointer(scope='row' @click='toggle')
 						td {{ element.role }}
@@ -107,6 +107,12 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO")
 							q-btn(v-else flat color="primary" label="Создать" @click.stop="goto(store.currentBO.name, index)" size='sm') 
 						td.text-right
 							q-btn(flat round color="primary" icon='mdi-trash-can-outline' dense @click.stop="remove(index)" size='sm') 
+			tbody
+				tr
+					td Все остальные
+					td запрещено
+					td.text-right
+						// q-btn(flat round color="primary" icon='mdi-trash-can-outline' dense @click.stop="remove(index)" size='sm') 
 
 		q-btn.q-ma-md(unelevated color="primary" label="Добавить" @click="toggle" size='sm') 
 		q-btn.q-ma-md(unelevated color="primary" label="Добавить1" @click="addform" size='sm') 

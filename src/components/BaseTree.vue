@@ -73,8 +73,9 @@ const select = (n: Stat) => {
 	n.data.selected = true
 	store.setCurrentNode(n)
 
+	console.log(n.data)
 	localStorage.setItem('app', JSON.stringify(n.data))
-	localStorage.setItem('appname', n.data.text)
+	// localStorage.setItem('appname', n.data.text)
 
 	router.push(n.data.text)
 }
