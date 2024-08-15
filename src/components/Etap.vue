@@ -36,8 +36,7 @@ watchEffect(() => {
 const app = useStorage('app', localStorage)
 
 const save = () => {
-	myform.editForm(name)
-	myform.ind = null
+	myform.createForm(name.value)
 	router.back()
 }
 </script>
@@ -63,7 +62,7 @@ const save = () => {
 			q-btn(flat color="primary" label="Сохранить" @click="save") 
 
 	.inner
-		FormTop(v-if='!!app.file')
+		FormTop(v-if='myform.bt')
 		FormLayout
 
 chooseDialog(v-model="dialog" kind='form')

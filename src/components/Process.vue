@@ -12,9 +12,11 @@ import { useRouter, useRoute } from 'vue-router'
 import { useStore } from '@/stores/store'
 import { useStorage } from '@vueuse/core'
 import { useForms } from '@/stores/forms'
+import { useData } from '@/stores/alldata'
 
 const store = useStore()
 const myform = useForms()
+const mydata = useData()
 
 const router = useRouter()
 const route = useRoute()
@@ -22,8 +24,15 @@ const canvas = ref()
 
 const app = useStorage('app', localStorage)
 
+const reload = ref(false)
+
 const bpmn = computed(() => {
-	return app.value.file ? zay : empty
+	// return app.value.file ? zay : empty
+
+	if (mydata.myxml == null) {
+		return app.value.file ? zay : empty
+	}
+	return mydata.myxml
 })
 
 onMounted(() => {
@@ -51,7 +60,8 @@ onMounted(() => {
 	const events = ['element.click']
 
 	const myClick = eventBus.on('element.click', (e: any) => {
-		console.log(e.element.businessObject)
+		// console.log(e.element.businessObject)
+		console.log(e.element)
 		if (!!store.currentBO && e.element.id == store.currentBO.id) {
 			myform.setCurrentBO(null)
 			// localStorage.setItem('bo', '')
@@ -62,11 +72,31 @@ onMounted(() => {
 		}
 	})
 
-	modeler.on('commandStack.changed', () => {
-		// user modeled something or
-		let all = modeler._definitions.rootElements[1].flowElements
-		myform.setAllBO(all)
-	})
+	// helpers //////////////////////
+
+	function debounce(fn, timeout) {
+		var timer
+		return function () {
+			if (timer) {
+				clearTimeout(timer)
+			}
+			timer = setTimeout(fn, timeout)
+		}
+	}
+
+	var downloadLink = '#js-download-diagram'
+	var exportArtifacts = debounce(async function () {
+		try {
+			console.log('save')
+			const { xml } = await modeler.saveXML({ format: false })
+			mydata.saveXML(xml)
+		} catch (err) {
+			console.error('Error happened saving XML: ', err)
+			setEncoded(downloadLink, 'dia.bpmn', null)
+		}
+	}, 500)
+
+	modeler.on('commandStack.changed', exportArtifacts)
 
 	// events.forEach(function (event) {
 	// 	eventBus.on(event, function (e) {

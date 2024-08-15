@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useStore } from '@/stores/store'
 import FieldList from '@/components/FieldList.vue'
@@ -23,23 +23,11 @@ const prop1 = [
 	{ id: 5, label: 'Реальная трудоемкость, ч/ч' },
 	{ id: 5, label: 'Реальная трудоемкость, руб' },
 ]
-// const list = ref([
-// 	{
-// 		id: 0,
-// 		role: 'Инициатор',
-// 		form: null,
-// 	},
-// 	{
-// 		id: 1,
-// 		role: 'Все остальные',
-// 		form: null,
-// 	},
-// ])
 
 const goto = (e: string, ind: number) => {
-	console.log(e)
-	console.log(ind)
-	myform.ind = ind
+	if (!!ind) {
+		myform.ind = ind
+	}
 	router.push(`/${route.params.id}/editor/process/${e}`)
 }
 const app = useStorage('app', localStorage)
@@ -52,18 +40,18 @@ const toggle = () => {
 const add = (e: any) => {
 	// list.value.push(e)
 }
-const remove = (n: number) => {
-	// list.value.splice(n, 1)
-}
 const emulate = () => {
 	router.push('/emulate/1')
 }
-
-const addform = () => {
-	// myform.addForm('Этап 2', 'Руководитель', 'Просмотр')
-	myform.fuck('fuck')
-	// store.currentBO.forms = [{ role: 'Role 1', form: 'Fuck' }]
+const test = (e: any) => {
+	console.log(e)
 }
+
+// const calcList = computed(() => {
+// 	return myform.formList.filter((item) => {
+// 		return item.etap == myform.currentBO.name
+// 	})
+// })
 </script>
 
 <template lang="pug">
@@ -98,24 +86,23 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO")
 					th.text-left Роль
 					th.text-left Форма
 					th
-			draggable(v-if='myform.currentBO.form.length > 0' v-model="myform.currentBO.form" tag="tbody" item-key="id")
-				template(#item="{ element, index }")
+			draggable(v-if='myform.calcList.length > 0' v-model="myform.calcList" tag="tbody" item-key="id")
+				template(#item="{ element }")
 					tr.cursor-pointer(scope='row' @click='toggle')
 						td {{ element.role }}
 						td 
-							span(v-if='!!element.form' @click.stop="goto(element.form, index)") {{ element.form }}
-							q-btn(v-else flat color="primary" label="Создать" @click.stop="goto(store.currentBO.name, index)" size='sm') 
+							span(v-if='!!element.form' @click.stop="goto(element.form)") {{ element.form }}
+							q-btn(v-else flat color="primary" label="Создать" @click.stop="goto(myform.currentBO.name)" size='sm') 
 						td.text-right
-							q-btn(flat round color="primary" icon='mdi-trash-can-outline' dense @click.stop="remove(index)" size='sm') 
-			tbody
-				tr
-					td Все остальные
-					td запрещено
-					td.text-right
-						// q-btn(flat round color="primary" icon='mdi-trash-can-outline' dense @click.stop="remove(index)" size='sm') 
+							q-btn(flat round color="primary" icon='mdi-trash-can-outline' dense @click.stop="myform.removeForm(element)" size='sm') 
+							// q-btn(flat round color="primary" icon='mdi-trash-can-outline' dense @click.stop="test(element)" size='sm') 
+			tbody(v-else)
+				tr.cursor-pointer(@click='toggle')
+					td {{ myform.currentRole}}
+					td(colspan='2')
+						q-btn(flat color="primary" label="Создать" @click.stop="goto(myform.currentBO.name)" size='sm') 
 
 		q-btn.q-ma-md(unelevated color="primary" label="Добавить" @click="toggle" size='sm') 
-		q-btn.q-ma-md(unelevated color="primary" label="Добавить1" @click="addform" size='sm') 
 
 	ConditionDialog1(v-model="dialog" @add='add')
 

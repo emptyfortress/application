@@ -94,7 +94,7 @@ q-dialog(v-model="modelValue")
 						div {{ temp }}
 					div
 						.text-bold Формы
-						q-chip(v-for="chip in list1"
+						q-chip(v-for="chip in myform.formList"
 							clickable
 							:label="chip.form"
 							v-model:selected="chip.selected"

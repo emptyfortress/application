@@ -1,13 +1,10 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-// import { useStore } from '@/stores/store'
-
-// const store = useStore()
 
 type Row = {
 	etap: string
 	role: string
-	form: string | null
+	form: string
 }
 
 export const useForms = defineStore('forms', () => {
@@ -20,13 +17,7 @@ export const useForms = defineStore('forms', () => {
 	const setCurrentBO = (e: any) => {
 		currentBO.value = e
 	}
-	const fuck = (e: string) => {
-		currentBO.value.form = []
-		currentBO.value.form.push({
-			role: currentRole,
-			form: e,
-		})
-	}
+
 	const currentRole = computed(() => {
 		return currentBO.value.lanes[0].name
 	})
@@ -37,41 +28,34 @@ export const useForms = defineStore('forms', () => {
 		return currentBO.value.$parent.laneSets[0].lanes
 	})
 
-	const formList = ref<Row[]>([
-		{
-			etap: 'Старт',
-			role: 'Инициатор',
-			form: null,
-		},
-		{
-			etap: 'Этап',
-			role: 'Инициатор',
-			form: null,
-		},
-		{
-			etap: 'Этап',
-			role: 'Все остальные',
-			form: null,
-		},
-	])
+	// это кнопки на форме сверху
+	const bt = computed(() => {
+		let named = currentBO.value.outgoing.filter((item: any) => {
+			return item.name !== undefined
+		})
+		return named.length > 0 ? true : false
+	})
 
-	// const calcList = computed(() => {
-	// 	return formList.value.filter((item) => {
-	// 		return item.etap == store.currentBO.name
-	// 	})
-	// })
+	const formList = ref<Row[]>([])
 
-	const addForm = (etap: string, role: string, form: string) => {
-		let row = { etap: etap, role: role, form: form }
+	const calcList = computed(() => {
+		return formList.value.filter((item) => {
+			return item.etap == currentBO.value.name
+		})
+	})
+	const removeForm = (e: Row) => {
+		let n = formList.value.findIndex((item) => {
+			return item == e
+		})
+		formList.value.splice(n, 1)
+	}
+
+	const createForm = (form: string) => {
+		let row = { etap: currentBO.value.name, role: currentRole.value, form: form }
 		formList.value.push(row)
 	}
 
 	const ind = ref<null | number>(null)
-	const editForm = (form: string) => {
-		if (ind.value !== null) {
-			formList.value[ind.value].form = form
-		}
-	}
 
 	return {
 		allBO,
@@ -82,12 +66,12 @@ export const useForms = defineStore('forms', () => {
 		currentEtap,
 		roles,
 		setCurrentBO,
-		fuck,
 
-		formList,
-		// calcList,
 		ind,
-		addForm,
-		editForm,
+		formList,
+		calcList,
+		bt,
+		createForm,
+		removeForm,
 	}
 })
