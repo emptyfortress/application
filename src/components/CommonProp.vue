@@ -24,10 +24,13 @@ const prop1 = [
 	{ id: 5, label: 'Реальная трудоемкость, руб' },
 ]
 
-const goto = (e: string, ind: number) => {
-	if (!!ind) {
-		myform.ind = ind
-	}
+const goto = (e: string) => {
+	// myform.newform.value = true
+	router.push(`/${route.params.id}/editor/process/${e}`)
+}
+
+const goto1 = (e: string) => {
+	myform.newform = true
 	router.push(`/${route.params.id}/editor/process/${e}`)
 }
 const app = useStorage('app', localStorage)
@@ -84,14 +87,14 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO")
 						td {{ element.role }}
 						td 
 							span(v-if='!!element.form' @click.stop="goto(element.form)") {{ element.form }}
-							q-btn(v-else flat color="primary" label="Создать" @click.stop="goto(myform.currentBO.name)" size='sm') 
+							q-btn(v-else flat color="primary" label="Создать" @click.stop="goto(myform.currentBO.name, true)" size='sm') 
 						td.text-right
 							q-btn(flat round color="primary" icon='mdi-trash-can-outline' dense @click.stop="myform.removeForm(element)" size='sm') 
 			tbody(v-else)
 				tr.cursor-pointer(@click='toggle')
 					td {{ myform.currentRole}}
 					td(colspan='2')
-						q-btn(flat color="primary" label="Создать" @click.stop="goto(myform.currentBO.name)" size='sm') 
+						q-btn(flat color="primary" label="Создать1" @click.stop="goto1(myform.currentBO.name, true)" size='sm') 
 
 		q-btn.q-ma-md(unelevated color="primary" label="Добавить" @click="toggle" size='sm') 
 

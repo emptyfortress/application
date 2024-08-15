@@ -46,6 +46,7 @@ export const useForms = defineStore('forms', () => {
 		} else if (mybt.length == 0) return []
 	})
 
+	const newform = ref(false)
 	const showBt = computed(() => {
 		return bt.value.length > 0 ? true : false
 	})
@@ -90,6 +91,7 @@ export const useForms = defineStore('forms', () => {
 		calcList,
 		bt,
 		showBt,
+		newform,
 		createForm,
 		removeForm,
 	}

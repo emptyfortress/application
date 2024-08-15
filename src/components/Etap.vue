@@ -36,7 +36,10 @@ watchEffect(() => {
 const app = useStorage('app', localStorage)
 
 const save = () => {
-	myform.createForm(name.value)
+	if (myform.newform == true) {
+		myform.createForm(name.value)
+		myform.newform = false
+	}
 	router.back()
 }
 </script>
@@ -61,7 +64,6 @@ const save = () => {
 			// q-btn(v-if='myform.formList.length > 1' flat color="primary" icon="mdi-content-duplicate" label="Выбрать форму" @click="dialog = !dialog") 
 			q-btn(flat color="primary" icon="mdi-content-duplicate" label="Выбрать форму" @click="dialog = !dialog") 
 			q-btn(flat color="primary" label="Сохранить" @click="save") 
-
 	.inner
 		FormTop(v-if='myform.showBt')
 		FormLayout
