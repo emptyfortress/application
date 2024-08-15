@@ -89,6 +89,7 @@ export const useLayoutStore = defineStore('layout', () => {
 		index.value += 1
 	}
 	const removeSection = (e: number) => {
+		console.log('remove')
 		layout.splice(e, 1)
 	}
 	const setDragType = (e: number) => {

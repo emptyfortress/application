@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, reactive, computed } from 'vue'
-import { GridItem, GridLayout } from 'vue-ts-responsive-grid-layout'
+import { GridItem, GridLayout } from 'vue3-grid-layout-next'
 import FormSection from '@/components/FormSection.vue'
 import { useStore } from '@/stores/store'
 import { useLayoutStore } from '@/stores/layout'
@@ -11,9 +11,10 @@ const lstore = useLayoutStore()
 const app = useStorage('app', localStorage)
 
 const remove = (e: number) => {
-	let list = document.getElementsByClassName('vue-grid-item')
-	let temp = Array.from(list)
-	temp.forEach((el) => el.classList.add('move'))
+	console.log(e)
+	// let list = document.getElementsByClassName('vue-grid-item')
+	// let temp = Array.from(list)
+	// temp.forEach((el) => el.classList.add('move'))
 	lstore.removeSection(e)
 }
 
@@ -68,17 +69,16 @@ const height = computed(() => {
 
 <template lang="pug">
 GridLayout.list(
-	:layout.sync="app.forms[0].layout"
+	:layout.sync="lstore.layout"
 	:col-num="12"
 	:row-height="30"
-	:is-draggable='lstore.move'
+	:is-draggable='true'
 	:is-resizable="true"
 	:is-bounded="true"
 	:is-mirrored="false"
 	:vertical-compact="true"
 	:margin="[5, 5]"
-	:show-close-button="false"
-	:use-css-transforms="false"
+	:use-css-transforms="true"
 	@dragover.prevent
 	@dragenter.prevent="onDragEnter"
 	@dragleave="onDragLeave"
@@ -87,14 +87,15 @@ GridLayout.list(
 	@click='unselect'
 	)
 
-	GridItem(v-for="( item, index ) in app.forms[0].layout"
+	GridItem(v-for="( item, index ) in lstore.layout"
 		:x="item.x"
 		:y="item.y"
 		:w="item.w"
 		:h="item.h"
 		:i="item.i"
-		:show-close-button="false"
 		:key="item.i"
+		drag-ignore-from=".close"
+		drag-allow-from=".draghandle"
 		@click.stop="select(item)"
 		:class="{selected : item.selected}"
 		)
@@ -102,8 +103,8 @@ GridLayout.list(
 
 		.sect
 			.draghandle
-			q-icon.close(name="mdi-close-box" @click="remove(index)" dense)
-			q-icon.resize(name="mdi-resize-bottom-right" @click="" dense size="16p") 
+				q-icon(name="mdi-arrow-all" color="white" size='10px')
+			q-icon.close(name="mdi-close-box" @click.stop="remove(index)" dense)
 
 			FormSection
 
@@ -144,13 +145,16 @@ GridLayout.list(
 .sect {
 	height: 100%;
 	width: 100%;
-	z-index: 1001;
+	// z-index: 1001;
 	position: relative;
 	overflow: hidden;
 	background: #fefefe;
 }
 .selected .sect {
 	border: 1px solid blue;
+	.draghandle {
+		display: block;
+	}
 }
 
 .close {
@@ -159,10 +163,26 @@ GridLayout.list(
 	top: 0;
 	cursor: pointer;
 }
-.resize {
+// .resize {
+// 	position: absolute;
+// 	right: 3px;
+// 	bottom: 3px;
+// 	cursor: pointer;
+// }
+.draghandle {
+	width: 12px;
+	height: 12px;
+	background: black;
 	position: absolute;
-	right: 3px;
-	bottom: 3px;
-	cursor: pointer;
+	bottom: 0;
+	left: 0;
+	// display: none;
+	cursor: move;
+	.q-icon {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
 }
 </style>

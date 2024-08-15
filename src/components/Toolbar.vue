@@ -11,12 +11,11 @@ const preview = () => {
 </script>
 
 <template lang="pug">
-.square(@click='lstore.toggleMove' :class='{selected: lstore.move}')
+// .square(@click='lstore.toggleMove' :class='{selected: lstore.move}')
 	q-icon(name="mdi-arrow-all" size='18px') 
 	q-tooltip.bg-primary(anchor="center right" self="center left") Двигать блоки
 
-br
-.square(@click='lstore.setMode("phone")' :class='lstore.calcMode("phone")')
+.square.q-mt-sm(@click='lstore.setMode("phone")' :class='lstore.calcMode("phone")')
 	q-icon(name="mdi-cellphone" size='18px') 
 	q-tooltip.bg-primary(anchor="center right" self="center left") Телефон
 .square(@click='lstore.setMode("tablet")' :class='lstore.calcMode("tablet")')
