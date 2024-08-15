@@ -1,70 +1,42 @@
 <script setup lang="ts">
 import { ref, reactive, computed, watch } from 'vue'
-// import { forms } from '@/stores/tree'
 import { useStore } from '@/stores/store'
 import { useForms } from '@/stores/forms'
 
-// interface Etap {
-// 	id: number
-// 	etap: string
-// 	selected: boolean
-// }
-
 const modelValue = defineModel<boolean>()
 
-const temp = ref()
 const myform = useForms()
-const list = ref([])
-
-watch(modelValue, (val) => {
-	if (val) {
-		list.value = myform.roles.map((item) => {
-			return {
-				id: item.id,
-				role: item.name,
-				selected: false,
-			}
-		})
-	}
-})
 
 const selection = computed(() => {
-	return list.filter((item) => item.selected)
+	return myform.roles.filter((item) => item.selected)
 })
 
-const list1 = reactive([
-	// { id: 2, form: 'Создание', selected: false },
-	// { id: 3, form: 'Просмотр', selected: false },
-	// { id: 4, form: 'Редактирование', selected: false },
-])
 const selection1 = computed(() => {
-	return list1.filter((item) => item.selected)
+	return myform.formList.filter((item) => item.selected)
 })
 
 const store = useStore()
 
-const emit = defineEmits(['add'])
 const add = () => {
 	let tmp = {
-		id: +new Date(),
-		role: selection.value[0].role,
+		etap: myform.currentBO.name,
+		role: selection.value[0].name,
 		form: selection1.value[0].form,
-		dis: false,
 	}
-	emit('add', tmp)
+	myform.addToFormList(tmp)
 	modelValue.value = false
-	list.map((item: any) => (item.selected = false))
-	list1.map((item: any) => (item.selected = false))
+	myform.roles.map((item: any) => (item.selected = false))
+	myform.formList.map((item: any) => (item.selected = false))
 }
 
 const select = (e: any) => {
-	list.value.map((item: any) => {
+	myform.roles.map((item: any) => {
 		item.selected = false
 	})
 	e.selected = true
 }
 const select1 = (e: any) => {
-	list1.map((item: any) => {
+	myform.formList.map((item: any) => {
 		item.selected = false
 	})
 	e.selected = true
@@ -84,14 +56,14 @@ q-dialog(v-model="modelValue")
 				.grid
 					div
 						.text-bold Роли
-						q-chip(v-for="chip in list"
+						q-chip(v-for="chip in myform.roles"
 							clickable
-							:label="chip.role"
+							:label="chip.name"
 							v-model:selected="chip.selected"
 							:key="chip.id"
 							@click='select(chip)'
 							)
-						div {{ temp }}
+						// div {{ temp }}
 					div
 						.text-bold Формы
 						q-chip(v-for="chip in myform.formList"

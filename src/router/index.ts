@@ -60,6 +60,12 @@ const router = createRouter({
 					component: () => import('@/components/List.vue'),
 				},
 				{
+					path: 'cards',
+					props: true,
+					name: 'Карточки',
+					component: () => import('@/components/Cards.vue'),
+				},
+				{
 					path: 'state',
 					name: 'States',
 					component: () => import('@/components/State.vue'),

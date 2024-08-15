@@ -14,49 +14,36 @@ const par = computed(() => {
 	return route.params.id
 })
 
-// const calcUrl = (e: string) => {
-// 	return '/' + route.params.id + '/editor/' + e
-// }
-
-// watch(
-// 	() => route.fullPath,
-// 	(newPath, oldPath) => {
-// 		par.value = newPath.split('/')[1]
-// 	}
-// )
-
 const pages = reactive([
 	{
-		id: 0,
+		id: 1,
 		title: 'Процесс',
 		icon: 'mdi-shuffle-variant',
 		url: 'process',
 	},
 	{
-		id: 1,
+		id: 2,
 		title: 'Формы',
 		icon: 'mdi-list-box-outline',
 		url: 'forms',
 	},
 	{
-		id: 1,
+		id: 3,
 		title: 'Роли',
 		icon: 'mdi-account-circle-outline',
 		url: 'roles',
-		// url: `/${par.value}/editor/roles`,
 	},
-	// {
-	// 	id: 7,
-	// 	title: 'Состояния',
-	// 	icon: 'mdi-state-machine',
-	// 	// url: `/${par.value}/editor/state`,
-	// },
 	{
-		id: 6,
+		id: 4,
 		title: 'Списки',
 		icon: 'mdi-script-text-outline',
 		url: 'lists',
-		// url: `/${par.value}/editor/lists`,
+	},
+	{
+		id: 0,
+		title: 'Карточки',
+		icon: 'mdi-cards-playing-spade-outline',
+		url: 'cards',
 	},
 ])
 const mini = ref(false)
@@ -87,7 +74,6 @@ const leave = async (el: any, done: any) => {
 const navigate = (url: string) => {
 	let temp = '/' + route.params.id + '/editor/' + url
 	router.push(temp)
-	store.setCurrentBO(null)
 }
 const calcClass = (e: string) => {
 	let temp = '/' + route.params.id + '/editor/' + e

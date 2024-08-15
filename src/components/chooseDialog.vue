@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref, reactive, computed } from 'vue'
-import { etaps, requests } from '@/stores/tree'
+import { requests } from '@/stores/tree'
 import { useStore } from '@/stores/store'
+import { useForms } from '@/stores/forms'
 
 const props = defineProps({
 	kind: {
@@ -18,15 +19,23 @@ const close = () => {
 
 const emit = defineEmits(['choose'])
 
-// const chips = reactive(etaps)
-
-const etapsNew = ref(etaps)
 const req = ref(requests)
+
+const myform = useForms()
+
+const allForms = computed(() => {
+	return myform.formList.map((item, index) => ({
+		id: index,
+		label: item.form,
+		selected: false,
+	}))
+})
+const temp = ref([...allForms.value])
 
 const chips = computed(() => {
 	switch (props.kind) {
 		case 'form':
-			return etapsNew.value
+			return temp.value
 		case 'request':
 			return req.value
 		case 'view':
@@ -47,9 +56,9 @@ const reset = () => {
 		item.selected = false
 	})
 }
-const selected = computed(() => {
-	return chips.value.filter((item: any) => item.selected == true)
-})
+// const selected = computed(() => {
+// 	return chips.value.filter((item: any) => item.selected == true)
+// })
 const store = useStore()
 
 const loadForm = () => {
@@ -94,7 +103,7 @@ q-dialog(v-model="modelValue")
 				q-btn(flat color="primary" label="Отмена" @click="close")
 				q-space
 				q-btn(flat color="primary" label="Сбросить" @click="reset")
-				q-btn(unelevated color="primary" label="Выбрать" type="submit" :disable="selected.length == 0")
+				q-btn(unelevated color="primary" label="Выбрать" type="submit")
 </template>
 
 <style scoped lang="scss">

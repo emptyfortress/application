@@ -1,4 +1,8 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useForms } from '@/stores/forms'
+
+const myform = useForms()
+</script>
 
 <template lang="pug">
 .all
@@ -12,9 +16,7 @@
 				|Исполнитель:  
 				span.text-bold Орлов П.С.
 		q-card-actions.q-pa-none
-			q-btn(flat color="primary" label="Делегировать") 
-			q-btn(unelevated color="negative" label="Отказать") 
-			q-btn(unelevated color="primary" label="Согласовать") 
+			q-btn(v-for="bt in myform.bt" unelevated color="primary" :label="bt.name") 
 
 </template>
 

@@ -31,27 +31,19 @@ const goto = (e: string, ind: number) => {
 	router.push(`/${route.params.id}/editor/process/${e}`)
 }
 const app = useStorage('app', localStorage)
-// const bo = ref(useStorage('bo', {}))
 
 const dialog = ref(false)
 const toggle = () => {
 	dialog.value = !dialog.value
 }
-const add = (e: any) => {
-	// list.value.push(e)
-}
+// const add = (e: any) => {
+// 	// list.value.push(e)
+// }
 const emulate = () => {
 	router.push('/emulate/1')
 }
-const test = (e: any) => {
-	console.log(e)
-}
 
-// const calcList = computed(() => {
-// 	return myform.formList.filter((item) => {
-// 		return item.etap == myform.currentBO.name
-// 	})
-// })
+const list = ref([...myform.calcList])
 </script>
 
 <template lang="pug">
@@ -95,7 +87,6 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO")
 							q-btn(v-else flat color="primary" label="Создать" @click.stop="goto(myform.currentBO.name)" size='sm') 
 						td.text-right
 							q-btn(flat round color="primary" icon='mdi-trash-can-outline' dense @click.stop="myform.removeForm(element)" size='sm') 
-							// q-btn(flat round color="primary" icon='mdi-trash-can-outline' dense @click.stop="test(element)" size='sm') 
 			tbody(v-else)
 				tr.cursor-pointer(@click='toggle')
 					td {{ myform.currentRole}}
@@ -104,7 +95,7 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO")
 
 		q-btn.q-ma-md(unelevated color="primary" label="Добавить" @click="toggle" size='sm') 
 
-	ConditionDialog1(v-model="dialog" @add='add')
+	ConditionDialog1(v-model="dialog")
 
 template(v-if="route.name == 'Процесс' && myform.currentBO == null")
 	q-card-section

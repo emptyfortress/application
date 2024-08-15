@@ -30,13 +30,30 @@ export const useForms = defineStore('forms', () => {
 
 	// это кнопки на форме сверху
 	const bt = computed(() => {
-		let named = currentBO.value.outgoing.filter((item: any) => {
+		let mybt = currentBO.value.outgoing.filter((item: any) => {
 			return item.name !== undefined
 		})
-		return named.length > 0 ? true : false
+		// return mybt
+		if (mybt.length > 0) return mybt
+		else if (
+			mybt.length == 0 &&
+			currentBO.value.outgoing[0].targetRef.$type == 'bpmn:ExclusiveGateway'
+		) {
+			let alsobt = currentBO.value.outgoing[0].targetRef.outgoing.filter((item: any) => {
+				return item.name !== undefined
+			})
+			return alsobt
+		} else if (mybt.length == 0) return []
+	})
+
+	const showBt = computed(() => {
+		return bt.value.length > 0 ? true : false
 	})
 
 	const formList = ref<Row[]>([])
+	const addToFormList = (e: Row) => {
+		formList.value.push(e)
+	}
 
 	const calcList = computed(() => {
 		return formList.value.filter((item) => {
@@ -69,8 +86,10 @@ export const useForms = defineStore('forms', () => {
 
 		ind,
 		formList,
+		addToFormList,
 		calcList,
 		bt,
+		showBt,
 		createForm,
 		removeForm,
 	}

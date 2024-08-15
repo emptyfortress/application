@@ -58,11 +58,12 @@ const save = () => {
 			q-popup-edit(v-model="name" title="Название формы" auto-save v-slot="scope")
 				q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
 		div
-			q-btn(v-if='app.forms.length > 1' flat color="primary" icon="mdi-content-duplicate" label="Выбрать форму" @click="dialog = !dialog") 
+			// q-btn(v-if='myform.formList.length > 1' flat color="primary" icon="mdi-content-duplicate" label="Выбрать форму" @click="dialog = !dialog") 
+			q-btn(flat color="primary" icon="mdi-content-duplicate" label="Выбрать форму" @click="dialog = !dialog") 
 			q-btn(flat color="primary" label="Сохранить" @click="save") 
 
 	.inner
-		FormTop(v-if='myform.bt')
+		FormTop(v-if='myform.showBt')
 		FormLayout
 
 chooseDialog(v-model="dialog" kind='form')
