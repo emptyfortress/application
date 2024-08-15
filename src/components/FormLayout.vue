@@ -103,8 +103,8 @@ GridLayout.list(
 
 		.sect
 			.draghandle
-				q-icon(name="mdi-arrow-all" color="white" size='10px')
-			q-icon.close(name="mdi-close-box" @click.stop="remove(index)" dense)
+				q-icon(name="mdi-arrow-all" color="grey" size='12px')
+			q-icon.close(name="mdi-close" color="grey" @click.stop="remove(index)" dense)
 
 			FormSection
 
@@ -172,7 +172,7 @@ GridLayout.list(
 .draghandle {
 	width: 12px;
 	height: 12px;
-	background: black;
+	// background: black;
 	position: absolute;
 	bottom: 0;
 	left: 0;
