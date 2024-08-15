@@ -25,7 +25,6 @@ const prop1 = [
 ]
 
 const goto = (e: string) => {
-	// myform.newform.value = true
 	router.push(`/${route.params.id}/editor/process/${e}`)
 }
 
@@ -39,9 +38,6 @@ const dialog = ref(false)
 const toggle = () => {
 	dialog.value = !dialog.value
 }
-// const add = (e: any) => {
-// 	// list.value.push(e)
-// }
 const emulate = () => {
 	router.push('/emulate/1')
 }
@@ -94,7 +90,7 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO")
 				tr.cursor-pointer(@click='toggle')
 					td {{ myform.currentRole}}
 					td(colspan='2')
-						q-btn(flat color="primary" label="Создать1" @click.stop="goto1(myform.currentBO.name, true)" size='sm') 
+						q-btn(flat color="primary" label="Создать" @click.stop="goto1(myform.currentBO.name, true)" size='sm') 
 
 		q-btn.q-ma-md(unelevated color="primary" label="Добавить" @click="toggle" size='sm') 
 

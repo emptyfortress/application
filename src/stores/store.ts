@@ -49,7 +49,7 @@ export const useStore = defineStore('store', {
 		setCurrentBlock(e: Block | null) {
 			this.currentBlock = e
 		},
-		selectRole(e: Role) {
+		selectRole(e: any) {
 			this.currentRole = e
 		},
 		addConditionRole(e: Condition) {

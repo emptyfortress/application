@@ -62,7 +62,7 @@ onMounted(() => {
 	const myClick = eventBus.on('element.click', (e: any) => {
 		// console.log(e.element.businessObject)
 		console.log(e.element)
-		if (!!store.currentBO && e.element.id == store.currentBO.id) {
+		if (!!myform.currentBO && e.element.id == myform.currentBO.id) {
 			myform.setCurrentBO(null)
 			// localStorage.setItem('bo', '')
 		} else {
@@ -74,8 +74,8 @@ onMounted(() => {
 
 	// helpers //////////////////////
 
-	function debounce(fn, timeout) {
-		var timer
+	function debounce(fn: any, timeout: number) {
+		var timer: any
 		return function () {
 			if (timer) {
 				clearTimeout(timer)
@@ -84,7 +84,6 @@ onMounted(() => {
 		}
 	}
 
-	var downloadLink = '#js-download-diagram'
 	var exportArtifacts = debounce(async function () {
 		try {
 			console.log('save')
@@ -92,7 +91,7 @@ onMounted(() => {
 			mydata.saveXML(xml)
 		} catch (err) {
 			console.error('Error happened saving XML: ', err)
-			setEncoded(downloadLink, 'dia.bpmn', null)
+			// setEncoded(downloadLink, 'dia.bpmn', null)
 		}
 	}, 500)
 

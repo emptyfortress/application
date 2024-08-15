@@ -37,7 +37,7 @@ const app = useStorage('app', localStorage)
 
 const save = () => {
 	if (myform.newform == true) {
-		myform.createForm(name.value)
+		myform.createForm(name.value.toString())
 		myform.newform = false
 	}
 	router.back()

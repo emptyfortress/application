@@ -8,11 +8,11 @@ const modelValue = defineModel<boolean>()
 const myform = useForms()
 
 const selection = computed(() => {
-	return myform.roles.filter((item) => item.selected)
+	return myform.roles.filter((item: Role) => item.selected)
 })
 
 const selection1 = computed(() => {
-	return myform.formList.filter((item) => item.selected)
+	return myform.formList.filter((item: any) => item.selected)
 })
 
 const store = useStore()

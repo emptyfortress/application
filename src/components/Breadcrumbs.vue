@@ -76,9 +76,7 @@ const reset = (url: string) => {
 	let arr = url.split('/')
 	// console.log(arr.length)
 	if (arr.length == 4) {
-		// console.log('fuck')
 	}
-	store.setCurrentBO(null)
 }
 const back = () => {
 	let url = '/' + app.value.text + '/editor/process'
