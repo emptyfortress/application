@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { uid } from 'quasar'
+import { useForms } from '@/stores/forms'
 
 const props = defineProps({
 	mode: {
@@ -20,13 +21,22 @@ const close = () => {
 
 const emit = defineEmits(['create'])
 
+const myform = useForms()
 const create = (data: any) => {
-	data.id = +new Date()
-	data.text = data.name
-	data.type = 1
-	data.version = '0.0.0'
-	emit('create', data)
-	close()
+	if (props.mode == 'app') {
+		data.id = +new Date()
+		data.text = data.name
+		data.type = 1
+		data.version = '0.0.0'
+		emit('create', data)
+		close()
+	}
+	if (props.mode == 'role') {
+		data.id = uid()
+		data.selected = false
+		myform.addRole(data)
+		close()
+	}
 }
 const card = ref(true)
 </script>
@@ -48,6 +58,8 @@ q-dialog(v-model="modelValue")
 				FormKit(v-if='props.mode == "list"' type="text" autofocus name="name" label="Название" validation="required|length:3")
 				FormKit(v-if='props.mode == "list"' type="textarea" name="descr" label="Описание")
 
+				FormKit(v-if='props.mode == "role"' type="text" autofocus name="name" label="Название" validation="required|length:3")
+				FormKit(v-if='props.mode == "role"' type="textarea" name="descr" label="Описание")
 </template>
 
 <style scoped lang="scss"></style>

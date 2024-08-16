@@ -9,6 +9,7 @@ type Role = {
 	name: string
 	$type?: string
 	selected?: boolean
+	description?: string
 }
 type Form = {
 	// id: string

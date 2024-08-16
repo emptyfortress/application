@@ -19,14 +19,19 @@ export const useForms = defineStore('forms', () => {
 	})
 
 	// roles here ***************************************
+	const rolesN = ref<Role[]>([])
+	const addRole = (role: Role) => {
+		rolesN.value.push(role)
+	}
+	const removeRole = (role: Role) => {
+		let ind = rolesN.value.findIndex((item) => {
+			return item == role
+		})
+		rolesN.value.splice(ind, 1)
+	}
+
 	const roles = computed(() => {
-		let lanes = myflow.lanes.map((item: any) => ({
-			id: item.id,
-			type: item.$type,
-			name: item.name,
-			selected: false,
-		}))
-		return lanes
+		return myflow.lanes.concat(rolesN.value)
 	})
 
 	const currentRole = computed(() => {
@@ -35,17 +40,15 @@ export const useForms = defineStore('forms', () => {
 		}
 		return null
 	})
+	const selectedRole = ref<Role | null>(null)
+	const selectRole = (role: Role) => {
+		selectedRole.value = role
+	}
 
 	// const rolesD = computed(() => {
 	// 	return currentBO.value.$parent.laneSets[0].lanes
 	// })
 	// const rolesN = ref<Role[]>([])
-	// const addRole = (role: Role) => {
-	// 	rolesN.value.push(role)
-	// }
-	// const allRoles = computed(() => {
-	// 	return rolesD.value.concat(rolesN.value)
-	// })
 
 	// это кнопки на форме сверху ***********************
 	// const bt = computed(() => {
@@ -106,7 +109,13 @@ export const useForms = defineStore('forms', () => {
 		currentEtap,
 		setCurrentBO,
 
+		rolesN,
 		roles,
+		addRole,
+		removeRole,
+		selectedRole,
+		selectRole,
+
 		//
 		// ind,
 		formList,

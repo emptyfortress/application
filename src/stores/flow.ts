@@ -9,7 +9,13 @@ export const useFlow = defineStore('flow', () => {
 	}
 
 	const lanes = computed(() => {
-		return flow.value[1].laneSets[0].lanes
+		let tmp = flow.value[1].laneSets[0].lanes.map((item: any) => ({
+			id: item.id,
+			type: item.$type,
+			name: item.name,
+			selected: false,
+		}))
+		return tmp
 	})
 	const etaps = computed(() => {
 		if (!!flow.value) {
