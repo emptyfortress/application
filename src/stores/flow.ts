@@ -9,7 +9,8 @@ export const useFlow = defineStore('flow', () => {
 	}
 
 	const lanes = computed(() => {
-		return flow.value[1].laneSets[0].lanes || []
+		// return flow.value[1].laneSets[0].lanes || []
+		return flow.value[1].laneSets[0].lanes
 	})
 	const etaps = computed(() => {
 		if (!!flow.value) {
@@ -17,15 +18,15 @@ export const useFlow = defineStore('flow', () => {
 		} else return []
 	})
 
-	const startBO = computed(() => {
-		return etaps.value[0]
-	})
+	// const startBO = computed(() => {
+	// 	return etaps.value[0]
+	// })
 
 	return {
 		flow,
 		saveFlow,
 		lanes,
 		etaps,
-		startBO,
+		// startBO,
 	}
 })
