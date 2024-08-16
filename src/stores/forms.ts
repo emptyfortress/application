@@ -14,19 +14,23 @@ export const useForms = defineStore('forms', () => {
 	const currentEtap = computed(() => {
 		return currentBO.value?.name || null
 	})
+
 	// roles here ***************************************
-	// const roles = computed(() => {
-	// 	let lanes = myflow.lanes.map((item: any) => ({
-	// 		id: item.id,
-	// 		type: item.$type,
-	// 		name: item.name,
-	// 		selected: false,
-	// 	}))
-	// 	return lanes
-	// })
+	const roles = computed(() => {
+		let lanes = myflow.lanes.map((item: any) => ({
+			id: item.id,
+			type: item.$type,
+			name: item.name,
+			selected: false,
+		}))
+		return lanes
+	})
 
 	const currentRole = computed(() => {
-		return currentBO.value?.lanes[0].name || null
+		if (currentBO.value?.$type == 'bpmn:Task' || currentBO.value.$type == 'bpmn:StartEvent') {
+			return currentBO.value?.lanes[0].name
+		}
+		return null
 	})
 
 	// const rolesD = computed(() => {
@@ -99,7 +103,7 @@ export const useForms = defineStore('forms', () => {
 		currentEtap,
 		setCurrentBO,
 
-		// roles,
+		roles,
 		//
 		// ind,
 		formList,
