@@ -12,7 +12,10 @@ export const useForms = defineStore('forms', () => {
 	}
 
 	const currentEtap = computed(() => {
-		return currentBO.value?.name || null
+		if (currentBO.value?.$type == 'bpmn:Task' || currentBO.value?.$type == 'bpmn:StartEvent') {
+			return currentBO.value.name
+		}
+		return null
 	})
 
 	// roles here ***************************************
@@ -27,7 +30,7 @@ export const useForms = defineStore('forms', () => {
 	})
 
 	const currentRole = computed(() => {
-		if (currentBO.value?.$type == 'bpmn:Task' || currentBO.value.$type == 'bpmn:StartEvent') {
+		if (currentBO.value?.$type == 'bpmn:Task' || currentBO.value?.$type == 'bpmn:StartEvent') {
 			return currentBO.value?.lanes[0].name
 		}
 		return null
