@@ -1,34 +1,47 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-
-type Row = {
-	etap: string
-	role: string
-	form: string
-}
+import { uid } from 'quasar'
+import { useFlow } from '@/stores/flow'
 
 export const useForms = defineStore('forms', () => {
-	const allBO = ref<any[]>([])
-	const setAllBO = (e: any) => {
-		allBO.value = e
-	}
+	const myflow = useFlow()
 
-	const currentBO = ref()
+	const currentBO = ref(myflow.startBO?.value)
+
 	const setCurrentBO = (e: any) => {
 		currentBO.value = e
 	}
 
-	const currentRole = computed(() => {
-		return currentBO.value.lanes[0].name
-	})
 	const currentEtap = computed(() => {
 		return currentBO.value.name
 	})
+	// roles here ***************************************
 	const roles = computed(() => {
-		return currentBO.value.$parent.laneSets[0].lanes
+		let lanes = myflow.lanes.map((item: any) => ({
+			id: item.id,
+			type: item.$type,
+			name: item.name,
+			selected: false,
+		}))
+		return lanes
 	})
 
-	// это кнопки на форме сверху
+	const currentRole = computed(() => {
+		return currentBO.value.lanes[0].name
+	})
+
+	// const rolesD = computed(() => {
+	// 	return currentBO.value.$parent.laneSets[0].lanes
+	// })
+	// const rolesN = ref<Role[]>([])
+	// const addRole = (role: Role) => {
+	// 	rolesN.value.push(role)
+	// }
+	// const allRoles = computed(() => {
+	// 	return rolesD.value.concat(rolesN.value)
+	// })
+
+	// это кнопки на форме сверху ***********************
 	const bt = computed(() => {
 		let mybt = currentBO.value.outgoing.filter((item: any) => {
 			return item.name !== undefined
@@ -51,8 +64,8 @@ export const useForms = defineStore('forms', () => {
 		return bt.value.length > 0 ? true : false
 	})
 
-	const formList = ref<Row[]>([])
-	const addToFormList = (e: Row) => {
+	const formList = ref<Form[]>([])
+	const addToFormList = (e: Form) => {
 		formList.value.push(e)
 	}
 
@@ -61,7 +74,7 @@ export const useForms = defineStore('forms', () => {
 			return item.etap == currentBO.value.name
 		})
 	})
-	const removeForm = (e: Row) => {
+	const removeForm = (e: Form) => {
 		let n = formList.value.findIndex((item) => {
 			return item == e
 		})
@@ -69,21 +82,25 @@ export const useForms = defineStore('forms', () => {
 	}
 
 	const createForm = (form: string) => {
-		let row = { etap: currentBO.value.name, role: currentRole.value, form: form }
+		let row = {
+			id: uid(),
+			etap: currentBO.value.name,
+			role: currentRole.value,
+			form: form,
+			selected: false,
+		}
 		formList.value.push(row)
 	}
 
 	const ind = ref<null | number>(null)
 
 	return {
-		allBO,
-		setAllBO,
-
 		currentBO,
 		currentRole,
 		currentEtap,
-		roles,
 		setCurrentBO,
+
+		roles,
 
 		ind,
 		formList,

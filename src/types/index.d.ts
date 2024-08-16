@@ -1,18 +1,20 @@
 type Condition = {
-	id: number
-	etaps: string[]
+	id: string
+	etap: string
 	form: string
-	dis: boolean
+	role: string
 }
 type Role = {
 	id: string
-	$type: string
 	name: string
-	selected: boolean
+	$type?: string
+	selected?: boolean
 }
 type Form = {
+	// id: string
+	form: string
 	etap: string
-	label: string
+	role: string
 	selected: boolean
 }
 interface Option {

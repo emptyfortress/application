@@ -13,10 +13,12 @@ import { useStore } from '@/stores/store'
 import { useStorage } from '@vueuse/core'
 import { useForms } from '@/stores/forms'
 import { useData } from '@/stores/alldata'
+import { useFlow } from '@/stores/flow'
 
 const store = useStore()
 const myform = useForms()
 const mydata = useData()
+const myflow = useFlow()
 
 const router = useRouter()
 const route = useRoute()
@@ -27,16 +29,16 @@ const app = useStorage('app', localStorage)
 const reload = ref(false)
 
 const bpmn = computed(() => {
-	// return app.value.file ? zay : empty
-
 	if (mydata.myxml == null) {
 		return app.value.file ? zay : empty
 	}
 	return mydata.myxml
 })
 
+let modeler
+
 onMounted(() => {
-	var modeler = new BpmnModeler({
+	modeler = new BpmnModeler({
 		container: canvas.value,
 		keyboard: {
 			bindTo: window,
@@ -60,8 +62,6 @@ onMounted(() => {
 	const events = ['element.click']
 
 	const myClick = eventBus.on('element.click', (e: any) => {
-		// console.log(e.element.businessObject)
-		console.log(e.element)
 		if (!!myform.currentBO && e.element.id == myform.currentBO.id) {
 			myform.setCurrentBO(null)
 			// localStorage.setItem('bo', '')
@@ -69,6 +69,7 @@ onMounted(() => {
 			let tmp = e.element.businessObject
 			// localStorage.setItem('bo', JSON.stringify(tmp))
 			myform.setCurrentBO(e.element.businessObject)
+			console.log(modeler)
 		}
 	})
 
@@ -89,22 +90,15 @@ onMounted(() => {
 			console.log('save')
 			const { xml } = await modeler.saveXML({ format: false })
 			mydata.saveXML(xml)
+			myflow.saveFlow(modeler._definitions.rootElements)
 		} catch (err) {
 			console.error('Error happened saving XML: ', err)
-			// setEncoded(downloadLink, 'dia.bpmn', null)
 		}
 	}, 500)
 
 	modeler.on('commandStack.changed', exportArtifacts)
 
-	// events.forEach(function (event) {
-	// 	eventBus.on(event, function (e) {
-	// 		// e.element = the model element
-	// 		// e.gfx = the graphical element
-	// 		console.log(e.element)
-	// 		console.log(e.element.businessObject.name)
-	// 	})
-	// })
+	exportArtifacts()
 })
 </script>
 

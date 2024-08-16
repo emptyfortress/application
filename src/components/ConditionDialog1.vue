@@ -41,6 +41,14 @@ const select1 = (e: any) => {
 	})
 	e.selected = true
 }
+const uniqForm = computed(() => {
+	let list = myform.formList.map((item: Form) => ({
+		id: item.id,
+		form: item.form,
+		selected: item.selected,
+	}))
+	return [...new Set(list)]
+})
 </script>
 
 <template lang="pug">
@@ -66,11 +74,11 @@ q-dialog(v-model="modelValue")
 						// div {{ temp }}
 					div
 						.text-bold Формы
-						q-chip(v-for="chip in myform.formList"
+						q-chip(v-for="chip in uniqForm"
 							clickable
 							:label="chip.form"
 							v-model:selected="chip.selected"
-							:key="chip.id"
+							:key="chip.form"
 							@click='select1(chip)'
 							)
 

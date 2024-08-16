@@ -35,6 +35,7 @@ const goto1 = (e: string) => {
 const app = useStorage('app', localStorage)
 
 const dialog = ref(false)
+
 const toggle = () => {
 	dialog.value = !dialog.value
 }
@@ -87,7 +88,7 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO")
 						td.text-right
 							q-btn(flat round color="primary" icon='mdi-trash-can-outline' dense @click.stop="myform.removeForm(element)" size='sm') 
 			tbody(v-else)
-				tr.cursor-pointer(@click='toggle')
+				tr
 					td {{ myform.currentRole}}
 					td(colspan='2')
 						q-btn(flat color="primary" label="Создать" @click.stop="goto1(myform.currentBO.name, true)" size='sm') 
