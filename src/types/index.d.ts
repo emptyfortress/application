@@ -7,7 +7,7 @@ type Condition = {
 type Role = {
 	id: string
 	name: string
-	$type?: string
+	type?: string
 	selected?: boolean
 	description?: string
 }

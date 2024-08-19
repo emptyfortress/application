@@ -2,17 +2,21 @@
 import { ref, reactive, computed, watch } from 'vue'
 import { useStore } from '@/stores/store'
 import { useForms } from '@/stores/forms'
+import { useRoles } from '@/stores/roles'
+import { useFlow } from '@/stores/flow'
 
 const modelValue = defineModel<boolean>()
 
 const myform = useForms()
+const myrole = useRoles()
+const myflow = useFlow()
 
 const selection = computed(() => {
-	return myform.roles.filter((item: Role) => item.selected)
+	return rolesChip.value.filter((item: Role) => item.selected)
 })
 
 const selection1 = computed(() => {
-	return myform.formList.filter((item: any) => item.selected)
+	return formsChip.value.filter((item: Form) => item.selected)
 })
 
 const store = useStore()
@@ -25,18 +29,16 @@ const add = () => {
 	}
 	myform.addToFormList(tmp)
 	modelValue.value = false
-	myform.roles.map((item: any) => (item.selected = false))
-	myform.formList.map((item: any) => (item.selected = false))
+	rolesChip.value.map((item: any) => (item.selected = false))
+	formsChip.value.map((item: any) => (item.selected = false))
 }
 
-const select = (e: any) => {
-	myform.roles.map((item: any) => {
-		item.selected = false
-	})
+const select = (e: Role) => {
+	rolesChip.value.map((item) => (item.selected = false))
 	e.selected = true
 }
 const select1 = (e: any) => {
-	myform.formList.map((item: any) => {
+	formsChip.value.map((item: any) => {
 		item.selected = false
 	})
 	e.selected = true
@@ -49,6 +51,9 @@ const uniqForm = computed(() => {
 	}))
 	return [...new Set(list)]
 })
+
+const rolesChip = ref([...myrole.roles])
+const formsChip = ref([...uniqForm.value])
 </script>
 
 <template lang="pug">
@@ -64,17 +69,16 @@ q-dialog(v-model="modelValue")
 				.grid
 					div
 						.text-bold Роли
-						q-chip(v-for="chip in myform.roles"
+						q-chip(v-for="chip in rolesChip"
 							clickable
 							:label="chip.name"
 							v-model:selected="chip.selected"
 							:key="chip.id"
 							@click='select(chip)'
 							)
-						// div {{ temp }}
 					div
 						.text-bold Формы
-						q-chip(v-for="chip in uniqForm"
+						q-chip(v-for="chip in formsChip"
 							clickable
 							:label="chip.form"
 							v-model:selected="chip.selected"

@@ -43,28 +43,28 @@ export const useForms = defineStore('forms', () => {
 	})
 	//
 	const formList = ref<Form[]>([])
-	// const addToFormList = (e: Form) => {
-	// 	formList.value.push(e)
-	// }
+	const addToFormList = (e: Form) => {
+		formList.value.push(e)
+	}
 
 	const calcList = computed(() => {
 		return formList.value.filter((item) => {
 			return item.etap == currentBO.value.name
 		})
 	})
-	// const removeForm = (e: Form) => {
-	// 	let n = formList.value.findIndex((item) => {
-	// 		return item == e
-	// 	})
-	// 	formList.value.splice(n, 1)
-	// }
-	//
+	const removeForm = (e: Form) => {
+		let n = formList.value.findIndex((item) => {
+			return item == e
+		})
+		formList.value.splice(n, 1)
+	}
+
 	const myrole = useRoles()
 	const createForm = (form: string) => {
 		let row = {
 			id: uid(),
 			etap: currentBO.value.name,
-			role: myrole.currentRole.value,
+			role: myrole.currentRole,
 			form: form,
 			selected: false,
 		}
@@ -81,12 +81,12 @@ export const useForms = defineStore('forms', () => {
 		//
 		// ind,
 		formList,
-		// addToFormList,
+		addToFormList,
 		calcList,
 		bt,
 		showBt,
 		newform,
 		createForm,
-		// removeForm,
+		removeForm,
 	}
 })
