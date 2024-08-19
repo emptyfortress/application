@@ -1,7 +1,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { defineStore } from 'pinia'
 import { uid } from 'quasar'
-import { useRoles } from '@/stores/roles'
+// import { useRoles } from '@/stores/roles'
 // import { useFlow } from '@/stores/flow'
 
 export const useForms = defineStore('forms', () => {
@@ -46,29 +46,16 @@ export const useForms = defineStore('forms', () => {
 
 	const conditionList = ref<Condition[]>([])
 
-	const myrole = useRoles()
+	// const myrole = useRoles()
 	const addCondition = (e: Condition) => {
-		// let tmp = {
-		// 	id: uid(),
-		// 	etap: currentEtap.value,
-		// 	form: e,
-		// 	role: myrole.currentRole,
-		// }
 		conditionList.value.push(e)
 	}
-
-	const calcList = computed(() => {
-		return conditionList.value.filter((item) => {
-			return item.etap == currentBO.value.name
+	const removeCondition = (e: Form) => {
+		let n = formList.value.findIndex((item) => {
+			return item == e
 		})
-	})
-
-	// const removeForm = (e: Form) => {
-	// 	let n = formList.value.findIndex((item) => {
-	// 		return item == e
-	// 	})
-	// 	formList.value.splice(n, 1)
-	// }
+		conditionList.value.splice(n, 1)
+	}
 
 	const createForm = (form: string) => {
 		let row = {
@@ -86,12 +73,12 @@ export const useForms = defineStore('forms', () => {
 		currentEtap,
 		setCurrentBO,
 
-		//
 		// ind,
 		formList,
 		conditionList,
 		addCondition,
-		calcList,
+		removeCondition,
+
 		bt,
 		showBt,
 		newform,

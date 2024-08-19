@@ -84,7 +84,7 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO")
 					th.text-left Роль
 					th.text-left Форма
 					th
-			draggable(v-if='myform.calcList.length > 0' v-model="etapConditionList" tag="tbody" item-key="id")
+			draggable(v-if='myform.conditionList.length > 0' v-model="etapConditionList" tag="tbody" item-key="id")
 				template(#item="{ element }")
 					tr.cursor-pointer(scope='row' @click='toggle')
 						td {{ element.role }}
@@ -92,7 +92,7 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO")
 							span(v-if='!!element.form' @click.stop="goto(element.form)") {{ element.form }}
 							q-btn(v-else flat color="primary" label="Создать" @click.stop="goto(myform.currentBO.name, true)" size='sm') 
 						td.text-right
-							q-btn(flat round color="primary" icon='mdi-trash-can-outline' dense @click.stop="myform.removeForm(element)" size='sm') 
+							q-btn(flat round color="primary" icon='mdi-trash-can-outline' dense @click.stop="myform.removeCondition(element)" size='sm') 
 			tbody(v-else)
 				tr
 					td {{ myrole.currentRole}}

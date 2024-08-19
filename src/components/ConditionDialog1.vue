@@ -27,10 +27,9 @@ const add = () => {
 		id: uid(),
 		etap: myform.currentBO.name,
 		role: selection.value[0].name,
-		form: selection1.value[0].form,
+		form: selection1.value[0].name,
 	}
-	myform.addCondition(selection1.value[0].name)
-	// myform.addCondition(selection1.value[0].name)
+	myform.addCondition(tmp)
 	modelValue.value = false
 	rolesChip.value.map((item: any) => (item.selected = false))
 	formsChip.value.map((item: any) => (item.selected = false))
