@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useForms } from '@/stores/forms'
+import { useRoles } from '@/stores/roles'
 import CreateDialog from '@/components/CreateDialog.vue'
 
-const myform = useForms()
+const myrole = useRoles()
 
 const dialog = ref(false)
 
 const selection = ref('')
 const select = (e: Role) => {
 	selection.value = e.name
-	myform.selectRole(e)
+	myrole.selectRole(e)
 }
 </script>
 
@@ -18,7 +18,7 @@ const select = (e: Role) => {
 .bl
 	h5 Роли
 	q-list(separator)
-		q-item(clickable v-for="role in myform.roles" :key="role.id" @click="select(role)" :class="{selected: role.name == selection}")
+		q-item(clickable v-for="role in myrole.roles" :key="role.id" @click="select(role)" :class="{selected: role.name == selection}")
 			q-item-section(avatar)
 				q-icon(name="mdi-account-circle-outline")
 			q-item-section {{ role.name }}
@@ -27,7 +27,7 @@ const select = (e: Role) => {
 				q-icon(v-if='role.type' name="mdi-shuffle-variant")
 				q-tooltip Используется в процессе
 			q-item-section(side v-else)
-				q-btn(v-if='!role.type' flat round dense icon="mdi-trash-can-outline" @click="myform.removeRole(role)" size="sm") 
+				q-btn(v-if='!role.type' flat round dense icon="mdi-trash-can-outline" @click="myrole.removeRole(role)" size="sm") 
 
 	br
 	q-btn(unelevated color="primary" label="Создать роль" @click="dialog = !dialog") 

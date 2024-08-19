@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { uid } from 'quasar'
-import { useForms } from '@/stores/forms'
+import { useRoles } from '@/stores/roles'
 
 const props = defineProps({
 	mode: {
@@ -21,7 +21,7 @@ const close = () => {
 
 const emit = defineEmits(['create'])
 
-const myform = useForms()
+const myrole = useRoles()
 const create = (data: any) => {
 	if (props.mode == 'app') {
 		data.id = +new Date()
@@ -34,7 +34,7 @@ const create = (data: any) => {
 	if (props.mode == 'role') {
 		data.id = uid()
 		data.selected = false
-		myform.addRole(data)
+		myrole.addRole(data)
 		close()
 	}
 }

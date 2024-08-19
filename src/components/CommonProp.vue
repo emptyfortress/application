@@ -7,11 +7,13 @@ import { useStorage } from '@vueuse/core'
 import draggable from 'vuedraggable'
 import ConditionDialog1 from '@/components/ConditionDialog1.vue'
 import { useForms } from '@/stores/forms'
+import { useRoles } from '@/stores/roles'
 
 const store = useStore()
 const myform = useForms()
 const route = useRoute()
 const router = useRouter()
+const myrole = useRoles()
 
 const prop1 = [
 	{ id: 0, label: 'Владелец процесса' },
@@ -63,7 +65,7 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO")
 
 		template(v-if='myform.currentBO.$type == "bpmn:Task" || myform.currentBO.$type == "bpmn:StartEvent" || myform.currentBO.$type == "bpmn:EndEvent" || myform.currentBO.$type == "bpmn:ExclusiveGateway"')
 			div Исполнитель:
-			.text-bold {{ myform.currentRole }}
+			.text-bold {{ myrole.currentRole }}
 
 			div Исходы:
 			div
@@ -89,7 +91,7 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO")
 							q-btn(flat round color="primary" icon='mdi-trash-can-outline' dense @click.stop="myform.removeForm(element)" size='sm') 
 			tbody(v-else)
 				tr
-					td {{ myform.currentRole}}
+					td {{ myrole.currentRole}}
 					td(colspan='2')
 						q-btn(flat color="primary" label="Создать" @click.stop="goto1(myform.currentBO.name, true)" size='sm') 
 
