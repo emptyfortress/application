@@ -10,6 +10,8 @@ import { useLayoutStore } from '@/stores/layout'
 import { useStore } from '@/stores/store'
 import { useStorage } from '@vueuse/core'
 import { useForms } from '@/stores/forms'
+import { useRoles } from '@/stores/roles'
+import { uid } from 'quasar'
 
 const store = useStore()
 const lstore = useLayoutStore()
@@ -35,10 +37,19 @@ watchEffect(() => {
 
 const app = useStorage('app', localStorage)
 
+const myrole = useRoles()
 const save = () => {
 	if (myform.newform == true) {
 		myform.createForm(name.value.toString())
 		myform.newform = false
+		let tmp = {
+			id: uid(),
+			etap: myform.currentBO.name,
+			role: myrole.currentRole,
+			form: name.value.toString(),
+		}
+		myform.addCondition(tmp)
+		// myform.addCondition(name.value.toString())
 	}
 	router.back()
 }

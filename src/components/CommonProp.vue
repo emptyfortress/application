@@ -45,7 +45,11 @@ const emulate = () => {
 	router.push('/emulate/1')
 }
 
-const list = ref([...myform.calcList])
+const etapConditionList = computed(() => {
+	return myform.conditionList.filter((item: Condtition) => {
+		return item.etap == myform.currentEtap
+	})
+})
 </script>
 
 <template lang="pug">
@@ -80,7 +84,7 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO")
 					th.text-left Роль
 					th.text-left Форма
 					th
-			draggable(v-if='myform.calcList.length > 0' v-model="myform.calcList" tag="tbody" item-key="id")
+			draggable(v-if='myform.calcList.length > 0' v-model="etapConditionList" tag="tbody" item-key="id")
 				template(#item="{ element }")
 					tr.cursor-pointer(scope='row' @click='toggle')
 						td {{ element.role }}

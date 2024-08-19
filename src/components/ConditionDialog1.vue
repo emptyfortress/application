@@ -4,6 +4,7 @@ import { useStore } from '@/stores/store'
 import { useForms } from '@/stores/forms'
 import { useRoles } from '@/stores/roles'
 import { useFlow } from '@/stores/flow'
+import { uid } from 'quasar'
 
 const modelValue = defineModel<boolean>()
 
@@ -23,11 +24,13 @@ const store = useStore()
 
 const add = () => {
 	let tmp = {
+		id: uid(),
 		etap: myform.currentBO.name,
 		role: selection.value[0].name,
 		form: selection1.value[0].form,
 	}
-	myform.addToFormList(tmp)
+	myform.addCondition(selection1.value[0].name)
+	// myform.addCondition(selection1.value[0].name)
 	modelValue.value = false
 	rolesChip.value.map((item: any) => (item.selected = false))
 	formsChip.value.map((item: any) => (item.selected = false))
@@ -46,7 +49,7 @@ const select1 = (e: any) => {
 const uniqForm = computed(() => {
 	let list = myform.formList.map((item: Form) => ({
 		id: item.id,
-		form: item.form,
+		name: item.name,
 		selected: item.selected,
 	}))
 	return [...new Set(list)]
@@ -80,9 +83,9 @@ q-dialog(v-model="modelValue")
 						.text-bold Формы
 						q-chip(v-for="chip in formsChip"
 							clickable
-							:label="chip.form"
+							:label="chip.name"
 							v-model:selected="chip.selected"
-							:key="chip.form"
+							:key="chip.id"
 							@click='select1(chip)'
 							)
 

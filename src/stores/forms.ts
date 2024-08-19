@@ -41,31 +41,39 @@ export const useForms = defineStore('forms', () => {
 	const showBt = computed(() => {
 		return bt.value.length > 0 ? true : false
 	})
-	//
+
 	const formList = ref<Form[]>([])
-	const addToFormList = (e: Form) => {
-		formList.value.push(e)
+
+	const conditionList = ref<Condition[]>([])
+
+	const myrole = useRoles()
+	const addCondition = (e: Condition) => {
+		// let tmp = {
+		// 	id: uid(),
+		// 	etap: currentEtap.value,
+		// 	form: e,
+		// 	role: myrole.currentRole,
+		// }
+		conditionList.value.push(e)
 	}
 
 	const calcList = computed(() => {
-		return formList.value.filter((item) => {
+		return conditionList.value.filter((item) => {
 			return item.etap == currentBO.value.name
 		})
 	})
-	const removeForm = (e: Form) => {
-		let n = formList.value.findIndex((item) => {
-			return item == e
-		})
-		formList.value.splice(n, 1)
-	}
 
-	const myrole = useRoles()
+	// const removeForm = (e: Form) => {
+	// 	let n = formList.value.findIndex((item) => {
+	// 		return item == e
+	// 	})
+	// 	formList.value.splice(n, 1)
+	// }
+
 	const createForm = (form: string) => {
 		let row = {
 			id: uid(),
-			etap: currentBO.value.name,
-			role: myrole.currentRole,
-			form: form,
+			name: form,
 			selected: false,
 		}
 		formList.value.push(row)
@@ -81,12 +89,13 @@ export const useForms = defineStore('forms', () => {
 		//
 		// ind,
 		formList,
-		addToFormList,
+		conditionList,
+		addCondition,
 		calcList,
 		bt,
 		showBt,
 		newform,
 		createForm,
-		removeForm,
+		// removeForm,
 	}
 })

@@ -12,10 +12,10 @@ type Role = {
 	description?: string
 }
 type Form = {
-	// id: string
-	form: string
-	etap: string
-	role: string
+	id: string
+	name: string
+	// etap: string
+	// role: string
 	selected: boolean
 }
 interface Option {
