@@ -20,15 +20,6 @@ export const useRoles = defineStore('roles', () => {
 	const roles = computed(() => {
 		return myflow.lanes.concat(rolesN.value)
 	})
-	// const roles = computed({
-	// 	get() {
-	// 		return myflow.lanes.concat(rolesN.value)
-	// 	},
-	// 	set(newValue) {
-	// 		myflow.lanes.value = newValue.filter((item: Role) => !!item.type)
-	// 		rolesN.value = newValue.filter((item: Role) => item.type == undefined)
-	// 	},
-	// })
 
 	const myform = useForms()
 	const currentRole = computed(() => {

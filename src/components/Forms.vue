@@ -24,7 +24,7 @@ const goto = (e: string) => {
 	router.push(url)
 }
 const calcCondition = (e: string) => {
-	let row = myform.formList.filter((item: Form) => {
+	let row = myform.conditionList.filter((item: Condition) => {
 		return item.form == e
 	})
 	return row
@@ -53,14 +53,12 @@ const calcCondition = (e: string) => {
 						q-markup-table(flat)
 							thead
 								tr
-									th.text-left Этапы
-									th.text-left Роли
+									th.text-left Этап
+									th.text-left Роль
 							tbody
 								tr(v-for="item in calcCondition(form.name)" :key='item.id')
-									td
-										span() {{ item.etap }}
-									tdyou
-										span() {{ item.role }}
+									td {{ item.etap }}
+									td {{ item.role }}
 
 	br
 	q-btn(unelevated color="primary" label="Создать форму" @click="toggleDialog") 

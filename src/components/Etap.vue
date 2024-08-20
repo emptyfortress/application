@@ -49,8 +49,8 @@ const save = () => {
 			form: name.value.toString(),
 		}
 		myform.addCondition(tmp)
-		// myform.addCondition(name.value.toString())
 	}
+	myform.newform = false
 	router.back()
 }
 </script>
@@ -72,6 +72,7 @@ const save = () => {
 			q-popup-edit(v-model="name" title="Название формы" auto-save v-slot="scope")
 				q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
 		div
+			q-btn(flat color="primary" label="Отмена" @click="$router.back") 
 			q-btn(v-if='myform.formList.length > 1' flat color="primary" icon="mdi-content-duplicate" label="Выбрать форму" @click="dialog = !dialog") 
 			q-btn(flat color="primary" label="Сохранить" @click="save") 
 	.inner

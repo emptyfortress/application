@@ -3,6 +3,7 @@ import { ref, reactive, computed } from 'vue'
 import { requests } from '@/stores/tree'
 import { useStore } from '@/stores/store'
 import { useForms } from '@/stores/forms'
+import { uid } from 'quasar'
 
 const props = defineProps({
 	kind: {
@@ -23,19 +24,19 @@ const req = ref(requests)
 
 const myform = useForms()
 
-const allForms = computed(() => {
-	return myform.formList.map((item, index) => ({
-		id: index,
-		label: item.form,
-		selected: false,
-	}))
-})
-const temp = ref([...allForms.value])
+// const allForms = computed(() => {
+// 	return myform.formList.map((item, index) => ({
+// 		id: uid(),
+// 		label: item.name,
+// 		selected: false,
+// 	}))
+// })
+// const temp = ref([...allForms.value])
 
 const chips = computed(() => {
 	switch (props.kind) {
 		case 'form':
-			return temp.value
+			return myform.formList
 		case 'request':
 			return req.value
 		case 'view':
@@ -93,7 +94,7 @@ q-dialog(v-model="modelValue")
 			q-card-section
 				q-chip(v-for="chip in chips"
 					clickable
-					:label="chip.label"
+					:label="chip.name"
 					v-model:selected="chip.selected"
 					:key="chip.id"
 					@click="select(chip)"

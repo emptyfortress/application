@@ -31,13 +31,11 @@ const add = () => {
 	}
 	myform.addCondition(tmp)
 	modelValue.value = false
-	rolesChip.value.map((item: any) => (item.selected = false))
-	formsChip.value.map((item: any) => (item.selected = false))
 }
 
 const select = (e: Role) => {
 	rolesChip.value.map((item) => (item.selected = false))
-	e.selected = true
+	e.selected = !e.selected
 }
 const select1 = (e: any) => {
 	formsChip.value.map((item: any) => {
@@ -54,8 +52,16 @@ const uniqForm = computed(() => {
 	return [...new Set(list)]
 })
 
-const rolesChip = ref([...myrole.roles])
+const rolesChip = ref([...myrole.rolesN])
 const formsChip = ref([...uniqForm.value])
+
+// reset chip selection
+watch(modelValue, (val) => {
+	if (val == false) {
+		rolesChip.value.map((item: any) => (item.selected = false))
+		formsChip.value.map((item: any) => (item.selected = false))
+	}
+})
 </script>
 
 <template lang="pug">
