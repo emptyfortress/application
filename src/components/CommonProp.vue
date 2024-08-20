@@ -34,6 +34,12 @@ const goto1 = (e: string) => {
 	myform.newform = true
 	router.push(`/${route.params.id}/editor/process/${e}`)
 }
+
+const goto2 = (e: string) => {
+	myform.toggleZay()
+	myform.setZayForm(e)
+	router.push(`/${route.params.id}/editor/process/${e}`)
+}
 const app = useStorage('app', localStorage)
 
 const dialog = ref(false)
@@ -50,6 +56,17 @@ const etapConditionList = computed(() => {
 	return myform.conditionList.filter((item: Condition) => {
 		return item.etap == myform.currentEtap
 	})
+})
+
+const calcFormName = computed(() => {
+	switch (myform.currentBO.name) {
+		case 'Создал Заявку':
+			return 'Создание'
+		case 'Принять результаты':
+			return 'Архив'
+		default:
+			return 'Просмотр'
+	}
 })
 </script>
 
@@ -77,7 +94,7 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO")
 				.text-bold(v-for="item in myform.currentBO.outgoing") {{ item.name }}
 
 	br
-	.q-mx-md(v-if='myform.currentBO.$type == "bpmn:Task" || myform.currentBO.name == "Старт"')
+	.q-mx-md(v-if='myform.currentBO.$type == "bpmn:Task" || myform.currentBO.$type == "bpmn:StartEvent"')
 		.text-bold Что видит пользователь?
 		q-markup-table(bordered flat)
 			thead
@@ -85,20 +102,28 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO")
 					th.text-left Роль
 					th.text-left Форма
 					th
-			draggable(v-if='etapConditionList.length > 0' v-model="etapConditionList" tag="tbody" item-key="id")
-				template(#item="{ element }")
-					tr.cursor-pointer(scope='row' @click='toggle')
-						td {{ element.role }}
-						td 
-							span(@click.stop="goto(element.form)") {{ element.form }}
-						td.text-right
-							q-btn(flat round color="primary" icon='mdi-trash-can-outline' dense @click.stop="myform.removeCondition(element)" size='sm') 
+			template(v-if='app.text == "Заявка"')
+				tbody
+					tr.cursor-pointer
+						td {{ myrole.currentRole }}
+						td
+							span(@click.stop="goto2(calcFormName)") {{ calcFormName }}
+						td
+			template(v-else)
+				draggable(v-if='etapConditionList.length > 0' v-model="etapConditionList" tag="tbody" item-key="id")
+					template(#item="{ element }")
+						tr.cursor-pointer(scope='row' @click='toggle')
+							td {{ element.role }}
+							td 
+								span(@click.stop="goto(element.form)") {{ element.form }}
+							td.text-right
+								q-btn(flat round color="primary" icon='mdi-trash-can-outline' dense @click.stop="myform.removeCondition(element)" size='sm') 
 
-			tbody(v-else)
-				tr
-					td {{ myrole.currentRole}}
-					td(colspan='2')
-						q-btn(flat color="primary" label="Создать" @click.stop="goto1(myform.currentBO.name)" size='sm') 
+				tbody(v-else)
+					tr
+						td {{ myrole.currentRole}}
+						td(colspan='2')
+							q-btn(flat color="primary" label="Создать" @click.stop="goto1(myform.currentBO.name)" size='sm') 
 
 		q-btn.q-ma-md(v-if='myrole.rolesN.length > 0' unelevated color="primary" label="Добавить" @click="toggle" size='sm') 
 

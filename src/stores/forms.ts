@@ -1,12 +1,8 @@
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { uid } from 'quasar'
-// import { useRoles } from '@/stores/roles'
-// import { useFlow } from '@/stores/flow'
 
 export const useForms = defineStore('forms', () => {
-	// const myflow = useFlow()
-
 	const currentBO = ref<any>()
 	const setCurrentBO = (e: any) => {
 		currentBO.value = e
@@ -18,6 +14,16 @@ export const useForms = defineStore('forms', () => {
 		}
 		return null
 	})
+
+	// для заявки only
+	const zay = ref(false)
+	const zayform = ref('create')
+	const toggleZay = () => {
+		zay.value = !zay.value
+	}
+	const setZayForm = (e: string) => {
+		zayform.value = e
+	}
 
 	// это кнопки на форме сверху ***********************
 	const bt = computed(() => {
@@ -46,7 +52,6 @@ export const useForms = defineStore('forms', () => {
 
 	const conditionList = ref<Condition[]>([])
 
-	// const myrole = useRoles()
 	const addCondition = (e: Condition) => {
 		conditionList.value.push(e)
 	}
@@ -65,15 +70,12 @@ export const useForms = defineStore('forms', () => {
 		}
 		formList.value.push(row)
 	}
-	//
-	// const ind = ref<null | number>(null)
-	//
+
 	return {
 		currentBO,
 		currentEtap,
 		setCurrentBO,
 
-		// ind,
 		formList,
 		conditionList,
 		addCondition,
@@ -84,5 +86,9 @@ export const useForms = defineStore('forms', () => {
 		newform,
 		createForm,
 		// removeForm,
+		zay,
+		zayform,
+		toggleZay,
+		setZayForm,
 	}
 })

@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue'
+import { ref, watchEffect, computed, nextTick } from 'vue'
 import FormTop from '@/components/FormTop.vue'
 import FormLayout from '@/components/FormLayout.vue'
+import FormLayout1 from '@/components/FormLayout1.vue'
 import VueDraggableResizable from 'vue-draggable-resizable'
 import Toolbar from '@/components/Toolbar.vue'
 import { useRoute, useRouter } from 'vue-router'
@@ -37,6 +38,11 @@ watchEffect(() => {
 
 const app = useStorage('app', localStorage)
 
+const resetZay = () => {
+	setTimeout(() => {
+		myform.toggleZay()
+	}, 100)
+}
 const myrole = useRoles()
 const save = () => {
 	if (myform.newform == true) {
@@ -52,6 +58,11 @@ const save = () => {
 	}
 	myform.newform = false
 	router.back()
+	resetZay()
+}
+const back = () => {
+	router.back()
+	resetZay()
 }
 </script>
 
@@ -72,12 +83,13 @@ const save = () => {
 			q-popup-edit(v-model="name" title="Название формы" auto-save v-slot="scope")
 				q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
 		div
-			q-btn(flat color="primary" label="Отмена" @click="$router.back") 
+			q-btn(flat color="primary" label="Отмена" @click="back") 
 			q-btn(v-if='myform.formList.length > 0' flat color="primary" icon="mdi-content-duplicate" label="Выбрать форму" @click="dialog = !dialog") 
 			q-btn(flat color="primary" label="Сохранить" @click="save") 
 	.inner
 		FormTop(v-if='myform.showBt')
-		FormLayout
+		FormLayout1(v-if='myform.zay' :form='myform.zayform')
+		FormLayout(v-else)
 
 chooseDialog(v-model="dialog" kind='form')
 </template>
