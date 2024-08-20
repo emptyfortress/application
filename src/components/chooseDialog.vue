@@ -31,7 +31,7 @@ const myform = useForms()
 // 		selected: false,
 // 	}))
 // })
-// const temp = ref([...allForms.value])
+const temp = ref([])
 
 const chips = computed(() => {
 	switch (props.kind) {

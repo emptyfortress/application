@@ -47,7 +47,7 @@ const emulate = () => {
 
 // TODO: сделать перетаскивание у списка
 const etapConditionList = computed(() => {
-	return myform.conditionList.filter((item: Condtition) => {
+	return myform.conditionList.filter((item: Condition) => {
 		return item.etap == myform.currentEtap
 	})
 })
@@ -131,7 +131,7 @@ template(v-if="route.name == 'Этап' && store.currentField == null && store.c
 
 template(v-if='route.name == "Роли"')
 	.q-pa-md
-		.text-bold {{ store.currentRole?.label }}
+		.text-bold Название роли
 		div Тут свойства роли
 
 template(v-if='route.name == "Процесс" || route.name == "Этап"')

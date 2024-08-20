@@ -35,7 +35,7 @@ const bpmn = computed(() => {
 	return mydata.myxml
 })
 
-let modeler
+let modeler = null as any
 
 onMounted(() => {
 	modeler = new BpmnModeler({
@@ -47,12 +47,12 @@ onMounted(() => {
 
 	modeler
 		.importXML(bpmn.value)
-		.then(function (result) {
+		.then(function (result: any) {
 			const { warnings } = result
 			console.log('success !', warnings)
 			modeler.attachTo(canvas.value)
 		})
-		.catch(function (err) {
+		.catch(function (err: any) {
 			const { warnings, message } = err
 			console.log('something went wrong:', warnings, message)
 		})

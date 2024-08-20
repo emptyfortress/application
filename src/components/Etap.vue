@@ -73,7 +73,7 @@ const save = () => {
 				q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
 		div
 			q-btn(flat color="primary" label="Отмена" @click="$router.back") 
-			q-btn(v-if='myform.formList.length > 1' flat color="primary" icon="mdi-content-duplicate" label="Выбрать форму" @click="dialog = !dialog") 
+			q-btn(v-if='myform.formList.length > 0' flat color="primary" icon="mdi-content-duplicate" label="Выбрать форму" @click="dialog = !dialog") 
 			q-btn(flat color="primary" label="Сохранить" @click="save") 
 	.inner
 		FormTop(v-if='myform.showBt')

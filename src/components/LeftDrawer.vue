@@ -3,10 +3,12 @@ import { ref, computed, reactive, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from '@/stores/store'
 import { gsap } from 'gsap'
+import { useForms } from '@/stores/forms'
 
 const route = useRoute()
 const router = useRouter()
 const store = useStore()
+const myform = useForms()
 
 const modelValue = defineModel()
 
@@ -74,6 +76,7 @@ const leave = async (el: any, done: any) => {
 const navigate = (url: string) => {
 	let temp = '/' + route.params.id + '/editor/' + url
 	router.push(temp)
+	myform.setCurrentBO(null)
 }
 const calcClass = (e: string) => {
 	let temp = '/' + route.params.id + '/editor/' + e
@@ -86,7 +89,6 @@ q-drawer.rel(v-model="modelValue" side="left" :width="180" :mini="store.mini")
 	transition(@enter="enter" @leave="leave" :css="false" mode="out-in")
 
 		q-list(v-if="show")
-			// q-item(clickable v-ripple v-for="page in pages" :key="page.id" @click='navigate(page.url)' )
 			q-item(clickable v-ripple v-for="page in pages" :key="page.id" @click="navigate(page.url)" :class="calcClass(page.url)")
 				q-item-section(avatar)
 					q-icon(:name="page.icon")

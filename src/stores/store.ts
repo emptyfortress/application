@@ -52,7 +52,7 @@ export const useStore = defineStore('store', {
 		selectRole(e: any) {
 			this.currentRole = e
 		},
-		addConditionRole(e: Condition) {
+		addConditionRole(e: any) {
 			this.currentRole.conditions.push(e)
 		},
 		removeCondition(e: number) {

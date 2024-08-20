@@ -5,7 +5,7 @@ import { useLayoutStore } from '@/stores/layout'
 const lstore = useLayoutStore()
 
 const preview = () => {
-	const url = 'https://yandex.ru'
+	const url = 'https://google.com'
 	window.open(url, '_blank')!.focus()
 }
 </script>

@@ -36,7 +36,7 @@ const remove = (e: number) => {
 
 <template lang="pug">
 .q-ma-md
-	.hd Условия показа форм для {{ store.currentRole.label }}
+	.hd Условия показа форм для 'Название роли'
 	q-markup-table(flat)
 		thead
 			tr
