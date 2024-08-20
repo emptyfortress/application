@@ -7,10 +7,12 @@ import { useStore } from '@/stores/store'
 import LeftDrawer from '@/components/LeftDrawer.vue'
 import Breadcrumbs from '@/components/Breadcrumbs.vue'
 import { useStorage } from '@vueuse/core'
+import { useData } from '@/stores/alldata'
 
 const route = useRoute()
 const router = useRouter()
 const store = useStore()
+const mydata = useData()
 
 // const beforeLeave = () => {}
 //
@@ -57,6 +59,7 @@ const store = useStore()
 
 const home = () => {
 	store.setCurrentNode(null)
+	mydata.saveXML(null)
 	router.push('/')
 }
 const app = useStorage('app', localStorage)
@@ -66,18 +69,6 @@ const app = useStorage('app', localStorage)
 q-layout(view="hHr LpR fFf")
 	q-header.head
 		q-toolbar
-			// .tool(v-if='route.name == "emulate"')
-				q-btn(unelevated color="primary" icon='mdi-arrow-left-circle' label="Назад" @click="$router.back" v-if='route.name == "emulate"') 
-				.center
-					div {{ app.text }}
-					div ->
-					div этап: Создание
-					div ->
-					div роль:
-					q-select(v-model="role" dense filled :options='options')
-				div
-					q-btn(unelevated color="primary" label="Настроить форму" ) 
-
 			q-toolbar-title()
 				q-avatar(@click="home")
 					SvgIcon.log(name="logo")
