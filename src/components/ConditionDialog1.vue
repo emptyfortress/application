@@ -52,6 +52,13 @@ const uniqForm = computed(() => {
 	return [...new Set(list)]
 })
 
+// const unusedRoles = computed(() => {
+// 	let cond = myform.conditionList
+// 		.filter((ro: Condition) => )
+// 		.map((el: Condition) => el.role)
+// 	return cond
+// })
+
 const rolesChip = ref([...myrole.rolesN])
 const formsChip = ref([...uniqForm.value])
 

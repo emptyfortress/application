@@ -45,6 +45,7 @@ const emulate = () => {
 	router.push('/emulate/1')
 }
 
+// TODO: сделать перетаскивание у списка
 const etapConditionList = computed(() => {
 	return myform.conditionList.filter((item: Condtition) => {
 		return item.etap == myform.currentEtap
