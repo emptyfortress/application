@@ -159,9 +159,9 @@ template(v-if='route.name == "Роли"')
 		.text-bold Название роли
 		div Тут свойства роли
 
-template(v-if='route.name == "Процесс" || route.name == "Этап"')
-	br
-	q-btn.btn(outline color="primary" icon='mdi-play' label='Запустить процесс' @click='emulate') 
+.prev(v-if='route.name == "Процесс" || route.name == "Этап"')
+	q-btn.btn(v-if='myform.currentBO && myform.currentBO.$type == "bpmn:Task"' outline color="primary" icon='mdi-play' :label='myform.currentBO.name' @click='emulate') 
+	q-btn.btn(outline color="primary" icon='mdi-play' :label='app.text' @click='emulate') 
 </template>
 
 <style scoped lang="scss">
@@ -177,11 +177,13 @@ template(v-if='route.name == "Процесс" || route.name == "Этап"')
 	margin: 0 1rem;
 	margin-top: 1rem;
 }
-.btn {
-	display: block;
-	margin: 1rem auto;
+.prev {
+	margin: 1rem;
+	.btn {
+		margin: 0 0.25rem;
+	}
 }
-td span {
+.btd span {
 	color: $primary;
 	text-decoration: underline;
 }
