@@ -1,24 +1,15 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { useStore } from '@/stores/store'
 import PropertyPanel from '@/components/PropertyPanel.vue'
 import VueDraggableResizable from 'vue-draggable-resizable'
-import { uid } from 'quasar'
-
+import { useForms } from '@/stores/forms'
 import { gsap } from 'gsap'
 
-const props = defineProps({
-	id: {
-		type: String,
-		required: true,
-	},
-})
-
-const store = useStore()
 const route = useRoute()
 const router = useRouter()
 const split = ref(70)
+const myform = useForms()
 
 onMounted(() => {
 	gsap.from('.fuck', {
@@ -28,6 +19,14 @@ onMounted(() => {
 		ease: 'expo.out',
 	})
 })
+// const calcPreview = computed(() => {
+// 	switch (myform.currentBO?.name) {
+// 		case 'Создал заявку':
+// 			return '/nav1.png'
+// 		default:
+// 			return '/nav0.png'
+// 	}
+// })
 </script>
 
 <template lang="pug">
@@ -42,7 +41,7 @@ q-page
 		vue-draggable-resizable.fuck(:x="100" :y="-300" :w="250" :h="150" :active="false" :z="2000" :handles='["br"]' drag-handle='.bar')
 			q-card
 				.bar Навигация
-				q-img(src='@/assets/img/preview.png')
+				q-img(:src='myform.calcNav')
 			
 </template>
 

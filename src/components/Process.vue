@@ -4,7 +4,7 @@ import BpmnModeler from 'bpmn-js/lib/Modeler'
 import 'bpmn-js/dist/assets/diagram-js.css'
 import 'bpmn-js/dist/assets/bpmn-js.css'
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css'
-import zay from '@/stores/zayavka.bpmn?raw'
+import zay from '@/stores/zayavka1.bpmn?raw'
 import empty from '@/stores/simple.bpmn?raw'
 import 'diagram-js-minimap/assets/diagram-js-minimap.css'
 
