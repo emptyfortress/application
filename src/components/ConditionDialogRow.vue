@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, reactive, computed, watch, onMounted } from 'vue'
-import { useStore } from '@/stores/store'
 import { useForms } from '@/stores/forms'
 import { useRoles } from '@/stores/roles'
 import { useFlow } from '@/stores/flow'
@@ -8,39 +7,38 @@ import { uid } from 'quasar'
 import { onKeyStroke } from '@vueuse/core'
 import { templateRef } from '@vueuse/core'
 
-const props = defineProps({
-	addition: {
-		type: Boolean,
-		default: false,
-	},
-})
+interface Props {
+	id: string
+	etap: string
+	role: string
+	form: string
+}
+const props = defineProps<{
+	row: Props | null
+}>()
+
 const modelValue = defineModel<boolean>()
 
 const myform = useForms()
 const myrole = useRoles()
 const myflow = useFlow()
 
-const selection = computed(() => {
-	return rolesChip.value.filter((item: Role) => item.selected)
+const formsChip = ref(myform.formList)
+
+watch(modelValue, (val) => {
+	if (val && props.formselected) {
+		let tmp = formsChip.value.find((item) => {
+			item.form == props.formselected
+		})
+		if (!!tmp) {
+			tmp.selected = true
+		}
+	}
 })
 
 const selection1 = computed(() => {
 	return formsChip.value.filter((item: Form) => item.selected)
 })
-
-const store = useStore()
-
-const add = () => {
-	let tmp = {
-		id: uid(),
-		etap: myform.currentBO.name,
-		role: selection.value[0].name,
-		form: selection1.value[0].name,
-	}
-	myform.addCondition(tmp)
-	modelValue.value = false
-}
-
 const select1 = (e: any) => {
 	formsChip.value.map((item: any) => {
 		item.selected = false
@@ -48,14 +46,20 @@ const select1 = (e: any) => {
 	e.selected = true
 }
 
-const formsChip = ref(myform.formList)
-
-// reset chip selection
-watch(modelValue, (val) => {
-	if (val == false) {
-		formsChip.value.map((item: any) => (item.selected = false))
+const save = () => {
+	if (!!props.row) {
+		props.row.form = selection1.value[0].name
+	} else {
+		console.log('add')
+		myform.conditionList.push({
+			id: uid(),
+			etap: myform.currentEtap,
+			role: myrole.currentRole,
+			form: selection1.value[0].name,
+		})
 	}
-})
+	modelValue.value = false
+}
 
 const ad = ref(false)
 
@@ -88,8 +92,9 @@ q-dialog(v-model="modelValue" persistent)
 		q-card-section
 			.text-h6 Условие показа
 			.hd Назначьте форму показа для выбранной роли:
+			pre {{ props.row }}
 
-		q-form(@submit="add")
+		q-form(@submit="save")
 			q-card-section
 				.grid
 					div
@@ -103,8 +108,8 @@ q-dialog(v-model="modelValue" persistent)
 						q-chip(v-for="chip in formsChip"
 							clickable
 							:label="chip.name"
-							v-model:selected="chip.selected"
 							:key="chip.id"
+							v-model:selected='chip.selected'
 							@click='select1(chip)'
 							)
 

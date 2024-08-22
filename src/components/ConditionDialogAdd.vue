@@ -8,12 +8,6 @@ import { uid } from 'quasar'
 import { onKeyStroke } from '@vueuse/core'
 import { templateRef } from '@vueuse/core'
 
-const props = defineProps({
-	addition: {
-		type: Boolean,
-		default: false,
-	},
-})
 const modelValue = defineModel<boolean>()
 
 const myform = useForms()
@@ -52,28 +46,14 @@ const select1 = (e: any) => {
 	e.selected = true
 }
 
-// const uniqForm = computed(() => {
-// 	let list = myform.formList.map((item: Form) => ({
-// 		id: item.id,
-// 		name: item.name,
-// 		selected: item.selected,
-// 	}))
-// 	return [...new Set(list)]
-// })
-
-// const unusedRoles = computed(() => {
-// 	let cond = myform.conditionList
-// 		.filter((ro: Condition) => )
-// 		.map((el: Condition) => el.role)
-// 	return cond
-// })
-
-const rolesChip = ref(myrole.roles)
+const rolesChip = computed(() => {
+	return myrole.roles.filter((item) => item.name !== myrole.currentRole)
+})
 const formsChip = ref(myform.formList)
 
 // reset chip selection
 watch(modelValue, (val) => {
-	if (val == false) {
+	if (val) {
 		rolesChip.value.map((item: any) => (item.selected = false))
 		formsChip.value.map((item: any) => (item.selected = false))
 	}
@@ -93,7 +73,6 @@ const addRole = () => {
 		selected: false,
 	}
 	myrole.addRole(tmp)
-	rolesChip.value.push(tmp)
 	clear()
 }
 const newForm = ref('')
@@ -154,7 +133,7 @@ q-dialog(v-model="modelValue" persistent)
 
 			br
 			q-card-actions.q-mx-sm.q-mb-md(align="right")
-				.rel1(v-if='props.addition')
+				.rel1
 					q-btn(flat icon="mdi-plus-circle" color="primary" label="Добавить роль" @click="ad1 = true") 
 					q-input.newname(v-if='ad1' autofocus v-model="newRole" dense outlined bg-color="white")
 						template(v-slot:append)

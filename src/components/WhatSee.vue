@@ -4,8 +4,8 @@ import { useRoles } from '@/stores/roles'
 import { useForms } from '@/stores/forms'
 import { useStorage } from '@vueuse/core'
 import draggable from 'vuedraggable'
-import ConditionDialog1 from '@/components/ConditionDialog1.vue'
-import ConditionDialog2 from '@/components/ConditionDialog2.vue'
+import ConditionDialogRow from '@/components/ConditionDialogRow.vue'
+import ConditionDialogAdd from '@/components/ConditionDialogAdd.vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useFlow } from '@/stores/flow'
 const store = useFlow()
@@ -38,15 +38,25 @@ const goto1 = (e: string) => {
 // 	router.push(`/${route.params.id}/editor/process/${e}`)
 // }
 
-const dialog1 = ref(false)
-const dialog2 = ref(false)
+const dialogRow = ref(false)
+const dialogAdd = ref(false)
 
-const toggle1 = () => {
-	dialog1.value = !dialog1.value
+const toggle0 = () => {
+	row.value = null
+	dialogRow.value = !dialogRow.value
 }
+const toggle1 = (el: any) => {
+	row.value = el
+	dialogRow.value = !dialogRow.value
+}
+
+const formselected = ref('')
+const row = ref(null)
+
 const toggle2 = () => {
-	dialog2.value = !dialog2.value
+	dialogAdd.value = !dialogAdd.value
 }
+const el = ref()
 </script>
 
 <template lang="pug">
@@ -60,7 +70,7 @@ const toggle2 = () => {
 				th
 
 		tbody(v-if='etapConditionList.length == 0')
-			tr(@click='toggle2')
+			tr(@click='toggle0')
 				td {{ myrole.currentRole}}
 				td
 				td
@@ -68,11 +78,11 @@ const toggle2 = () => {
 		template(v-else)
 			draggable(v-model="etapConditionList" tag="tbody" item-key="id")
 				template(#item="{ element }")
-					tr(scope='row' @click='toggle2')
+					tr(scope='row' @click='toggle1(element)')
 						td {{ element.role }}
 						td.btd {{ element.form }}
 						td.text-right
-							q-btn(flat round color="primary" icon='mdi-trash-can-outline' dense @click.stop="myform.removeCondition(element)" size='sm') 
+							q-btn(v-if='element.role !== myrole.currentRole' flat round color="primary" icon='mdi-trash-can-outline' dense @click.stop="myform.removeCondition(element)" size='sm') 
 
 	q-markup-table.second(bordered flat)
 		tbody
@@ -80,10 +90,10 @@ const toggle2 = () => {
 				td Все остальные
 				td(colspan="2") Нет доступа
 
-	q-btn.q-ma-md(v-if='myrole.roles.length > 0' unelevated color="primary" label="Добавить" @click="toggle1" size='sm') 
+	q-btn.q-ma-md(v-if='myrole.roles.length > 0' unelevated color="primary" label="Добавить" @click="toggle2" size='sm') 
 
-	ConditionDialog1(v-model="dialog1")
-	ConditionDialog2(v-model="dialog2")
+	ConditionDialogRow(v-model="dialogRow" :row='row')
+	ConditionDialogAdd(v-model="dialogAdd")
 
 </template>
 
