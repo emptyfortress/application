@@ -4,10 +4,10 @@ import { useRouter, useRoute } from 'vue-router'
 import { useStore } from '@/stores/store'
 import FieldList from '@/components/FieldList.vue'
 import { useStorage } from '@vueuse/core'
-import draggable from 'vuedraggable'
-import ConditionDialog1 from '@/components/ConditionDialog1.vue'
 import { useForms } from '@/stores/forms'
 import { useRoles } from '@/stores/roles'
+import WhatSee from '@/components/WhatSee.vue'
+import WhatSee1 from '@/components/WhatSee1.vue'
 
 const store = useStore()
 const myform = useForms()
@@ -26,48 +26,11 @@ const prop1 = [
 	{ id: 5, label: 'Реальная трудоемкость, руб' },
 ]
 
-const goto = (e: string) => {
-	router.push(`/${route.params.id}/editor/process/${e}`)
-}
-
-const goto1 = (e: string) => {
-	myform.newform = true
-	router.push(`/${route.params.id}/editor/process/${e}`)
-}
-
-const goto2 = (e: string) => {
-	myform.toggleZay()
-	myform.setZayForm(e)
-	router.push(`/${route.params.id}/editor/process/${e}`)
-}
 const app = useStorage('app', localStorage)
 
-const dialog = ref(false)
-
-const toggle = () => {
-	dialog.value = !dialog.value
-}
 const emulate = () => {
 	router.push('/emulate/1')
 }
-
-// TODO: сделать перетаскивание у списка
-const etapConditionList = computed(() => {
-	return myform.conditionList.filter((item: Condition) => {
-		return item.etap == myform.currentEtap
-	})
-})
-
-const calcFormName = computed(() => {
-	switch (myform.currentBO.name) {
-		case 'Создал Заявку':
-			return 'Создание'
-		case 'Принять результаты':
-			return 'Архив'
-		default:
-			return 'Просмотр'
-	}
-})
 </script>
 
 <template lang="pug">
@@ -94,40 +57,9 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO")
 				.text-bold(v-for="item in myform.currentBO.outgoing") {{ item.name }}
 
 	br
-	.q-mx-md(v-if='myform.currentBO.$type == "bpmn:Task" || myform.currentBO.$type == "bpmn:StartEvent"')
-		.text-bold Что видит пользователь?
-		q-markup-table(bordered flat)
-			thead
-				tr
-					th.text-left Роль
-					th.text-left Форма
-					th
-			template(v-if='app.text == "Заявка"')
-				tbody
-					tr.cursor-pointer
-						td {{ myrole.currentRole }}
-						td
-							span(@click.stop="goto2(calcFormName)") {{ calcFormName }}
-						td
-			template(v-else)
-				draggable(v-if='etapConditionList.length > 0' v-model="etapConditionList" tag="tbody" item-key="id")
-					template(#item="{ element }")
-						tr.cursor-pointer(scope='row' @click='toggle')
-							td {{ element.role }}
-							td 
-								span(@click.stop="goto(element.form)") {{ element.form }}
-							td.text-right
-								q-btn(flat round color="primary" icon='mdi-trash-can-outline' dense @click.stop="myform.removeCondition(element)" size='sm') 
+	WhatSee1(v-if='app.text == "Заявка" && (myform.currentBO.$type == "bpmn:Task" || myform.currentBO.$type == "bpmn:StartEvent")')
+	WhatSee(v-if='app.text !== "Заявка" && (myform.currentBO.$type == "bpmn:Task" || myform.currentBO.$type == "bpmn:StartEvent")')
 
-				tbody(v-else)
-					tr
-						td {{ myrole.currentRole}}
-						td(colspan='2')
-							q-btn(flat color="primary" label="Создать" @click.stop="goto1(myform.currentBO.name)" size='sm') 
-
-		q-btn.q-ma-md(v-if='myrole.rolesN.length > 0' unelevated color="primary" label="Добавить" @click="toggle" size='sm') 
-
-	ConditionDialog1(v-model="dialog")
 
 template(v-if="route.name == 'Процесс' && myform.currentBO == null")
 	q-card-section
@@ -161,7 +93,7 @@ template(v-if='route.name == "Роли"')
 
 .prev(v-if='route.name == "Процесс" || route.name == "Этап"')
 	q-btn.btn(v-if='myform.currentBO && myform.currentBO.$type == "bpmn:Task"' outline color="primary" icon='mdi-play' :label='myform.currentBO.name' @click='emulate') 
-	q-btn.btn(outline color="primary" icon='mdi-play' :label='app.text' @click='emulate') 
+	q-btn.btn(v-else outline color="primary" icon='mdi-play' :label='app.text' @click='emulate') 
 </template>
 
 <style scoped lang="scss">
@@ -182,9 +114,5 @@ template(v-if='route.name == "Роли"')
 	.btn {
 		margin: 0 0.25rem;
 	}
-}
-.btd span {
-	color: $primary;
-	text-decoration: underline;
 }
 </style>

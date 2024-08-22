@@ -88,9 +88,9 @@ onMounted(() => {
 	var exportArtifacts = debounce(async function () {
 		try {
 			console.log('save')
+			myflow.saveFlow(modeler._definitions.rootElements)
 			const { xml } = await modeler.saveXML({ format: false })
 			mydata.saveXML(xml)
-			myflow.saveFlow(modeler._definitions.rootElements)
 		} catch (err) {
 			console.error('Error happened saving XML: ', err)
 		}

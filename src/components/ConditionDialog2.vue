@@ -41,10 +41,6 @@ const add = () => {
 	modelValue.value = false
 }
 
-const select = (e: Role) => {
-	rolesChip.value.map((item) => (item.selected = false))
-	e.selected = !e.selected
-}
 const select1 = (e: any) => {
 	formsChip.value.map((item: any) => {
 		item.selected = false
@@ -52,73 +48,35 @@ const select1 = (e: any) => {
 	e.selected = true
 }
 
-// const uniqForm = computed(() => {
-// 	let list = myform.formList.map((item: Form) => ({
-// 		id: item.id,
-// 		name: item.name,
-// 		selected: item.selected,
-// 	}))
-// 	return [...new Set(list)]
-// })
-
-// const unusedRoles = computed(() => {
-// 	let cond = myform.conditionList
-// 		.filter((ro: Condition) => )
-// 		.map((el: Condition) => el.role)
-// 	return cond
-// })
-
-const rolesChip = ref(myrole.roles)
 const formsChip = ref(myform.formList)
 
 // reset chip selection
 watch(modelValue, (val) => {
 	if (val == false) {
-		rolesChip.value.map((item: any) => (item.selected = false))
 		formsChip.value.map((item: any) => (item.selected = false))
 	}
 })
 
 const ad = ref(false)
-const ad1 = ref(false)
 
 const addForm = () => {
 	myform.createForm(newForm.value)
 	clear()
 }
-const addRole = () => {
-	let tmp = {
-		id: uid(),
-		name: newRole.value,
-		selected: false,
-	}
-	myrole.addRole(tmp)
-	rolesChip.value.push(tmp)
-	clear()
-}
 const newForm = ref('')
-const newRole = ref('')
 
 const clear = () => {
 	ad.value = false
-	ad1.value = false
 	newForm.value = ''
-	newRole.value = ''
 }
 
-onKeyStroke('Enter', () => {
+const input = ref()
+onKeyStroke('Enter', (e) => {
 	if (ad.value == true && newForm.value.length > 2) {
 		addForm()
-	}
-	if (ad1.value == true && newRole.value.length > 2) {
-		addRole()
-	}
-})
-const target = templateRef('target')
-onKeyStroke('Escape', () => {
-	ad.value = !ad.value
-	if (ad.value == false) {
-		modelValue.value = false
+	} else {
+		e.preventDefault()
+		ad.value = true
 	}
 })
 </script>
@@ -129,18 +87,16 @@ q-dialog(v-model="modelValue" persistent)
 		q-btn.close(round color="negative" icon="mdi-close" v-close-popup)
 		q-card-section
 			.text-h6 Условие показа
-			.hd Выберите роль и назначьте ей форму для показа:
+			.hd Назначьте форму показа для выбранной роли:
 
 		q-form(@submit="add")
 			q-card-section
 				.grid
 					div
 						.text-bold Роли
-						q-chip(v-for="chip in rolesChip"
-							clickable
-							:label="chip.name"
-							v-model:selected="chip.selected"
-							:key="chip.id"
+						q-chip(
+							:label="myrole.currentRole"
+							selected
 							)
 					div
 						.text-bold Формы
@@ -154,15 +110,9 @@ q-dialog(v-model="modelValue" persistent)
 
 			br
 			q-card-actions.q-mx-sm.q-mb-md(align="right")
-				.rel1(v-if='props.addition')
-					q-btn(flat icon="mdi-plus-circle" color="primary" label="Добавить роль" @click="ad1 = true") 
-					q-input.newname(v-if='ad1' autofocus v-model="newRole" dense outlined bg-color="white")
-						template(v-slot:append)
-							q-btn(flat round icon="mdi-close" @click="clear" dense size='11px') 
-							q-btn(flat round icon="mdi-check" @click="addRole" dense size='11px') 
 				.rel
 					q-btn(flat icon="mdi-plus-circle" color="primary" label="Добавить форму" @click="ad = true") 
-					q-input.newname(v-if='ad' autofocus v-model="newForm" dense outlined bg-color="white")
+					q-input.newname(ref='input' v-if='ad' autofocus v-model="newForm" dense outlined bg-color="white")
 						template(v-slot:append)
 							q-btn(flat round icon="mdi-close" @click="clear" dense size='11px') 
 							q-btn(flat round icon="mdi-check" @click="addForm" dense size='11px') 
