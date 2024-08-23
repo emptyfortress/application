@@ -38,6 +38,7 @@ const add = () => {
 const select = (e: Role) => {
 	rolesChip.value.map((item) => (item.selected = false))
 	e.selected = !e.selected
+	other.value = false
 }
 const select1 = (e: any) => {
 	formsChip.value.map((item: any) => {
@@ -56,6 +57,7 @@ watch(modelValue, (val) => {
 	if (val) {
 		rolesChip.value.map((item: any) => (item.selected = false))
 		formsChip.value.map((item: any) => (item.selected = false))
+		other.value = false
 	}
 })
 
@@ -93,13 +95,17 @@ onKeyStroke('Enter', () => {
 		addRole()
 	}
 })
-const target = templateRef('target')
 onKeyStroke('Escape', () => {
-	ad.value = !ad.value
-	if (ad.value == false) {
-		modelValue.value = false
-	}
+	ad1.value = !ad1.value
 })
+onKeyStroke('Shift', () => {
+	ad.value = !ad.value
+})
+const other = ref(true)
+
+const selectOther = () => {
+	rolesChip.value.map((item) => (item.selected = false))
+}
 </script>
 
 <template lang="pug">
@@ -120,6 +126,12 @@ q-dialog(v-model="modelValue" persistent)
 							:label="chip.name"
 							v-model:selected="chip.selected"
 							:key="chip.id"
+							@click='select(chip)'
+							)
+						q-chip(
+							label='Все остальные'
+							v-model:selected='other'
+							@click='selectOther'
 							)
 					div
 						.text-bold Формы
