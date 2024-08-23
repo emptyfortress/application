@@ -25,16 +25,16 @@ const myflow = useFlow()
 
 const formsChip = ref(myform.formList)
 
-watch(modelValue, (val) => {
-	if (val && props.formselected) {
-		let tmp = formsChip.value.find((item) => {
-			item.form == props.formselected
-		})
-		if (!!tmp) {
-			tmp.selected = true
-		}
-	}
-})
+// watch(modelValue, (val) => {
+// 	if (val && props.formselected) {
+// 		let tmp = formsChip.value.find((item) => {
+// 			item.form == props.formselected
+// 		})
+// 		if (!!tmp) {
+// 			tmp.selected = true
+// 		}
+// 	}
+// })
 
 const selection1 = computed(() => {
 	return formsChip.value.filter((item: Form) => item.selected)
@@ -92,7 +92,6 @@ q-dialog(v-model="modelValue" persistent)
 		q-card-section
 			.text-h6 Условие показа
 			.hd Назначьте форму показа для выбранной роли:
-			pre {{ props.row }}
 
 		q-form(@submit="save")
 			q-card-section
