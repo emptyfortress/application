@@ -28,11 +28,11 @@ const formsChip = ref(myform.formList)
 watch(modelValue, (val) => {
 	if (val) {
 		let tmp = formsChip.value.find((el) => {
-			return el.name == props.row.form
+			return el.name == props.row!.form
 		})
 
 		formsChip.value.map((item) => (item.selected = false))
-		tmp.selected = true
+		tmp!.selected = true
 	}
 })
 

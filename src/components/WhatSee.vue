@@ -106,7 +106,7 @@ const set = (e: any) => {
 				td Все остальные
 				td
 					span(v-if='noset == null') Нет доступа
-					span.btd(v-else) {{ noset }}
+					span.btd(v-else @click='goto(noset)') {{ noset }}
 				td
 
 	q-btn.q-ma-md(v-if='etapConditionList.length > 0' unelevated color="primary" label="Добавить" @click="toggle2" size='sm') 
