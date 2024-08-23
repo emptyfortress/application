@@ -25,6 +25,7 @@ const etapConditionList = computed(() => {
 })
 
 const goto = (e: string) => {
+	myform.newform = true
 	router.push(`/${route.params.id}/editor/process/${e}`)
 }
 
