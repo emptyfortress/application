@@ -102,14 +102,12 @@ const set = (e: any) => {
 				td.text-right
 					q-btn(v-if='element.role !== myrole.currentRole' flat round color="primary" icon='mdi-trash-can-outline' dense @click.stop="myform.removeCondition(element)" size='sm') 
 
-	q-markup-table.second(bordered flat)
-		tbody
 			tr(@click='toggle3')
 				td Все остальные
 				td
 					span(v-if='noset == null') Нет доступа
 					span.btd(v-else) {{ noset }}
-				td la
+				td
 
 	q-btn.q-ma-md(v-if='etapConditionList.length > 0' unelevated color="primary" label="Добавить" @click="toggle2" size='sm') 
 
