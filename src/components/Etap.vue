@@ -57,6 +57,10 @@ const save = () => {
 		myform.addCondition(tmp)
 	}
 	myform.newform = false
+	let currentCondition = myform.conditionList.find((el: Condition) => {
+		return el.etap == myform.currentEtap && el.role == myrole.currentRole
+	})
+	currentCondition.form = name.value.toString()
 	router.back()
 	resetZay()
 }
