@@ -45,10 +45,6 @@ const toggle0 = () => {
 	row.value = null
 	dialogRow.value = !dialogRow.value
 }
-const toggle1 = (el: any) => {
-	row.value = el
-	dialogRow.value = !dialogRow.value
-}
 
 const formselected = ref('')
 const row = ref(null)
@@ -57,6 +53,10 @@ const toggle2 = () => {
 	dialogAdd.value = !dialogAdd.value
 }
 const el = ref()
+const toggle1 = (el: any) => {
+	row.value = el
+	dialogRow.value = !dialogRow.value
+}
 </script>
 
 <template lang="pug">
@@ -69,24 +69,22 @@ const el = ref()
 				th.text-left Форма
 				th
 
-		tbody(v-if='etapConditionList.length == 0')
-			tr(@click='toggle0')
+		tbody
+			tr(v-if='etapConditionList.length == 0' @click='toggle0')
 				td {{ myrole.currentRole}}
 				td
 				td
 
-		template(v-else)
-			draggable(v-model="etapConditionList" tag="tbody" item-key="id")
-				template(#item="{ element }")
-					tr(scope='row' @click='toggle1(element)')
-						td {{ element.role }}
-						td.btd {{ element.form }}
-						td.text-right
-							q-btn(v-if='element.role !== myrole.currentRole' flat round color="primary" icon='mdi-trash-can-outline' dense @click.stop="myform.removeCondition(element)" size='sm') 
+			template(v-else)
+				tr(v-for="element in etapConditionList" :key='element.id' @click='toggle1(element)')
+					td {{ element.role }}
+					td.btd {{ element.form }}
+					td.text-right
+						q-btn(v-if='element.role !== myrole.currentRole' flat round color="primary" icon='mdi-trash-can-outline' dense @click.stop="myform.removeCondition(element)" size='sm') 
 
 	q-markup-table.second(bordered flat)
 		tbody
-			tr
+			tr(@click='toggle3')
 				td Все остальные
 				td(colspan="2") Нет доступа
 

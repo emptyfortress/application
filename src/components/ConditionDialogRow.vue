@@ -98,7 +98,11 @@ q-dialog(v-model="modelValue" persistent)
 				.grid
 					div
 						.text-bold Роли
-						q-chip(
+						q-chip(v-if='props.row'
+							:label="props.row.role"
+							selected
+							)
+						q-chip(v-else
 							:label="myrole.currentRole"
 							selected
 							)
