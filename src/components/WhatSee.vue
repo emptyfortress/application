@@ -6,6 +6,7 @@ import { useStorage } from '@vueuse/core'
 import draggable from 'vuedraggable'
 import ConditionDialogRow from '@/components/ConditionDialogRow.vue'
 import ConditionDialogAdd from '@/components/ConditionDialogAdd.vue'
+import ConditionDialogOther from '@/components/ConditionDialogOther.vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useFlow } from '@/stores/flow'
 const store = useFlow()
@@ -47,7 +48,6 @@ const toggle0 = () => {
 	dialogRow.value = !dialogRow.value
 }
 
-const formselected = ref('')
 const row = ref(null)
 
 const toggle2 = () => {
@@ -58,12 +58,24 @@ const toggle1 = (el: any) => {
 	row.value = el
 	dialogRow.value = !dialogRow.value
 }
+
+const dialogOther = ref(false)
+const toggle3 = () => {
+	dialogOther.value = !dialogOther.value
+}
+
 const addedFirst = computed(() => {
 	let tmp = etapConditionList.value.find((item) => {
 		return item.role == myrole.currentRole
 	})
 	return tmp == undefined ? true : false
 })
+
+const noset = ref<null | string>(null)
+const set = (e: any) => {
+	console.log(e)
+	noset.value = e
+}
 </script>
 
 <template lang="pug">
@@ -85,7 +97,7 @@ const addedFirst = computed(() => {
 
 			tr(v-for="element in etapConditionList" :key='element.id' @click='toggle1(element)')
 				td {{ element.role }}
-				td.btd
+				td
 					span.btd(@click='goto(element.form)') {{ element.form }}
 				td.text-right
 					q-btn(v-if='element.role !== myrole.currentRole' flat round color="primary" icon='mdi-trash-can-outline' dense @click.stop="myform.removeCondition(element)" size='sm') 
@@ -94,12 +106,16 @@ const addedFirst = computed(() => {
 		tbody
 			tr(@click='toggle3')
 				td Все остальные
-				td(colspan="2") Нет доступа
+				td
+					span(v-if='noset == null') Нет доступа
+					span.btd(v-else) {{ noset }}
+				td la
 
 	q-btn.q-ma-md(v-if='etapConditionList.length > 0' unelevated color="primary" label="Добавить" @click="toggle2" size='sm') 
 
 	ConditionDialogRow(v-model="dialogRow" :row='row')
 	ConditionDialogAdd(v-model="dialogAdd")
+	ConditionDialogOther(v-model="dialogOther" @set='set')
 
 </template>
 
@@ -107,6 +123,7 @@ const addedFirst = computed(() => {
 .btd {
 	color: $primary;
 	text-decoration: underline;
+	text-align: left;
 }
 .selected {
 	background: var(--bg-selected);
