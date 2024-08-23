@@ -25,16 +25,16 @@ const myflow = useFlow()
 
 const formsChip = ref(myform.formList)
 
-// watch(modelValue, (val) => {
-// 	if (val && props.formselected) {
-// 		let tmp = formsChip.value.find((item) => {
-// 			item.form == props.formselected
-// 		})
-// 		if (!!tmp) {
-// 			tmp.selected = true
-// 		}
-// 	}
-// })
+watch(modelValue, (val) => {
+	if (val) {
+		let tmp = formsChip.value.find((el) => {
+			return el.name == props.row.form
+		})
+
+		formsChip.value.map((item) => (item.selected = false))
+		tmp.selected = true
+	}
+})
 
 const selection1 = computed(() => {
 	return formsChip.value.filter((item: Form) => item.selected)

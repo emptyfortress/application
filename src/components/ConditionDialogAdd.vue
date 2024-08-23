@@ -49,6 +49,18 @@ const select1 = (e: any) => {
 const rolesChip = computed(() => {
 	return myrole.roles.filter((item) => item.name !== myrole.currentRole)
 })
+
+const etapConditionList = computed(() => {
+	return myform.conditionList.filter((item: Condition) => {
+		return item.etap == myform.currentEtap
+	})
+})
+
+const rolesChip1 = computed(() => {
+	let active = etapConditionList.value.map((item) => item.role)
+	let filtered = myrole.roles.filter((role) => !active.includes(role.name))
+	return filtered
+})
 const formsChip = ref(myform.formList)
 
 // reset chip selection
@@ -114,7 +126,7 @@ q-dialog(v-model="modelValue" persistent)
 				.grid
 					div
 						.text-bold Роли
-						q-chip(v-for="chip in rolesChip"
+						q-chip(v-for="chip in rolesChip1"
 							clickable
 							:label="chip.name"
 							v-model:selected="chip.selected"

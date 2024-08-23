@@ -23,12 +23,13 @@ const etapConditionList = computed(() => {
 	})
 })
 
-// const goto = (e: string) => {
-// 	router.push(`/${route.params.id}/editor/process/${e}`)
-// }
+const goto = (e: string) => {
+	router.push(`/${route.params.id}/editor/process/${e}`)
+}
 
-const goto1 = (e: string) => {
+const goto1 = () => {
 	myform.newform = true
+	let e = myform.currentEtap
 	router.push(`/${route.params.id}/editor/process/${e}`)
 }
 
@@ -57,6 +58,12 @@ const toggle1 = (el: any) => {
 	row.value = el
 	dialogRow.value = !dialogRow.value
 }
+const addedFirst = computed(() => {
+	let tmp = etapConditionList.value.find((item) => {
+		return item.role == myrole.currentRole
+	})
+	return tmp == undefined ? true : false
+})
 </script>
 
 <template lang="pug">
@@ -70,17 +77,18 @@ const toggle1 = (el: any) => {
 				th
 
 		tbody
-			tr(v-if='etapConditionList.length == 0' @click='toggle0')
+			tr(v-if='addedFirst')
 				td {{ myrole.currentRole}}
 				td
+					q-btn(flat color="primary" label="Создать" @click.stop="goto1" size='sm') 
 				td
 
-			template(v-else)
-				tr(v-for="element in etapConditionList" :key='element.id' @click='toggle1(element)')
-					td {{ element.role }}
-					td.btd {{ element.form }}
-					td.text-right
-						q-btn(v-if='element.role !== myrole.currentRole' flat round color="primary" icon='mdi-trash-can-outline' dense @click.stop="myform.removeCondition(element)" size='sm') 
+			tr(v-for="element in etapConditionList" :key='element.id' @click='toggle1(element)')
+				td {{ element.role }}
+				td.btd
+					span.btd(@click='goto(element.form)') {{ element.form }}
+				td.text-right
+					q-btn(v-if='element.role !== myrole.currentRole' flat round color="primary" icon='mdi-trash-can-outline' dense @click.stop="myform.removeCondition(element)" size='sm') 
 
 	q-markup-table.second(bordered flat)
 		tbody
@@ -88,7 +96,7 @@ const toggle1 = (el: any) => {
 				td Все остальные
 				td(colspan="2") Нет доступа
 
-	q-btn.q-ma-md(v-if='myrole.roles.length > 0' unelevated color="primary" label="Добавить" @click="toggle2" size='sm') 
+	q-btn.q-ma-md(v-if='etapConditionList.length > 0' unelevated color="primary" label="Добавить" @click="toggle2" size='sm') 
 
 	ConditionDialogRow(v-model="dialogRow" :row='row')
 	ConditionDialogAdd(v-model="dialogAdd")
@@ -98,6 +106,7 @@ const toggle1 = (el: any) => {
 <style scoped lang="scss">
 .btd {
 	color: $primary;
+	text-decoration: underline;
 }
 .selected {
 	background: var(--bg-selected);
