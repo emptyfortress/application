@@ -28,20 +28,22 @@ export const useForms = defineStore('forms', () => {
 
 	// это кнопки на форме сверху ***********************
 	const bt = computed(() => {
-		let mybt = currentBO.value.outgoing.filter((item: any) => {
+		let mybt = currentBO.value.outgoing?.filter((item: any) => {
 			return item.name !== undefined
 		})
 		// return mybt
-		if (mybt.length > 0) return mybt
+		if (!!mybt && mybt.length > 0) return mybt
 		else if (
+			!!mybt &&
 			mybt.length == 0 &&
-			currentBO.value.outgoing[0].targetRef.$type == 'bpmn:ExclusiveGateway'
+			currentBO.value.outgoing[0]?.targetRef.$type == 'bpmn:ExclusiveGateway'
 		) {
-			let alsobt = currentBO.value.outgoing[0].targetRef.outgoing.filter((item: any) => {
+			let alsobt = currentBO.value.outgoing[0]?.targetRef.outgoing.filter((item: any) => {
 				return item.name !== undefined
 			})
 			return alsobt
-		} else if (mybt.length == 0) return []
+		} else if (!!mybt && mybt.length == 0) return []
+		else return []
 	})
 
 	const newform = ref(false)

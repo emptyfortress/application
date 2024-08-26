@@ -31,8 +31,10 @@ watch(modelValue, (val) => {
 			return el.name == props.row!.form
 		})
 
-		formsChip.value.map((item) => (item.selected = false))
-		tmp!.selected = true
+		formsChip.value?.map((item) => (item.selected = false))
+		if (tmp) {
+			tmp!.selected = true
+		}
 	}
 })
 
@@ -47,16 +49,15 @@ const select1 = (e: any) => {
 }
 
 const save = () => {
-	if (!!props.row) {
-		props.row.form = selection1.value[0].name
-	} else {
-		console.log('add')
+	if (props.row.form == '') {
 		myform.conditionList.push({
 			id: uid(),
 			etap: myform.currentEtap,
 			role: myrole.currentRole,
 			form: selection1.value[0].name,
 		})
+	} else {
+		props.row.form = selection1.value[0].name
 	}
 	modelValue.value = false
 }

@@ -65,6 +65,7 @@ const save = () => {
 	resetZay()
 }
 const back = () => {
+	myform.newform = false
 	router.back()
 	resetZay()
 }

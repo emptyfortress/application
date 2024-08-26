@@ -1,20 +1,24 @@
 <script setup lang="ts">
-import { ref, reactive, computed } from 'vue'
+import { ref, reactive, computed, onMounted } from 'vue'
 import { GridItem, GridLayout } from 'vue3-grid-layout-next'
 import FormSection from '@/components/FormSection.vue'
 import { useStore } from '@/stores/store'
 import { useLayoutStore } from '@/stores/layout'
-import { useStorage } from '@vueuse/core'
+import { useRouter, useRoute } from 'vue-router'
+// import { useStorage } from '@vueuse/core'
+// const app = useStorage('app', localStorage)
+
+const router = useRouter()
+const route = useRoute()
 
 const store = useStore()
 const lstore = useLayoutStore()
-const app = useStorage('app', localStorage)
+
+onMounted(() => {
+	console.log(route.params.etap)
+})
 
 const remove = (e: number) => {
-	console.log(e)
-	// let list = document.getElementsByClassName('vue-grid-item')
-	// let temp = Array.from(list)
-	// temp.forEach((el) => el.classList.add('move'))
 	lstore.removeSection(e)
 }
 
@@ -22,9 +26,6 @@ const green = ref(false)
 const red = ref(false)
 
 const onDragEnter = () => {
-	// if (lstore.dragType == 1) {
-	// 	green.value = true
-	// }
 	if (lstore.dragType == 5) {
 		red.value = true
 	} else green.value = true

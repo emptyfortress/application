@@ -25,11 +25,12 @@ const etapConditionList = computed(() => {
 })
 
 const goto = (e: string) => {
-	myform.newform = true
+	myform.zay = false
 	router.push(`/${route.params.id}/editor/process/${e}`)
 }
 
 const goto1 = () => {
+	myform.zay = false
 	myform.newform = true
 	let e = myform.currentEtap
 	router.push(`/${route.params.id}/editor/process/${e}`)
@@ -54,6 +55,15 @@ const row = ref(null)
 const toggle2 = () => {
 	dialogAdd.value = !dialogAdd.value
 }
+const toggleSecond = () => {
+	row.value = {
+		id: 'fuck',
+		etap: myform.currentEtap,
+		role: myrole.currentRole,
+		form: '',
+	}
+	dialogRow.value = !dialogRow.value
+}
 const el = ref()
 const toggle1 = (el: any) => {
 	row.value = el
@@ -66,6 +76,8 @@ const toggle3 = () => {
 }
 
 const addedFirst = computed(() => {
+	// return myform.formList.length > 0 ? false : true
+
 	let tmp = etapConditionList.value.find((item) => {
 		return item.role == myrole.currentRole
 	})
@@ -74,8 +86,14 @@ const addedFirst = computed(() => {
 
 const noset = ref<null | string>(null)
 const set = (e: any) => {
-	console.log(e)
 	noset.value = e
+}
+
+const calcBt = () => {
+	let tmp = etapConditionList.value.filter((el) => {
+		return el.etap == myform.currentEtap && el.role == myrole.currentRole
+	})
+	return tmp.form ? false : true
 }
 </script>
 
@@ -90,13 +108,14 @@ const set = (e: any) => {
 				th
 
 		tbody
-			tr(v-if='addedFirst')
+			tr(v-if='etapConditionList.length == 0' @click='toggleSecond')
 				td {{ myrole.currentRole}}
 				td
 					q-btn(flat color="primary" label="Создать" @click.stop="goto1" size='sm') 
+					// q-btn(v-if='myform.formList.length == 0' flat color="primary" label="Создать" @click.stop="goto1" size='sm') 
 				td
 
-			tr(v-for="element in etapConditionList" :key='element.id' @click='toggle1(element)')
+			tr(v-else v-for="element in etapConditionList" :key='element.id' @click='toggle1(element)')
 				td {{ element.role }}
 				td
 					span.btd(@click='goto(element.form)') {{ element.form }}
@@ -110,7 +129,7 @@ const set = (e: any) => {
 					span.btd(v-else @click='goto(noset)') {{ noset }}
 				td
 
-	q-btn.q-ma-md(v-if='etapConditionList.length > 0' unelevated color="primary" label="Добавить" @click="toggle2" size='sm') 
+	q-btn.q-ma-md(unelevated color="primary" label="Добавить" @click="toggle2" size='sm') 
 
 	ConditionDialogRow(v-model="dialogRow" :row='row')
 	ConditionDialogAdd(v-model="dialogAdd")
