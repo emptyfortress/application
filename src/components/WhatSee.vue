@@ -50,7 +50,7 @@ const toggle0 = () => {
 	dialogRow.value = !dialogRow.value
 }
 
-const row = ref(null)
+const row = ref<null | Condition>(null)
 
 const toggle2 = () => {
 	dialogAdd.value = !dialogAdd.value
@@ -87,13 +87,6 @@ const addedFirst = computed(() => {
 const noset = ref<null | string>(null)
 const set = (e: any) => {
 	noset.value = e
-}
-
-const calcBt = () => {
-	let tmp = etapConditionList.value.filter((el) => {
-		return el.etap == myform.currentEtap && el.role == myrole.currentRole
-	})
-	return tmp.form ? false : true
 }
 </script>
 

@@ -49,14 +49,14 @@ const select1 = (e: any) => {
 }
 
 const save = () => {
-	if (props.row.form == '') {
+	if (!!props.row && props.row.form == '') {
 		myform.conditionList.push({
 			id: uid(),
 			etap: myform.currentEtap,
 			role: myrole.currentRole,
 			form: selection1.value[0].name,
 		})
-	} else {
+	} else if (!!props.row) {
 		props.row.form = selection1.value[0].name
 	}
 	modelValue.value = false
