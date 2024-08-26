@@ -42,8 +42,8 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO")
 	q-card-section
 		h6.text-center {{ myform.currentBO.name }}
 	.grid
-		div id:
-		div {{ myform.currentBO.id}}
+		// div id:
+		// div {{ myform.currentBO.id}}
 		div Название:
 		.text-bold(v-if='myform.currentBO.$type == "bpmn:ExclusiveGateway"') Шлюз
 		.text-bold(v-else) {{ myform.currentBO.name }}
@@ -55,6 +55,8 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO")
 			div Исходы:
 			div
 				.text-bold(v-for="item in myform.currentBO.outgoing") {{ item.name }}
+			div Срок:
+			div 25 сентября 2024 г.
 
 	br
 	WhatSee1(v-if='app.text == "Заявка" && (myform.currentBO.$type == "bpmn:Task" || myform.currentBO.$type == "bpmn:StartEvent")')

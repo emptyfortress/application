@@ -19,6 +19,7 @@ const route = useRoute()
 		q-tab(name="lib" label="Библиотека" v-if="route.name == 'Этап'")
 		q-tab(name="role" label="Правила" v-if="route.name == 'Роли'")
 	q-separator
+
 	q-tab-panels(v-model="store.tabs" animated)
 		q-tab-panel(name="property")
 			CommonProp

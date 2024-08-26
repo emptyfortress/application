@@ -24,9 +24,13 @@ const etapConditionList = computed(() => {
 	})
 })
 
-const goto = (e: string) => {
+const goto = (e: Condition) => {
+	console.log(e)
 	myform.zay = false
-	router.push(`/${route.params.id}/editor/process/${e}`)
+	if (e.role !== myrole.currentRole) {
+		myform.notMain = true
+	}
+	router.push(`/${route.params.id}/editor/process/${e.form}`)
 }
 
 const goto1 = () => {
@@ -71,6 +75,7 @@ const toggle1 = (el: any) => {
 }
 
 const dialogOther = ref(false)
+
 const toggle3 = () => {
 	dialogOther.value = !dialogOther.value
 }
@@ -85,6 +90,7 @@ const addedFirst = computed(() => {
 })
 
 const noset = ref<null | string>(null)
+
 const set = (e: any) => {
 	noset.value = e
 }
@@ -111,7 +117,7 @@ const set = (e: any) => {
 			tr(v-else v-for="element in etapConditionList" :key='element.id' @click='toggle1(element)')
 				td {{ element.role }}
 				td
-					span.btd(@click='goto(element.form)') {{ element.form }}
+					span.btd(@click='goto(element)') {{ element.form }}
 				td.text-right
 					q-btn(v-if='element.role !== myrole.currentRole' flat round color="primary" icon='mdi-trash-can-outline' dense @click.stop="myform.removeCondition(element)" size='sm') 
 

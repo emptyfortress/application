@@ -63,9 +63,11 @@ const save = () => {
 	currentCondition!.form = name.value.toString()
 	router.back()
 	resetZay()
+	myform.notMain = false
 }
 const back = () => {
 	myform.newform = false
+	myform.notMain = false
 	router.back()
 	resetZay()
 }

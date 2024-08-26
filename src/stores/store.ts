@@ -12,7 +12,7 @@ export const useStore = defineStore('store', {
 		currentBlock: null as Block | null,
 		del: false,
 		dub: false,
-		tabs: 'role',
+		tabs: 'lib',
 		currentRole: {
 			id: 0,
 			label: 'Роль 1',

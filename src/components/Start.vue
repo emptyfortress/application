@@ -59,7 +59,7 @@ const goto = () => {
 			q-card-actions.q-mt-xl
 				q-btn(unelevated  icon="mdi-pencil" label="Настроить приложение" color="primary" @click="goto") 
 				q-space
-				q-btn(flat  icon="mdi-content-duplicate" label="Дублировать" color="primary" @click="store.dub = true") 
+				// q-btn(flat  icon="mdi-content-duplicate" label="Дублировать" color="primary" @click="store.dub = true") 
 				q-btn(unelevated color="negative" label="Удалить приложение" @click="store.del = true") 
 </template>
 

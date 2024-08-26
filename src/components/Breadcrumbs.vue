@@ -28,7 +28,7 @@ const calcTitle = (item: string) => {
 			return
 
 		case route.params.etap:
-			store.tabs = 'property'
+			store.tabs = 'lib'
 			return decodeURIComponent(route.params.etap.toString())
 
 		case route.params.req:
