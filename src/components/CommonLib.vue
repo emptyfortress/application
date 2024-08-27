@@ -73,12 +73,12 @@ const expanded = ref([true, true])
 
 <template lang="pug">
 q-list.q-mt-md
-	q-expansion-item(label="Шаблоны" expand-separator header-class="bold" v-model="expanded[0]")
+	q-expansion-item(label="Шаблоны" header-class="bold" v-model="expanded[0]")
 		.node(:draggable="true" @dragstart="dragStart(2)") Две колонки
 		.node(:draggable="true" @dragstart="dragStart(3)") Шапка и две колонки
 		.node(:draggable="true" @dragstart="dragStart(1)") Простой блок
 
-	q-expansion-item(label="Доступные поля" expand-separator header-class="bold" v-model="expanded[1]")
+	q-expansion-item.q-mt-lg(label="Доступные поля" header-class="bold" v-model="expanded[1]")
 		draggable(
 			class="list-group"
 			:list="list1"
@@ -92,11 +92,7 @@ q-list.q-mt-md
 				.node
 					.name {{ element.name }}
 
-		q-btn.q-mt-md(flat icon="mdi-plus-circle-outline" color="primary" @click="dialog = !dialog" label="Добавить поле") 
-
-	q-expansion-item(label="Элементы интерфейса" expand-separator header-class="bold")
-		.node(:draggable="true" @dragstart="dragStart(1)") Электронная подпись
-		.node(:draggable="true" @dragstart="dragStart(1)") Кнопка
+		q-btn.q-ma-md(unelevated icon="mdi-plus-circle-outline" color="primary" @click="dialog = !dialog" label="Добавить поле") 
 
 
 AddFieldDialog(v-model="dialog" @create="addField")

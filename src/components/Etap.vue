@@ -85,6 +85,7 @@ let start = [
 		h: 4,
 		i: 0,
 		selected: false,
+		fieldList: [],
 	},
 ]
 

@@ -4,8 +4,8 @@ import { defineStore } from 'pinia'
 // const myform = useForms()
 
 export const useLayoutStore = defineStore('layout', () => {
-	const index = ref(2)
-	const colNum = ref(12)
+	// const index = ref(2)
+	// const colNum = ref(12)
 	const dragType = ref(0)
 	const forms = ref([])
 	const layout = [
@@ -79,79 +79,12 @@ export const useLayoutStore = defineStore('layout', () => {
 		return fieldsVisible.value.length
 	})
 
-	const addSection = () => {
-		layout.push({
-			x: (layout.length * 3) % (colNum.value || 12),
-			y: layout.length + (colNum.value || 12), // puts it at the bottom
-			w: 3,
-			h: 3,
-			i: index.value,
-			selected: false,
-		})
-		index.value += 1
-	}
-	const removeSection = (e: number) => {
-		console.log('remove')
-		layout.splice(e, 1)
-	}
+	// const removeSection = (e: number) => {
+	// 	console.log('remove')
+	// 	layout.splice(e, 1)
+	// }
 	const setDragType = (e: number) => {
 		dragType.value = e
-	}
-
-	const addColumns = () => {
-		let col = {
-			x: 0,
-			y: layout.length + (colNum.value || 12), // puts it at the bottom
-			w: 6,
-			h: 3,
-			i: index.value,
-			selected: false,
-		}
-		index.value += 1
-		let col1 = {
-			x: 6,
-			y: layout.length + (colNum.value || 12), // puts it at the bottom
-			w: 6,
-			h: 3,
-			i: index.value,
-			selected: false,
-		}
-		index.value += 1
-		layout.push(col)
-		layout.push(col1)
-	}
-
-	const addHead = () => {
-		let col = {
-			x: 0,
-			y: layout.length + (colNum.value || 12), // puts it at the bottom
-			w: 12,
-			h: 3,
-			i: index.value,
-			selected: false,
-		}
-		index.value += 1
-		let col1 = {
-			x: 0,
-			y: layout.length + (colNum.value || 12), // puts it at the bottom
-			w: 6,
-			h: 3,
-			i: index.value,
-			selected: false,
-		}
-		index.value += 1
-		let col2 = {
-			x: 6,
-			y: layout.length + (colNum.value || 12), // puts it at the bottom
-			w: 6,
-			h: 3,
-			i: index.value,
-			selected: false,
-		}
-		index.value += 1
-		layout.push(col)
-		layout.push(col1)
-		layout.push(col2)
 	}
 
 	const unselectBlock = () => {
@@ -205,15 +138,15 @@ export const useLayoutStore = defineStore('layout', () => {
 		allLayouts,
 		saveLayout,
 
-		addSection,
-		removeSection,
+		// addSection,
+		// removeSection,
 		setDragType,
 		unselectBlock,
 		togglePreview,
 		calcMode,
 		setMode,
 		toggleMove,
-		addColumns,
-		addHead,
+		// addColumns,
+		// addHead,
 	}
 })

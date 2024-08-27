@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import { ref, reactive, computed, onMounted } from 'vue'
+import { ref, reactive, computed } from 'vue'
 import { GridItem, GridLayout } from 'vue3-grid-layout-next'
 import FormSection from '@/components/FormSection.vue'
 import { useStore } from '@/stores/store'
 import { useLayoutStore } from '@/stores/layout'
 import { useRouter, useRoute } from 'vue-router'
-// import { useStorage } from '@vueuse/core'
-// const app = useStorage('app', localStorage)
 
 interface Props {
 	x: number
@@ -15,6 +13,7 @@ interface Props {
 	h: number
 	i: number
 	selected: boolean
+	fieldList: Field[]
 }
 
 const props = defineProps<{
@@ -27,12 +26,8 @@ const route = useRoute()
 const store = useStore()
 const lstore = useLayoutStore()
 
-onMounted(() => {
-	console.log(route.params.etap)
-})
-
 const remove = (e: number) => {
-	lstore.removeSection(e)
+	props.layout.splice(e, 1)
 }
 
 const green = ref(false)
@@ -43,24 +38,86 @@ const onDragEnter = () => {
 		red.value = true
 	} else green.value = true
 }
+
 const onDragLeave = () => {
 	green.value = false
 	red.value = false
 }
+
+const index = ref(2)
+const colNum = ref(12)
+
 const onDrop = () => {
 	if (lstore.dragType == 1) {
-		lstore.addSection()
+		props.layout.push({
+			x: (props.layout.length * 3) % (colNum.value || 12),
+			y: props.layout.length + (colNum.value || 12), // puts it at the bottom
+			w: 3,
+			h: 3,
+			i: index.value,
+			selected: false,
+		})
+		index.value += 1
 	}
 	if (lstore.dragType == 2) {
-		lstore.addColumns()
+		let col = {
+			x: 0,
+			y: props.layout.length + (colNum.value || 12), // puts it at the bottom
+			w: 6,
+			h: 3,
+			i: index.value,
+			selected: false,
+		}
+		index.value += 1
+		let col1 = {
+			x: 6,
+			y: props.layout.length + (colNum.value || 12), // puts it at the bottom
+			w: 6,
+			h: 3,
+			i: index.value,
+			selected: false,
+		}
+		index.value += 1
+		props.layout.push(col)
+		props.layout.push(col1)
 	}
 	if (lstore.dragType == 3) {
-		lstore.addHead()
+		let col = {
+			x: 0,
+			y: props.layout.length + (colNum.value || 12), // puts it at the bottom
+			w: 12,
+			h: 3,
+			i: index.value,
+			selected: false,
+		}
+		index.value += 1
+		let col1 = {
+			x: 0,
+			y: props.layout.length + (colNum.value || 12), // puts it at the bottom
+			w: 6,
+			h: 3,
+			i: index.value,
+			selected: false,
+		}
+		index.value += 1
+		let col2 = {
+			x: 6,
+			y: props.layout.length + (colNum.value || 12), // puts it at the bottom
+			w: 6,
+			h: 3,
+			i: index.value,
+			selected: false,
+		}
+		index.value += 1
+		props.layout.push(col)
+		props.layout.push(col1)
+		props.layout.push(col2)
 	}
 	green.value = false
 	red.value = false
 	lstore.setDragType(0)
 }
+
 const calcClass = computed(() => {
 	if (green.value == true) return 'green'
 	if (red.value == true) return 'red'
@@ -120,7 +177,7 @@ GridLayout.list(
 				q-icon(name="mdi-arrow-all" color="grey" size='12px')
 			q-icon.close(name="mdi-close" color="grey" @click.stop="remove(index)" dense)
 
-			FormSection
+			FormSection(:list='props.layout[index].fieldList')
 
 </template>
 

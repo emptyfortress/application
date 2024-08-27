@@ -9,6 +9,7 @@ type Layout = {
 	h: number
 	i: number
 	selected: boolean
+	fieldList: Field[]
 }
 type Condition = {
 	id: string
@@ -26,8 +27,6 @@ type Role = {
 type Form = {
 	id: string
 	name: string
-	// etap: string
-	// role: string
 	selected: boolean
 }
 interface Option {
