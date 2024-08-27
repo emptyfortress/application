@@ -8,6 +8,19 @@ import { useRouter, useRoute } from 'vue-router'
 // import { useStorage } from '@vueuse/core'
 // const app = useStorage('app', localStorage)
 
+interface Props {
+	x: number
+	y: number
+	w: number
+	h: number
+	i: number
+	selected: boolean
+}
+
+const props = defineProps<{
+	layout: Props[]
+}>()
+
 const router = useRouter()
 const route = useRoute()
 
@@ -70,7 +83,7 @@ const height = computed(() => {
 
 <template lang="pug">
 GridLayout.list(
-	:layout.sync="lstore.layout"
+	:layout.sync="props.layout"
 	:col-num="12"
 	:row-height="30"
 	:is-draggable='true'
@@ -88,7 +101,7 @@ GridLayout.list(
 	@click='unselect'
 	)
 
-	GridItem(v-for="( item, index ) in lstore.layout"
+	GridItem(v-for="( item, index ) in props.layout"
 		:x="item.x"
 		:y="item.y"
 		:w="item.w"

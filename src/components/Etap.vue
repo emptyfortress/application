@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watchEffect, computed, nextTick } from 'vue'
+import { ref, watchEffect, computed, onBeforeMount, onMounted } from 'vue'
 import FormTop from '@/components/FormTop.vue'
 import FormLayout from '@/components/FormLayout.vue'
 import FormLayout1 from '@/components/FormLayout1.vue'
@@ -15,12 +15,12 @@ import { useRoles } from '@/stores/roles'
 import { uid } from 'quasar'
 
 const store = useStore()
-const lstore = useLayoutStore()
 const myform = useForms()
 const route = useRoute()
 const router = useRouter()
-const name = ref(route.params.etap)
+const name = ref(route.params.etap.toString())
 const dialog = ref(false)
+const lstore = useLayoutStore()
 
 const width = ref('100%')
 watchEffect(() => {
@@ -44,6 +44,7 @@ const resetZay = () => {
 	}, 100)
 }
 const myrole = useRoles()
+
 const save = () => {
 	if (myform.newform == true) {
 		myform.createForm(name.value.toString())
@@ -64,13 +65,43 @@ const save = () => {
 	router.back()
 	resetZay()
 	myform.notMain = false
+	lstore.saveLayout(name.value, startLayout.value)
 }
+
 const back = () => {
 	myform.newform = false
 	myform.notMain = false
 	router.back()
 	resetZay()
 }
+
+const startLayout = ref<Layout[]>([])
+
+let start = [
+	{
+		x: 1,
+		y: 0,
+		w: 10,
+		h: 4,
+		i: 0,
+		selected: false,
+	},
+]
+
+onMounted(() => {
+	if (myform.newform == true) {
+		startLayout.value = start
+	} else {
+		let tmp = lstore.allLayouts.find((el: LayoutSet) => {
+			return el.form == name.value
+		})
+		if (tmp !== undefined) {
+			startLayout.value = tmp.layout
+		} else {
+			startLayout.value = start
+		}
+	}
+})
 </script>
 
 <template lang="pug">
@@ -96,7 +127,7 @@ const back = () => {
 	.inner
 		FormTop(v-if='myform.showBt')
 		FormLayout1(v-if='myform.zay' :form='myform.zayform')
-		FormLayout(v-else)
+		FormLayout(v-else :layout='startLayout')
 
 chooseDialog(v-model="dialog" kind='form')
 </template>

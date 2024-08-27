@@ -1,3 +1,15 @@
+interface LayoutSet {
+	form: string
+	layout: Layout[]
+}
+type Layout = {
+	x: number
+	y: number
+	w: number
+	h: number
+	i: number
+	selected: boolean
+}
 type Condition = {
 	id: string
 	etap: string
