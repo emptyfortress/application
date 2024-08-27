@@ -7,7 +7,6 @@ export const useFlow = defineStore('flow', () => {
 	const saveFlow = (e: any) => {
 		flow.value = e
 		nextTick()
-		console.log('eeeee')
 		addLane()
 	}
 

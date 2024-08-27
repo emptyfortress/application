@@ -4,7 +4,7 @@ import { defineStore } from 'pinia'
 // const myform = useForms()
 
 export const useLayoutStore = defineStore('layout', () => {
-	// const index = ref(2)
+	const index = ref(2)
 	// const colNum = ref(12)
 	const dragType = ref(0)
 	const forms = ref([])
@@ -134,6 +134,7 @@ export const useLayoutStore = defineStore('layout', () => {
 		move,
 		preview,
 		forms,
+		index,
 
 		allLayouts,
 		saveLayout,

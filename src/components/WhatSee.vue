@@ -25,7 +25,6 @@ const etapConditionList = computed(() => {
 })
 
 const goto = (e: Condition) => {
-	console.log(e)
 	myform.zay = false
 	if (e.role !== myrole.currentRole) {
 		myform.notMain = true

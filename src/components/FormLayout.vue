@@ -44,7 +44,7 @@ const onDragLeave = () => {
 	red.value = false
 }
 
-const index = ref(2)
+// const index = ref(2)
 const colNum = ref(12)
 
 const onDrop = () => {
@@ -54,10 +54,11 @@ const onDrop = () => {
 			y: props.layout.length + (colNum.value || 12), // puts it at the bottom
 			w: 3,
 			h: 3,
-			i: index.value,
+			i: lstore.index,
 			selected: false,
+			fieldList: [],
 		})
-		index.value += 1
+		lstore.index += 1
 	}
 	if (lstore.dragType == 2) {
 		let col = {
@@ -65,19 +66,21 @@ const onDrop = () => {
 			y: props.layout.length + (colNum.value || 12), // puts it at the bottom
 			w: 6,
 			h: 3,
-			i: index.value,
+			i: lstore.index,
 			selected: false,
+			fieldList: [],
 		}
-		index.value += 1
+		lstore.index += 1
 		let col1 = {
 			x: 6,
 			y: props.layout.length + (colNum.value || 12), // puts it at the bottom
 			w: 6,
 			h: 3,
-			i: index.value,
+			i: lstore.index,
 			selected: false,
+			fieldList: [],
 		}
-		index.value += 1
+		lstore.index += 1
 		props.layout.push(col)
 		props.layout.push(col1)
 	}
@@ -87,28 +90,31 @@ const onDrop = () => {
 			y: props.layout.length + (colNum.value || 12), // puts it at the bottom
 			w: 12,
 			h: 3,
-			i: index.value,
+			i: lstore.index,
 			selected: false,
+			fieldList: [],
 		}
-		index.value += 1
+		lstore.index += 1
 		let col1 = {
 			x: 0,
 			y: props.layout.length + (colNum.value || 12), // puts it at the bottom
 			w: 6,
 			h: 3,
-			i: index.value,
+			i: lstore.index,
 			selected: false,
+			fieldList: [],
 		}
-		index.value += 1
+		lstore.index += 1
 		let col2 = {
 			x: 6,
 			y: props.layout.length + (colNum.value || 12), // puts it at the bottom
 			w: 6,
 			h: 3,
-			i: index.value,
+			i: lstore.index,
 			selected: false,
+			fieldList: [],
 		}
-		index.value += 1
+		lstore.index += 1
 		props.layout.push(col)
 		props.layout.push(col1)
 		props.layout.push(col2)
