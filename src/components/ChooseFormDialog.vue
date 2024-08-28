@@ -1,38 +1,16 @@
 <script setup lang="ts">
 import { ref, reactive, computed } from 'vue'
-import { requests } from '@/stores/tree'
 import { useForms } from '@/stores/forms'
 import { uid } from 'quasar'
 
-const props = defineProps({
-	kind: {
-		type: String,
-		required: true,
-		default: 'request',
-	},
-})
 const modelValue = defineModel<boolean>()
 
 const close = () => {
 	modelValue.value = false
 }
 
-const req = ref(requests)
-
 const myform = useForms()
-
-const temp = ref([])
-
-const chips = computed(() => {
-	switch (props.kind) {
-		case 'request':
-			return req.value
-		case 'view':
-			return req.value
-		default:
-			return temp.value
-	}
-})
+const chips = ref(myform.formList)
 
 const select = (e: any) => {
 	chips.value.map((item: any) => {
@@ -50,22 +28,11 @@ const emit = defineEmits(['load'])
 const loadForm = () => {
 	let tmp = chips.value.find((el) => el.selected)
 	if (!!tmp) {
-		emit('load', tmp.label)
+		emit('load', tmp.name)
 	}
 	close()
 	reset()
 }
-
-const name = computed(() => {
-	switch (props.kind) {
-		case 'request':
-			return 'запрос'
-		case 'view':
-			return 'представление'
-		default:
-			return 'форму'
-	}
-})
 </script>
 
 <template lang="pug">
@@ -73,13 +40,13 @@ q-dialog(v-model="modelValue")
 	q-card(style="min-width: 400px;")
 		q-btn.close(round color="negative" icon="mdi-close" v-close-popup)
 		q-card-section
-			.text-h6 Выбрать {{ name }} из доступных
+			.text-h6 Выбрать форму из доступных
 
 		q-form(@submit="loadForm")
 			q-card-section
 				q-chip(v-for="chip in chips"
 					clickable
-					:label="chip.label"
+					:label="chip.name"
 					v-model:selected="chip.selected"
 					:key="chip.id"
 					@click="select(chip)"

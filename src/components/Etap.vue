@@ -5,8 +5,8 @@ import FormLayout from '@/components/FormLayout.vue'
 import FormLayout1 from '@/components/FormLayout1.vue'
 import VueDraggableResizable from 'vue-draggable-resizable'
 import Toolbar from '@/components/Toolbar.vue'
+import ChooseFormDialog from '@/components/ChooseFormDialog.vue'
 import { useRoute, useRouter } from 'vue-router'
-import chooseDialog from '@/components/chooseDialog.vue'
 import { useLayoutStore } from '@/stores/layout'
 import { useStore } from '@/stores/store'
 import { useStorage } from '@vueuse/core'
@@ -109,7 +109,7 @@ onMounted(() => {
 
 const loadForm = (e: string) => {
 	let tmp = lstore.allLayouts.find((el) => el.form == e)
-	startLayout.value = [...tmp.layout]
+	if (!!tmp) startLayout.value = [...tmp.layout]
 }
 </script>
 
@@ -138,7 +138,7 @@ const loadForm = (e: string) => {
 		FormLayout1(v-if='myform.zay' :form='myform.zayform')
 		FormLayout(v-else :layout='startLayout')
 
-chooseDialog(v-model="dialog" kind='form' @load='loadForm')
+ChooseFormDialog(v-model="dialog" @load='loadForm')
 </template>
 
 <style scoped lang="scss">
