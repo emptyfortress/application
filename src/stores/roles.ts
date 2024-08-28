@@ -24,10 +24,15 @@ export const useRoles = defineStore('roles', () => {
 
 	const myform = useForms()
 	const currentRole = computed(() => {
-		if (myform.currentBO?.$type == 'bpmn:Task' || myform.currentBO?.$type == 'bpmn:StartEvent') {
-			return myform.currentBO.lanes[0].name
-		}
-		return null
+		return myform.currentBO.lanes[0].name
+		// if (
+		// 	myform.currentBO?.$type == 'bpmn:Task' ||
+		// 	myform.currentBO?.$type == 'bpmn:StartEvent' ||
+		// 	myform.currentBO?.$type == 'bmpn:EndEvent'
+		// ) {
+		// 	return myform.currentBO.lanes[0].name
+		// }
+		// return null
 	})
 
 	const selectedRole = ref<Role | null>(null)

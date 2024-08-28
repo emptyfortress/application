@@ -66,8 +66,7 @@ onMounted(() => {
 			myform.setCurrentBO(null)
 			// localStorage.setItem('bo', '')
 		} else {
-			let tmp = e.element.businessObject
-			// localStorage.setItem('bo', JSON.stringify(tmp))
+			// let tmp = e.element.businessObject
 			myform.setCurrentBO(e.element.businessObject)
 		}
 	})

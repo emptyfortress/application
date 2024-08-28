@@ -10,7 +10,11 @@ export const useForms = defineStore('forms', () => {
 	}
 
 	const currentEtap = computed(() => {
-		if (currentBO.value?.$type == 'bpmn:Task' || currentBO.value?.$type == 'bpmn:StartEvent') {
+		if (
+			currentBO.value?.$type == 'bpmn:Task' ||
+			currentBO.value?.$type == 'bpmn:StartEvent' ||
+			currentBO.value?.$type == 'bpmn:EndEvent'
+		) {
 			return currentBO.value.name
 		}
 		return null

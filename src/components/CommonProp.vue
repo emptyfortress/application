@@ -48,9 +48,9 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO")
 		.text-bold(v-if='myform.currentBO.$type == "bpmn:ExclusiveGateway"') Шлюз
 		.text-bold(v-else) {{ myform.currentBO.name }}
 
-		template(v-if='myform.currentBO.$type == "bpmn:Task" || myform.currentBO.$type == "bpmn:StartEvent" || myform.currentBO.$type == "bpmn:EndEvent" || myform.currentBO.$type == "bpmn:ExclusiveGateway"')
+		template(v-if='myform.currentBO.$type == "bpmn:Task" || myform.currentBO.$type == "bpmn:StartEvent" || myform.currentBO.$type == "bpmn:EndEvent"')
 			div Исполнитель:
-			.text-bold {{ myrole.currentRole }}
+			.text-bold {{myrole.currentRole}}
 
 			div Исходы:
 			div
@@ -60,7 +60,7 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO")
 
 	br
 	WhatSee1(v-if='app.text == "Заявка" && (myform.currentBO.$type == "bpmn:Task" || myform.currentBO.$type == "bpmn:StartEvent")')
-	WhatSee(v-if='app.text !== "Заявка" && (myform.currentBO.$type == "bpmn:Task" || myform.currentBO.$type == "bpmn:StartEvent")')
+	WhatSee(v-if='app.text !== "Заявка" && (myform.currentBO.$type == "bpmn:Task" || myform.currentBO.$type == "bpmn:StartEvent") || myform.currentBO.$type == "bpmn:EndEvent"')
 
 
 template(v-if="route.name == 'Процесс' && myform.currentBO == null")

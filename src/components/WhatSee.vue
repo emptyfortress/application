@@ -39,12 +39,6 @@ const goto1 = () => {
 	router.push(`/${route.params.id}/editor/process/${e}`)
 }
 
-// const goto2 = (e: string) => {
-// 	myform.toggleZay()
-// 	myform.setZayForm(e)
-// 	router.push(`/${route.params.id}/editor/process/${e}`)
-// }
-
 const dialogRow = ref(false)
 const dialogAdd = ref(false)
 
