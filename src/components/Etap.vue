@@ -46,7 +46,6 @@ const resetZay = () => {
 const myrole = useRoles()
 
 const save = () => {
-	console.log('first save')
 	if (myform.newform == true) {
 		myform.createForm(name.value.toString())
 		let tmp = {
@@ -58,7 +57,6 @@ const save = () => {
 		myform.newform = false
 		myform.addCondition(tmp)
 	} else {
-		console.log(222)
 		let currentCondition = myform.conditionList.find((el: Condition) => {
 			return el.etap == myform.currentEtap && el.role == myrole.currentRole
 		})
@@ -66,7 +64,6 @@ const save = () => {
 		myform.notMain = false
 		myform.newform = false
 	}
-	console.log(333)
 	lstore.saveLayout(name.value, startLayout.value)
 	router.back()
 	resetZay()

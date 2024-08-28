@@ -128,7 +128,6 @@ export const useLayoutStore = defineStore('layout', () => {
 			}
 			allLayouts.value.push(tmp)
 		}
-		console.log(allLayouts.value)
 	}
 
 	return {
