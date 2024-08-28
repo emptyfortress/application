@@ -91,16 +91,12 @@ let start = [
 ]
 
 onMounted(() => {
-	if (myform.newform == true) {
-		startLayout.value = start
-	} else {
-		let tmp = lstore.allLayouts.find((el: LayoutSet) => el.form == name.value)
+	let tmp = lstore.allLayouts.find((el: LayoutSet) => el.form == name.value)
 
-		if (tmp !== undefined) {
-			startLayout.value = [...tmp.layout]
-		} else {
-			startLayout.value = [...start]
-		}
+	if (tmp !== undefined) {
+		startLayout.value = [...tmp.layout]
+	} else {
+		startLayout.value = [...start]
 	}
 })
 
