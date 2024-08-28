@@ -1,13 +1,16 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, computed, watch } from 'vue'
 import draggable from 'vuedraggable'
-import { onClickOutside } from '@vueuse/core'
+import { useForms } from '@/stores/forms'
 import { useStore } from '@/stores/store'
+
+import { onClickOutside } from '@vueuse/core'
 
 const props = defineProps<{
 	list: Field[]
 }>()
 
+const myform = useForms()
 // const list2 = ref<Field[]>(props.list)
 // const list2 = ref<Field[]>([])
 // const list3 = ref([
@@ -89,6 +92,20 @@ const select = (e: Field) => {
 const remove = (e: number) => {
 	props.list.splice(e, 1)
 }
+const type = computed(() => {
+	if (myform.currentBO.$type == 'bpmn:StartEvent') {
+		return true
+	}
+	return false
+})
+
+const unselect = () => {
+	props.list.map((item: Field) => {
+		item.selected = false
+	})
+}
+const node = ref()
+onClickOutside(node, (event) => unselect())
 </script>
 
 <template lang="pug">
@@ -103,8 +120,12 @@ draggable(
 	itemKey="id")
 
 	template(#item="{ element, index }")
-		.node1(@click="select(element)" :class="{selected: element.selected}")
-			FormKit(:type="element.type" :label="element.label" :placeholder="element.typ" :options="element.options")
+		.node1(ref='node' @click="select(element)" :class="{selected: element.selected}")
+			FormKit(v-if='type' :type="element.type" :label="element.label" :placeholder="element.typ" :options="element.options")
+			.row.items-center.q-gutter-x-lg(v-else)
+				label {{ element.label }}:
+				.val {{ element.typ }}
+
 			.bt
 				q-btn(dense flat icon="mdi-close" @click="remove(index)" size="sm") 
 </template>
@@ -153,5 +174,10 @@ draggable(
 	margin: 1rem;
 	text-align: center;
 	color: #bbb;
+}
+.val {
+	color: $primary;
+	border-bottom: 1px dotted $primary;
+	cursor: pointer;
 }
 </style>
