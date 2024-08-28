@@ -110,17 +110,20 @@ const set = (e: any) => {
 				td {{ myrole.currentRole}}
 				td
 					q-btn(flat color="primary" label="Создать" @click.stop="goto1" size='sm') 
-					// q-btn(v-if='myform.formList.length == 0' flat color="primary" label="Создать" @click.stop="goto1" size='sm') 
+						q-tooltip Создать форму и перейти к ее редактированию
 				td.text-right
 					q-icon(name="mdi-chevron-right" color="primary" size='sm')
+						q-tooltip Назначить условие показа
 
 			tr(v-else v-for="element in etapConditionList" :key='element.id' @click='toggle1(element)')
 				td {{ element.role }}
 				td
 					span.btd(@click='goto(element)') {{ element.form }}
+						q-tooltip Редактировать форму
 				td.text-right
 					q-btn(v-if='element.role !== myrole.currentRole' flat round color="primary" icon='mdi-trash-can-outline' dense @click.stop="myform.removeCondition(element)" size='sm') 
 					q-icon(name="mdi-chevron-right" color="primary" size='sm')
+						q-tooltip Назначить условие показа
 
 			tr(@click='toggle3')
 				td Все остальные
@@ -129,6 +132,7 @@ const set = (e: any) => {
 					span.btd(v-else @click='goto(noset)') {{ noset }}
 				td.text-right
 					q-icon(name="mdi-chevron-right" color="primary" size='sm')
+						q-tooltip Назначить условие показа
 
 	q-btn.q-ma-md(unelevated color="primary" label="Добавить" @click="toggle2" size='sm') 
 

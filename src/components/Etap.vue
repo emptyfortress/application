@@ -133,6 +133,8 @@ const loadForm = (e: string) => {
 			q-btn(flat color="primary" label="Отмена" @click="back") 
 			q-btn(v-if='myform.formList.length > 0' flat color="primary" icon="mdi-content-duplicate" label="Скопировать форму" @click="dialog = !dialog") 
 			q-btn(flat color="primary" label="Сохранить" @click="save") 
+			q-btn(flat round dense color="primary" icon='mdi-undo') 
+			q-btn(flat round dense color="primary" icon='mdi-redo') 
 	.inner
 		FormTop(v-if='myform.showBt')
 		FormLayout1(v-if='myform.zay' :form='myform.zayform')

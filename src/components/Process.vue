@@ -103,6 +103,10 @@ onMounted(() => {
 
 <template lang="pug">
 .canvas(ref="canvas")
+	.undo
+		q-btn(flat round dense color="primary" icon='mdi-undo') 
+		q-btn(flat round dense color="primary" icon='mdi-redo') 
+
 </template>
 
 <style scoped lang="scss">
@@ -148,5 +152,10 @@ onMounted(() => {
 }
 :deep(.bpmn-icon-lasso-tool) {
 	display: none;
+}
+.undo {
+	position: absolute;
+	top: 0;
+	right: 0;
 }
 </style>
