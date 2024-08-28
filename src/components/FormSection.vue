@@ -79,16 +79,16 @@ const store = useStore()
 // 	}
 // )
 
-// const select = (e: Field) => {
-// 	list2.value.map((item: Field) => {
-// 		item.selected = false
-// 	})
-// 	e.selected = !e.selected
-// 	store.setField(e)
-// }
-// const remove = (e: number) => {
-// 	list2.value.splice(e, 1)
-// }
+const select = (e: Field) => {
+	props.list.map((item: Field) => {
+		item.selected = false
+	})
+	e.selected = !e.selected
+	store.setField(e)
+}
+const remove = (e: number) => {
+	props.list.splice(e, 1)
+}
 </script>
 
 <template lang="pug">

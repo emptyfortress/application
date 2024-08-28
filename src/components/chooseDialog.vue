@@ -18,7 +18,7 @@ const close = () => {
 	modelValue.value = false
 }
 
-const emit = defineEmits(['choose'])
+// const emit = defineEmits(['choose'])
 
 const req = ref(requests)
 
@@ -62,8 +62,12 @@ const reset = () => {
 // })
 const store = useStore()
 
+const emit = defineEmits(['load'])
 const loadForm = () => {
-	store.selectForm()
+	let tmp = chips.value.filter((el) => el.selected)
+	if (!!tmp) {
+		emit('load', tmp[0].name)
+	}
 	close()
 	reset()
 }
@@ -90,7 +94,7 @@ q-dialog(v-model="modelValue")
 		q-card-section
 			.text-h6 Выбрать {{ name }} из доступных
 
-		q-form(@submit="loadForm" )
+		q-form(@submit="loadForm")
 			q-card-section
 				q-chip(v-for="chip in chips"
 					clickable

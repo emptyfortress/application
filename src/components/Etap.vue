@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watchEffect, computed, onBeforeMount, onMounted } from 'vue'
+import { ref, watchEffect, computed, onMounted } from 'vue'
 import FormTop from '@/components/FormTop.vue'
 import FormLayout from '@/components/FormLayout.vue'
 import FormLayout1 from '@/components/FormLayout1.vue'
@@ -46,26 +46,30 @@ const resetZay = () => {
 const myrole = useRoles()
 
 const save = () => {
+	console.log('first save')
 	if (myform.newform == true) {
 		myform.createForm(name.value.toString())
-		myform.newform = false
 		let tmp = {
 			id: uid(),
 			etap: myform.currentBO.name,
 			role: myrole.currentRole,
 			form: name.value.toString(),
 		}
+		myform.newform = false
 		myform.addCondition(tmp)
+	} else {
+		console.log(222)
+		let currentCondition = myform.conditionList.find((el: Condition) => {
+			return el.etap == myform.currentEtap && el.role == myrole.currentRole
+		})
+		currentCondition!.form = name.value.toString()
+		myform.notMain = false
+		myform.newform = false
 	}
-	myform.newform = false
-	let currentCondition = myform.conditionList.find((el: Condition) => {
-		return el.etap == myform.currentEtap && el.role == myrole.currentRole
-	})
-	currentCondition!.form = name.value.toString()
+	console.log(333)
+	lstore.saveLayout(name.value, startLayout.value)
 	router.back()
 	resetZay()
-	myform.notMain = false
-	lstore.saveLayout(name.value, startLayout.value)
 }
 
 const back = () => {
@@ -93,16 +97,20 @@ onMounted(() => {
 	if (myform.newform == true) {
 		startLayout.value = start
 	} else {
-		let tmp = lstore.allLayouts.find((el: LayoutSet) => {
-			return el.form == name.value
-		})
+		let tmp = lstore.allLayouts.find((el: LayoutSet) => el.form == name.value)
+
 		if (tmp !== undefined) {
-			startLayout.value = tmp.layout
+			startLayout.value = [...tmp.layout]
 		} else {
-			startLayout.value = start
+			startLayout.value = [...start]
 		}
 	}
 })
+
+const loadForm = (e: string) => {
+	let tmp = lstore.allLayouts.find((el) => el.form == e)
+	startLayout.value = [...tmp.layout]
+}
 </script>
 
 <template lang="pug">
@@ -123,14 +131,14 @@ onMounted(() => {
 				q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
 		div
 			q-btn(flat color="primary" label="Отмена" @click="back") 
-			q-btn(v-if='myform.formList.length > 0' flat color="primary" icon="mdi-content-duplicate" label="Выбрать форму" @click="dialog = !dialog") 
+			q-btn(v-if='myform.formList.length > 0' flat color="primary" icon="mdi-content-duplicate" label="Скопировать форму" @click="dialog = !dialog") 
 			q-btn(flat color="primary" label="Сохранить" @click="save") 
 	.inner
 		FormTop(v-if='myform.showBt')
 		FormLayout1(v-if='myform.zay' :form='myform.zayform')
 		FormLayout(v-else :layout='startLayout')
 
-chooseDialog(v-model="dialog" kind='form')
+chooseDialog(v-model="dialog" kind='form' @load='loadForm')
 </template>
 
 <style scoped lang="scss">

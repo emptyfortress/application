@@ -1,5 +1,6 @@
 import { ref, computed, reactive } from 'vue'
 import { defineStore } from 'pinia'
+// import { uid } from 'quasar'
 // import { useForms } from '@/stores/forms'
 // const myform = useForms()
 
@@ -117,11 +118,17 @@ export const useLayoutStore = defineStore('layout', () => {
 	const allLayouts = ref<LayoutSet[]>([])
 
 	const saveLayout = (e: string, l: Layout[]) => {
-		let tmp = {
-			form: e,
-			layout: l,
+		let old = allLayouts.value.find((el) => el.form == e)
+		if (!!old) {
+			old.layout = [...l]
+		} else {
+			let tmp = {
+				form: e,
+				layout: [...l],
+			}
+			allLayouts.value.push(tmp)
 		}
-		allLayouts.value.push(tmp)
+		console.log(allLayouts.value)
 	}
 
 	return {
