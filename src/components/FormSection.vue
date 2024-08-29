@@ -21,7 +21,7 @@ const remove = (e: number) => {
 	props.list.splice(e, 1)
 }
 const type = computed(() => {
-	if (myform.currentBO.$type == 'bpmn:StartEvent') {
+	if (!!myform.currentBO && myform.currentBO.$type == 'bpmn:StartEvent') {
 		return true
 	}
 	return false
@@ -47,6 +47,7 @@ draggable(
 	template(#item="{ element, index }")
 		.node1(ref='node' @click="select(element)" :class="{selected: element.selected}")
 			FormKit(v-if='type' :type="element.type" :label="element.label" :placeholder="element.typ" :options="element.options")
+
 			.row.items-center.q-gutter-x-lg(v-else)
 				label {{ element.label }}:
 				.val {{ element.typ }}

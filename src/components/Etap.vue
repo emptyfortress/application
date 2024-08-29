@@ -46,23 +46,25 @@ const resetZay = () => {
 const myrole = useRoles()
 
 const save = () => {
-	if (myform.newform == true) {
-		myform.createForm(name.value.toString())
-		let tmp = {
-			id: uid(),
-			etap: myform.currentBO.name,
-			role: myrole.currentRole,
-			form: name.value.toString(),
+	if (!!myform.currentBO) {
+		if (myform.newform == true) {
+			myform.createForm(name.value.toString())
+			let tmp = {
+				id: uid(),
+				etap: myform.currentBO.name,
+				role: myrole.currentRole,
+				form: name.value.toString(),
+			}
+			myform.newform = false
+			myform.addCondition(tmp)
+		} else {
+			let currentCondition = myform.conditionList.find((el: Condition) => {
+				return el.etap == myform.currentEtap && el.role == myrole.currentRole
+			})
+			currentCondition!.form = name.value.toString()
+			myform.notMain = false
+			myform.newform = false
 		}
-		myform.newform = false
-		myform.addCondition(tmp)
-	} else {
-		let currentCondition = myform.conditionList.find((el: Condition) => {
-			return el.etap == myform.currentEtap && el.role == myrole.currentRole
-		})
-		currentCondition!.form = name.value.toString()
-		myform.notMain = false
-		myform.newform = false
 	}
 	lstore.saveLayout(name.value, startLayout.value)
 	router.back()
@@ -130,8 +132,9 @@ const loadForm = (e: string) => {
 			q-btn(flat round dense color="primary" icon='mdi-redo') 
 	.inner
 		FormTop(v-if='myform.showBt')
-		FormLayout1(v-if='myform.zay' :form='myform.zayform')
-		FormLayout(v-else :layout='startLayout')
+		FormLayout(:layout='startLayout')
+		// FormLayout1(v-if='myform.zay' :form='myform.zayform')
+		// FormLayout(v-else :layout='startLayout')
 
 ChooseFormDialog(v-model="dialog" @load='loadForm')
 </template>

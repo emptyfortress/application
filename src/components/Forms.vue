@@ -43,7 +43,7 @@ const calcCondition = (e: string) => {
 					q-item-label {{ form.name }}
 				q-item-section(side)
 					.row.q-gutter-x-sm
-						q-btn(flat round icon='mdi-pencil-outline' color='primary' dense size='sm' @click.stop='goto(form.label)') 
+						q-btn(flat round icon='mdi-pencil-outline' color='primary' dense size='sm' @click.stop='goto(form.name)') 
 						q-btn(flat round icon='mdi-content-duplicate' color='primary' dense size='sm' @click.stop='') 
 						q-btn(flat round icon='mdi-trash-can-outline' color='primary' dense size='sm' @click.stop='') 
 			q-card
