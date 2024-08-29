@@ -2,7 +2,6 @@
 import { ref, computed, watch } from 'vue'
 import draggable from 'vuedraggable'
 import { useForms } from '@/stores/forms'
-import { useStore } from '@/stores/store'
 
 import { onClickOutside } from '@vueuse/core'
 
@@ -11,83 +10,12 @@ const props = defineProps<{
 }>()
 
 const myform = useForms()
-// const list2 = ref<Field[]>(props.list)
-// const list2 = ref<Field[]>([])
-// const list3 = ref([
-// 	{
-// 		id: 0,
-// 		label: 'Поле 1',
-// 		name: 'Поле 1',
-// 		type: 'text',
-// 		typ: 'Placeholder',
-// 		visible: true,
-// 		readonly: false,
-// 		selected: false,
-// 	},
-// 	{
-// 		id: 1,
-// 		type: 'select',
-// 		typ: 'Сотрудник',
-// 		label: 'Автор',
-// 		name: 'Автор',
-// 		visible: true,
-// 		readonly: true,
-// 		options: ['Иванов', 'Петров', 'Орлов'],
-// 		selected: false,
-// 	},
-// 	{
-// 		id: 2,
-// 		type: 'date',
-// 		typ: 'Дата',
-// 		label: 'Дата создания',
-// 		name: 'Дата создания',
-// 		visible: true,
-// 		readonly: true,
-// 		selected: false,
-// 	},
-// 	{
-// 		id: 3,
-// 		label: 'Поле 2',
-// 		name: 'Поле 2',
-// 		type: 'text',
-// 		typ: 'Placeholder',
-// 		visible: true,
-// 		readonly: false,
-// 		selected: false,
-// 	},
-// ])
-
-const store = useStore()
-
-// watch(
-// 	() => store.formSelected,
-// 	() => {
-// 		if (store.formSelected == true) {
-// 			list2.value = [...list3.value]
-// 			store.unselectForm()
-// 			store.setField(null)
-// 		}
-// 	}
-// )
-
-// watch(
-// 	() => store.currentBlock,
-// 	() => {
-// 		if (store.currentBlock == null) {
-// 			list2.value.map((item: Field) => {
-// 				item.selected = false
-// 			})
-// 			store.setField(null)
-// 		}
-// 	}
-// )
 
 const select = (e: Field) => {
 	props.list.map((item: Field) => {
 		item.selected = false
 	})
 	e.selected = !e.selected
-	store.setField(e)
 }
 const remove = (e: number) => {
 	props.list.splice(e, 1)
@@ -109,9 +37,6 @@ onClickOutside(node, (event) => unselect())
 </script>
 
 <template lang="pug">
-.drophere(v-if="props.list.length == 0")
-	div Перетащите сюда нужное поле из библиотеки справа.
-
 draggable(
 	class="list-group"
 	:list="props.list"
@@ -170,14 +95,20 @@ draggable(
 	bottom: 3px;
 	cursor: pointer;
 }
-.drophere {
-	margin: 1rem;
-	text-align: center;
-	color: #bbb;
-}
 .val {
 	color: $primary;
 	border-bottom: 1px dotted $primary;
 	cursor: pointer;
+}
+.list-group:empty {
+	padding: 1rem;
+	padding-bottom: 100px;
+	text-align: center;
+	&::before {
+		content: 'Перетащите сюда нужное поле из библиотеки справа.';
+		color: #bbb;
+		font-size: 0.85rem;
+		font-style: italic;
+	}
 }
 </style>
