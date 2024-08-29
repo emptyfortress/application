@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, reactive, computed, watch, onMounted } from 'vue'
-import { useStore } from '@/stores/store'
 import { useForms } from '@/stores/forms'
 import { useRoles } from '@/stores/roles'
 import { useFlow } from '@/stores/flow'
@@ -14,40 +13,13 @@ const myform = useForms()
 const myrole = useRoles()
 const myflow = useFlow()
 
-const selection = computed(() => {
-	return rolesChip.value.filter((item: Role) => item.selected)
-})
+const formsChip = ref(myform.formList)
 
-const selection1 = computed(() => {
-	return formsChip.value.filter((item: Form) => item.selected)
-})
-
-const store = useStore()
-
-const add = () => {
-	let tmp = {
-		id: uid(),
-		etap: myform.currentBO.name,
-		role: selection.value[0].name,
-		form: selection1.value[0].name,
-	}
-	myform.addCondition(tmp)
-	modelValue.value = false
-}
-
-const select = (e: Role) => {
-	rolesChip.value.map((item) => (item.selected = false))
-	e.selected = !e.selected
-}
-const select1 = (e: any) => {
-	formsChip.value.map((item: any) => {
-		item.selected = false
-	})
-	e.selected = true
-}
-
-const rolesChip = computed(() => {
-	return myrole.roles.filter((item) => item.name !== myrole.currentRole)
+const rolesChip1 = computed(() => {
+	const active = etapConditionList.value.map((item) => item.role)
+	const flatActive = active.flat()
+	let filtered = myrole.roles.filter((role) => !flatActive.includes(role.name))
+	return filtered
 })
 
 const etapConditionList = computed(() => {
@@ -56,17 +28,42 @@ const etapConditionList = computed(() => {
 	})
 })
 
-const rolesChip1 = computed(() => {
-	let active = etapConditionList.value.map((item) => item.role)
-	let filtered = myrole.roles.filter((role) => !active.includes(role.name))
-	return filtered
+// *********************
+
+const selectionRoles = computed(() => {
+	return rolesChip1.value.filter((item: Role) => item.selected)
 })
-const formsChip = ref(myform.formList)
+
+const selectionForms = computed(() => {
+	return formsChip.value.filter((item: Form) => item.selected)
+})
+
+const calcRoles = computed(() => {
+	return selectionRoles.value.map((el) => el.name)
+})
+
+const add = () => {
+	let tmp = {
+		id: uid(),
+		etap: myform.currentBO.name,
+		role: calcRoles.value,
+		form: selectionForms.value[0].name,
+	}
+	myform.addCondition(tmp)
+	modelValue.value = false
+}
+
+const selectForm = (e: any) => {
+	formsChip.value.map((item: any) => {
+		item.selected = false
+	})
+	e.selected = true
+}
 
 // reset chip selection
 watch(modelValue, (val) => {
 	if (val) {
-		rolesChip.value.map((item: any) => (item.selected = false))
+		rolesChip1.value.map((item: any) => (item.selected = false))
 		formsChip.value.map((item: any) => (item.selected = false))
 	}
 })
@@ -131,7 +128,6 @@ q-dialog(v-model="modelValue" persistent)
 							:label="chip.name"
 							v-model:selected="chip.selected"
 							:key="chip.id"
-							@click='select(chip)'
 							)
 					div
 						.text-bold Формы
@@ -140,7 +136,7 @@ q-dialog(v-model="modelValue" persistent)
 							:label="chip.name"
 							v-model:selected="chip.selected"
 							:key="chip.id"
-							@click='select1(chip)'
+							@click='selectForm(chip)'
 							)
 
 			br

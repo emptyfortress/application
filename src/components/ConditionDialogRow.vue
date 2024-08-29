@@ -10,7 +10,7 @@ import { templateRef } from '@vueuse/core'
 interface Props {
 	id: string
 	etap: string
-	role: string
+	role: string | string[]
 	form: string
 }
 const props = defineProps<{
@@ -84,6 +84,18 @@ onKeyStroke('Enter', (e) => {
 		ad.value = true
 	}
 })
+const roles = computed(() => {
+	if (!!props.row && Array.isArray(props.row.role)) {
+		return props.row.role.map((el: string) => ({
+			name: el,
+			selected: true,
+		}))
+	}
+	return []
+})
+// const toggleSel = (ind: number) => {
+// 	props.row.roles[ind].selected = !props.row.roles[ind].selected
+// }
 </script>
 
 <template lang="pug">
@@ -99,8 +111,8 @@ q-dialog(v-model="modelValue" persistent)
 				.grid
 					div
 						.text-bold Роли
-						q-chip(v-if='props.row'
-							:label="props.row.role"
+						q-chip(v-if='Array.isArray(props.row.role)' v-for="(item, ind) in props.row.role" :key='ind'
+							:label="item"
 							selected
 							)
 						q-chip(v-else

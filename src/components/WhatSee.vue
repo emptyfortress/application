@@ -63,6 +63,7 @@ const toggleSecond = () => {
 }
 const el = ref()
 const toggle1 = (el: any) => {
+	console.log(el)
 	row.value = el
 	dialogRow.value = !dialogRow.value
 }
@@ -110,7 +111,9 @@ const set = (e: any) => {
 						q-tooltip Назначить условие показа
 
 			tr(v-else v-for="element in etapConditionList" :key='element.id' @click='toggle1(element)')
-				td {{ element.role }}
+				td
+					div.q-mr-sm(v-if='Array.isArray(element.role)' v-for="(item, ind) in element.role" :key='ind') {{ item }}
+					div(v-else) {{ element.role }}
 				td
 					span.btd(@click='goto(element)') {{ element.form }}
 						q-tooltip Редактировать форму

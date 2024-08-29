@@ -16,7 +16,7 @@ type Condition = {
 	id: string
 	etap: string
 	form: string
-	role: string
+	role: string | string[]
 }
 type Role = {
 	id: string
