@@ -57,9 +57,6 @@ draggable(
 </template>
 
 <style scoped lang="scss">
-.all {
-	height: 100%;
-}
 .node1 {
 	padding: 0.5rem;
 	background: #fff;
