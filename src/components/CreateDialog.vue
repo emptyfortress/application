@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { uid } from 'quasar'
 import { useRoles } from '@/stores/roles'
+import { useForms } from '@/stores/forms'
 
 const props = defineProps({
 	mode: {
@@ -11,6 +12,7 @@ const props = defineProps({
 })
 const icon = ref(3)
 const modelValue = defineModel<boolean>()
+const myform = useForms()
 
 const name = ref('Мое приложение')
 const descr = ref('')
@@ -37,6 +39,10 @@ const create = (data: any) => {
 		myrole.addRole(data)
 		close()
 	}
+	if (props.mode == 'form') {
+		myform.createForm(data.name)
+		close()
+	}
 }
 const card = ref(true)
 </script>
@@ -49,6 +55,7 @@ q-dialog(v-model="modelValue")
 			.text-h6(v-if="props.mode == 'app'") Новое приложение
 			.text-h6(v-if="props.mode == 'role'") Создать роль 
 			.text-h6(v-if="props.mode == 'list'") Создать список
+			.text-h6(v-if="props.mode == 'form'") Создать форму
 
 		q-card-section
 			FormKit(type="form" id="newapp" submit-label="Создать" @submit="create")
@@ -60,6 +67,9 @@ q-dialog(v-model="modelValue")
 
 				FormKit(v-if='props.mode == "role"' type="text" autofocus name="name" label="Название" validation="required|length:3")
 				FormKit(v-if='props.mode == "role"' type="textarea" name="descr" label="Описание")
+
+				FormKit(v-if='props.mode == "form"' type="text" autofocus name="name" label="Название" validation="required|length:3")
+				FormKit(v-if='props.mode == "form"' type="textarea" name="descr" label="Описание")
 </template>
 
 <style scoped lang="scss"></style>

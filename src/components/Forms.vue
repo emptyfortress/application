@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import chooseEtapDialog from '@/components/chooseEtapDialog.vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useForms } from '@/stores/forms'
+import CreateDialog from '@/components/CreateDialog.vue'
 
 const router = useRouter()
 const route = useRoute()
@@ -62,7 +62,7 @@ const calcCondition = (e: string) => {
 
 	br
 	q-btn(unelevated color="primary" label="Создать форму" @click="toggleDialog") 
-chooseEtapDialog(v-model="dialog")
+	CreateDialog(v-model="dialog" mode='form')
 </template>
 
 <style scoped lang="scss">
