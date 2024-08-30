@@ -31,6 +31,26 @@ const app = useStorage('app', localStorage)
 const emulate = () => {
 	router.push('/emulate/1')
 }
+
+const goto = () => {
+	myform.zay = false
+	myform.newform = true
+	let e = myform.currentEtap
+	router.push(`/${route.params.id}/editor/process/${e}`)
+}
+
+const defaultForm = computed(() => {
+	let tmp = myform.conditionList.filter(
+		(el: Condition) => el.etap == myform.currentEtap && el.role == myrole.currentRole
+	)
+	return tmp.length == 0 ? true : false
+})
+const def = computed(() => {
+	let tmp = myform.conditionList.filter(
+		(el: Condition) => el.etap == myform.currentEtap && el.role == myrole.currentRole
+	)
+	return tmp[0].form
+})
 </script>
 
 <template lang="pug">
@@ -42,8 +62,6 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO")
 	q-card-section
 		h6.text-center {{ myform.currentBO.name }}
 	.grid
-		// div id:
-		// div {{ myform.currentBO.id}}
 		div Название:
 		.text-bold(v-if='myform.currentBO.$type == "bpmn:ExclusiveGateway"') Шлюз
 		.text-bold(v-else) {{ myform.currentBO.name }}
@@ -57,7 +75,13 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO")
 				.text-bold(v-for="item in myform.currentBO.outgoing") {{ item.name }}
 			div Срок:
 			div 25 сентября 2024 г.
+			div Исполнитель работает с формой:
+			div
+				q-btn(v-if='defaultForm' unelevated color="primary" label="Создать форму" @click='goto' size='sm') 
+				span.btd(@click='goto(def)') {{ def }}
+					q-tooltip Редактировать форму
 
+	br
 	br
 	WhatSee1(v-if='app.text == "Заявка" && (myform.currentBO.$type == "bpmn:Task" || myform.currentBO.$type == "bpmn:StartEvent")')
 	WhatSee(v-if='app.text !== "Заявка" && (myform.currentBO.$type == "bpmn:Task" || myform.currentBO.$type == "bpmn:StartEvent") || myform.currentBO.$type == "bpmn:EndEvent"')
@@ -95,16 +119,19 @@ template(v-if='route.name == "Роли"')
 
 .prev(v-if='route.name == "Процесс" || route.name == "Этап"')
 	q-btn.btn(v-if='myform.currentBO && myform.currentBO.$type == "bpmn:Task"' outline color="primary" icon='mdi-play' :label='myform.currentBO.name' @click='emulate') 
+		q-tooltip Эмуляция работы приложения
 	q-btn.btn(v-else outline color="primary" icon='mdi-play' :label='app.text' @click='emulate') 
+		q-tooltip Эмуляция работы приложения
 </template>
 
 <style scoped lang="scss">
 .grid {
 	padding: 0 1rem;
 	display: grid;
-	grid-template-columns: auto 1fr;
+	grid-template-columns: 170px 2fr;
 	column-gap: 1rem;
-	row-gap: 0.5rem;
+	row-gap: 1rem;
+	line-height: 1.1;
 }
 .show {
 	font-size: 0.9rem;
@@ -113,8 +140,15 @@ template(v-if='route.name == "Роли"')
 }
 .prev {
 	margin: 1rem;
+	margin-top: 5rem;
 	.btn {
 		margin: 0 0.25rem;
 	}
+}
+.btd {
+	color: $primary;
+	text-decoration: underline;
+	text-align: left;
+	cursor: pointer;
 }
 </style>

@@ -20,7 +20,7 @@ const route = useRoute()
 
 const etapConditionList = computed(() => {
 	return myform.conditionList.filter((item: Condition) => {
-		return item.etap == myform.currentEtap
+		return item.etap == myform.currentEtap && item.role !== myrole.currentRole
 	})
 })
 
@@ -92,7 +92,7 @@ const set = (e: any) => {
 
 <template lang="pug">
 .q-mx-md
-	.text-bold Что видит пользователь?
+	.text-bold Что видят другие пользователи?
 	q-markup-table(bordered flat)
 		thead
 			tr
@@ -101,7 +101,7 @@ const set = (e: any) => {
 				th
 
 		tbody
-			tr(v-if='etapConditionList.length == 0' @click='toggleSecond')
+			// tr(v-if='etapConditionList.length == 0' @click='toggleSecond')
 				td {{ myrole.currentRole}}
 				td
 					q-btn(flat color="primary" label="Создать" @click.stop="goto1" size='sm') 
@@ -110,7 +110,7 @@ const set = (e: any) => {
 					q-icon(name="mdi-chevron-right" color="primary" size='sm')
 						q-tooltip Назначить условие показа
 
-			tr(v-else v-for="element in etapConditionList" :key='element.id' @click='toggle1(element)')
+			tr(v-for="element in etapConditionList" :key='element.id' @click='toggle1(element)')
 				td
 					div.q-mr-sm(v-if='Array.isArray(element.role)' v-for="(item, ind) in element.role" :key='ind') {{ item }}
 					div(v-else) {{ element.role }}
@@ -131,7 +131,8 @@ const set = (e: any) => {
 					q-icon(name="mdi-chevron-right" color="primary" size='sm')
 						q-tooltip Назначить условие показа
 
-	q-btn.q-ma-md(unelevated color="primary" label="Добавить" @click="toggle2" size='sm') 
+	q-btn.q-mt-md(flat color="primary" icon='mdi-plus-circle' label="Добавить условие показа" @click="toggle2" size='sm') 
+
 
 	ConditionDialogRow(v-model="dialogRow" :row='row')
 	ConditionDialogAdd(v-model="dialogAdd")
