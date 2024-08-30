@@ -49,7 +49,7 @@ const def = computed(() => {
 	let tmp = myform.conditionList.filter(
 		(el: Condition) => el.etap == myform.currentEtap && el.role == myrole.currentRole
 	)
-	return tmp[0].form
+	return tmp[0]?.form
 })
 </script>
 

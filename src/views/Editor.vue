@@ -5,11 +5,13 @@ import PropertyPanel from '@/components/PropertyPanel.vue'
 import VueDraggableResizable from 'vue-draggable-resizable'
 import { useForms } from '@/stores/forms'
 import { gsap } from 'gsap'
+import { useStore } from '@/stores/store'
 
 const route = useRoute()
 const router = useRouter()
 const split = ref(70)
 const myform = useForms()
+const store = useStore()
 
 onMounted(() => {
 	gsap.from('.fuck', {
@@ -19,14 +21,31 @@ onMounted(() => {
 		ease: 'expo.out',
 	})
 })
-// const calcPreview = computed(() => {
-// 	switch (myform.currentBO?.name) {
-// 		case 'Создал заявку':
-// 			return '/nav1.png'
-// 		default:
-// 			return '/nav0.png'
-// 	}
-// })
+
+const calcNav = computed(() => {
+	if (route.name == 'Этап') return '/preview.png'
+	if (route.name !== 'Процесс') return '/empty.png'
+	if (store.currentNode && store.currentNode.data.text == 'Заявка') {
+		switch (myform.currentBO?.name) {
+			case 'Создал Заявку':
+				return '/nav1.png'
+			case 'Согласовать заявку':
+				return '/nav2.png'
+			case 'Исправить заявку':
+				return '/nav3.png'
+			case 'Рассмотреть заявку':
+				return '/nav4.png'
+			case 'Обработать отказ':
+				return '/nav5.png'
+			case 'Исполнить заявку':
+				return '/nav6.png'
+			case 'Принять результаты':
+				return '/nav7.png'
+			default:
+				return '/nav0.png'
+		}
+	} else return '/preview.png'
+})
 </script>
 
 <template lang="pug">
@@ -41,7 +60,7 @@ q-page
 		vue-draggable-resizable.fuck(:x="100" :y="-300" :w="250" :h="150" :active="false" :z="2000" :handles='["br"]' drag-handle='.bar')
 			q-card
 				.bar Навигация
-				q-img(:src='myform.calcNav')
+				q-img(:src='calcNav')
 			
 </template>
 

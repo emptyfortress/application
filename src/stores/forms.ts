@@ -1,7 +1,6 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { uid } from 'quasar'
-import { useStore } from '@/stores/store'
 
 export const useForms = defineStore('forms', () => {
 	const currentBO = ref<any>()
@@ -81,31 +80,10 @@ export const useForms = defineStore('forms', () => {
 		formList.value.push(row)
 	}
 
-	// navigation
-	const store = useStore()
-
-	const calcNav = computed(() => {
-		if (store.currentNode && store.currentNode.data.text == 'Заявка') {
-			switch (currentBO.value?.name) {
-				case 'Создал Заявку':
-					return '/nav1.png'
-				case 'Согласовать заявку':
-					return '/nav2.png'
-				case 'Исправить заявку':
-					return '/nav3.png'
-				case 'Рассмотреть заявку':
-					return '/nav4.png'
-				case 'Обработать отказ':
-					return '/nav5.png'
-				case 'Исполнить заявку':
-					return '/nav6.png'
-				case 'Принять результаты':
-					return '/nav7.png'
-				default:
-					return '/nav0.png'
-			}
-		} else return '/preview.png'
-	})
+	const removeForm = (e: string) => {
+		const ind = formList.value.findIndex((el: Form) => el.name == e)
+		if (ind !== undefined) formList.value.splice(ind, 1)
+	}
 
 	return {
 		currentBO,
@@ -122,11 +100,11 @@ export const useForms = defineStore('forms', () => {
 		notMain,
 		newform,
 		createForm,
-		// removeForm,
+		removeForm,
+
 		zay,
 		zayform,
 		toggleZay,
 		setZayForm,
-		calcNav,
 	}
 })

@@ -29,6 +29,9 @@ const calcCondition = (e: string) => {
 	})
 	return row
 }
+const remove = (e: string) => {
+	myform.removeForm(e)
+}
 </script>
 
 <template lang="pug">
@@ -45,7 +48,7 @@ const calcCondition = (e: string) => {
 					.row.q-gutter-x-sm
 						q-btn(flat round icon='mdi-pencil-outline' color='primary' dense size='sm' @click.stop='goto(form.name)') 
 						q-btn(flat round icon='mdi-content-duplicate' color='primary' dense size='sm' @click.stop='') 
-						q-btn(flat round icon='mdi-trash-can-outline' color='primary' dense size='sm' @click.stop='') 
+						q-btn(flat round icon='mdi-trash-can-outline' color='primary' dense size='sm' @click.stop='remove(form.name)') 
 			q-card
 				q-card-section
 					.grd
