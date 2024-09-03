@@ -23,8 +23,6 @@ onMounted(() => {
 })
 
 const calcNav = computed(() => {
-	if (route.name == 'Этап') return '/preview.png'
-	if (route.name !== 'Процесс') return '/empty.png'
 	if (store.currentNode && store.currentNode.data.text == 'Заявка') {
 		switch (myform.currentBO?.name) {
 			case 'Создал Заявку':
@@ -44,7 +42,13 @@ const calcNav = computed(() => {
 			default:
 				return '/nav0.png'
 		}
-	} else return '/preview.png'
+	}
+	// if (store.currentNode.data.text !== 'Заявка') return '/preview.png'
+	// if (route.name !== 'Процесс') return '/empty.png'
+	else return '/preview.png'
+})
+const calcMap = computed(() => {
+	return route.name == 'Процесс' || route.name == 'Этап' ? true : false
 })
 </script>
 
@@ -57,7 +61,7 @@ q-page
 			PropertyPanel
 
 	Teleport(to="body")
-		vue-draggable-resizable.fuck(:x="100" :y="-300" :w="250" :h="150" :active="false" :z="2000" :handles='["br"]' drag-handle='.bar')
+		vue-draggable-resizable.fuck(v-if='calcMap' :x="100" :y="-300" :w="250" :h="150" :active="false" :z="2000" :handles='["br"]' drag-handle='.bar')
 			q-card
 				.bar Навигация
 				q-img(:src='calcNav')
