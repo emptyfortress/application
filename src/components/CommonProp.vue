@@ -61,6 +61,23 @@ const dialogAdd = ref(false)
 const toggle2 = () => {
 	dialogAdd.value = !dialogAdd.value
 }
+
+const calcFormName = computed(() => {
+	switch (myform.currentBO.name) {
+		case 'Создал Заявку':
+			return 'Создание'
+		case 'Принять результаты':
+			return 'Архив'
+		default:
+			return 'Просмотр'
+	}
+})
+
+const goto2 = (e: string) => {
+	myform.toggleZay()
+	myform.setZayForm(e)
+	router.push(`/${route.params.id}/editor/process/${e}`)
+}
 </script>
 
 <template lang="pug">
@@ -92,17 +109,24 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO")
 
 
 
-			div Исполнитель работает с формой:
-			div
-				q-btn(v-if='defaultForm' unelevated color="primary" label="Создать" @click='goto' size='sm') 
-				span.btd(@click='goto1(def)') {{ def }}
-					q-tooltip Редактировать форму
-				q-btn(v-if='myform.formList.length' flat color="primary" label="Выбрать" @click='toggle2' size='sm') 
+			template(v-if='app.text == "Заявка"')
+				.text-bold.q-mt-lg Исполнитель работает с формой:
+				.q-mt-lg
+					span.btd(@click='goto2(calcFormName)') {{ calcFormName }}
+						q-tooltip Редактировать форму
+					q-btn(flat color="primary" label="Выбрать" @click='' size='sm') 
+
+			template(v-else)
+				.text-bold.q-mt-lg Исполнитель работает с формой:
+				.q-mt-lg
+					q-btn(v-if='defaultForm' unelevated color="primary" label="Создать" @click='goto' size='sm') 
+					span.btd(@click='goto1(def)') {{ def }}
+						q-tooltip Редактировать форму
+					q-btn(v-if='myform.formList.length' flat color="primary" label="Выбрать" @click='toggle2' size='sm') 
 
 	br
 	br
-	WhatSee1(v-if='app.text == "Заявка" && (myform.currentBO.$type == "bpmn:Task" || myform.currentBO.$type == "bpmn:StartEvent")')
-	WhatSee(v-if='app.text !== "Заявка" && (myform.currentBO.$type == "bpmn:Task" || myform.currentBO.$type == "bpmn:StartEvent") || myform.currentBO.$type == "bpmn:EndEvent"')
+	WhatSee
 
 
 template(v-if="route.name == 'Процесс' && myform.currentBO == null")
