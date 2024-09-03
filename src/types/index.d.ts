@@ -28,6 +28,7 @@ type Role = {
 type Form = {
 	id: string
 	name: string
+	desc: string
 	selected: boolean
 }
 interface Option {

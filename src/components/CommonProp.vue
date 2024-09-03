@@ -87,8 +87,8 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO")
 			template(v-if='myform.currentBO.$type == "bpmn:Task"')
 				div Срок:
 				div 25 сентября 2024 г.
-				.sec
-					FormKit(type='textarea' label='Описание:' v-model="myform.description" placeholder='Это текст в шапке задания (формы), который увидят исполнители')
+				// .sec
+				// 	FormKit(type='textarea' label='Описание:' v-model="desc" placeholder='Это текст в шапке задания (формы), который увидят исполнители')
 
 
 

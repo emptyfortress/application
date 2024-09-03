@@ -1,14 +1,33 @@
 <script setup lang="ts">
+// import { computed } from 'vue'
 import { useForms } from '@/stores/forms'
 
+const modelValue = defineModel()
+
+// const props = defineProps({
+// 	desc: {
+// 		type: String,
+// 		required: true,
+// 		default: 'Это сопроводительный текст-описание',
+// 	},
+// })
+
 const myform = useForms()
+// const desc = ref('Это сопроводительный текст-описание')
+// const desc = computed(() => {
+// 	let form = myform.formList?.find((el: Form) => el.name == props.form)
+// 	if (!!form) return form.desc
+// 	return 'Это сопроводительный текст-описание'
+// })
 </script>
 
 <template lang="pug">
 .all
 	.done
 		div
-			div {{ myform.description }}
+			span.btd {{ modelValue }}
+				q-popup-edit(v-model="modelValue" title="Сопроводительный текст" buttons auto-save v-slot="scope")
+					q-input(v-model="scope.value" type='textarea' outlined dense autofocus counter @keyup.enter.stop)
 			div
 				|Срок:  
 				span.text-bold 11.04.2024
@@ -42,5 +61,11 @@ const myform = useForms()
 	.done {
 		grid-template-columns: 1fr auto;
 	}
+}
+.btd {
+	color: $primary;
+	border-bottom: 1px dotted $primary;
+	text-align: left;
+	cursor: pointer;
 }
 </style>

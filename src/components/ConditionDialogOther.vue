@@ -46,7 +46,7 @@ const save = () => {
 const ad = ref(false)
 
 const addForm = () => {
-	myform.createForm(newForm.value)
+	myform.createForm(newForm.value, 'Это сопроводительный текст-описание')
 	clear()
 }
 const newForm = ref('')

@@ -48,7 +48,7 @@ const myrole = useRoles()
 const save = () => {
 	if (!!myform.currentBO) {
 		if (myform.newform == true) {
-			myform.createForm(name.value.toString())
+			myform.createForm(name.value.toString(), tmpDesc.value)
 			let tmp = {
 				id: uid(),
 				etap: myform.currentBO.name,
@@ -62,6 +62,10 @@ const save = () => {
 				return el.etap == myform.currentEtap && el.role == myrole.currentRole
 			})
 			currentCondition!.form = name.value.toString()
+			let currentForm = myform.formList.find((el: Form) => el.name == name.value)
+			if (!!currentForm) {
+				currentForm.desc = tmpDesc.value
+			}
 			myform.notMain = false
 			myform.newform = false
 		}
@@ -106,6 +110,25 @@ const loadForm = (e: string) => {
 	let tmp = lstore.allLayouts.find((el) => el.form == e)
 	if (!!tmp) startLayout.value = [...tmp.layout]
 }
+
+const tmpDesc = ref('Это сопроводительный текст-описание')
+
+const desc = computed({
+	get() {
+		let form = myform.formList?.find((el: Form) => el.name == name.value)
+		if (!!form) return form.desc
+		return tmpDesc.value
+	},
+	set(val: string) {
+		tmpDesc.value = val
+	},
+})
+const setDesc = (e: string) => {
+	let form = myform.formList?.find((el: Form) => el.name == name.value)
+	if (!!form) {
+		form.desc = e
+	}
+}
 </script>
 
 <template lang="pug">
@@ -131,9 +154,9 @@ const loadForm = (e: string) => {
 			q-btn(flat round dense color="primary" icon='mdi-undo') 
 			q-btn(flat round dense color="primary" icon='mdi-redo') 
 	.inner
-		FormTop(v-if='myform.showBt')
-		FormLayout(:layout='startLayout')
-		// FormLayout1(v-if='myform.zay' :form='myform.zayform')
+		FormTop(v-if='myform.showBt' v-model="desc" @update:modelValue='setDesc')
+		FormLayout1(v-if='myform.zay' :form='myform.zayform')
+		FormLayout(v-else :layout='startLayout')
 		// FormLayout(v-else :layout='startLayout')
 
 ChooseFormDialog(v-model="dialog" @load='loadForm')

@@ -31,10 +31,11 @@ export const useForms = defineStore('forms', () => {
 
 	// это кнопки на форме сверху ***********************
 	const notMain = ref(false)
-	const description = ref('')
-	const setDesc = (s: string) => {
-		description.value = s
-	}
+	const desc = ref('Это сопроводительный текст-описание')
+	// const setDesc = (s: string) => {
+	// 	des
+	// 	// description.value = s
+	// }
 	const bt = computed(() => {
 		if (!!currentBO.value) {
 			let mybt = currentBO.value.outgoing?.filter((item: any) => {
@@ -75,10 +76,11 @@ export const useForms = defineStore('forms', () => {
 		conditionList.value.splice(n, 1)
 	}
 
-	const createForm = (form: string) => {
+	const createForm = (form: string, description: string) => {
 		let row = {
 			id: uid(),
 			name: form,
+			desc: description,
 			selected: false,
 		}
 		formList.value.push(row)
@@ -103,10 +105,9 @@ export const useForms = defineStore('forms', () => {
 		showBt,
 		notMain,
 		newform,
-		description,
+		desc,
 		createForm,
 		removeForm,
-		setDesc,
 
 		zay,
 		zayform,

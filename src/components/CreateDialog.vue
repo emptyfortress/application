@@ -40,7 +40,7 @@ const create = (data: any) => {
 		close()
 	}
 	if (props.mode == 'form') {
-		myform.createForm(data.name)
+		myform.createForm(data.name, 'Это сопроводительный текст-описание')
 		close()
 	}
 }
