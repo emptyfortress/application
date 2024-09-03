@@ -48,8 +48,16 @@ const add = () => {
 	const current = myform.conditionList.find(
 		(el: Condition) => el.etap == myform.currentEtap && el.role == myrole.currentRole
 	)
-	if (!!current) {
+	if (current !== undefined) {
 		current.form = selectionForms.value[0].name
+	} else {
+		let tmp = {
+			id: uid(),
+			etap: myform.currentEtap,
+			role: myrole.currentRole,
+			form: selectionForms.value[0].name,
+		}
+		myform.addCondition(tmp)
 	}
 	modelValue.value = false
 }
