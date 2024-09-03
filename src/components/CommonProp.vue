@@ -8,6 +8,7 @@ import { useForms } from '@/stores/forms'
 import { useRoles } from '@/stores/roles'
 import WhatSee from '@/components/WhatSee.vue'
 import WhatSee1 from '@/components/WhatSee1.vue'
+import ConditionDialogChoose from '@/components/ConditionDialogChoose.vue'
 
 const store = useStore()
 const myform = useForms()
@@ -38,6 +39,10 @@ const goto = () => {
 	let e = myform.currentEtap
 	router.push(`/${route.params.id}/editor/process/${e}`)
 }
+const goto1 = (e: string) => {
+	myform.zay = false
+	router.push(`/${route.params.id}/editor/process/${e}`)
+}
 
 const defaultForm = computed(() => {
 	let tmp = myform.conditionList.filter(
@@ -51,6 +56,11 @@ const def = computed(() => {
 	)
 	return tmp[0]?.form
 })
+
+const dialogAdd = ref(false)
+const toggle2 = () => {
+	dialogAdd.value = !dialogAdd.value
+}
 </script>
 
 <template lang="pug">
@@ -85,9 +95,9 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO")
 			div Исполнитель работает с формой:
 			div
 				q-btn(v-if='defaultForm' unelevated color="primary" label="Создать" @click='goto' size='sm') 
-				span.btd(@click='goto(def)') {{ def }}
+				span.btd(@click='goto1(def)') {{ def }}
 					q-tooltip Редактировать форму
-				q-btn(v-if='myform.formList.length' flat color="primary" label="Выбрать" @click='goto' size='sm') 
+				q-btn(v-if='myform.formList.length' flat color="primary" label="Выбрать" @click='toggle2' size='sm') 
 
 	br
 	br
@@ -130,6 +140,8 @@ template(v-if='route.name == "Роли"')
 		q-tooltip Эмуляция работы приложения
 	q-btn.btn(v-else outline color="primary" icon='mdi-play' label='Проверка работы приложения' @click='emulate') 
 		q-tooltip Эмуляция работы приложения
+
+ConditionDialogChoose(v-model="dialogAdd")
 </template>
 
 <style scoped lang="scss">

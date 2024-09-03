@@ -23,6 +23,12 @@ const etapConditionList = computed(() => {
 		return item.etap == myform.currentEtap && item.role !== myrole.currentRole
 	})
 })
+const showAddCond = computed(() => {
+	let tmp = myform.conditionList.filter((item: Condition) => {
+		return item.etap == myform.currentEtap
+	})
+	return tmp.length > 0 ? true : false
+})
 
 const goto = (e: Condition) => {
 	myform.zay = false
@@ -101,15 +107,6 @@ const set = (e: any) => {
 				th
 
 		tbody
-			// tr(v-if='etapConditionList.length == 0' @click='toggleSecond')
-				td {{ myrole.currentRole}}
-				td
-					q-btn(flat color="primary" label="Создать" @click.stop="goto1" size='sm') 
-						q-tooltip Создать форму и перейти к ее редактированию
-				td.text-right
-					q-icon(name="mdi-chevron-right" color="primary" size='sm')
-						q-tooltip Назначить условие показа
-
 			tr(v-for="element in etapConditionList" :key='element.id' @click='toggle1(element)')
 				td
 					div.q-mr-sm(v-if='Array.isArray(element.role)' v-for="(item, ind) in element.role" :key='ind') {{ item }}
@@ -131,7 +128,7 @@ const set = (e: any) => {
 					q-icon(name="mdi-chevron-right" color="primary" size='sm')
 						q-tooltip Назначить условие показа
 
-	q-btn.q-mt-md(flat color="primary" icon='mdi-plus-circle' label="Добавить условие показа" @click="toggle2" size='sm') 
+	q-btn.q-mt-md(v-if='showAddCond' flat color="primary" icon='mdi-plus-circle' label="Добавить условие показа" @click="toggle2" size='sm') 
 
 
 	ConditionDialogRow(v-model="dialogRow" :row='row')
