@@ -6,6 +6,7 @@ import 'bpmn-js/dist/assets/bpmn-js.css'
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css'
 import zay from '@/stores/zayavka1.bpmn?raw'
 import empty from '@/stores/simple.bpmn?raw'
+import step from '@/stores/step.bpmn?raw'
 import 'diagram-js-minimap/assets/diagram-js-minimap.css'
 
 import { useRouter, useRoute } from 'vue-router'

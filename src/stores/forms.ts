@@ -31,6 +31,10 @@ export const useForms = defineStore('forms', () => {
 
 	// это кнопки на форме сверху ***********************
 	const notMain = ref(false)
+	const description = ref('')
+	const setDesc = (s: string) => {
+		description.value = s
+	}
 	const bt = computed(() => {
 		if (!!currentBO.value) {
 			let mybt = currentBO.value.outgoing?.filter((item: any) => {
@@ -99,8 +103,10 @@ export const useForms = defineStore('forms', () => {
 		showBt,
 		notMain,
 		newform,
+		description,
 		createForm,
 		removeForm,
+		setDesc,
 
 		zay,
 		zayform,

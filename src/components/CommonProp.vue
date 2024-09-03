@@ -64,6 +64,7 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO")
 	.grid
 		div Название:
 		.text-bold(v-if='myform.currentBO.$type == "bpmn:ExclusiveGateway"') Шлюз
+		.sec(v-if='myform.currentBO.$type == "bpmn:ExclusiveGateway"') (пользователь может выполнить одно из исходящих действий)
 		.text-bold(v-else) {{ myform.currentBO.name }}
 
 		template(v-if='myform.currentBO.$type == "bpmn:Task" || myform.currentBO.$type == "bpmn:StartEvent" || myform.currentBO.$type == "bpmn:EndEvent"')
@@ -73,13 +74,20 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO")
 			div Исходы:
 			div
 				.text-bold(v-for="item in myform.currentBO.outgoing") {{ item.name }}
-			div Срок:
-			div 25 сентября 2024 г.
+			template(v-if='myform.currentBO.$type == "bpmn:Task"')
+				div Срок:
+				div 25 сентября 2024 г.
+				.sec
+					FormKit(type='textarea' label='Описание:' v-model="myform.description" placeholder='Это текст в шапке задания (формы), который увидят исполнители')
+
+
+
 			div Исполнитель работает с формой:
 			div
-				q-btn(v-if='defaultForm' unelevated color="primary" label="Создать форму" @click='goto' size='sm') 
+				q-btn(v-if='defaultForm' unelevated color="primary" label="Создать" @click='goto' size='sm') 
 				span.btd(@click='goto(def)') {{ def }}
 					q-tooltip Редактировать форму
+				q-btn(v-if='myform.formList.length' flat color="primary" label="Выбрать" @click='goto' size='sm') 
 
 	br
 	br
@@ -118,9 +126,9 @@ template(v-if='route.name == "Роли"')
 		div Тут свойства роли
 
 .prev(v-if='route.name == "Процесс" || route.name == "Этап"')
-	q-btn.btn(v-if='myform.currentBO && myform.currentBO.$type == "bpmn:Task"' outline color="primary" icon='mdi-play' :label='myform.currentBO.name' @click='emulate') 
+	q-btn.btn(v-if='myform.currentBO && myform.currentBO.$type == "bpmn:Task"' outline color="primary" icon='mdi-play' label='Проверка работы приложения с текущего этапа' @click='emulate') 
 		q-tooltip Эмуляция работы приложения
-	q-btn.btn(v-else outline color="primary" icon='mdi-play' :label='app.text' @click='emulate') 
+	q-btn.btn(v-else outline color="primary" icon='mdi-play' label='Проверка работы приложения' @click='emulate') 
 		q-tooltip Эмуляция работы приложения
 </template>
 
@@ -150,5 +158,14 @@ template(v-if='route.name == "Роли"')
 	text-decoration: underline;
 	text-align: left;
 	cursor: pointer;
+}
+.sec {
+	grid-column: 1/-1;
+}
+:deep(.formkit-wrapper) {
+	max-width: initial;
+}
+:deep(.formkit-input) {
+	font-size: 0.8rem;
 }
 </style>

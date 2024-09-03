@@ -8,7 +8,7 @@ const myform = useForms()
 .all
 	.done
 		div
-			div Рассмотрите заявку и примите решение.
+			div {{ myform.description }}
 			div
 				|Срок:  
 				span.text-bold 11.04.2024
