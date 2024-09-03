@@ -30,6 +30,9 @@ const app = useStorage('app', localStorage)
 const reload = ref(false)
 
 const bpmn = computed(() => {
+	if (mydata.myxml == null && app.value.id == 4) {
+		return step
+	}
 	if (mydata.myxml == null) {
 		return app.value.file ? zay : empty
 	}

@@ -80,6 +80,16 @@ const myApps = [
 					},
 				],
 			},
+			{
+				id: 4,
+				text: 'Покормить кота',
+				card: 'Newcard',
+				descr: 'Тестовое приложение',
+				hidden: false,
+				selected: false,
+				type: 1,
+				version: '0.0.0',
+			},
 		],
 	},
 ]
