@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useForms } from '@/stores/forms'
 import CreateDialog from '@/components/CreateDialog.vue'
+import { useStorage } from '@vueuse/core'
 
 const router = useRouter()
 const route = useRoute()
@@ -32,13 +33,32 @@ const calcCondition = (e: string) => {
 const remove = (e: string) => {
 	myform.removeForm(e)
 }
+
+const app = useStorage('app', localStorage)
+const zayList = ['Создание', 'Просмотр', 'Архив']
+const goto2 = (e: string) => {
+	myform.toggleZay()
+	myform.setZayForm(e)
+	router.push(`/${route.params.id}/editor/process/${e}`)
+}
 </script>
 
 <template lang="pug">
 .bl
 	h5 Формы
 	q-list(separator)
-		q-expansion-item(v-for='form in myform.formList' :key='form.id' )
+		q-expansion-item(v-if='app.text == "Заявка"' v-for='form in zayList' :key='form' )
+			template(v-slot:header)
+				q-item-section(avatar)
+					q-icon(name='mdi-list-box-outline')
+				q-item-section()
+					q-item-label {{ form }}
+				q-item-section(side)
+					.row.q-gutter-x-sm
+						q-btn(flat round icon='mdi-pencil-outline' color='primary' dense size='sm' @click.stop='goto2(form)') 
+						q-btn(flat round icon='mdi-trash-can-outline' color='primary' dense size='sm' @click.stop='') 
+
+		q-expansion-item(v-else v-for='form in myform.formList' :key='form.id' )
 			template(v-slot:header)
 				q-item-section(avatar)
 					q-icon(name='mdi-list-box-outline')

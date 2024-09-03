@@ -154,7 +154,7 @@ const setDesc = (e: string) => {
 			q-btn(flat round dense color="primary" icon='mdi-undo') 
 			q-btn(flat round dense color="primary" icon='mdi-redo') 
 	.inner
-		FormTop(v-if='myform.showBt' v-model="desc" @update:modelValue='setDesc')
+		FormTop(v-if='myform.showBt || myform.zay' v-model="desc" @update:modelValue='setDesc')
 		FormLayout1(v-if='myform.zay' :form='myform.zayform')
 		FormLayout(v-else :layout='startLayout')
 		// FormLayout(v-else :layout='startLayout')
