@@ -26,6 +26,8 @@ const calcTitle = (item: string) => {
 			return 'Представление'
 		case 'emulate':
 			return
+		case 'emulate1':
+			return
 
 		case route.params.etap:
 			store.tabs = 'lib'
@@ -88,7 +90,8 @@ const back = () => {
 q-breadcrumbs.q-ml-xl
 	q-breadcrumbs-el(v-for="br in bread" :key="br.title" :label="br.title" :to="br.url" @click="reset(br.url)")
 	q-breadcrumbs-el(v-if="route.name == 'Этап'") Форма
-	template(v-if='route.name == "emulate"' )
+
+	template(v-if='route.name == "emulate" || route.name == "emulate1"' )
 		h6 Процесс "{{ app.text }}"
 		q-btn.q-ml-lg(unelevated color="accent" label="Отмена" @click="back" size='sm')
 </template>

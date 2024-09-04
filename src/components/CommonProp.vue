@@ -33,6 +33,10 @@ const emulate = () => {
 	router.push('/emulate/1')
 }
 
+const emulate1 = () => {
+	router.push('/emulate1/1')
+}
+
 const goto = () => {
 	myform.zay = false
 	myform.newform = true
@@ -159,11 +163,11 @@ template(v-if='route.name == "Роли"')
 		.text-bold Название роли
 		div Тут свойства роли
 
-.prev(v-if='route.name == "Процесс" || route.name == "Этап"')
-	q-btn.btn(v-if='myform.currentBO && myform.currentBO.$type == "bpmn:Task"' outline color="primary" icon='mdi-play' label='Проверка работы приложения с текущего этапа' @click='emulate') 
-		q-tooltip Эмуляция работы приложения
-	q-btn.btn(v-else outline color="primary" icon='mdi-play' label='Проверка работы приложения' @click='emulate') 
-		q-tooltip Эмуляция работы приложения
+.prev(v-if='app.text == "Заявка"')
+	q-btn.btn(outline color="primary" icon='mdi-play' label='Проверка работы приложения с текущего этапа' @click='emulate' size='sm') 
+
+.prev(v-if='app.text !== "Заявка" && ( route.name == "Процесс" || route.name == "Этап")')
+	q-btn.btn(v-if='myform.currentBO && myform.currentBO.$type == "bpmn:Task"' outline color="primary" icon='mdi-play' label='Проверка работы приложения с текущего этапа' @click='emulate1' size='sm') 
 
 ConditionDialogChoose(v-model="dialogAdd")
 </template>
@@ -184,10 +188,7 @@ ConditionDialogChoose(v-model="dialogAdd")
 }
 .prev {
 	margin: 1rem;
-	margin-top: 5rem;
-	.btn {
-		margin: 0 0.25rem;
-	}
+	margin-top: 2rem;
 }
 .btd {
 	color: $primary;

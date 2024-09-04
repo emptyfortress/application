@@ -101,6 +101,17 @@ const router = createRouter({
 			],
 		},
 		{
+			path: '/emulate1',
+			children: [
+				{
+					path: ':pag',
+					name: 'emulate1',
+					props: true,
+					component: () => import('@/views/Emulate1.vue'),
+				},
+			],
+		},
+		{
 			path: '/palette',
 			name: 'palette',
 			component: () => import('@/views/Palette.vue'),

@@ -12,7 +12,7 @@ const router = useRouter()
 const route = useRoute()
 const myform = useForms()
 
-const role = ref('Руководитель')
+const role = ref('Инициатор')
 const options = ref([role.value, 'Все остальные'])
 
 const etap = ref(myform.currentBO.name)
@@ -61,43 +61,43 @@ q-page
 			div роль:
 			q-select(v-model="role" dense fulled :options='options')
 
-		template(v-if='route.params.page == 0')
-			FormTopEmulate(v-if='role == "Инициатор"' @setEtap='next')
+		template(v-if='route.params.pag == 1')
+			FormTopEmulate(@setEtap='next')
 			FormEmulate1
 
-		template(v-if='route.params.page == 1')
-			FormTopEmulate(v-if='role == "Руководитель"' @setEtap='next')
-			FormEmulate1
-
-		template(v-if='route.params.page == 2')
-			FormTopEmulate(v-if='role == "Инициатор"' @setEtap='next')
-			FormEmulate1
-
-		template(v-if='route.params.page == 3')
-			FormTopEmulate(v-if='role == "Рассматривающий"' @setEtap='next')
-			FormEmulate1
-
-		template(v-if='route.params.page == 4')
-			FormTopEmulate(v-if='role == "Исполнитель"' @setEtap='next')
-			FormEmulate1
-
-		template(v-if='route.params.page == 5')
-			FormTopEmulate(v-if='role == "Инициатор"' @setEtap='next')
-			FormEmulate1
-
-		template(v-if='route.params.page == 6')
-			FormTopEmulate(v-if='role == "Инициатор"' @setEtap='next')
-			FormEmulate1
-
-		template(v-if='route.params.page == 7')
-			h5 Заяка отменена
-			br
-			FormEmulate2
-
-		template(v-if='route.params.page == 8')
-			h5 Заявка выполнена
-			br
-			FormEmulate2
+		// template(v-if='route.params.page == 1')
+		// 	FormTopEmulate(v-if='role == "Руководитель"' @setEtap='next')
+		// 	FormEmulate1
+		//
+		// template(v-if='route.params.page == 2')
+		// 	FormTopEmulate(v-if='role == "Инициатор"' @setEtap='next')
+		// 	FormEmulate1
+		//
+		// template(v-if='route.params.page == 3')
+		// 	FormTopEmulate(v-if='role == "Рассматривающий"' @setEtap='next')
+		// 	FormEmulate1
+		//
+		// template(v-if='route.params.page == 4')
+		// 	FormTopEmulate(v-if='role == "Исполнитель"' @setEtap='next')
+		// 	FormEmulate1
+		//
+		// template(v-if='route.params.page == 5')
+		// 	FormTopEmulate(v-if='role == "Инициатор"' @setEtap='next')
+		// 	FormEmulate1
+		//
+		// template(v-if='route.params.page == 6')
+		// 	FormTopEmulate(v-if='role == "Инициатор"' @setEtap='next')
+		// 	FormEmulate1
+		//
+		// template(v-if='route.params.page == 7')
+		// 	h5 Заяка отменена
+		// 	br
+		// 	FormEmulate2
+		//
+		// template(v-if='route.params.page == 8')
+		// 	h5 Заявка выполнена
+		// 	br
+		// 	FormEmulate2
 
 	Teleport(to="body")
 		vue-draggable-resizable.fuck(:x="100" :y="-500" :w="350" :h="270" :active="false" :z="2000" :handles='["br"]' drag-handle='.bar')

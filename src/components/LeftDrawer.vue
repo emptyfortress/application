@@ -95,7 +95,7 @@ q-drawer.rel(v-model="modelValue" side="left" :width="180" :mini="store.mini")
 				q-item-section
 					q-item-label {{ page.title }}
 
-	q-btn(flat round color="primary"  @click="store.mini = !store.mini" dense) 
+	q-btn(v-if='route.name !== "start"' flat round color="primary"  @click="store.mini = !store.mini" dense) 
 		q-icon(v-if="!store.mini" name="mdi-backburger")
 		q-icon(v-else name="mdi-forwardburger")
 </template>

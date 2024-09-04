@@ -79,6 +79,7 @@ const back = () => {
 	myform.newform = false
 	myform.notMain = false
 	router.back()
+	myform.setCurrentBO(null)
 	resetZay()
 }
 
