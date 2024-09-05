@@ -94,7 +94,6 @@ q-breadcrumbs.q-ml-xl
 
 	template(v-if='route.name == "emulate" || route.name == "emulate1"' )
 		h6 Процесс "{{ app.text }}"
-		// q-btn.q-ml-lg(unelevated color="accent" label="Отмена" @click="back" size='sm')
 </template>
 
 <style scoped lang="scss"></style>

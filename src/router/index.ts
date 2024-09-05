@@ -135,6 +135,9 @@ router.beforeEach((to) => {
 		document.title = store.currentNode?.data.text || DEFAULT_TITLE
 	}
 	store.drawer = true
+	if (to.name == 'Этап') {
+		store.tabs = 'lib'
+	} else store.tabs = 'property'
 })
 
 export default router

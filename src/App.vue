@@ -8,6 +8,7 @@ import LeftDrawer from '@/components/LeftDrawer.vue'
 import Breadcrumbs from '@/components/Breadcrumbs.vue'
 import { useStorage } from '@vueuse/core'
 import { useData } from '@/stores/alldata'
+import { useForms } from '@/stores/forms'
 
 const route = useRoute()
 const router = useRouter()
@@ -69,6 +70,13 @@ const calcBack = computed(() => {
 	if (route.name == 'Этап') return true
 	return false
 })
+
+const myform = useForms()
+const back = () => {
+	store.setCurrentNode(null)
+	myform.setCurrentBO(null)
+	router.back()
+}
 </script>
 
 <template lang="pug">
@@ -79,7 +87,7 @@ q-layout(view="hHr LpR fFf")
 				q-avatar(@click="home")
 					SvgIcon.log(name="logo")
 				span.title(v-if='!calcBack' @click="home") Конструктор приложений
-				q-btn.q-ml-xl(v-if='calcBack' unelevated color="primary" label="Назад" icon='mdi-arrow-left-circle' @click="$router.back()") 
+				q-btn.q-ml-md(v-if='calcBack' flat color="primary" label="Назад" icon='mdi-arrow-left-circle' @click="back") 
 
 			Breadcrumbs
 
