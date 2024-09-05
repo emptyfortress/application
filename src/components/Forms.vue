@@ -54,7 +54,9 @@ const goto2 = (e: string) => {
 				q-item-section(avatar)
 					q-icon(name='mdi-list-box-outline')
 				q-item-section()
-					q-item-label {{ form }}
+					q-item-label
+						span {{ form }}
+						span.q-ml-md(v-if='form == "Создание"') (форма создания)
 				q-item-section(side)
 					.row.q-gutter-x-sm
 						q-btn(flat round icon='mdi-pencil-outline' color='primary' dense size='sm' @click.stop='goto2(form)') 
