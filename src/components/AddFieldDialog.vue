@@ -51,8 +51,6 @@ const options = [
 	'Ссылка на справочник',
 	'Выбор из списка',
 	'Чек-бокс',
-	'Радиобаттон',
-	'Файл',
 ]
 </script>
 
@@ -65,13 +63,13 @@ q-dialog(v-model="modelValue")
 
 		q-form(@submit="create")
 			q-card-section
-				label Метка
-				q-input(v-model="label" filled autofocus)
-				br
-				label Название
+				label Название поля:
 				q-input(v-model="name" filled autofocus)
 				br
-				label.q-mt-sm Тип
+				label Отображаемая метка:
+				q-input(v-model="label" filled autofocus)
+				br
+				label.q-mt-sm Тип поля:
 				q-select(v-model="typ" filled :options="options")
 
 			q-card-actions.q-mx-sm.q-mb-md(align="right")

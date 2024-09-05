@@ -25,6 +25,9 @@ export const useForms = defineStore('forms', () => {
 	const toggleZay = () => {
 		zay.value = !zay.value
 	}
+	const setZay = (b: boolean) => {
+		zay.value = b
+	}
 	const setZayForm = (e: string) => {
 		zayform.value = e
 	}
@@ -113,5 +116,6 @@ export const useForms = defineStore('forms', () => {
 		zayform,
 		toggleZay,
 		setZayForm,
+		setZay,
 	}
 })

@@ -128,7 +128,7 @@ const set = (e: any) => {
 					q-icon(name="mdi-chevron-right" color="primary" size='sm')
 						q-tooltip Назначить условие показа
 
-	q-btn.q-mt-md(v-if='showAddCond' flat color="primary" icon='mdi-plus-circle' label="Добавить условие показа" @click="toggle2" size='sm') 
+	q-btn.q-mt-md(v-if='showAddCond' flat color="primary" icon='mdi-plus-circle' label="Добавить роль/форму" @click="toggle2" size='sm') 
 
 
 	ConditionDialogRow(v-model="dialogRow" :row='row')

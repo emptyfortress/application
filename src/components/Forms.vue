@@ -21,6 +21,7 @@ const edit = (e: string) => {
 }
 
 const goto = (e: string) => {
+	myform.setZay(false)
 	let url = '/' + route.params.id + '/editor/process/' + e
 	router.push(url)
 }
@@ -36,8 +37,9 @@ const remove = (e: string) => {
 
 const app = useStorage('app', localStorage)
 const zayList = ['Создание', 'Просмотр', 'Архив']
+
 const goto2 = (e: string) => {
-	myform.toggleZay()
+	myform.setZay(true)
 	myform.setZayForm(e)
 	router.push(`/${route.params.id}/editor/process/${e}`)
 }
