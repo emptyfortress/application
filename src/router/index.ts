@@ -25,6 +25,11 @@ const router = createRouter({
 			component: HomeView,
 			children: [
 				{
+					path: '',
+					name: 'emp',
+					component: () => import('@/views/Empt.vue'),
+				},
+				{
 					path: ':id',
 					name: 'start',
 					component: () => import('@/components/Start.vue'),

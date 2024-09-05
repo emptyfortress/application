@@ -83,6 +83,10 @@ const select = (n: Stat) => {
 	router.push(n.data.text)
 }
 
+onMounted(() => {
+	tree.value.statsFlat.map((item: Stat) => (item.data.selected = false))
+})
+
 const toggle = (stat: any) => {
 	stat.open = !stat.open
 }
