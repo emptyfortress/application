@@ -3,14 +3,14 @@ import HomeView from '@/views/HomeView.vue'
 import { useStore } from '@/stores/store'
 
 declare module 'vue-router' {
-	interface Bread {
-		label?: string
-		to?: string
-		icon?: string
-	}
+	// interface Bread {
+	// 	label?: string
+	// 	to?: string
+	// 	icon?: string
+	// }
 	interface RouteMeta {
 		title?: string
-		bread?: Bread[]
+		// bread?: Bread[]
 		transition?: any
 		mode?: any
 	}

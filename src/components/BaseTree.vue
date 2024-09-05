@@ -7,13 +7,15 @@ import WordHighlighter from 'vue-word-highlighter'
 import DirMenu from '@/components/DirMenu.vue'
 import { useRouter } from 'vue-router'
 import CreateDialog from '@/components/CreateDialog.vue'
-
-const router = useRouter()
+import { useForms } from '@/stores/forms'
 
 const props = defineProps<{
 	treeData: NodeData[]
 	reset?: Boolean
 }>()
+
+const router = useRouter()
+const myform = useForms()
 
 const myTree = ref(props.treeData)
 
@@ -76,6 +78,7 @@ const select = (n: Stat) => {
 	// console.log(n.data)
 	localStorage.setItem('app', JSON.stringify(n.data))
 	// localStorage.setItem('appname', n.data.text)
+	myform.setCurrentBO(null)
 
 	router.push(n.data.text)
 }

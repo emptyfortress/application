@@ -63,6 +63,12 @@ const home = () => {
 	router.push('/')
 }
 const app = useStorage('app', localStorage)
+const calcBack = computed(() => {
+	if (route.name == 'emulate') return true
+	if (route.name == 'emulate1') return true
+	if (route.name == 'Этап') return true
+	return false
+})
 </script>
 
 <template lang="pug">
@@ -72,9 +78,10 @@ q-layout(view="hHr LpR fFf")
 			q-toolbar-title()
 				q-avatar(@click="home")
 					SvgIcon.log(name="logo")
-				span.title(@click="home") Конструктор приложений
+				span.title(v-if='!calcBack' @click="home") Конструктор приложений
+				q-btn.q-ml-xl(v-if='calcBack' unelevated color="primary" label="Назад" icon='mdi-arrow-left-circle' @click="$router.back()") 
 
-			// Breadcrumbs(v-if="route.name !== 'home'")
+			Breadcrumbs
 
 			q-space
 			q-avatar(color="blue-2" size="32px")

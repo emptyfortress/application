@@ -16,16 +16,16 @@ const route = useRoute()
 const router = useRouter()
 const myrole = useRoles()
 
-const prop1 = [
-	{ id: 0, label: 'Владелец процесса' },
-	{ id: 1, label: 'Инструкции для пользователей процесса' },
-	{ id: 2, label: 'Инициатор процесса' },
-	{ id: 3, label: 'Плановая продолжительность' },
-	{ id: 4, label: 'Плановая суммарная трудоемкость' },
-	{ id: 5, label: 'Реальная продолжительность' },
-	{ id: 5, label: 'Реальная трудоемкость, ч/ч' },
-	{ id: 5, label: 'Реальная трудоемкость, руб' },
-]
+// const prop1 = [
+// 	{ id: 0, label: 'Владелец процесса' },
+// 	{ id: 1, label: 'Инструкции для пользователей процесса' },
+// 	{ id: 2, label: 'Инициатор процесса' },
+// 	{ id: 3, label: 'Плановая продолжительность' },
+// 	{ id: 4, label: 'Плановая суммарная трудоемкость' },
+// 	{ id: 5, label: 'Реальная продолжительность' },
+// 	{ id: 5, label: 'Реальная трудоемкость, ч/ч' },
+// 	{ id: 5, label: 'Реальная трудоемкость, руб' },
+// ]
 
 const app = useStorage('app', localStorage)
 
@@ -91,7 +91,7 @@ template(v-if="route.name == 'Представление'")
 
 template(v-if="route.name == 'Процесс' && !!myform.currentBO")
 	q-card-section
-		h6.text-center {{ myform.currentBO.name }}
+		h6.text-center Задача: {{ myform.currentBO.name }}
 	.grid
 		div Название:
 		.text-bold(v-if='myform.currentBO.$type == "bpmn:ExclusiveGateway"') Шлюз
@@ -102,7 +102,7 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO")
 			div Исполнитель:
 			.text-bold {{myrole.currentRole}}
 
-			div Исходы:
+			div Варианты завершения:
 			div
 				.text-bold(v-for="item in myform.currentBO.outgoing") {{ item.name }}
 			template(v-if='myform.currentBO.$type == "bpmn:Task"')
@@ -136,7 +136,8 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO")
 template(v-if="route.name == 'Процесс' && myform.currentBO == null")
 	q-card-section
 		h6.text-center {{ app.text }}
-		q-list
+		div {{ app.descr }}
+		// q-list
 			q-item.ani(clickable v-for="item in prop1" :key="item.id")
 				q-item-section {{ item.label }}
 

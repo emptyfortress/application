@@ -6,13 +6,13 @@ export const useStore = defineStore('store', {
 		drawer: false,
 		drawer1: false,
 		currentNode: null as Stat | null,
-		bread: [] as String[],
+		// bread: [] as String[],
 		formSelected: false,
 		currentField: null as Field | null,
 		currentBlock: null as Block | null,
 		del: false,
 		dub: false,
-		tabs: 'lib',
+		tabs: 'property',
 		currentRole: {
 			id: 0,
 			label: 'Роль 1',
@@ -30,13 +30,13 @@ export const useStore = defineStore('store', {
 		setCurrentNode(e: Stat | null) {
 			this.currentNode = e
 		},
-		setBread(e: string) {
-			this.bread = []
-			this.bread.push(e)
-		},
-		addBread(e: string) {
-			this.bread.push(e)
-		},
+		// setBread(e: string) {
+		// 	this.bread = []
+		// 	this.bread.push(e)
+		// },
+		// addBread(e: string) {
+		// 	this.bread.push(e)
+		// },
 		selectForm() {
 			this.formSelected = true
 		},

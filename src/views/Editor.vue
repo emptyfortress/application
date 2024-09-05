@@ -1,55 +1,13 @@
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { ref } from 'vue'
+// import { useRoute, useRouter } from 'vue-router'
 import PropertyPanel from '@/components/PropertyPanel.vue'
-import VueDraggableResizable from 'vue-draggable-resizable'
-import { useForms } from '@/stores/forms'
-import { gsap } from 'gsap'
-import { useStore } from '@/stores/store'
+// import VueDraggableResizable from 'vue-draggable-resizable'
+// import { useForms } from '@/stores/forms'
+// import { gsap } from 'gsap'
+// import { useStore } from '@/stores/store'
 
-const route = useRoute()
-const router = useRouter()
 const split = ref(70)
-const myform = useForms()
-const store = useStore()
-
-onMounted(() => {
-	gsap.from('.fuck', {
-		delay: 0.5,
-		x: -600,
-		opacity: 0,
-		ease: 'expo.out',
-	})
-})
-
-const calcNav = computed(() => {
-	if (store.currentNode && store.currentNode.data.text == 'Заявка') {
-		switch (myform.currentBO?.name) {
-			case 'Создал Заявку':
-				return '/nav1.png'
-			case 'Согласовать заявку':
-				return '/nav2.png'
-			case 'Исправить заявку':
-				return '/nav3.png'
-			case 'Рассмотреть заявку':
-				return '/nav4.png'
-			case 'Обработать отказ':
-				return '/nav5.png'
-			case 'Исполнить заявку':
-				return '/nav6.png'
-			case 'Принять результаты':
-				return '/nav7.png'
-			default:
-				return '/nav0.png'
-		}
-	}
-	// if (store.currentNode.data.text !== 'Заявка') return '/preview.png'
-	// if (route.name !== 'Процесс') return '/empty.png'
-	else return '/preview.png'
-})
-const calcMap = computed(() => {
-	return route.name == 'Процесс' || route.name == 'Этап' ? true : false
-})
 </script>
 
 <template lang="pug">
@@ -60,12 +18,6 @@ q-page
 		template(v-slot:after)
 			PropertyPanel
 
-	Teleport(to="body")
-		vue-draggable-resizable.fuck(v-if='calcMap' :x="100" :y="-300" :w="250" :h="150" :active="false" :z="2000" :handles='["br"]' drag-handle='.bar')
-			q-card
-				.bar Навигация
-				q-img(:src='calcNav')
-			
 </template>
 
 <style scoped lang="scss">

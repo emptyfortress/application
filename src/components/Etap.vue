@@ -13,6 +13,7 @@ import { useStorage } from '@vueuse/core'
 import { useForms } from '@/stores/forms'
 import { useRoles } from '@/stores/roles'
 import { uid } from 'quasar'
+import { gsap } from 'gsap'
 
 const store = useStore()
 const myform = useForms()
@@ -130,6 +131,37 @@ const setDesc = (e: string) => {
 		form.desc = e
 	}
 }
+const calcNav = computed(() => {
+	if (store.currentNode && store.currentNode.data.text == 'Заявка') {
+		switch (myform.currentBO?.name) {
+			case 'Создал Заявку':
+				return '/nav1.png'
+			case 'Согласовать заявку':
+				return '/nav2.png'
+			case 'Исправить заявку':
+				return '/nav3.png'
+			case 'Рассмотреть заявку':
+				return '/nav4.png'
+			case 'Обработать отказ':
+				return '/nav5.png'
+			case 'Исполнить заявку':
+				return '/nav6.png'
+			case 'Принять результаты':
+				return '/nav7.png'
+			default:
+				return '/nav0.png'
+		}
+	} else return '/preview.png'
+})
+
+onMounted(() => {
+	gsap.from('.fuck', {
+		delay: 0.5,
+		x: -600,
+		opacity: 0,
+		ease: 'expo.out',
+	})
+})
 </script>
 
 <template lang="pug">
@@ -161,6 +193,12 @@ const setDesc = (e: string) => {
 		// FormLayout(v-else :layout='startLayout')
 
 ChooseFormDialog(v-model="dialog" @load='loadForm')
+
+Teleport(to="body")
+	vue-draggable-resizable.fuck(:x="100" :y="-300" :w="250" :h="150" :active="false" :z="2000" :handles='["br"]' drag-handle='.bar')
+		q-card(flat)
+			.bar Навигация
+			q-img(:src='calcNav')
 </template>
 
 <style scoped lang="scss">
@@ -186,5 +224,19 @@ ChooseFormDialog(v-model="dialog" @load='loadForm')
 .inner {
 	margin: 1rem auto;
 	width: v-bind(width);
+}
+.q-card {
+	height: 100%;
+	overflow: hidden;
+}
+.fuck {
+	border: 1px solid #aaa;
+}
+.bar {
+	height: 26px;
+	background: #dedede;
+	text-align: center;
+	font-size: 0.9rem;
+	line-height: 26px;
 }
 </style>

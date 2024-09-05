@@ -10,7 +10,7 @@ const router = useRouter()
 
 const goto = () => {
 	router.push('/editor/process')
-	store.setBread('Процесс')
+	// store.setBread('Процесс')
 }
 
 const splitterModel = ref(30)

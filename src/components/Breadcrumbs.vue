@@ -30,7 +30,7 @@ const calcTitle = (item: string) => {
 			return
 
 		case route.params.etap:
-			store.tabs = 'lib'
+			// store.tabs = 'lib'
 			return decodeURIComponent(route.params.etap.toString())
 
 		case route.params.req:
@@ -42,6 +42,7 @@ const calcTitle = (item: string) => {
 			return decodeURIComponent(item)
 	}
 }
+
 const calcUrl = (item: string) => {
 	switch (item) {
 		case 'process':
@@ -88,12 +89,12 @@ const back = () => {
 
 <template lang="pug">
 q-breadcrumbs.q-ml-xl
-	q-breadcrumbs-el(v-for="br in bread" :key="br.title" :label="br.title" :to="br.url" @click="reset(br.url)")
-	q-breadcrumbs-el(v-if="route.name == 'Этап'") Форма
+	// q-breadcrumbs-el(v-for="br in bread" :key="br.title" :label="br.title" :to="br.url" @click="reset(br.url)")
+	// q-breadcrumbs-el(v-if="route.name == 'Этап'") Форма
 
 	template(v-if='route.name == "emulate" || route.name == "emulate1"' )
 		h6 Процесс "{{ app.text }}"
-		q-btn.q-ml-lg(unelevated color="accent" label="Отмена" @click="back" size='sm')
+		// q-btn.q-ml-lg(unelevated color="accent" label="Отмена" @click="back" size='sm')
 </template>
 
 <style scoped lang="scss"></style>
