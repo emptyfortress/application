@@ -91,7 +91,12 @@ template(v-if="route.name == 'Представление'")
 
 template(v-if="route.name == 'Процесс' && !!myform.currentBO")
 	q-card-section
-		h6.text-center Задача: {{ myform.currentBO.name }}
+		h6.text-center.q-gutter-x-md
+			span(v-if='myform.currentBO.$type == "bpmn:Task"') Задача:
+			span(v-if='myform.currentBO.$type == "bpmn:Lane"') Роль:
+			span(v-if='myform.currentBO.$type == "bpmn:StartEvent"') Событие:
+			span(v-if='myform.currentBO.$type == "bpmn:EndEvent"') Событие:
+			span {{ myform.currentBO.name }}
 	.grid
 		div Название:
 		.text-bold(v-if='myform.currentBO.$type == "bpmn:ExclusiveGateway"') Шлюз

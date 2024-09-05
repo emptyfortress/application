@@ -15,7 +15,7 @@
     <bpmn:startEvent id="Event_1yaboz8" name="Старт">
       <bpmn:outgoing>Flow_0w3wlvi</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:task id="Activity_0od2rg0" name="Этап">
+    <bpmn:task id="Activity_0od2rg0" name="Задайте название задачи">
       <bpmn:incoming>Flow_0w3wlvi</bpmn:incoming>
       <bpmn:outgoing>Flow_1i46zgu</bpmn:outgoing>
     </bpmn:task>
