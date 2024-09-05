@@ -85,11 +85,15 @@ const toggle = (stat: any) => {
 }
 
 const add = (e: NodeData) => {
-	const tmp = tree.value.getStat(store.currentNode?.data)
-	if (store.currentNode?.data.type == 0) {
-		tree.value.add(e, tmp)
-	} else tree.value.add(e, tmp.parent)
-	select(tree.value.getStat(e))
+	if (store.currentNode == null) {
+		tree.value.add(e, tree.value.rootChildren[0], tree.value.rootChildren[0].children.length)
+	} else {
+		const tmp = tree.value.getStat(store.currentNode?.data)
+		if (store.currentNode?.data.type == 0) {
+			tree.value.add(e, tmp)
+		} else tree.value.add(e, tmp.parent)
+		select(tree.value.getStat(e))
+	}
 }
 
 const addFromMenu = (e: Stat) => {
@@ -188,7 +192,7 @@ const isDrop = (e: any) => {
 					autofocus counter
 					@keyup.enter="setText(stat, $event)"
 					)
-	q-btn.fab(round icon="mdi-plus" color="primary" @click="dialog = !dialog" :disable="store.currentNode == null") 
+	q-btn.fab(round icon="mdi-plus" color="primary" @click="dialog = !dialog") 
 	CreateDialog(v-model="dialog" @create="add")
 </template>
 

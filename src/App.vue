@@ -74,7 +74,7 @@ q-layout(view="hHr LpR fFf")
 					SvgIcon.log(name="logo")
 				span.title(@click="home") Конструктор приложений
 
-			Breadcrumbs(v-if="route.name !== 'home'")
+			// Breadcrumbs(v-if="route.name !== 'home'")
 
 			q-space
 			q-avatar(color="blue-2" size="32px")
@@ -119,7 +119,7 @@ q-layout(view="hHr LpR fFf")
 	cursor: pointer;
 }
 .title {
-	margin-left: 1rem;
+	margin-left: 0.5rem;
 	font-size: 0.8rem;
 	text-transform: uppercase;
 	cursor: pointer;
