@@ -20,8 +20,8 @@ const select = (e: Role) => {
 	q-list(separator)
 		q-item(clickable v-for="role in myrole.roles" :key="role.id" @click="select(role)" :class="{selected: role.name == selection}")
 			q-item-section(avatar)
-				q-icon(name="mdi-account-circle-outline")
-			q-item-section {{ role.name }}
+				q-icon(name="mdi-guy-fawkes-mask")
+			q-item-section(:class='{"text-bold" : role.type}') {{ role.name }}
 			q-item-section(v-if='role.descr') {{ role.descr }}
 			q-item-section(side v-if='role.type' )
 				q-icon(v-if='role.type' name="mdi-shuffle-variant")

@@ -3,10 +3,9 @@ import { defineStore } from 'pinia'
 export const useStore = defineStore('store', {
 	state: () => ({
 		mini: false,
-		drawer: false,
+		drawer: true,
 		drawer1: false,
 		currentNode: null as Stat | null,
-		// bread: [] as String[],
 		formSelected: false,
 		currentField: null as Field | null,
 		currentBlock: null as Block | null,
@@ -30,13 +29,9 @@ export const useStore = defineStore('store', {
 		setCurrentNode(e: Stat | null) {
 			this.currentNode = e
 		},
-		// setBread(e: string) {
-		// 	this.bread = []
-		// 	this.bread.push(e)
-		// },
-		// addBread(e: string) {
-		// 	this.bread.push(e)
-		// },
+		setDrawer(b: boolean) {
+			this.drawer = b
+		},
 		selectForm() {
 			this.formSelected = true
 		},

@@ -32,7 +32,8 @@ const pages = reactive([
 	{
 		id: 3,
 		title: 'Роли',
-		icon: 'mdi-account-circle-outline',
+		icon: 'mdi-drama-masks',
+		// icon: 'mdi-account-circle-outline',
 		url: 'roles',
 	},
 	{
@@ -48,6 +49,7 @@ const pages = reactive([
 		url: 'cards',
 	},
 ])
+
 const mini = ref(false)
 
 const show = computed(() => {
@@ -57,7 +59,7 @@ const enter = async (el: any, done: any) => {
 	await gsap.from('.q-item', {
 		y: 50,
 		opacity: 0,
-		delay: 0.1,
+		delay: 0.3,
 		duration: 0.3,
 		stagger: 0.1,
 		ease: 'power3.out',
@@ -95,7 +97,7 @@ q-drawer.rel(v-model="modelValue" side="left" :width="180" :mini="store.mini")
 				q-item-section
 					q-item-label {{ page.title }}
 
-	q-btn(v-if='route.name !== "start"' flat round color="primary"  @click="store.mini = !store.mini" dense) 
+	q-btn(v-if='show' flat round color="primary"  @click="store.mini = !store.mini" dense) 
 		q-icon(v-if="!store.mini" name="mdi-backburger")
 		q-icon(v-else name="mdi-forwardburger")
 </template>

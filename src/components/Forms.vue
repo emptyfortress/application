@@ -43,6 +43,12 @@ const goto2 = (e: string) => {
 	myform.setZayForm(e)
 	router.push(`/${route.params.id}/editor/process/${e}`)
 }
+const calcClass = (e: string) => {
+	let tmp = myform.conditionList.find((el: Condition) => el.form == e)
+	if (tmp == undefined) {
+		return ''
+	} else return 'text-bold'
+}
 </script>
 
 <template lang="pug">
@@ -67,7 +73,7 @@ const goto2 = (e: string) => {
 				q-item-section(avatar)
 					q-icon(name='mdi-list-box-outline')
 				q-item-section()
-					q-item-label {{ form.name }}
+					q-item-label(:class='calcClass(form.name)') {{ form.name }}
 				q-item-section(side)
 					.row.q-gutter-x-sm
 						q-btn(flat round icon='mdi-pencil-outline' color='primary' dense size='sm' @click.stop='goto(form.name)') 

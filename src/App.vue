@@ -77,6 +77,7 @@ const back = () => {
 	myform.setCurrentBO(null)
 	router.back()
 }
+const dra = ref(false)
 </script>
 
 <template lang="pug">
@@ -84,7 +85,8 @@ q-layout(view="hHr LpR fFf")
 	q-header.head
 		q-toolbar
 			q-toolbar-title()
-				q-avatar(@click="home")
+				// q-avatar(@click="home")
+				q-avatar(@click="dra = !dra")
 					SvgIcon.log(name="logo")
 				span.title(v-if='!calcBack' @click="home") Конструктор приложений
 				q-btn.q-ml-md(v-if='calcBack' flat color="primary" label="Назад" icon='mdi-arrow-left-circle' @click="back") 

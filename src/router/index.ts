@@ -128,13 +128,11 @@ const DEFAULT_TITLE = 'Конструктор приложений'
 router.beforeEach((to) => {
 	const store = useStore()
 	document.title = store.currentNode?.data.text || DEFAULT_TITLE
-	if (to.path == '/') {
-		store.drawer = false
+	if (to.name == 'home' || to.name == 'start') {
 		document.title = DEFAULT_TITLE
 	} else {
 		document.title = store.currentNode?.data.text || DEFAULT_TITLE
 	}
-	store.drawer = true
 	if (to.name == 'Этап') {
 		store.tabs = 'lib'
 	} else store.tabs = 'property'
