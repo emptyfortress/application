@@ -30,6 +30,17 @@ const myrole = useRoles()
 const app = useStorage('app', localStorage)
 
 const emulate = () => {
+	// let tmp = {
+	// 	$type: 'bpmn:Task',
+	// 	id: 'Activity_13ysreu',
+	// 	name: 'Согласовать заявку',
+	// 	lanes: [
+	// 		{
+	// 			name: 'Руководитель',
+	// 		},
+	// 	],
+	// }
+	// myform.setCurrentBO(tmp)
 	router.push('/emulate/1')
 }
 

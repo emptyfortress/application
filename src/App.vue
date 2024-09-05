@@ -72,12 +72,14 @@ const calcBack = computed(() => {
 })
 
 const myform = useForms()
+
 const back = () => {
+	if (route.name == 'emulate') {
+		router.push('/Заявка/editor/process')
+	} else router.back()
 	store.setCurrentNode(null)
 	myform.setCurrentBO(null)
-	router.back()
 }
-const dra = ref(false)
 </script>
 
 <template lang="pug">
@@ -85,8 +87,7 @@ q-layout(view="hHr LpR fFf")
 	q-header.head
 		q-toolbar
 			q-toolbar-title()
-				// q-avatar(@click="home")
-				q-avatar(@click="dra = !dra")
+				q-avatar(@click="home")
 					SvgIcon.log(name="logo")
 				span.title(v-if='!calcBack' @click="home") Конструктор приложений
 				q-btn.q-ml-md(v-if='calcBack' flat color="primary" label="Назад" icon='mdi-arrow-left-circle' @click="back") 
