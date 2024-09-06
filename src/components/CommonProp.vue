@@ -16,31 +16,9 @@ const route = useRoute()
 const router = useRouter()
 const myrole = useRoles()
 
-// const prop1 = [
-// 	{ id: 0, label: 'Владелец процесса' },
-// 	{ id: 1, label: 'Инструкции для пользователей процесса' },
-// 	{ id: 2, label: 'Инициатор процесса' },
-// 	{ id: 3, label: 'Плановая продолжительность' },
-// 	{ id: 4, label: 'Плановая суммарная трудоемкость' },
-// 	{ id: 5, label: 'Реальная продолжительность' },
-// 	{ id: 5, label: 'Реальная трудоемкость, ч/ч' },
-// 	{ id: 5, label: 'Реальная трудоемкость, руб' },
-// ]
-
 const app = useStorage('app', localStorage)
 
 const emulate = () => {
-	// let tmp = {
-	// 	$type: 'bpmn:Task',
-	// 	id: 'Activity_13ysreu',
-	// 	name: 'Согласовать заявку',
-	// 	lanes: [
-	// 		{
-	// 			name: 'Руководитель',
-	// 		},
-	// 	],
-	// }
-	// myform.setCurrentBO(tmp)
 	router.push('/emulate/1')
 }
 
@@ -100,7 +78,30 @@ const goto2 = (e: string) => {
 template(v-if="route.name == 'Представление'")
 	FieldList
 
-template(v-if="route.name == 'Процесс' && !!myform.currentBO")
+template(v-if="route.name == 'Процесс' && !!myform.currentBO && myform.currentBO.$type == 'bpmn:StartEvent'")
+	q-card-section
+		h6.text-center.q-gutter-x-md Событие: старт приложения
+	.grid
+		div Исполнитель:
+		.text-bold {{myrole.currentRole}}
+
+		template(v-if='myform.currentBO.outgoing?.length')
+			div Варианты запуска:
+			div(v-if='myform.currentBO.outgoing[0]?.name')
+				.text-bold {{myform.currentBO.outgoing[0]?.name}}
+			div(v-else)
+				q-btn(flat color="primary" label="Назвать кнопку" size='sm') 
+
+
+		.text-bold.q-mt-lg Начальная форма приложения
+		.q-mt-lg
+			q-btn(v-if='defaultForm' unelevated color="primary" label="Создать" @click='goto' size='sm') 
+			span.btd(@click='goto1(def)') {{ def }}
+				q-tooltip Редактировать форму
+			q-btn(v-if='myform.formList.length' flat color="primary" label="Выбрать" @click='toggle2' size='sm') 
+
+
+template(v-if="route.name == 'Процесс' && !!myform.currentBO && myform.currentBO.$type !== 'bpmn:StartEvent'")
 	q-card-section
 		h6.text-center.q-gutter-x-md
 			span(v-if='myform.currentBO.$type == "bpmn:Task"') Задача:
@@ -194,6 +195,7 @@ ConditionDialogChoose(v-model="dialogAdd")
 	padding: 0 1rem;
 	display: grid;
 	grid-template-columns: 170px 2fr;
+	align-items: center;
 	column-gap: 1rem;
 	row-gap: 1rem;
 	line-height: 1.1;
