@@ -104,12 +104,13 @@ onKeyStroke('Enter', () => {
 		addRole()
 	}
 })
-onKeyStroke('Escape', () => {
-	ad1.value = !ad1.value
-})
-onKeyStroke('Shift', () => {
-	ad.value = !ad.value
-})
+
+// onKeyStroke('Escape', () => {
+// 	ad1.value = !ad1.value
+// })
+// onKeyStroke('Shift', () => {
+// 	ad.value = !ad.value
+// })
 </script>
 
 <template lang="pug">

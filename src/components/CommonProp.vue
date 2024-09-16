@@ -81,7 +81,8 @@ template(v-if="route.name == 'Представление'")
 template(v-if="route.name == 'Процесс' && !!myform.currentBO && myform.currentBO.$type == 'bpmn:StartEvent'")
 	q-card-section
 		h6.text-center.q-gutter-x-md Событие: старт приложения
-	.grid
+		.text-center Возникла необходимость в запуске процесса
+	// .grid
 		div Исполнитель:
 		.text-bold {{myrole.currentRole}}
 

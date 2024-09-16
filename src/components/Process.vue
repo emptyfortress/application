@@ -5,7 +5,7 @@ import 'bpmn-js/dist/assets/diagram-js.css'
 import 'bpmn-js/dist/assets/bpmn-js.css'
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css'
 import zay from '@/stores/zayavka1.bpmn?raw'
-import empty from '@/stores/simple.bpmn?raw'
+import empty from '@/stores/simple1.bpmn?raw'
 import 'diagram-js-minimap/assets/diagram-js-minimap.css'
 
 import { useRouter, useRoute } from 'vue-router'
@@ -69,6 +69,7 @@ onMounted(() => {
 		} else {
 			// let tmp = e.element.businessObject
 			myform.setCurrentBO(e.element.businessObject)
+			console.log(e.element.businessObject)
 		}
 	})
 
@@ -151,6 +152,9 @@ onMounted(() => {
 	display: none;
 }
 :deep(.bpmn-icon-lasso-tool) {
+	display: none;
+}
+:deep(.bpmn-icon-participant) {
 	display: none;
 }
 .undo {
