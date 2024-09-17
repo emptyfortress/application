@@ -101,6 +101,12 @@ const otherCalc = computed(() => {
 	const tmp = flatActive.filter((el) => el == 'Все остальные')
 	return tmp.length == 0 ? true : false
 })
+const calcIni = computed(() => {
+	const active = etapConditionList.value.map((item) => item.role)
+	const flatActive = active.flat()
+	const tmp = flatActive.filter((el) => el == myrole.currentRole)
+	return tmp.length == 0 ? true : false
+})
 </script>
 
 <template lang="pug">
@@ -114,7 +120,8 @@ const otherCalc = computed(() => {
 				th
 
 		tbody
-			tr(v-if='myform.conditionList.length == 0')
+			// tr(v-if='myform.conditionList.length == 0')
+			tr(v-if='calcIni')
 				td {{ myrole.currentRole }}
 				td
 					q-btn(unelevated color="primary" label="Создать" @click="toggle2" size='sm') 
@@ -128,7 +135,7 @@ const otherCalc = computed(() => {
 					span.btd(@click='goto(element)') {{ element.form }}
 						q-tooltip Редактировать форму
 				td.text-right
-					q-btn(v-if='element.role !== myrole.currentRole' flat round color="primary" icon='mdi-trash-can-outline' dense @click.stop="myform.removeCondition(element)" size='sm') 
+					q-btn(flat round color="primary" icon='mdi-trash-can-outline' dense @click.stop="myform.removeCondition(element)" size='sm') 
 					q-icon(name="mdi-chevron-right" color="primary" size='sm')
 						q-tooltip Назначить условие показа
 

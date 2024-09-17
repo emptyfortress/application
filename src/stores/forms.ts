@@ -73,7 +73,8 @@ export const useForms = defineStore('forms', () => {
 		conditionList.value.push(e)
 	}
 	const removeCondition = (e: Form) => {
-		let n = formList.value.findIndex((item) => {
+		// let n = formList.value.findIndex((item) => {
+		let n = conditionList.value.findIndex((item) => {
 			return item.id == e.id
 		})
 		conditionList.value.splice(n, 1)
