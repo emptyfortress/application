@@ -19,9 +19,10 @@ const router = useRouter()
 const route = useRoute()
 
 const etapConditionList = computed(() => {
-	return myform.conditionList.filter((item: Condition) => {
-		return item.etap == myform.currentEtap && item.role !== myrole.currentRole
+	let tmp = myform.conditionList.filter((item: Condition) => {
+		return item.etap == myform.currentEtap
 	})
+	return tmp
 })
 const showAddCond = computed(() => {
 	let tmp = myform.conditionList.filter((item: Condition) => {
@@ -101,6 +102,7 @@ const otherCalc = computed(() => {
 	const tmp = flatActive.filter((el) => el == 'Все остальные')
 	return tmp.length == 0 ? true : false
 })
+
 const calcIni = computed(() => {
 	const active = etapConditionList.value.map((item) => item.role)
 	const flatActive = active.flat()
@@ -121,10 +123,11 @@ const calcIni = computed(() => {
 
 		tbody
 			// tr(v-if='myform.conditionList.length == 0')
-			tr(v-if='calcIni')
+			tr(v-if='etapConditionList.length == 0')
 				td {{ myrole.currentRole }}
 				td
-					q-btn(unelevated color="primary" label="Создать" @click="toggle2" size='sm') 
+					q-btn(unelevated color="primary" label="Создать форму" @click="goto1" size='sm') 
+					// q-btn(unelevated color="primary" label="Создать" @click="toggle2" size='sm') 
 				td
 
 			tr(v-for="element in etapConditionList" :key='element.id' @click='toggle1(element)')
@@ -139,18 +142,9 @@ const calcIni = computed(() => {
 					q-icon(name="mdi-chevron-right" color="primary" size='sm')
 						q-tooltip Назначить условие показа
 
-			// tr(@click='toggle3')
-				td Все остальные
-				td
-					span(v-if='noset == null') &mdash;
-					span.btd(v-else @click='goto(noset)') {{ noset }}
-				td.text-right
-					q-icon(name="mdi-chevron-right" color="primary" size='sm')
-						q-tooltip Назначить условие показа
-
 	.other(v-if='otherCalc') Все остальные роли не имеют доступа к просмотру.
 
-	q-btn.q-mt-md(v-if='otherCalc' flat color="primary" icon='mdi-plus-circle' label="Добавить роль/форму" @click="toggle2" size='sm') 
+	q-btn.q-mt-md(flat color="primary" icon='mdi-plus-circle' label="Добавить роль/форму" @click="toggle2" size='sm') 
 
 
 	ConditionDialogRow(v-model="dialogRow" :row='row')

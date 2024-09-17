@@ -69,9 +69,20 @@ export const useForms = defineStore('forms', () => {
 
 	const conditionList = ref<Condition[]>([])
 
+	// function moveToEnd(arr, key, value) {
+	// 	const index = arr.findIndex((obj) => obj[key] === value)
+	// 	if (index !== -1) {
+	// 		const removed = arr.splice(index, 1)[0]
+	// 		arr.push(removed)
+	// 	}
+	// 	return arr
+	// }
+
 	const addCondition = (e: Condition) => {
 		conditionList.value.push(e)
+		// moveToEnd(conditionList.value, 'role', ['Все остальные'])
 	}
+
 	const removeCondition = (e: Form) => {
 		// let n = formList.value.findIndex((item) => {
 		let n = conditionList.value.findIndex((item) => {
