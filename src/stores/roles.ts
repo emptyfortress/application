@@ -4,7 +4,14 @@ import { useFlow } from '@/stores/flow'
 import { useForms } from '@/stores/forms'
 
 export const useRoles = defineStore('roles', () => {
-	const rolesN = ref<Role[]>([])
+	const rolesN = ref<Role[]>([
+		{
+			id: 'all',
+			name: 'Все остальные',
+			description: '',
+			selected: false,
+		},
+	])
 
 	const addRole = (role: Role) => {
 		rolesN.value.push(role)

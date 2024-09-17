@@ -138,7 +138,7 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO && myform.cu
 						q-tooltip Редактировать форму
 					q-btn(flat color="primary" label="Выбрать" @click='' size='sm') 
 
-			template(v-else)
+			// template(v-else)
 				.text-bold.q-mt-lg Исполнитель работает с формой:
 				.q-mt-lg
 					q-btn(v-if='defaultForm' unelevated color="primary" label="Создать" @click='goto' size='sm') 

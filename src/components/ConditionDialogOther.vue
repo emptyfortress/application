@@ -44,28 +44,59 @@ const save = () => {
 }
 
 const ad = ref(false)
+const ad1 = ref(false)
 
+const addRole = () => {
+	let tmp = {
+		id: uid(),
+		name: newRole.value,
+		selected: false,
+	}
+	myrole.addRole(tmp)
+	clear()
+}
 const addForm = () => {
 	myform.createForm(newForm.value, 'Это сопроводительный текст-описание')
 	clear()
 }
 const newForm = ref('')
+const newRole = ref('')
 
 const clear = () => {
 	ad.value = false
+	ad1.value = false
 	newForm.value = ''
+	newRole.value = ''
 }
 
 const input = ref()
-onKeyStroke('Enter', (e) => {
+
+onKeyStroke('Enter', () => {
 	if (ad.value == true && newForm.value.length > 2) {
 		addForm()
-	} else {
-		e.preventDefault()
-		ad.value = true
+	}
+	if (ad1.value == true && newRole.value.length > 2) {
+		addRole()
 	}
 })
+
 const nodostup = ref(true)
+const allSel = ref(false)
+
+const etapConditionList = computed(() => {
+	return myform.conditionList.filter((item: Condition) => {
+		return item.etap == myform.currentEtap
+	})
+})
+
+const rolesChip1 = computed(() => {
+	const active = etapConditionList.value.map((item) => item.role)
+	const flatActive = active.flat()
+	let filtered = myrole.roles.filter(
+		(role) => !flatActive.includes(role.name) && flatActive.includes(myrole.currentRole)
+	)
+	return filtered
+})
 </script>
 
 <template lang="pug">
@@ -75,6 +106,7 @@ q-dialog(v-model="modelValue" persistent)
 		q-card-section
 			.text-h6 Условие показа
 			.hd Назначьте форму показа для всех остальных ролей:
+			.text-bold() Все остальные роли не имеют доступа к просмотру.
 
 		q-form(@submit="save")
 			q-card-section
@@ -83,11 +115,18 @@ q-dialog(v-model="modelValue" persistent)
 						.text-bold Роли
 						q-chip(
 							label="Все остальные"
-							selected
+							v-model:selected='allSel'
+							clickable
+							)
+						q-chip(v-for="chip in rolesChip1"
+							clickable
+							:label="chip.name"
+							v-model:selected="chip.selected"
+							:key="chip.id"
 							)
 					div
 						.text-bold Формы
-						q-chip.neg(
+						// q-chip.neg(
 							label='Нет доступа'
 							v-model:selected='nodostup'
 							@click='select' 
@@ -102,6 +141,12 @@ q-dialog(v-model="modelValue" persistent)
 
 			br
 			q-card-actions.q-mx-sm.q-mb-md(align="right")
+				.rel1
+					q-btn(flat icon="mdi-plus-circle" color="primary" label="Добавить роль" @click="ad1 = true") 
+					q-input.newname(v-if='ad1' autofocus v-model="newRole" dense outlined bg-color="white")
+						template(v-slot:append)
+							q-btn(flat round icon="mdi-close" @click="clear" dense size='11px') 
+							q-btn(flat round icon="mdi-check" @click="addRole" dense size='11px') 
 				.rel
 					q-btn(flat icon="mdi-plus-circle" color="primary" label="Добавить форму" @click="ad = true") 
 					q-input.newname(ref='input' v-if='ad' autofocus v-model="newForm" dense outlined bg-color="white")

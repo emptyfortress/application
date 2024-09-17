@@ -18,10 +18,16 @@ const formsChip = ref(myform.formList)
 const rolesChip1 = computed(() => {
 	const active = etapConditionList.value.map((item) => item.role)
 	const flatActive = active.flat()
-	let filtered = myrole.roles.filter(
-		(role) => !flatActive.includes(role.name) && flatActive.includes(myrole.currentRole)
-	)
+
+	let filtered = myrole.roles.filter((role) => !flatActive.includes(role.name))
 	return filtered
+
+	// const active = etapConditionList.value.map((item) => item.role)
+	// const flatActive = active.flat()
+	// let filtered = myrole.roles.filter(
+	// 	(role) => !flatActive.includes(role.name) && flatActive.includes(myrole.currentRole)
+	// )
+	// return filtered
 })
 
 const etapConditionList = computed(() => {

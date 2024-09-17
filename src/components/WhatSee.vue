@@ -32,7 +32,7 @@ const showAddCond = computed(() => {
 
 const goto = (e: Condition) => {
 	myform.zay = false
-	if (e.role !== myrole.currentRole) {
+	if (e.role[0] !== myrole.currentRole) {
 		myform.notMain = true
 	}
 	router.push(`/${route.params.id}/editor/process/${e.form}`)
@@ -68,6 +68,7 @@ const toggleSecond = () => {
 	dialogRow.value = !dialogRow.value
 }
 const el = ref()
+
 const toggle1 = (el: any) => {
 	console.log(el)
 	row.value = el
@@ -94,11 +95,17 @@ const noset = ref<null | string>(null)
 const set = (e: any) => {
 	noset.value = e
 }
+const otherCalc = computed(() => {
+	const active = etapConditionList.value.map((item) => item.role)
+	const flatActive = active.flat()
+	const tmp = flatActive.filter((el) => el == 'Все остальные')
+	return tmp.length == 0 ? true : false
+})
 </script>
 
 <template lang="pug">
 .q-mx-md
-	.text-bold Что видят другие пользователи?
+	.text-bold Что видят пользователи?
 	q-markup-table(bordered flat)
 		thead
 			tr
@@ -107,6 +114,12 @@ const set = (e: any) => {
 				th
 
 		tbody
+			tr(v-if='myform.conditionList.length == 0')
+				td {{ myrole.currentRole }}
+				td
+					q-btn(unelevated color="primary" label="Создать" @click="toggle2" size='sm') 
+				td
+
 			tr(v-for="element in etapConditionList" :key='element.id' @click='toggle1(element)')
 				td
 					div.q-mr-sm(v-if='Array.isArray(element.role)' v-for="(item, ind) in element.role" :key='ind') {{ item }}
@@ -119,16 +132,18 @@ const set = (e: any) => {
 					q-icon(name="mdi-chevron-right" color="primary" size='sm')
 						q-tooltip Назначить условие показа
 
-			tr(@click='toggle3')
+			// tr(@click='toggle3')
 				td Все остальные
 				td
-					span(v-if='noset == null') Нет доступа
+					span(v-if='noset == null') &mdash;
 					span.btd(v-else @click='goto(noset)') {{ noset }}
 				td.text-right
 					q-icon(name="mdi-chevron-right" color="primary" size='sm')
 						q-tooltip Назначить условие показа
 
-	q-btn.q-mt-md(v-if='showAddCond' flat color="primary" icon='mdi-plus-circle' label="Добавить роль/форму" @click="toggle2" size='sm') 
+	.other(v-if='otherCalc') Все остальные роли не имеют доступа к просмотру.
+
+	q-btn.q-mt-md(v-if='otherCalc' flat color="primary" icon='mdi-plus-circle' label="Добавить роль/форму" @click="toggle2" size='sm') 
 
 
 	ConditionDialogRow(v-model="dialogRow" :row='row')
@@ -154,5 +169,9 @@ tr {
 }
 .second {
 	border-top: none;
+}
+.other {
+	font-weight: 600;
+	font-size: 0.8rem;
 }
 </style>
