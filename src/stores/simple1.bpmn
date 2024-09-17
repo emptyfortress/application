@@ -11,7 +11,7 @@
         <bpmn:flowNodeRef>Event_01uuoou</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
-    <bpmn:startEvent id="StartEvent_09mh8k4" name="Старт">
+    <bpmn:startEvent id="StartEvent_09mh8k4">
       <bpmn:outgoing>Flow_1bh8c4m</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:task id="Activity_03rm8hy" name="Инициатор создает начальную форму">
