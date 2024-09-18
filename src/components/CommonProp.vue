@@ -87,6 +87,7 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO && myform.cu
 	q-card-section
 		h6.text-center.q-gutter-x-md Событие:
 		.text-center Возникла необходимость в запуске процесса
+	WhatSee1(v-if='app.text == "Заявка" && (myform.currentBO.$type == "bpmn:Task" || myform.currentBO.$type == "bpmn:StartEvent" || myform.currentBO.$type == "bpmn:EndEvent")')
 
 template(v-if="route.name == 'Процесс' && !!myform.currentBO && myform.currentBO.$type !== 'bpmn:StartEvent'")
 	q-card-section
@@ -110,61 +111,29 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO && myform.cu
 			div Варианты завершения:
 			div
 				.text-bold(v-for="item in myform.bt") {{ item.name }}
-				// .text-bold(v-for="item in myform.currentBO.outgoing") {{ item.name }}
 
 			template(v-if='myform.currentBO.$type == "bpmn:Task"')
 				div Срок:
 				div 25 сентября 2024 г.
-				// .sec
-				// 	FormKit(type='textarea' label='Описание:' v-model="desc" placeholder='Это текст в шапке задания (формы), который увидят исполнители')
-
-
-
-			template(v-if='app.text == "Заявка"')
-				.text-bold.q-mt-lg Исполнитель работает с формой:
-				.q-mt-lg
-					span.btd(@click='goto2(calcFormName)') {{ calcFormName }}
-						q-tooltip Редактировать форму
-					q-btn(flat color="primary" label="Выбрать" @click='' size='sm') 
-
-			// template(v-else)
-				.text-bold.q-mt-lg Исполнитель работает с формой:
-				.q-mt-lg
-					q-btn(v-if='defaultForm' unelevated color="primary" label="Создать" @click='goto' size='sm') 
-					span.btd(@click='goto1(def)') {{ def }}
-						q-tooltip Редактировать форму
-					q-btn(v-if='myform.formList.length' flat color="primary" label="Выбрать" @click='toggle2' size='sm') 
 
 	br
 	br
-	WhatSee(v-if='myform.currentBO.$type == "bpmn:Task" || myform.currentBO.$type == "bpmn:EndEvent"')
+
+	WhatSee1(v-if='app.text == "Заявка" && (myform.currentBO.$type == "bpmn:Task" || myform.currentBO.$type == "bpmn:EndEvent")')
+	WhatSee(v-if='app.text !== "Заявка" && (myform.currentBO.$type == "bpmn:Task" || myform.currentBO.$type == "bpmn:EndEvent")')
 
 
-// template(v-if="route.name == 'Этап' && !!store.currentField")
-	.q-pa-md.text-bold {{ store.currentField?.name }}
-	.q-ma-md
-		FormKit(type='text' label='Название поля')
-		FormKit(type='text' label='Метка' v-model='store.currentField.name')
-		FormKit(type='checkbox' label='Readonly')
-		FormKit(type='checkbox' label='Visible')
+template(v-if="route.name == 'Этап' && store.currentField == null && store.currentBlock == null")
+	.q-ma-md Здесь общие настройки формы
 
-// template(v-if="route.name == 'Этап' && store.currentField == null && store.currentBlock")
+template(v-if="route.name == 'Этап' && store.currentField == null && store.currentBlock")
 	.q-pa-md.text-bold Здесь свойства данного блока
 
-// template(v-if="route.name == 'Этап' && store.currentField == null && store.currentBlock == null")
-	.q-ma-md Здесь общие настройки формы
-	.q-ma-md.text-red Выбор карточки для текущей функции
-	.q-ma-md.text-red Состояния карточки
 
-// template(v-if='route.name == "Роли"')
-	.q-pa-md
-		.text-bold Название роли
-		div Тут свойства роли
-
-// .prev(v-if='app.text == "Заявка"')
+.prev(v-if='app.text == "Заявка"')
 	q-btn.btn(outline color="primary" icon='mdi-play' label='Проверка работы приложения с текущего этапа' @click='emulate' size='sm') 
 
-// .prev(v-if='app.text !== "Заявка" && ( route.name == "Процесс" || route.name == "Этап")')
+.prev(v-if='app.text !== "Заявка" && ( route.name == "Процесс" || route.name == "Этап")')
 	q-btn.btn(v-if='myform.currentBO && myform.currentBO.$type == "bpmn:Task"' outline color="primary" icon='mdi-play' label='Проверка работы приложения с текущего этапа' @click='emulate1' size='sm') 
 
 ConditionDialogChoose(v-model="dialogAdd")

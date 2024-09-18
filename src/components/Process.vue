@@ -63,9 +63,6 @@ onMounted(() => {
 
 	const myClick = eventBus.on('element.click', (e: any) => {
 		// console.log(e.element)
-		// if (e.element.$type == 'bpmn:Collaboration') {
-		// 	myform.setCurrentBO(null)
-		// }
 		if (!!myform.currentBO && e.element.id == myform.currentBO.id) {
 			myform.setCurrentBO(null)
 			// localStorage.setItem('bo', '')
