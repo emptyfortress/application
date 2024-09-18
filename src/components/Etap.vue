@@ -163,8 +163,8 @@ onMounted(() => {
 		ease: 'expo.out',
 	})
 })
-const nav = ref(true)
 
+const nav = ref(true)
 const closeNav = () => {
 	nav.value = false
 }

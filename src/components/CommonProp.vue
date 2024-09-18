@@ -109,7 +109,9 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO && myform.cu
 
 			div Варианты завершения:
 			div
-				.text-bold(v-for="item in myform.currentBO.outgoing") {{ item.name }}
+				.text-bold(v-for="item in myform.bt") {{ item.name }}
+				// .text-bold(v-for="item in myform.currentBO.outgoing") {{ item.name }}
+
 			template(v-if='myform.currentBO.$type == "bpmn:Task"')
 				div Срок:
 				div 25 сентября 2024 г.
@@ -173,7 +175,7 @@ ConditionDialogChoose(v-model="dialogAdd")
 	padding: 0 1rem;
 	display: grid;
 	grid-template-columns: 170px 2fr;
-	align-items: center;
+	align-items: start;
 	column-gap: 1rem;
 	row-gap: 1rem;
 	line-height: 1.1;

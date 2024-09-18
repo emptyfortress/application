@@ -47,6 +47,11 @@ const calcImg = computed(() => {
 			return '/empty.png'
 	}
 })
+
+const nav = ref(true)
+const closeNav = () => {
+	nav.value = false
+}
 </script>
 
 <template lang="pug">
@@ -102,7 +107,9 @@ q-page
 	Teleport(to="body")
 		vue-draggable-resizable.fuck(:x="100" :y="-500" :w="350" :h="270" :active="false" :z="2000" :handles='["br"]' drag-handle='.bar')
 			q-card
-				.bar Навигация
+				.bar
+					div Навигация
+					q-icon(name="mdi-close" @click='closeNav')
 				q-img(:src='calcImg')
 </template>
 
@@ -116,9 +123,16 @@ q-page
 .bar {
 	height: 26px;
 	background: #dedede;
-	text-align: center;
+	padding: 0 6px;
+	// text-align: center;
 	font-size: 0.9rem;
 	line-height: 26px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	.q-icon {
+		cursor: pointer;
+	}
 }
 .fuck {
 	border: 1px solid #aaa;
