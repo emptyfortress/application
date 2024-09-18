@@ -163,6 +163,11 @@ onMounted(() => {
 		ease: 'expo.out',
 	})
 })
+const nav = ref(true)
+
+const closeNav = () => {
+	nav.value = false
+}
 </script>
 
 <template lang="pug">
@@ -195,10 +200,12 @@ onMounted(() => {
 
 ChooseFormDialog(v-model="dialog" @load='loadForm')
 
-Teleport(to="body")
+Teleport(to="body" v-if='nav')
 	vue-draggable-resizable.fuck(:x="100" :y="-300" :w="250" :h="150" :active="false" :z="2000" :handles='["br"]' drag-handle='.bar')
 		q-card(flat)
-			.bar Навигация
+			.bar
+				div Навигация
+				q-icon(name="mdi-close" @click='closeNav')
 			q-img(:src='calcNav')
 </template>
 
@@ -236,8 +243,15 @@ Teleport(to="body")
 .bar {
 	height: 26px;
 	background: #dedede;
-	text-align: center;
+	padding: 0 6px;
+	// text-align: center;
 	font-size: 0.9rem;
 	line-height: 26px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	.q-icon {
+		cursor: pointer;
+	}
 }
 </style>
