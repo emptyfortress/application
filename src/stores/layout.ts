@@ -79,6 +79,9 @@ export const useLayoutStore = defineStore('layout', () => {
 	const fieldLength = computed(() => {
 		return fieldsVisible.value.length
 	})
+	const addField = (e: Field) => {
+		fields.push(e)
+	}
 
 	// const removeSection = (e: number) => {
 	// 	console.log('remove')
@@ -153,6 +156,7 @@ export const useLayoutStore = defineStore('layout', () => {
 		calcMode,
 		setMode,
 		toggleMove,
+		addField,
 		// addColumns,
 		// addHead,
 	}

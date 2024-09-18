@@ -29,7 +29,7 @@ const calcType = (e: string) => {
 const create = () => {
 	let tmp = {
 		id: +new Date(),
-		name: name.value,
+		name: label.value,
 		label: label.value,
 		type: calcType(typ.value),
 		typ: typ.value,
@@ -63,10 +63,10 @@ q-dialog(v-model="modelValue")
 
 		q-form(@submit="create")
 			q-card-section
+				// label Название поля:
+				// q-input(v-model="name" filled autofocus)
+				// br
 				label Название поля:
-				q-input(v-model="name" filled autofocus)
-				br
-				label Отображаемая метка:
 				q-input(v-model="label" filled autofocus)
 				br
 				label.q-mt-sm Тип поля:
@@ -74,7 +74,7 @@ q-dialog(v-model="modelValue")
 
 			q-card-actions.q-mx-sm.q-mb-md(align="right")
 				q-btn(flat color="primary" label="Отмена" @click="close")
-				q-btn(unelevated color="primary" label="Добавить" type="submit" :disable="!name.length")
+				q-btn(unelevated color="primary" label="Добавить" type="submit" :disable="!label.length")
 </template>
 
 <style scoped lang="scss"></style>

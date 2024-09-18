@@ -62,8 +62,9 @@ const list1 = ref([
 	},
 ])
 
-const addField = (tmp: any) => {
-	list1.value.push(tmp)
+const addField = (tmp: Field) => {
+	lstore.addField(tmp)
+	// list1.value.push(tmp)
 }
 const dragStart = (type: number) => {
 	lstore.setDragType(type)
@@ -78,10 +79,10 @@ q-list.q-mt-md
 		.node(:draggable="true" @dragstart="dragStart(3)") Шапка и две колонки
 		.node(:draggable="true" @dragstart="dragStart(1)") Простой блок
 
-	q-expansion-item.q-mt-lg(label="Доступные поля" header-class="bold" v-model="expanded[1]")
+	q-expansion-item.q-mt-lg(label="Доступные поля приложения" expand-separator header-class="bold" v-model="expanded[1]")
 		draggable(
 			class="list-group"
-			:list="list1"
+			:list="lstore.fields"
 			ghost-class="ghost"
 			:group="{ name: 'people', pull: 'clone', put: false }"
 			itemKey="id"
