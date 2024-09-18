@@ -57,7 +57,7 @@ const mydata = useData()
 const title = computed(() => {
 	return route.name == 'emp' || route.name == 'start'
 		? 'Конструктор приложений'
-		: store.currentNode?.data.text
+		: store.currentNode?.data.text || app.value.text
 })
 
 const home = () => {
