@@ -54,9 +54,11 @@ const mydata = useData()
 // 	div?.remove()
 // 	done()
 // }
-// const title = computed(() => {
-// 	return route.name == 'home' ? 'Конструктор приложений' : store.currentNode?.data.text
-// })
+const title = computed(() => {
+	return route.name == 'emp' || route.name == 'start'
+		? 'Конструктор приложений'
+		: store.currentNode?.data.text
+})
 
 const home = () => {
 	store.setCurrentNode(null)
@@ -77,7 +79,7 @@ const back = () => {
 	if (route.name == 'emulate') {
 		router.push('/Заявка/editor/process')
 	} else router.back()
-	store.setCurrentNode(null)
+	// store.setCurrentNode(null)
 	myform.setCurrentBO(null)
 }
 </script>
@@ -89,7 +91,7 @@ q-layout(view="hHr LpR fFf")
 			q-toolbar-title()
 				q-avatar(@click="home")
 					SvgIcon.log(name="logo")
-				span.title(v-if='!calcBack' @click="home") Конструктор приложений
+				span.title(v-if='!calcBack' @click="home") {{ title }}
 				q-btn.q-ml-md(v-if='calcBack' flat color="primary" label="Назад" icon='mdi-arrow-left-circle' @click="back") 
 
 			Breadcrumbs

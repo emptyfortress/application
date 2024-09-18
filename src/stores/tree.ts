@@ -39,9 +39,9 @@ const myApps = [
 			},
 			{
 				id: 3,
-				text: 'Новое приложение',
+				text: 'Заявление на отпуск',
 				card: 'Newcard',
-				descr: 'Мое новое приложение',
+				descr: 'Согласование отпуска',
 				hidden: false,
 				selected: false,
 				type: 1,
