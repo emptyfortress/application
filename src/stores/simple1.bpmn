@@ -14,7 +14,7 @@
     <bpmn:startEvent id="StartEvent_09mh8k4">
       <bpmn:outgoing>Flow_1bh8c4m</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:task id="Activity_03rm8hy" name="Создание заявки">
+    <bpmn:task id="Activity_03rm8hy" name="Создание заявления">
       <bpmn:incoming>Flow_1bh8c4m</bpmn:incoming>
       <bpmn:outgoing>Flow_0knh0lg</bpmn:outgoing>
     </bpmn:task>
