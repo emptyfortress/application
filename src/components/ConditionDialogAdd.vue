@@ -80,14 +80,22 @@ const ad = ref(false)
 const ad1 = ref(false)
 
 const addForm = () => {
-	myform.createForm(newForm.value, 'Это сопроводительный текст-описание')
+	let tmp = {
+		id: uid(),
+		name: newForm.value,
+		desc: '',
+		selected: true,
+	}
+	myform.formList.map((e: Form) => (e.selected = false))
+	myform.formList.push(tmp)
+	// myform.createForm(newForm.value, 'Это сопроводительный текст-описание')
 	clear()
 }
 const addRole = () => {
 	let tmp = {
 		id: uid(),
 		name: newRole.value,
-		selected: false,
+		selected: true,
 	}
 	myrole.addRole(tmp)
 	clear()
