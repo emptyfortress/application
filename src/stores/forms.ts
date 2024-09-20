@@ -91,12 +91,13 @@ export const useForms = defineStore('forms', () => {
 		conditionList.value.splice(n, 1)
 	}
 
-	const createForm = (form: string, description: string) => {
+	const createForm = (form: Form) => {
 		let row = {
 			id: uid(),
-			name: form,
-			desc: description,
+			name: form.name,
+			desc: form.desc || 'Это описание формы',
 			selected: false,
+			creation: form.creation,
 		}
 		formList.value.push(row)
 	}

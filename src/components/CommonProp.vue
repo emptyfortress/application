@@ -8,7 +8,7 @@ import { useForms } from '@/stores/forms'
 import { useRoles } from '@/stores/roles'
 import WhatSee from '@/components/WhatSee.vue'
 import WhatSee1 from '@/components/WhatSee1.vue'
-import ConditionDialogChoose from '@/components/ConditionDialogChoose.vue'
+// import ConditionDialogChoose from '@/components/ConditionDialogChoose.vue'
 
 const store = useStore()
 const myform = useForms()
@@ -50,10 +50,10 @@ const def = computed(() => {
 	return tmp[0]?.form
 })
 
-const dialogAdd = ref(false)
-const toggle2 = () => {
-	dialogAdd.value = !dialogAdd.value
-}
+// const dialogAdd = ref(false)
+// const toggle2 = () => {
+// 	dialogAdd.value = !dialogAdd.value
+// }
 
 const calcFormName = computed(() => {
 	switch (myform.currentBO.name) {
@@ -136,7 +136,7 @@ template(v-if="route.name == 'Этап' && store.currentField == null && store.c
 .prev(v-if='app.text !== "Заявка" && ( route.name == "Процесс" || route.name == "Этап")')
 	q-btn.btn(v-if='myform.currentBO && myform.currentBO.$type == "bpmn:Task"' outline color="primary" icon='mdi-play' label='Проверка работы приложения с текущего этапа' @click='emulate1' size='sm') 
 
-ConditionDialogChoose(v-model="dialogAdd")
+// ConditionDialogChoose(v-model="dialogAdd")
 </template>
 
 <style scoped lang="scss">

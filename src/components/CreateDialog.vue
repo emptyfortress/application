@@ -40,7 +40,14 @@ const create = (data: any) => {
 		close()
 	}
 	if (props.mode == 'form') {
-		myform.createForm(data.name, 'Это сопроводительный текст-описание')
+		let tmp = {
+			id: uid(),
+			name: data.name,
+			desc: data.descr,
+			creation: data.creation,
+			selected: false,
+		}
+		myform.createForm(tmp)
 		close()
 	}
 }
@@ -70,6 +77,7 @@ q-dialog(v-model="modelValue")
 
 				FormKit(v-if='props.mode == "form"' type="text" autofocus name="name" label="Название" validation="required|length:3")
 				FormKit(v-if='props.mode == "form"' type="textarea" name="descr" label="Описание")
+				FormKit(v-if='props.mode == "form"' type="checkbox" name="creation" label="Форма создания")
 </template>
 
 <style scoped lang="scss"></style>

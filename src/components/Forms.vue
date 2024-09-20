@@ -73,7 +73,9 @@ const calcClass = (e: string) => {
 				q-item-section(avatar)
 					q-icon(name='mdi-list-box-outline')
 				q-item-section()
-					q-item-label(:class='calcClass(form.name)') {{ form.name }}
+					q-item-label(:class='calcClass(form.name)')
+						span {{ form.name }}
+						span.q-ml-md(v-if='form.creation == true') (форма создания)
 				q-item-section(side)
 					.row.q-gutter-x-sm
 						q-btn(flat round icon='mdi-pencil-outline' color='primary' dense size='sm' @click.stop='goto(form.name)') 

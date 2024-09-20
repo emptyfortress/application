@@ -21,7 +21,7 @@ const remove = (e: number) => {
 	props.list.splice(e, 1)
 }
 const type = computed(() => {
-	if (!!myform.currentBO && myform.currentBO.$type == 'bpmn:StartEvent') {
+	if (!!myform.currentBO && myform.currentBO.name == 'Создание заявления') {
 		return true
 	}
 	return false

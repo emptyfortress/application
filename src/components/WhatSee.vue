@@ -6,7 +6,7 @@ import { useStorage } from '@vueuse/core'
 import draggable from 'vuedraggable'
 import ConditionDialogRow from '@/components/ConditionDialogRow.vue'
 import ConditionDialogAdd from '@/components/ConditionDialogAdd.vue'
-import ConditionDialogOther from '@/components/ConditionDialogOther.vue'
+// import ConditionDialogOther from '@/components/ConditionDialogOther.vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useFlow } from '@/stores/flow'
 const store = useFlow()
@@ -33,10 +33,14 @@ const showAddCond = computed(() => {
 
 const goto = (e: Condition) => {
 	myform.zay = false
-	if (e.role[0] !== myrole.currentRole) {
+	if (e.role !== myrole.currentRole) {
 		myform.notMain = true
 	}
 	router.push(`/${route.params.id}/editor/process/${e.form}`)
+	// if (e.role[0] !== myrole.currentRole) {
+	// 	myform.notMain = true
+	// }
+	// router.push(`/${route.params.id}/editor/process/${e.form}`)
 }
 
 const goto1 = () => {
@@ -76,11 +80,11 @@ const toggle1 = (el: any) => {
 	dialogRow.value = !dialogRow.value
 }
 
-const dialogOther = ref(false)
+// const dialogOther = ref(false)
 
-const toggle3 = () => {
-	dialogOther.value = !dialogOther.value
-}
+// const toggle3 = () => {
+// 	dialogOther.value = !dialogOther.value
+// }
 
 const addedFirst = computed(() => {
 	// return myform.formList.length > 0 ? false : true
@@ -149,7 +153,7 @@ const calcIni = computed(() => {
 
 	ConditionDialogRow(v-model="dialogRow" :row='row')
 	ConditionDialogAdd(v-model="dialogAdd")
-	ConditionDialogOther(v-model="dialogOther" @set='set')
+	// ConditionDialogOther(v-model="dialogOther" @set='set')
 
 </template>
 
