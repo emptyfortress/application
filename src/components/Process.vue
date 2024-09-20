@@ -162,4 +162,7 @@ onMounted(() => {
 	top: 0;
 	right: 0;
 }
+g[data-element-id='Activity_03rm8hy']:not(.djs-connection) .djs-visual > :nth-child(1) {
+	fill: #d0f9b7 !important;
+}
 </style>

@@ -8,7 +8,6 @@ import { useForms } from '@/stores/forms'
 import { useRoles } from '@/stores/roles'
 import WhatSee from '@/components/WhatSee.vue'
 import WhatSee1 from '@/components/WhatSee1.vue'
-// import ConditionDialogChoose from '@/components/ConditionDialogChoose.vue'
 
 const store = useStore()
 const myform = useForms()
@@ -136,7 +135,6 @@ template(v-if="route.name == 'Этап' && store.currentField == null && store.c
 .prev(v-if='app.text !== "Заявка" && ( route.name == "Процесс" || route.name == "Этап")')
 	q-btn.btn(v-if='myform.currentBO && myform.currentBO.$type == "bpmn:Task"' outline color="primary" icon='mdi-play' label='Проверка работы приложения с текущего этапа' @click='emulate1' size='sm') 
 
-// ConditionDialogChoose(v-model="dialogAdd")
 </template>
 
 <style scoped lang="scss">

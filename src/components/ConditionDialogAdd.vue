@@ -85,6 +85,7 @@ const addForm = () => {
 		name: newForm.value,
 		desc: '',
 		selected: true,
+		creation: false,
 	}
 	myform.formList.map((e: Form) => (e.selected = false))
 	myform.formList.push(tmp)

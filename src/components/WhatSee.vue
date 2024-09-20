@@ -6,7 +6,6 @@ import { useStorage } from '@vueuse/core'
 import draggable from 'vuedraggable'
 import ConditionDialogRow from '@/components/ConditionDialogRow.vue'
 import ConditionDialogAdd from '@/components/ConditionDialogAdd.vue'
-// import ConditionDialogOther from '@/components/ConditionDialogOther.vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useFlow } from '@/stores/flow'
 const store = useFlow()
@@ -153,7 +152,6 @@ const calcIni = computed(() => {
 
 	ConditionDialogRow(v-model="dialogRow" :row='row')
 	ConditionDialogAdd(v-model="dialogAdd")
-	// ConditionDialogOther(v-model="dialogOther" @set='set')
 
 </template>
 
