@@ -4,10 +4,10 @@ import { ref } from 'vue'
 const pers = defineModel()
 
 const options = [
-	{ label: 'Все пользователи', value: 10, color: 'red' },
-	{ label: 'Группа', value: 11 },
-	{ label: 'Сотрудники подразделения, отдела', value: 12 },
-	{ label: 'Сотрудник и все его заместители', value: 13 },
+	{ label: 'Все пользователи', value: 'Все пользователи', color: 'red' },
+	{ label: 'Группа', value: 'Группа' },
+	{ label: 'Сотрудники подразделения, отдела', value: 'Сотрудники подразделения, отдела' },
+	{ label: 'Сотрудник и все его заместители', value: 'Сотрудник и все его заместители' },
 	// { label: 'Поле карточки типа - группа или подразделение', value: '14' },
 ]
 const sotrZam = ref(false)
@@ -21,15 +21,15 @@ const otdel = ref('one')
 		type="radio"
 		v-model="pers")
 	.desc
-		div(v-if='pers == 10')
+		div(v-if='pers == "Все пользователи"')
 			.des Все пользователи приложения.
 			.sma Роль существует по умолчанию не может быть удалена.
-		div(v-if='pers == 11')
+		div(v-if='pers == "Группа"')
 			.des Группа из справочника сотрудников
 				q-select(dense filled label="Группа")
 					template(v-slot:prepend)
 						q-icon(name="mdi-account-multiple" color="primary")
-		div(v-if='pers == 12')
+		div(v-if='pers == "Сотрудники подразделения, отдела"')
 			q-radio(v-model="otdel" val="one" label='Все сотрудники подразделения или отдела')
 			q-select(dense filled label="Отдел")
 				template(v-slot:prepend)
@@ -42,13 +42,11 @@ const otdel = ref('one')
 					q-icon(name="mdi-account" color="primary")
 			q-checkbox.q-mt-md(v-model="sotrZam" dense label='Включая заместителей')
 
-		div(v-if='pers == 13')
+		div(v-if='pers == "Сотрудник и все его заместители"')
 			.des Сотрудник из справочника и все его замы
 			q-select(dense filled label="Сотрудник")
 				template(v-slot:prepend)
 					q-icon(name="mdi-account" color="primary")
-		div(v-if='pers == 14')
-			.des Что здесь, непонятно.
 </template>
 
 <style scoped lang="scss">

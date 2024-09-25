@@ -21,6 +21,7 @@ const dialog = ref(false)
 			span {{ myrole.selectedRole.name }}
 			q-popup-edit(v-model="myrole.selectedRole.name" title="Название роли" auto-save v-slot="scope")
 				q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
+
 		label Правила выбора:
 		.val(@click='dialog = true')
 			span(v-if='!!myrole.selectedRole.pers') {{ myrole.selectedRole.pers }}

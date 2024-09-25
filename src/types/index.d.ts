@@ -24,7 +24,7 @@ type Role = {
 	type?: string
 	selected?: boolean
 	description?: string
-	pers?: number
+	pers?: string
 }
 type Form = {
 	id: string
