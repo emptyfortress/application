@@ -40,8 +40,6 @@ const dialog = ref(false)
 .ini {
 	display: grid;
 	grid-template-columns: auto 1fr;
-	// justify-items: start;
-	// align-items: stretch;
 	column-gap: 1rem;
 	row-gap: 0.5rem;
 }

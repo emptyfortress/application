@@ -1,22 +1,32 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useRoles } from '@/stores/roles'
 import PersonalRoleOptions from '@/components/PersonalRoleOptions.vue'
 import GroupRoleOptions from '@/components/GroupRoleOptions.vue'
 
-interface Props {
-	role?: string
-}
-
-const props = withDefaults(defineProps<Props>(), {
-	role: 'Роль',
-})
-
+// interface Props {
+// 	role?: string
+// 	pers?: number | null
+// }
 const modelValue = defineModel<boolean>()
+const role = defineModel('role')
+const pers = defineModel('pers')
+
+const myrole = useRoles()
+// const props = withDefaults(defineProps<Props>(), {
+// 	role: 'Роль',
+// 	pers: 10,
+// })
 
 const close = () => {
 	modelValue.value = false
 }
 const tabs = ref('personal')
+
+const save = () => {
+	myrole.selectedRole.pers = pers.value
+	modelValue.value = false
+}
 </script>
 
 <template lang="pug">
@@ -24,7 +34,9 @@ q-dialog(v-model="modelValue")
 	q-card(style="min-width: 900px;")
 		q-btn.close(round color="negative" icon="mdi-close" v-close-popup)
 		q-card-section
-			.text-h6 Правила выбора роли <{{ props.role }}>
+			.text-h6
+				|Правила выбора роли
+				span.zg {{ role }}
 		q-card-section
 			q-tabs(v-model="tabs" dense active-color="primary" indicator-color="primary" align='left')
 				q-tab(name="personal" label="Персональные роли")
@@ -33,14 +45,19 @@ q-dialog(v-model="modelValue")
 
 			q-tab-panels(v-model="tabs")
 				q-tab-panel(name="personal")
-					PersonalRoleOptions
+					PersonalRoleOptions(v-model="pers")
 
 				q-tab-panel(name="group")
-					GroupRoleOptions
+					GroupRoleOptions(v-model="pers")
 
 		q-card-actions.q-mr-md.q-mb-md(align='right')
 			q-btn(flat color="primary" label="Отмена" v-close-popup) 
-			q-btn(unelevated color="primary" label="Сохранить" @click="") 
+			q-btn(unelevated color="primary" label="Сохранить" @click="save") 
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.zg {
+	margin-left: 2rem;
+	color: $primary;
+}
+</style>
