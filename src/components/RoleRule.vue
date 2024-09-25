@@ -1,61 +1,32 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { useStore } from '@/stores/store'
-import ConditionDialog from '@/components/ConditionDialog.vue'
+import { useRoles } from '@/stores/roles'
+import RoleRulesDialog from '@/components/RoleRulesDialog.vue'
 
-const store = useStore()
+const myrole = useRoles()
 
-const list = ref([
-	{ id: 0, etap: 'Создал заявку', selected: true },
-	{ id: 1, etap: 'Согласовать заявку', selected: true },
-	{ id: 2, etap: 'Исправить заявку', selected: false },
-	{ id: 3, etap: 'Рассмотреть заявку', selected: false },
-	{ id: 4, etap: 'Обработать отказ', selected: false },
-	{ id: 5, etap: 'Исполнить заявку', selected: false },
-	{ id: 6, etap: 'Принять результаты', selected: false },
-	{ id: 7, etap: 'Заявка отменена', selected: false },
-	{ id: 8, etap: 'Заявка выполнена', selected: false },
-])
-
-const activeList = computed(() => {
-	return list.value.filter((item: any) => !item.selected)
-})
-
-const dialog = ref()
-const toggle = () => {
-	dialog.value = !dialog.value
-}
-const filt = (e: any) => {
-	list.value = [...e]
-}
-
-const remove = (e: number) => {
-	store.removeCondition(e)
-}
+const role = ref()
+const dialog = ref(false)
 </script>
 
 <template lang="pug">
-.q-ma-md
-	.hd Условия показа форм для 'Название роли'
-	q-markup-table(flat)
-		thead
-			tr
-				th.text-left Этап
-				th.text-left Форма
-				th
+.q-ma-md(v-if='!!myrole.selectedRole')
+	.hd {{ myrole.selectedRole.name }}
 
-		tbody
-			tr(v-for="(element, index) in store.currentRole.conditions" :key='element.id' :class='{dis: element.dis}')
-				td
-					div(v-for="etap in element.etaps") {{ etap }}
-				td {{ element.form }}
-				td
-					q-btn(v-if='!element.dis' flat round dense icon="mdi-trash-can-outline" @click="remove(index)" size='sm') 
+	.other(v-if='myrole.selectedRole.name == "Все остальные"') Все остальные роли, не указанные явно.
 
-	br
-	q-btn(flat color="primary" icon='mdi-plus' label="Добавить условие" @click="toggle" size='sm') 
+	.ini(v-else)
+		label Название роли:
+		.val
+			span {{ myrole.selectedRole.name }}
+			q-popup-edit(v-model="myrole.selectedRole.name" title="Название роли" auto-save v-slot="scope")
+				q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
+		label Правила выбора:
+		.val(@click='dialog = true')
+			span(v-if='!!myrole.selectedRole.pers') {{ myrole.selectedRole.pers }}
+			q-btn(v-else unelevated color="primary" label="Задать" size='sm') 
 
-	ConditionDialog(v-model="dialog" :etaps='activeList' @choose='filt')
+	RoleRulesDialog(v-model="dialog" :role='myrole.selectedRole.name' :pers='myrole.selectedRole.pers')
 </template>
 
 <style scoped lang="scss">
@@ -65,5 +36,20 @@ const remove = (e: number) => {
 }
 .dis {
 	background: #ffefcc;
+}
+.ini {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	// justify-items: start;
+	// align-items: stretch;
+	column-gap: 1rem;
+	row-gap: 0.5rem;
+}
+.val {
+	color: $primary;
+	span {
+		border-bottom: 1px dotted blue;
+		cursor: pointer;
+	}
 }
 </style>

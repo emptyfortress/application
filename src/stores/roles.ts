@@ -5,12 +5,8 @@ import { useForms } from '@/stores/forms'
 
 export const useRoles = defineStore('roles', () => {
 	const rolesN = ref<Role[]>([
-		{
-			id: 'all',
-			name: 'Все остальные',
-			description: '',
-			selected: false,
-		},
+		// { id: 'Lane_0kutmjb', type: 'bpmn:Lane', name: 'Инициатор', selected: false },
+		{ id: 'all', name: 'Все остальные', selected: false },
 	])
 
 	const addRole = (role: Role) => {

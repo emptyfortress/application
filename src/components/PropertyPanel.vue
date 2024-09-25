@@ -17,17 +17,18 @@ const route = useRoute()
 	q-tabs(v-model="store.tabs" dense active-color="primary" indicator-color="primary" inline-label)
 		q-tab(name="property" label="Свойства")
 		q-tab(name="lib" label="Библиотека" v-if="route.name == 'Этап'")
-		q-tab(name="role" label="Правила" v-if="route.name == 'Роли'")
+		// q-tab(name="role" label="Правила" v-if="route.name == 'Роли'")
 	q-separator
 
 	q-tab-panels(v-model="store.tabs")
 		q-tab-panel(name="property")
-			CommonProp
+			RoleRule(v-if='route.name == "Роли"')
+			CommonProp(v-else)
 
 		q-tab-panel(name="lib")
 			CommonLib
-		q-tab-panel(name='role')
-			RoleRule
+		// q-tab-panel(name='role')
+		// 	RoleRule
 </template>
 
 <style scoped lang="scss">

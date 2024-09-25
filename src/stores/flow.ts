@@ -33,5 +33,6 @@ export const useFlow = defineStore('flow', () => {
 		saveFlow,
 		lanes,
 		etaps,
+		addLane,
 	}
 })
