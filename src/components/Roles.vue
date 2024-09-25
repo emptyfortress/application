@@ -11,7 +11,6 @@ const dialog = ref(false)
 const selection = ref('')
 
 const select = (e: Role) => {
-	// console.log(e)
 	selection.value = e.name
 	myrole.selectRole(e)
 }

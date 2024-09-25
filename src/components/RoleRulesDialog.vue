@@ -9,14 +9,10 @@ import GroupRoleOptions from '@/components/GroupRoleOptions.vue'
 // 	pers?: number | null
 // }
 const modelValue = defineModel<boolean>()
-const role = defineModel('role')
-const pers = defineModel('pers')
+const role = defineModel<string>('role')
+const pers = defineModel<string>('pers')
 
 const myrole = useRoles()
-// const props = withDefaults(defineProps<Props>(), {
-// 	role: 'Роль',
-// 	pers: 10,
-// })
 
 const close = () => {
 	modelValue.value = false
@@ -24,7 +20,7 @@ const close = () => {
 const tabs = ref('personal')
 
 const save = () => {
-	myrole.selectedRole.pers = pers.value
+	myrole.selectedRole!.pers = pers.value
 	modelValue.value = false
 }
 </script>
