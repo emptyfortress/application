@@ -38,6 +38,11 @@ const router = createRouter({
 			],
 		},
 		{
+			path: '/assistent',
+			name: 'assistent',
+			component: () => import('@/views/Assistent.vue'),
+		},
+		{
 			path: '/:id/editor',
 			name: 'editor',
 			component: () => import('@/views/Editor.vue'),
