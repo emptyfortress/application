@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { uid } from 'quasar'
 
-const attributes = ref([])
+const attributes = ref<any[]>([])
 const name = ref('')
 const type = ref('')
 

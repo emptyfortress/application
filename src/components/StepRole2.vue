@@ -4,7 +4,7 @@ import { uid } from 'quasar'
 
 const rolename = ref('')
 
-const roles = ref([])
+const roles = ref<any[]>([])
 const add = () => {
 	if (rolename.value.length > 0) {
 		roles.value.push({
