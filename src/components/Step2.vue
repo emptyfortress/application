@@ -23,7 +23,7 @@ const destroy = (e: number) => {
 <template lang="pug">
 q-form(@submit='add')
 	div Кто участвует в процессе? Список должен включать как непосредственных участников, так и "наблюдателей".
-	q-list.q-mb-md
+	q-list.q-mb-md(separator)
 		q-item(clickable v-for="(role, index) in roles" :key="role.id")
 			q-item-section(avatar)
 				q-icon(name="mdi-account" color="primary")
