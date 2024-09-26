@@ -14,7 +14,11 @@ const add = () => {
 			type: type.value,
 		})
 		name.value = ''
+		input.value.focus()
 	}
+}
+const destroy = (e: number) => {
+	attributes.value.splice(e, 1)
 }
 const options = [
 	'Строка',
@@ -24,6 +28,7 @@ const options = [
 	'Выбор из списка',
 	'Чек-бокс',
 ]
+const input = ref()
 </script>
 
 <template lang="pug">
@@ -40,7 +45,7 @@ q-form(@submit='add')
 				q-btn(flat round icon="mdi-trash-can-outline" color="primary" @click='destroy(index)') 
 
 	.row.items-center.q-gutter-x-sm
-		q-input(v-model="name" label='Название поля' dense outlined bg-color="white")
+		q-input(ref='input' autofocus v-model="name" label='Название поля' dense outlined bg-color="white")
 		q-select(v-model="type" label='Тип поля' dense outlined bg-color="white" :options='options')
 		q-btn(flat color="primary" label="Добавить" type='submit') 
 </template>

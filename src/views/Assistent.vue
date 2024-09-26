@@ -1,9 +1,22 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import Step2 from '@/components/Step2.vue'
+import StepRole1 from '@/components/StepRole1.vue'
+import StepRole2 from '@/components/StepRole2.vue'
 import StepAttribute from '@/components/StepAttribute.vue'
+import { useRouter, useRoute } from 'vue-router'
+import { useStorage } from '@vueuse/core'
+
+const router = useRouter()
+const route = useRoute()
 
 const step = ref(1)
+const butt = ref('Введите название')
+
+const app = useStorage('app', localStorage)
+const goto = () => {
+	let url = `/${app.value.text}/editor/process`
+	router.push(url)
+}
 </script>
 
 <template lang="pug">
@@ -22,7 +35,7 @@ q-page
 			prefix="1"
 			:done="step > 1")
 
-			div Придумайте названия для карточки приложения. Это название позволит отличить документы вашего приложения от других документов.
+			div Придумайте названия для карточки приложения (желательно одним словом). Это название позволит отличить документы вашего приложения от других документов.
 
 			q-input(v-model="card" label='Карточка' dense outlined bg-color="white")
 			q-stepper-navigation
@@ -31,36 +44,50 @@ q-page
 		q-step(
 			:name="2"
 			title="Определите поля карточки"
-			prefix="1"
+			prefix="2"
 			:done="step > 2")
-
 			StepAttribute
-
-
-			// q-input(v-model="author" label='Автор' dense outlined bg-color="white")
-			// q-input(v-model="start" label='Дата начала' dense outlined bg-color="white")
-			// q-input(v-model="end" label='Дата окончания' dense outlined bg-color="white")
-			// q-input(v-model="button" label='Название кнопки старта' dense outlined bg-color="white")
-
 			q-stepper-navigation
 				q-btn(@click="step = 3" color="primary" label="Далее")
 
 		q-step(
 			:name="3"
-			title="Определите участников процесса (роли)"
+			title="Назовите кнопку старта"
 			prefix="3"
-			:done="step > 2")
-
-			Step2
+			:done="step > 3")
+			div Придумайте названия для кнопки, с которой будет стартовать ваше приложение.
+			q-input(v-model="butt" label='Кнопка' dense outlined bg-color="white")
+			q-btn(unelevated color="secondary" :label="butt") 
 			q-stepper-navigation
 				q-btn(@click="step = 4" color="primary" label="Далее")
 
 		q-step(
 			:name="4"
-			title="Настройте форму с которой будет работать Инициатор"
+			title="Определите участников процесса (роли)"
 			prefix="4"
 			:done="step > 4")
+			StepRole1
+			q-stepper-navigation
+				q-btn(@click="step = 5" color="primary" label="Далее")
+
+		q-step(
+			:name="5"
+			title="Определите наблюдателей процесса (роли)"
+			prefix="5"
+			:done="step > 5")
+			StepRole2
+			q-stepper-navigation
+				q-btn(@click="step = 6" color="primary" label="Далее")
 			
+		q-step(
+			:name="6"
+			title="Завершение"
+			prefix="6"
+			:done="step > 6")
+			div Сейчас вы будете направлены на стр приложения, где можете продолжить настройку.
+
+			q-stepper-navigation
+				q-btn(@click="goto" color="primary" label="Завершить")
 </template>
 
 <style scoped lang="scss">
