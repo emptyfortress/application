@@ -5,6 +5,7 @@ import StepRole2 from '@/components/StepRole2.vue'
 import StepAttribute from '@/components/StepAttribute.vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useStorage } from '@vueuse/core'
+import { useData } from '@/stores/alldata'
 
 const router = useRouter()
 const route = useRoute()
@@ -18,6 +19,7 @@ const goto = () => {
 	let url = `/${app.value.text}/editor/process`
 	router.push(url)
 }
+const mydata = useData()
 </script>
 
 <template lang="pug">
@@ -33,7 +35,7 @@ q-page
 
 		q-step(
 			:name="1"
-			title="Назовите карточку"
+			title="С чем работает ваше приложение?"
 			prefix="1"
 			:done="step > 1")
 
@@ -45,7 +47,7 @@ q-page
 
 		q-step(
 			:name="2"
-			title="Определите поля карточки"
+			title="Определите поля приложения"
 			prefix="2"
 			:done="step > 2")
 			StepAttribute
@@ -57,9 +59,9 @@ q-page
 			title="Назовите кнопку старта"
 			prefix="3"
 			:done="step > 3")
-			// div Придумайте названия для кнопки, с которой будет стартовать ваше приложение.
-			div В приложении в виде схемы будет определен процесс, согласно которому к работе будут подключаться следующие участники (роли). Работа начинается с того, что Инициатор создаст карточку "Заявка на отпуск" и ФОРМЕ, которую вы сможете настроить позднее в конструкторе, заполнит необходимые поля. Когда все поля будут заполнены, для передачи следующему участнику процесса Инициатор нажмет кнопку. Дайте ей название.
-			q-input(v-model="butt" label='Кнопка' dense outlined bg-color="white")
+			div Придумайте названия для кнопки, с которой будет стартовать ваше приложение.
+			.sma В приложении в виде схемы будет определен процесс, согласно которому к работе будут подключаться следующие участники (роли). Работа начинается с того, что Инициатор создаст карточку "Заявка на отпуск" и ФОРМЕ, которую вы сможете настроить позднее в конструкторе, заполнит необходимые поля. Когда все поля будут заполнены, для передачи следующему участнику процесса Инициатор нажмет кнопку. Дайте ей название.
+			q-input.q-my-md(v-model="mydata.button" label='Кнопка' dense outlined bg-color="white")
 			q-btn(unelevated color="secondary" :label="butt") 
 			q-stepper-navigation
 				q-btn(@click="step = 4" color="primary" label="Далее")
@@ -105,5 +107,9 @@ q-page
 .q-input {
 	width: 300px;
 	margin-bottom: 3px;
+}
+.sma {
+	font-size: 0.8rem;
+	font-style: italic;
 }
 </style>

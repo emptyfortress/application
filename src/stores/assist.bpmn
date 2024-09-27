@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1raz7jv" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="17.7.1">
+  <bpmn:collaboration id="Collaboration_00d62mw">
+    <bpmn:participant id="Participant_1kysov1" name="Заявление на отпуск" processRef="Process_11een9a" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_11een9a" isExecutable="false">
+    <bpmn:laneSet id="LaneSet_0t0j0nk">
+      <bpmn:lane id="Lane_0kutmjb" name="Инициатор">
+        <bpmn:flowNodeRef>StartEvent_09mh8k4</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_03rm8hy</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_01uuoou</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_0gityqg" name="Руководитель" />
+    </bpmn:laneSet>
+    <bpmn:startEvent id="StartEvent_09mh8k4">
+      <bpmn:outgoing>Flow_1bh8c4m</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Activity_03rm8hy" name="Создание заявления">
+      <bpmn:incoming>Flow_1bh8c4m</bpmn:incoming>
+      <bpmn:outgoing>Flow_0knh0lg</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1bh8c4m" sourceRef="StartEvent_09mh8k4" targetRef="Activity_03rm8hy" />
+    <bpmn:endEvent id="Event_01uuoou" name="Завершение">
+      <bpmn:incoming>Flow_0knh0lg</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0knh0lg" name="Старт" sourceRef="Activity_03rm8hy" targetRef="Event_01uuoou" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_00d62mw">
+      <bpmndi:BPMNShape id="Participant_1kysov1_di" bpmnElement="Participant_1kysov1" isHorizontal="true">
+        <dc:Bounds x="156" y="82" width="600" height="338" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_0kutmjb_di" bpmnElement="Lane_0kutmjb" isHorizontal="true">
+        <dc:Bounds x="186" y="82" width="570" height="218" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_0gityqg_di" bpmnElement="Lane_0gityqg" isHorizontal="true">
+        <dc:Bounds x="186" y="300" width="570" height="120" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_09mh8k4">
+        <dc:Bounds x="272" y="172" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="275" y="215" width="30" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_03rm8hy_di" bpmnElement="Activity_03rm8hy">
+        <dc:Bounds x="410" y="150" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_01uuoou_di" bpmnElement="Event_01uuoou">
+        <dc:Bounds x="652" y="172" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="638" y="215" width="64" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1bh8c4m_di" bpmnElement="Flow_1bh8c4m">
+        <di:waypoint x="308" y="190" />
+        <di:waypoint x="410" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0knh0lg_di" bpmnElement="Flow_0knh0lg">
+        <di:waypoint x="510" y="190" />
+        <di:waypoint x="652" y="190" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="566" y="172" width="30" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

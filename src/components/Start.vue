@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { useStore } from '@/stores/store'
 import { useRouter } from 'vue-router'
 import { myApps } from '@/stores/tree'
+import { useData } from '@/stores/alldata'
 
 const props = defineProps({
 	id: {
@@ -13,11 +14,14 @@ const props = defineProps({
 
 const store = useStore()
 const router = useRouter()
+const mydata = useData()
 
 const goto = () => {
+	mydata.setAssist(false)
 	router.push(`/${props.id}/editor/process`)
 }
 const ass = () => {
+	mydata.setAssist(true)
 	router.push('/assistent')
 }
 </script>

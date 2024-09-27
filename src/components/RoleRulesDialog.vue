@@ -4,10 +4,6 @@ import { useRoles } from '@/stores/roles'
 import PersonalRoleOptions from '@/components/PersonalRoleOptions.vue'
 import GroupRoleOptions from '@/components/GroupRoleOptions.vue'
 
-// interface Props {
-// 	role?: string
-// 	pers?: number | null
-// }
 const modelValue = defineModel<boolean>()
 const role = defineModel<string>('role')
 const pers = defineModel<string>('pers')

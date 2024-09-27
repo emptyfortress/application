@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import BpmnModeler from 'bpmn-js/lib/Modeler'
+// import BpmnModdle from 'bpmn-moddle'
 import 'bpmn-js/dist/assets/diagram-js.css'
 import 'bpmn-js/dist/assets/bpmn-js.css'
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css'
 import zay from '@/stores/zayavka1.bpmn?raw'
 import empty from '@/stores/simple1.bpmn?raw'
+import assist from '@/stores/assist.bpmn?raw'
 import 'diagram-js-minimap/assets/diagram-js-minimap.css'
 
 import { useRouter, useRoute } from 'vue-router'
@@ -27,8 +29,12 @@ const canvas = ref()
 const app = useStorage('app', localStorage)
 
 const bpmn = computed(() => {
-	if (mydata.myxml == null) {
+	if (mydata.myxml == null && mydata.assist == false) {
 		return app.value.file ? zay : empty
+		// return app.value.file ? zay : empty.replace('Старт', 'Fuck')
+	}
+	if (mydata.myxml == null && mydata.assist == true) {
+		return assist.replace('Старт', mydata.button)
 	}
 	return mydata.myxml
 })
@@ -63,7 +69,6 @@ onMounted(() => {
 		// console.log(e.element)
 		if (!!myform.currentBO && e.element.id == myform.currentBO.id) {
 			myform.setCurrentBO(null)
-			// localStorage.setItem('bo', '')
 		} else {
 			// let tmp = e.element.businessObject
 			myform.setCurrentBO(e.element.businessObject)
