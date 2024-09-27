@@ -49,12 +49,6 @@ const sotr = ref('one')
 				template(v-slot:prepend)
 					q-icon(name="mdi-account" color="primary")
 			q-checkbox.q-mt-md(v-model="sotrZam" dense label='Включая заместителей')
-			// q-separator.q-mt-md
-			// q-radio(v-model="sotr" val="two" label='Сотрудник из поля в приложении')
-			// q-select(dense filled label="Поле")
-			// 	template(v-slot:prepend)
-			// 		q-icon(name="mdi-account" color="primary")
-			// q-checkbox.q-mt-md(v-model="sotrZam" dense label='Включая заместителей')
 
 		div(v-if='pers == "Руководитель подразделения"')
 			.des Руководитель любого подразделения из справочника
