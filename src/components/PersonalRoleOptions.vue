@@ -1,21 +1,14 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-// const pers = ref(null)
 const pers = defineModel()
 
 const options = [
-	{ label: 'Инициатор', value: 'Инициатор', color: 'red' },
 	{ label: 'Руководитель инициатора', value: 'Руководитель инициатора' },
 	{ label: 'Конкретный сотрудник', value: 'Конкретный сотрудник' },
 	{ label: 'Сотрудник из поля в приложении', value: 'Сотрудник из поля в приложении' },
 	{ label: 'Руководитель подразделения', value: 'Руководитель подразделения' },
-	{ label: 'Старший в группе', value: 'Старший в группе' },
 	{ label: 'Руководитель персональной роли', value: 'Руководитель персональной роли' },
-	{
-		label: 'Актуальный заместитель персональной роли',
-		value: 'Актуальный заместитель персональной роли',
-	},
 ]
 const sotrZam = ref(false)
 const sotr = ref('one')
@@ -29,9 +22,6 @@ const sotr = ref('one')
 		v-model="pers")
 
 	.desc
-		div(v-if='pers == "Инициатор"')
-			.des Сотрудник, создавший новый экземляр приложения.
-			.sma Роль существует по умолчанию не может быть удалена.
 		div(v-if='pers == "Руководитель инициатора"')
 			.des Руководитель сотрудника, создавшего новый экземляр приложения.
 			.sma Роль существует по умолчанию не может быть удалена.
@@ -57,20 +47,12 @@ const sotr = ref('one')
 					q-icon(name="mdi-office-building" color="primary")
 			q-checkbox.q-mt-md(v-model="sotrZam" dense label='Включая заместителей')
 
-		div(v-if='pers == "Старший в группе"')
-			.des Старший сотрудник в группе из справочника
-			q-select(dense filled label="Группа")
-				template(v-slot:prepend)
-					q-icon(name="mdi-account-multiple" color="primary")
-			q-checkbox.q-mt-md(v-model="sotrZam" dense label='Включая заместителей')
-
 		div(v-if='pers == "Руководитель персональной роли"')
 			.des Руководитель выбранной роли
 			q-select(dense filled label="Роль")
 				template(v-slot:prepend)
 					q-icon(name="mdi-guy-fawkes-mask" color="primary")
 			q-checkbox.q-mt-md(v-model="sotrZam" dense label='Включая заместителей')
-		div(v-if='pers == "Актуальный заместитель персональной роли"') .des Заместитель выбранной роли
 			q-select(dense filled label="Роль")
 				template(v-slot:prepend)
 					q-icon(name="mdi-guy-fawkes-mask" color="primary")

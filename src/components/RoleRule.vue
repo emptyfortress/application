@@ -13,9 +13,7 @@ const dialog = ref(false)
 .q-ma-md(v-if='!!myrole.selectedRole')
 	.hd {{ myrole.selectedRole.name }}
 
-	.other(v-if='myrole.selectedRole.name == "Все остальные"') Все остальные роли, не указанные явно.
-
-	.ini(v-else)
+	.ini()
 		label Название роли:
 		.val
 			span {{ myrole.selectedRole.name }}
@@ -23,7 +21,10 @@ const dialog = ref(false)
 				q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
 
 		label Правила выбора:
-		.val(@click='dialog = true')
+		div(v-if='myrole.selectedRole.id == "Lane_0kutmjb"')
+			.des Сотрудник, создавший новый экземляр приложения.
+			.sma Роль существует по умолчанию не может быть удалена.
+		.val(v-else @click='dialog = true')
 			span(v-if='!!myrole.selectedRole.pers') {{ myrole.selectedRole.pers }}
 			q-btn(v-else unelevated color="primary" label="Задать" size='sm') 
 
@@ -50,5 +51,12 @@ const dialog = ref(false)
 		border-bottom: 1px dotted blue;
 		cursor: pointer;
 	}
+}
+.des {
+	font-weight: 600;
+	margin-bottom: 1rem;
+}
+.sma {
+	font-size: 0.8rem;
 }
 </style>
