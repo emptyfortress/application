@@ -8,9 +8,9 @@ const options = [
 	{ label: 'Инициатор', value: 'Инициатор', color: 'red' },
 	{ label: 'Руководитель инициатора', value: 'Руководитель инициатора' },
 	{ label: 'Конкретный сотрудник', value: 'Конкретный сотрудник' },
+	{ label: 'Сотрудник из поля в приложении', value: 'Сотрудник из поля в приложении' },
 	{ label: 'Руководитель подразделения', value: 'Руководитель подразделения' },
 	{ label: 'Старший в группе', value: 'Старший в группе' },
-	// { label: 'Поле карточки типа - сотрудник', value: '6' },
 	{ label: 'Руководитель персональной роли', value: 'Руководитель персональной роли' },
 	{
 		label: 'Актуальный заместитель персональной роли',
@@ -37,17 +37,24 @@ const sotr = ref('one')
 			.sma Роль существует по умолчанию не может быть удалена.
 
 		div(v-if='pers == "Конкретный сотрудник"')
-			q-radio(v-model="sotr" val="one" label='Любой сотрудник из справочника сотрудников')
+			.des Любой сотрудник из справочника сотрудников
 			q-select(dense filled label="Сотрудник")
 				template(v-slot:prepend)
 					q-icon(name="mdi-account" color="primary")
 			q-checkbox.q-mt-md(v-model="sotrZam" dense label='Включая заместителей')
-			q-separator.q-mt-md
-			q-radio(v-model="sotr" val="two" label='Сотрудник из поля в приложении')
+
+		div(v-if='pers == "Сотрудник из поля в приложении"')
+			.des Сотрудник из поля в приложении
 			q-select(dense filled label="Поле")
 				template(v-slot:prepend)
 					q-icon(name="mdi-account" color="primary")
 			q-checkbox.q-mt-md(v-model="sotrZam" dense label='Включая заместителей')
+			// q-separator.q-mt-md
+			// q-radio(v-model="sotr" val="two" label='Сотрудник из поля в приложении')
+			// q-select(dense filled label="Поле")
+			// 	template(v-slot:prepend)
+			// 		q-icon(name="mdi-account" color="primary")
+			// q-checkbox.q-mt-md(v-model="sotrZam" dense label='Включая заместителей')
 
 		div(v-if='pers == "Руководитель подразделения"')
 			.des Руководитель любого подразделения из справочника
