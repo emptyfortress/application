@@ -6,6 +6,7 @@ import StepAttribute from '@/components/StepAttribute.vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useStorage } from '@vueuse/core'
 import { useData } from '@/stores/alldata'
+import { useRoles } from '@/stores/roles'
 
 const router = useRouter()
 const route = useRoute()
@@ -15,7 +16,15 @@ const butt = ref('Введите название')
 const card = ref('')
 
 const app = useStorage('app', localStorage)
+
+const myrole = useRoles()
+
 const goto = () => {
+	myrole.addRole({
+		id: 'one',
+		name: 'Кадровик',
+		selected: false,
+	})
 	let url = `/${app.value.text}/editor/process`
 	router.push(url)
 }
