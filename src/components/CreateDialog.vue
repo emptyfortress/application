@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { uid } from 'quasar'
 import { useRoles } from '@/stores/roles'
 import { useForms } from '@/stores/forms'
+import { useStorage } from '@vueuse/core'
 
 const props = defineProps({
 	mode: {
@@ -23,7 +24,10 @@ const close = () => {
 
 const emit = defineEmits(['create'])
 
+const allroles = useStorage('roles', {})
+
 const myrole = useRoles()
+
 const create = (data: any) => {
 	if (props.mode == 'app') {
 		data.id = +new Date()
@@ -37,6 +41,7 @@ const create = (data: any) => {
 		data.id = uid()
 		data.selected = false
 		myrole.addRole(data)
+		// allroles.value.push(data)
 		close()
 	}
 	if (props.mode == 'form') {

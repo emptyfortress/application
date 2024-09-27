@@ -1,10 +1,13 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, computed } from 'vue'
 import { useRoles } from '@/stores/roles'
 import CreateDialog from '@/components/CreateDialog.vue'
 import draggable from 'vuedraggable'
+import { useStorage } from '@vueuse/core'
 
 const myrole = useRoles()
+
+const allroles = useStorage('roles', localStorage)
 
 const dialog = ref(false)
 
@@ -14,14 +17,9 @@ const select = (e: Role) => {
 	selection.value = e.name
 	myrole.selectRole(e)
 }
-const list1 = ref(myrole.roles)
-
-watch(
-	() => myrole.roles,
-	() => {
-		list1.value = myrole.roles
-	}
-)
+const filtered = computed(() => {
+	return allroles.value.filter((el: Role) => el.name !== 'Все остальные')
+})
 </script>
 
 <template lang="pug">
@@ -30,7 +28,7 @@ watch(
 	q-list(separator)
 		draggable(
 			class="list-group"
-			:list="list1"
+			:list="filtered"
 			itemKey="id")
 
 			template(#item="{ element, index }")
@@ -43,7 +41,7 @@ watch(
 						q-icon(v-if='element.type' name="mdi-shuffle-variant")
 						q-tooltip Используется в процессе
 					q-item-section(side v-else)
-						q-btn(v-if='!element.type' flat round dense icon="mdi-trash-can-outline" @click="myrole.removeRole(role)" size="sm") 
+						q-btn(v-if='!element.type' flat round dense icon="mdi-trash-can-outline" @click="myrole.removeRole(element)" size="sm") 
 
 
 	br

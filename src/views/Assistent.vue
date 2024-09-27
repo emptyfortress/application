@@ -11,6 +11,7 @@ const route = useRoute()
 
 const step = ref(1)
 const butt = ref('Введите название')
+const card = ref('')
 
 const app = useStorage('app', localStorage)
 const goto = () => {
@@ -21,6 +22,7 @@ const goto = () => {
 
 <template lang="pug">
 q-page
+
 	q-stepper(
 		flat
 		v-model="step"
