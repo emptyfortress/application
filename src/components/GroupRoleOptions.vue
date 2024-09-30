@@ -13,6 +13,9 @@ const options = [
 ]
 const sotrZam = ref(false)
 const otdel = ref('one')
+const dep = ref()
+
+const depOptions = ['Отдел разработки', 'Тестировщики', 'Склад', 'Отдел кадров']
 </script>
 
 <template lang="pug">
@@ -31,8 +34,8 @@ const otdel = ref('one')
 					template(v-slot:prepend)
 						q-icon(name="mdi-account-multiple" color="primary")
 		div(v-if='pers == "Сотрудники подразделения, отдела"')
-			.des Все сотрудники подразделения или отдела
-			q-select(dense filled label="Отдел")
+			.des Сотрудник подразделения или отдела
+			q-select(v-model="dep" dense filled label="Отдел" :options="depOptions")
 				template(v-slot:prepend)
 					q-icon(name="mdi-office-building" color="primary")
 			q-checkbox.q-mt-md(v-model="sotrZam" dense label='Включая заместителей')
