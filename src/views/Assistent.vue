@@ -29,6 +29,7 @@ const goto = () => {
 	router.push(url)
 }
 const mydata = useData()
+mydata.setAssist(true)
 </script>
 
 <template lang="pug">
