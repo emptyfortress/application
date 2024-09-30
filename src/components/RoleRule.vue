@@ -22,7 +22,7 @@ const dialog = ref(false)
 
 		label Правила выбора:
 		div(v-if='myrole.selectedRole.id == "Lane_0kutmjb"')
-			.des Сотрудник, создавший новый экземляр приложения.
+			.des Сотрудник, создавший заявление на отпуск
 			.sma Роль существует по умолчанию не может быть удалена.
 		.val(v-else @click='dialog = true')
 			span(v-if='!!myrole.selectedRole.pers') {{ myrole.selectedRole.pers }}
