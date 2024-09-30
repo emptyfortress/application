@@ -61,7 +61,7 @@ q-page
 			:done="step > 2")
 			StepRole1
 			q-stepper-navigation
-				q-btn(@click="step = 5" color="primary" label="Далее")
+				q-btn(@click="step = 3" color="primary" label="Далее")
 
 		q-step(
 			:name="3"
@@ -70,19 +70,19 @@ q-page
 			:done="step > 3")
 			StepAttribute
 			q-stepper-navigation
-				q-btn(@click="step = 3" color="primary" label="Далее")
+				q-btn(@click="step = 4" color="primary" label="Далее")
 
 		q-step(
 			:name="4"
 			title="Назовите кнопку старта"
 			prefix="3"
-			:done="step > 3")
+			:done="step > 4")
 			// div Придумайте названия для кнопки, с которой будет стартовать ваше приложение.
 			div Когда все поля будут заполнены, для передачи следующему участнику процесса Инициатор нажмет кнопку. Дайте ей название.
 			q-input.q-my-md(v-model="mydata.button" label='Кнопка' dense outlined bg-color="white")
 			q-btn(unelevated color="secondary" :label="butt") 
 			q-stepper-navigation
-				q-btn(@click="step = 4" color="primary" label="Далее")
+				q-btn(@click="step = 5" color="primary" label="Далее")
 
 		q-step(
 			:name="5"
