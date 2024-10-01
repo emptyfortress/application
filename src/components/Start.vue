@@ -66,7 +66,7 @@ const dialog = ref(false)
 				q-btn(unelevated  icon="mdi-school" label="Ассистент" color="primary" @click="ass") 
 				q-space
 				q-btn(unelevated color="negative" label="Удалить приложение" @click="store.del = true") 
-			q-btn.q-mt-lg.q-ml-sm(unelevated  label="Опубликовать приложение" color="primary" @click="") 
+			// q-btn.q-mt-lg.q-ml-sm(unelevated  label="Опубликовать приложение" color="primary" @click="") 
 	CreateVersionDialog(v-model="dialog")
 </template>
 
