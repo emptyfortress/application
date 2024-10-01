@@ -4,6 +4,7 @@ import { useStore } from '@/stores/store'
 import { useRouter } from 'vue-router'
 import { myApps } from '@/stores/tree'
 import { useData } from '@/stores/alldata'
+import CreateVersionDialog from '@/components/CreateVersionDialog.vue'
 
 const props = defineProps({
 	id: {
@@ -24,6 +25,9 @@ const ass = () => {
 	mydata.setAssist(true)
 	router.push('/assistent')
 }
+const version = ref('1.0')
+const options = ['0.0', '1.0', '2.0']
+const dialog = ref(false)
 </script>
 
 <template lang="pug">
@@ -43,16 +47,10 @@ const ass = () => {
 						q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
 
 			div(v-if="store.currentNode.data.type == 1")
-				.text-overline version
-				.big
-					q-icon(name="mdi-source-branch" color="primary")
-					span.q-ml-sm v. {{ store.currentNode.data.version}}
-						q-menu
-							q-list
-								q-item(clickable)
-									q-item-section v.0.2.0
-								q-item(clickable)
-									q-item-section v.1.1.0
+				q-select(v-model="version" dense :options="options" label='version')
+					template(v-slot:prepend)
+						q-icon(name="mdi-source-branch" color="primary")
+				q-btn(flat color="primary" label="Создать версию" @click="dialog = true") 
 
 		template(v-if="store.currentNode.data.type == 1")
 			.grid1
@@ -67,8 +65,9 @@ const ass = () => {
 				q-btn(unelevated  icon="mdi-pencil" label="Настроить приложение" color="primary" @click="goto") 
 				q-btn(unelevated  icon="mdi-school" label="Ассистент" color="primary" @click="ass") 
 				q-space
-				// q-btn(flat  icon="mdi-content-duplicate" label="Дублировать" color="primary" @click="store.dub = true") 
 				q-btn(unelevated color="negative" label="Удалить приложение" @click="store.del = true") 
+			q-btn.q-mt-lg.q-ml-sm(unelevated  label="Опубликовать приложение" color="primary" @click="") 
+	CreateVersionDialog(v-model="dialog")
 </template>
 
 <style scoped lang="scss">
