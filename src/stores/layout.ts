@@ -19,7 +19,53 @@ export const useLayoutStore = defineStore('layout', () => {
 			selected: false,
 		},
 	]
-	const fields = reactive<Field[]>([])
+	const fields = reactive<Field[]>([
+		{
+			id: 'author',
+			type: 'select',
+			name: 'Автор',
+			readonly: true,
+			visible: true,
+			options: ['Иванов', 'Петров', 'Орлов'],
+			selected: false,
+		},
+		{
+			id: 'datedd',
+			type: 'date',
+			name: 'Дата создания',
+			visible: true,
+			readonly: true,
+			selected: false,
+		},
+		// {
+		// 	id: 'one',
+		// 	type: 'date',
+		// 	name: 'Дата изменения',
+		// 	visible: true,
+		// 	readonly: false,
+		// 	selected: false,
+		// },
+		// {
+		// 	id: 7,
+		// 	type: 'text',
+		// 	label: 'Название',
+		// 	name: 'Название',
+		// 	typ: 'Строка',
+		// 	visible: true,
+		// 	readonly: false,
+		// 	selected: false,
+		// },
+		// {
+		// 	id: 8,
+		// 	type: 'textarea',
+		// 	label: 'Содержание',
+		// 	name: 'Содержание',
+		// 	typ: 'Текст',
+		// 	visible: true,
+		// 	readonly: false,
+		// 	selected: false,
+		// },
+	])
 
 	const fieldsVisible = computed(() => {
 		return fields.filter((item) => item.visible)
