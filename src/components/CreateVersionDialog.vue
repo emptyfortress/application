@@ -40,6 +40,7 @@ const create = (data: any) => {
 		published: '',
 		author: 'Орлов П.С.',
 		current: false,
+		comment: '',
 	}
 	versions.value.unshift(tmp)
 	ind.value += 1
@@ -64,6 +65,7 @@ const versions = ref([
 		published: '18.10.23',
 		author: 'Орлов П.С.',
 		comment: 'Доработки формы создания',
+		current: false,
 	},
 	{
 		id: 0,
@@ -72,6 +74,7 @@ const versions = ref([
 		published: '23.06.23',
 		author: 'Орлов П.С.',
 		comment: 'Стартовая версия',
+		current: false,
 	},
 ])
 const selected = ref(2)
