@@ -42,6 +42,7 @@ const versions = ref([
 		published: '18.10.23',
 		author: 'Орлов П.С.',
 		comment: 'Отпуска для отдела тестирования',
+		current: false,
 	},
 	{
 		id: 0,
@@ -50,6 +51,7 @@ const versions = ref([
 		published: '23.06.23',
 		author: 'Орлов П.С.',
 		comment: 'Стартовая версия',
+		current: false,
 	},
 ])
 const selected = ref()
@@ -71,6 +73,7 @@ const createVer = (e: string) => {
 		published: '',
 		author: 'Кто здесь',
 		current: true,
+		comment: '',
 	}
 	versions.value.unshift(tmp)
 	ind.value += 1
