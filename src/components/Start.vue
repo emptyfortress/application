@@ -50,7 +50,7 @@ const dialog = ref(false)
 				q-select(v-model="version" dense :options="options" label='version')
 					template(v-slot:prepend)
 						q-icon(name="mdi-source-branch" color="primary")
-				q-btn(flat color="primary" label="Создать версию" @click="dialog = true") 
+				q-btn(flat color="primary" label="История версий" @click="dialog = true") 
 
 		template(v-if="store.currentNode.data.type == 1")
 			.grid1
