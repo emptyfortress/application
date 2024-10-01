@@ -56,11 +56,11 @@ type Block = {
 	selected: boolean
 }
 type Field = {
-	id: number
+	id: string
 	type: string
-	label: string
+	// label: string
 	name: string
-	typ: string
+	// typ: string
 	readonly: boolean
 	visible: boolean
 	options?: string[]

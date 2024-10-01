@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { uid } from 'quasar'
 
 const modelValue = defineModel<boolean>()
 
@@ -28,11 +29,10 @@ const calcType = (e: string) => {
 }
 const create = () => {
 	let tmp = {
-		id: +new Date(),
+		id: uid(),
 		name: label.value,
-		label: label.value,
+		// label: label.value,
 		type: calcType(typ.value),
-		typ: typ.value,
 		visible: true,
 		readonly: false,
 		selected: false,
@@ -40,18 +40,11 @@ const create = () => {
 	}
 	emit('create', tmp)
 	name.value = ''
-	label.value = ''
+	// label.value = ''
 	typ.value = ''
 	modelValue.value = false
 }
-const options = [
-	'Строка',
-	'Текст',
-	'Дата/время',
-	'Ссылка на справочник',
-	'Выбор из списка',
-	'Чек-бокс',
-]
+const options = ['Строка', 'Текст', 'Дата', 'Ссылка на справочник']
 </script>
 
 <template lang="pug">

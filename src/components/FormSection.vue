@@ -46,11 +46,11 @@ draggable(
 
 	template(#item="{ element, index }")
 		.node1(ref='node' @click="select(element)" :class="{selected: element.selected}")
-			FormKit(v-if='type' :type="element.type" :label="element.label" :placeholder="element.typ" :options="element.options")
+			FormKit(v-if='type' :type="element.type" :label="element.name" :options="element.options")
 
 			.row.items-center.q-gutter-x-lg(v-else)
-				label {{ element.label }}:
-				.val {{ element.typ }}
+				label {{ element.name }}:
+				.val {{ element.type }}
 
 			.bt
 				q-btn(dense flat icon="mdi-close" @click="remove(index)" size="sm") 
