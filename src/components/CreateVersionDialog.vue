@@ -4,6 +4,7 @@ import { uid } from 'quasar'
 import { useRoles } from '@/stores/roles'
 import { useForms } from '@/stores/forms'
 import { useStorage } from '@vueuse/core'
+import PublishDialog from '@/components/PublishDialog.vue'
 
 // const props = defineProps({
 // 	mode: {
@@ -22,26 +23,39 @@ const close = () => {
 	modelValue.value = false
 }
 
-const emit = defineEmits(['create'])
+// const emit = defineEmits(['create'])
 
 // const allroles = useStorage('roles', {})
 const app = useStorage('app', localStorage)
 
 // const myrole = useRoles()
 
-const create = (data: any) => {
-	console.log(data)
-	modelValue.value = false
-}
 const ind = ref(3)
+const create = (data: any) => {
+	// console.log(data)
+	let tmp = {
+		id: ind.value,
+		version: `${ind.value}.0`,
+		created: '25.11.24',
+		published: '',
+		author: 'Орлов П.С.',
+		current: false,
+	}
+	versions.value.unshift(tmp)
+	ind.value += 1
+
+	// modelValue.value = false
+}
+
 const versions = ref([
 	{
 		id: 2,
 		version: '2.0',
 		created: '13.11.23',
-		published: '21.11.23',
+		published: null,
 		author: 'Орлов П.С.',
-		comment: 'Отпуска отдела тестирования',
+		comment: '',
+		current: true,
 	},
 	{
 		id: 1,
@@ -49,7 +63,6 @@ const versions = ref([
 		created: '28.09.23',
 		published: '18.10.23',
 		author: 'Орлов П.С.',
-		current: true,
 		comment: 'Доработки формы создания',
 	},
 	{
@@ -61,10 +74,28 @@ const versions = ref([
 		comment: 'Стартовая версия',
 	},
 ])
-const selected = ref()
+const selected = ref(2)
 
 const select = (e: number) => {
 	selected.value = e
+}
+const dialog2 = ref(false)
+
+const publish = (e: string) => {
+	dialog2.value = false
+	versions.value[0].published = '25.11.24'
+	versions.value[0].comment = e
+	// versions.value[0].current = false
+	// let tmp = {
+	// 	id: ind.value,
+	// 	version: `${ind.value}.0`,
+	// 	created: '25.11.24',
+	// 	published: '',
+	// 	author: 'Кто здесь',
+	// 	current: true,
+	// }
+	// versions.value.unshift(tmp)
+	// ind.value += 1
 }
 </script>
 
@@ -91,15 +122,20 @@ q-dialog(v-model="modelValue")
 							q-icon(v-if='version.current' name="mdi-chevron-right" color="primary" size='16px')
 							span {{ version.version }}
 						td {{ version.created }}
-						td {{ version.published }}
+						td
+							span(v-if='version.published') {{ version.published }}
+							q-btn(v-else unelevated color="primary" label="Опубликовать" @click.stop="dialog2 = true" size='sm') 
 						td {{ version.author }}
 						td {{ version.comment }}
 						td
 							div(v-if='version.current') текущая
 
 		q-card-actions.q-mx-md.q-mb-md(align="right")
-			q-btn(flat color="primary" label="Отмена" v-close-popup) 
-			q-btn(unelevated color="primary" label="Создать версию" @click="action") 
+			// q-btn(flat color="primary" label="Отмена" v-close-popup) 
+			q-btn(flat color="primary" label="Создать версию на основе выбранной" @click="create") 
+			q-btn(unelevated color="primary" label="Выбрать" v-close-popup) 
+
+	PublishDialog(v-model="dialog2" @create='publish')
 </template>
 
 <style scoped lang="scss">
