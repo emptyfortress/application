@@ -50,7 +50,7 @@ const input = ref()
 <template lang="pug">
 q-form(@submit='add')
 	div Добавьте в <span class='text-bold text-uppercase'>{{app.card}}</span> необходимые поля. Поля нужны для отображения информации, которую заполняют участники процесса. Например: Автор, Срок выполнения, Проверяющий и тд.
-	.info Также у полей задается тип: строка, дата, номер, сотрудник
+	div Также у полей задается тип: строка, дата, номер, сотрудник
 
 	.no(v-if='lstore.fields.length == 0') Поля не заданы
 	q-list.q-mb-md(v-else separator)
@@ -64,6 +64,7 @@ q-form(@submit='add')
 		q-input(ref='input' autofocus v-model="name" label='Название поля' dense outlined bg-color="white")
 		q-select(v-model="type" label='Тип поля' dense outlined bg-color="white" :options='options')
 		q-btn(flat color="primary" label="Добавить" type='submit') 
+	.q-mt-md.info Поля необходимо будет добавить на формы позднее, при их настройке.
 </template>
 
 <style scoped lang="scss">
