@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, nextTick } from 'vue'
 import StepRole1 from '@/components/StepRole1.vue'
 import StepRole2 from '@/components/StepRole2.vue'
 import StepAttribute from '@/components/StepAttribute.vue'
@@ -30,6 +30,14 @@ const goto = () => {
 }
 const mydata = useData()
 mydata.setAssist(true)
+
+const fin = ref(false)
+
+const nextt = () => {
+	fin.value = true
+	nextTick()
+	step.value = 3
+}
 </script>
 
 <template lang="pug">
@@ -45,13 +53,13 @@ q-page
 
 		q-step(
 			:name="1"
-			title="Работа начинается с того, что Инициатор создаст карточку"
+			title="Работа начинается с того, что Инициатор заполняет форму."
 			prefix="1"
 			:done="step > 1")
 
-			// div Придумайте названия для карточки приложения (желательно одним словом). Это название позволит отличить документы вашего приложения от других документов.
+			div Придумайте названия для этой формы.
 
-			q-input(v-model="card" label='Карточка' dense outlined bg-color="white")
+			q-input(v-model="app.card" dense outlined bg-color="white")
 			q-stepper-navigation
 				q-btn(@click="step = 2" color="primary" label="Далее")
 
@@ -60,13 +68,11 @@ q-page
 			title="Определите участников процесса (роли)"
 			prefix="2"
 			:done="step > 2")
-			StepRole1
-			q-stepper-navigation
-				q-btn(@click="step = 3" color="primary" label="Далее")
+			StepRole1(@next='step = 3')
 
 		q-step(
 			:name="3"
-			title="Определите поля приложения"
+			title="Определите поля"
 			prefix="3"
 			:done="step > 3")
 			StepAttribute

@@ -40,7 +40,7 @@ const myApps = [
 			{
 				id: 3,
 				text: 'Заявление на отпуск',
-				card: 'Newcard',
+				card: '',
 				descr: 'Согласование отпуска',
 				hidden: false,
 				selected: false,

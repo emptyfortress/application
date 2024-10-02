@@ -22,6 +22,13 @@ export const useRoles = defineStore('roles', () => {
 	const roles = computed(() => {
 		return myflow.lanes.concat(rolesN.value)
 	})
+	const tempRoles = ref([{ id: 'ini', name: 'Инициатор (системная)', trash: false }])
+	const addTemp = (e: any) => {
+		tempRoles.value.push(e)
+	}
+	const destroyTemp = (e: number) => {
+		tempRoles.value.splice(e, 1)
+	}
 
 	const allroles = useStorage('roles', roles.value)
 
@@ -48,8 +55,11 @@ export const useRoles = defineStore('roles', () => {
 		addRole,
 		removeRole,
 		roles,
+		tempRoles,
 		currentRole,
 		selectedRole,
 		selectRole,
+		addTemp,
+		destroyTemp,
 	}
 })

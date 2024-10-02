@@ -2,7 +2,9 @@
 import { ref } from 'vue'
 import { uid } from 'quasar'
 import { useLayoutStore } from '@/stores/layout'
+import { useStorage } from '@vueuse/core'
 
+const app = useStorage('app', localStorage)
 const attributes = ref<any[]>([])
 const lstore = useLayoutStore()
 
@@ -35,15 +37,6 @@ const add = () => {
 	lstore.addField(tmp)
 	name.value = ''
 	input.value.focus()
-	// if (name.value.length > 0) {
-	// 	attributes.value.push({
-	// 		id: uid(),
-	// 		name: name.value,
-	// 		type: type.value,
-	// 	})
-	// 	name.value = ''
-	// 	input.value.focus()
-	// }
 }
 const destroy = (e: number) => {
 	lstore.fields.splice(e, 1)
@@ -56,7 +49,7 @@ const input = ref()
 
 <template lang="pug">
 q-form(@submit='add')
-	div Добавьте в ваше приложение необходимые поля. Поля нужны для отображения информации, которую заполняют участники процесса. Например: Автор, Срок выполнения, Проверяющий и тд.
+	div Добавьте в <span class='text-bold text-uppercase'>{{app.card}}</span> необходимые поля. Поля нужны для отображения информации, которую заполняют участники процесса. Например: Автор, Срок выполнения, Проверяющий и тд.
 	.info Также у полей задается тип: строка, дата, номер, сотрудник
 
 	.no(v-if='lstore.fields.length == 0') Поля не заданы

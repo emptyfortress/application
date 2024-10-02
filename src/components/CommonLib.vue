@@ -1,66 +1,16 @@
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref, reactive, computed } from 'vue'
 import draggable from 'vuedraggable'
 import AddFieldDialog from '@/components/AddFieldDialog.vue'
 import { useLayoutStore } from '@/stores/layout'
+import { useStorage } from '@vueuse/core'
 
+const app = useStorage('app', localStorage)
 const lstore = useLayoutStore()
 
 const dialog = ref(false)
 
-const list1 = ref([
-	// {
-	// 	id: 4,
-	// 	type: 'select',
-	// 	label: 'Автор',
-	// 	name: 'Автор',
-	// 	typ: 'Сотрудник',
-	// 	readonly: true,
-	// 	visible: true,
-	// 	options: ['Иванов', 'Петров', 'Орлов'],
-	// 	selected: false,
-	// },
-	// {
-	// 	id: 5,
-	// 	type: 'date',
-	// 	label: 'Дата создания',
-	// 	name: 'Дата создания',
-	// 	typ: 'Дата',
-	// 	visible: true,
-	// 	readonly: true,
-	// 	selected: false,
-	// },
-	// {
-	// 	id: 6,
-	// 	type: 'date',
-	// 	label: 'Дата изменения',
-	// 	name: 'Дата изменения',
-	// 	typ: 'Дата',
-	// 	visible: true,
-	// 	readonly: false,
-	// 	selected: false,
-	// },
-	// {
-	// 	id: 7,
-	// 	type: 'text',
-	// 	label: 'Название',
-	// 	name: 'Название',
-	// 	typ: 'Строка',
-	// 	visible: true,
-	// 	readonly: false,
-	// 	selected: false,
-	// },
-	// {
-	// 	id: 8,
-	// 	type: 'textarea',
-	// 	label: 'Содержание',
-	// 	name: 'Содержание',
-	// 	typ: 'Текст',
-	// 	visible: true,
-	// 	readonly: false,
-	// 	selected: false,
-	// },
-])
+// const list1 = ref([])
 
 const addField = (tmp: Field) => {
 	lstore.addField(tmp)
@@ -70,6 +20,10 @@ const dragStart = (type: number) => {
 	lstore.setDragType(type)
 }
 const expanded = ref([true, true])
+
+const calcLabel = computed(() => {
+	return 'Доступные поля ' + app.value.card
+})
 </script>
 
 <template lang="pug">
@@ -79,7 +33,7 @@ q-list.q-mt-md
 		.node(:draggable="true" @dragstart="dragStart(3)") Шапка и две колонки
 		.node(:draggable="true" @dragstart="dragStart(1)") Простой блок
 
-	q-expansion-item.q-mt-lg(label="Доступные поля приложения" expand-separator header-class="bold" v-model="expanded[1]")
+	q-expansion-item.q-mt-lg(:label="calcLabel" expand-separator header-class="bold" v-model="expanded[1]")
 		draggable(
 			class="list-group"
 			:list="lstore.fields"

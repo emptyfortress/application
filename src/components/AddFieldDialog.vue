@@ -40,7 +40,7 @@ const create = () => {
 	}
 	emit('create', tmp)
 	name.value = ''
-	// label.value = ''
+	label.value = ''
 	typ.value = ''
 	modelValue.value = false
 }

@@ -20,23 +20,23 @@ export const useLayoutStore = defineStore('layout', () => {
 		},
 	]
 	const fields = reactive<Field[]>([
-		{
-			id: 'author',
-			type: 'select',
-			name: 'Автор',
-			readonly: true,
-			visible: true,
-			options: ['Иванов', 'Петров', 'Орлов'],
-			selected: false,
-		},
-		{
-			id: 'datedd',
-			type: 'date',
-			name: 'Дата создания',
-			visible: true,
-			readonly: true,
-			selected: false,
-		},
+		// {
+		// 	id: 'author',
+		// 	type: 'select',
+		// 	name: 'Автор',
+		// 	readonly: true,
+		// 	visible: true,
+		// 	options: ['Иванов', 'Петров', 'Орлов'],
+		// 	selected: false,
+		// },
+		// {
+		// 	id: 'datedd',
+		// 	type: 'date',
+		// 	name: 'Дата создания',
+		// 	visible: true,
+		// 	readonly: true,
+		// 	selected: false,
+		// },
 		// {
 		// 	id: 'one',
 		// 	type: 'date',
