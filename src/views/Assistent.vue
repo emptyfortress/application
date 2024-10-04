@@ -1,19 +1,16 @@
 <script setup lang="ts">
-import { ref, nextTick } from 'vue'
+import { ref } from 'vue'
 import StepRole1 from '@/components/StepRole1.vue'
 import StepRole2 from '@/components/StepRole2.vue'
 import StepAttribute from '@/components/StepAttribute.vue'
-import { useRouter, useRoute } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { useStorage } from '@vueuse/core'
 import { useData } from '@/stores/alldata'
 import { useRoles } from '@/stores/roles'
 
 const router = useRouter()
-const route = useRoute()
 
 const step = ref(1)
-const butt = ref('Введите название')
-const card = ref('')
 
 const app = useStorage('app', localStorage)
 
@@ -30,14 +27,6 @@ const goto = () => {
 }
 const mydata = useData()
 mydata.setAssist(true)
-
-const fin = ref(false)
-
-const nextt = () => {
-	fin.value = true
-	nextTick()
-	step.value = 3
-}
 </script>
 
 <template lang="pug">
@@ -84,11 +73,9 @@ q-page
 			title="Назовите кнопку старта"
 			prefix="3"
 			:done="step > 4")
-			// div Придумайте названия для кнопки, с которой будет стартовать ваше приложение.
 			div Когда все поля будут заполнены, для передачи следующему участнику процесса Инициатор нажмет кнопку. Дайте ей название.
 			q-input.q-my-md(v-model="mydata.button" label='Кнопка' dense outlined bg-color="white")
-			// q-btn(unelevated color="secondary" :label="butt") 
-			q-stepper-navigation
+		q-stepper-navigation
 				q-btn(@click="step = 5" color="primary" label="Далее")
 
 		q-step(
@@ -114,12 +101,8 @@ q-page
 <style scoped lang="scss">
 .q-stepper {
 	background: initial;
-	// width: 1200px;
+	width: 1200px;
 }
-// .q-list {
-// 	margin-bottom: 1rem;
-// 	max-width: 800px;
-// }
 .q-input {
 	width: 300px;
 	margin-bottom: 3px;
