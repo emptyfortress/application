@@ -9,7 +9,7 @@ const myform = useForms()
 <template lang="pug">
 .all
 	.done
-		div(v-if='myform.currentBO.name !== "Создал Заявку" || myform.currentBO.id !== "Activity_03rm8hy"')
+		div(v-if='myform.currentBO.name !== "Создал Заявку" && myform.currentBO.id !== "Activity_03rm8hy"')
 			span.btd {{ modelValue }}
 				q-popup-edit(v-model="modelValue" title="Сопроводительный текст" buttons auto-save v-slot="scope")
 					q-input(v-model="scope.value" type='textarea' outlined dense autofocus counter @keyup.enter.stop)

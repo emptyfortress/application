@@ -10,6 +10,7 @@ const myform = useForms()
 		FormKit(type="text" autofocus name="name" label="Автор" value='Сидоров А.Г.' help="Автор заявки" validation="required|length:3")
 		FormKit(type="text" autofocus name="name" label="Исполнитель" validation="required|length:3")
 		FormKit(type="textarea" name="descr" label="Описание" help="Что требуется?")
+
 	template(v-if='myform.zayform == "Просмотр"')
 		.grid
 			label Автор:
@@ -21,6 +22,7 @@ const myform = useForms()
 			label Описание:
 			div
 				span.val Это описание заявки, достаточно длинное, чтобы поместиться в тексареа.
+
 	template(v-if='myform.zayform == "Архив"')
 		.grid
 			label Автор:
