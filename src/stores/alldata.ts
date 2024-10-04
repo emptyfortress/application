@@ -4,7 +4,7 @@ import { defineStore } from 'pinia'
 export const useData = defineStore('data', () => {
 	const myxml = ref<null | string>(null)
 	const assist = ref(false)
-	const button = ref('Введите название')
+	const button = ref('Кнопка')
 
 	const saveXML = (e: any) => {
 		myxml.value = e

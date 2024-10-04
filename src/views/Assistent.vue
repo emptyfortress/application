@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import StepRole1 from '@/components/StepRole1.vue'
-import StepRole2 from '@/components/StepRole2.vue'
 import StepAttribute from '@/components/StepAttribute.vue'
 import { useRouter } from 'vue-router'
 import { useStorage } from '@vueuse/core'
@@ -27,6 +26,10 @@ const goto = () => {
 }
 const mydata = useData()
 mydata.setAssist(true)
+const button = ref()
+const setBt = () => {
+	button.value.select()
+}
 </script>
 
 <template lang="pug">
@@ -54,9 +57,10 @@ q-page
 
 		q-step(
 			:name="2"
-			title="Определите участников процесса (роли)"
+			title="Определите участников и наблюдателей процесса (роли)"
 			prefix="2"
 			:done="step > 2")
+			div В приложении в виде схемы будет определен процесс, согласно которому к работе будут подключаться следующие участники (роли):
 			StepRole1(@next='step = 3')
 
 		q-step(
@@ -71,27 +75,19 @@ q-page
 		q-step(
 			:name="4"
 			title="Назовите кнопку старта"
-			prefix="3"
+			prefix="4"
 			:done="step > 4")
-			div Когда все поля будут заполнены, для передачи следующему участнику процесса Инициатор нажмет кнопку. Дайте ей название.
-			q-input.q-my-md(v-model="mydata.button" label='Кнопка' dense outlined bg-color="white")
-		q-stepper-navigation
+			div Когда все поля будут заполнены, Инициатор нажмет кнопку. Дайте ей название.
+			q-input.q-my-md(ref='button' v-model="mydata.button" dense outlined bg-color="white" @focus="setBt")
+			.q-mt-md Система автоматически передаст управление следующему участнику процесса.
+			q-stepper-navigation
 				q-btn(@click="step = 5" color="primary" label="Далее")
 
 		q-step(
 			:name="5"
-			title="Определите наблюдателей процесса (роли)"
+			title="Завершение"
 			prefix="5"
 			:done="step > 5")
-			StepRole2
-			q-stepper-navigation
-				q-btn(@click="step = 6" color="primary" label="Далее")
-			
-		q-step(
-			:name="6"
-			title="Завершение"
-			prefix="6"
-			:done="step > 6")
 			div Поздравляем, вы завершили первичную настройку, сейчаc вы будете направлены на страницу приложения, где можете продолжить настройку.
 
 			q-stepper-navigation
@@ -101,7 +97,7 @@ q-page
 <style scoped lang="scss">
 .q-stepper {
 	background: initial;
-	width: 1200px;
+	width: 1100px;
 }
 .q-input {
 	width: 300px;

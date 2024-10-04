@@ -24,7 +24,7 @@ const destroy = (e: number) => {
 
 <template lang="pug">
 q-form(@submit='add')
-	div Кто наблюдает за процессом? Список включает всех, кто может видеть <span class='text-bold text-uppercase'>{{app.card}}</span>.
+	div Список включает всех, кто может видеть <span class='text-bold'>{{app.card}}</span>.
 	.no(v-if='roles.length == 0') Наблюдатели не заданы
 	q-list.q-mb-md(separator v-else)
 		q-item(clickable v-for="(role, index) in roles" :key="role.id")

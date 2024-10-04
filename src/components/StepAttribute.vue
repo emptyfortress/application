@@ -64,7 +64,7 @@ q-form(@submit='add')
 		q-input(ref='input' autofocus v-model="name" label='Название поля' dense outlined bg-color="white")
 		q-select(v-model="type" label='Тип поля' dense outlined bg-color="white" :options='options')
 		q-btn(flat color="primary" label="Добавить" type='submit') 
-	.q-mt-md.info Поля необходимо будет добавить на формы позднее, при их настройке.
+	.q-mt-md.info Поля необходимо будет разместить на формы позднее, при их настройке.
 </template>
 
 <style scoped lang="scss">
