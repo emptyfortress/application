@@ -132,8 +132,8 @@ const tmpDesc = ref('Это сопроводительный текст-опис
 
 const desc = computed({
 	get() {
-		// let form = myform.formList?.find((el: Form) => el.name == name.value)
-		// if (!!form) return form.desc
+		let form = myform.formList?.find((el: Form) => el.name == name.value)
+		if (!!form) return form.desc
 		return tmpDesc.value
 	},
 	set(val: string) {
