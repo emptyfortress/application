@@ -87,6 +87,7 @@ interface App {
 interface NodeData extends App {
 	// id: number
 	text: string
+	name?: string
 	// descr?: string
 	selected?: boolean
 	hidden?: boolean

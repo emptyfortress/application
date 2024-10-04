@@ -1,17 +1,17 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { useStore } from '@/stores/store'
+// import { useStore } from '@/stores/store'
 import { myApps } from '@/stores/tree'
 import BaseTree from '@/components/BaseTree.vue'
 
-const store = useStore()
+// const store = useStore()
 const router = useRouter()
 
-const goto = () => {
-	router.push('/editor/process')
-	// store.setBread('Процесс')
-}
+// const goto = () => {
+// 	router.push('/editor/process')
+// 	// store.setBread('Процесс')
+// }
 
 const splitterModel = ref(30)
 
