@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { ref, reactive, computed } from 'vue'
+import { ref, computed } from 'vue'
 import { GridItem, GridLayout } from 'vue3-grid-layout-next'
 import FormSection from '@/components/FormSection.vue'
 import { useStore } from '@/stores/store'
 import { useLayoutStore } from '@/stores/layout'
-import { useRouter, useRoute } from 'vue-router'
 
 interface Props {
 	x: number
@@ -19,9 +18,6 @@ interface Props {
 const props = defineProps<{
 	layout: Props[]
 }>()
-
-const router = useRouter()
-const route = useRoute()
 
 const store = useStore()
 const lstore = useLayoutStore()
@@ -44,7 +40,6 @@ const onDragLeave = () => {
 	red.value = false
 }
 
-// const index = ref(2)
 const colNum = ref(12)
 
 const onDrop = () => {

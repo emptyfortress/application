@@ -10,7 +10,7 @@ import ChooseFormDialog from '@/components/ChooseFormDialog.vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useLayoutStore } from '@/stores/layout'
 import { useStore } from '@/stores/store'
-import { useStorage } from '@vueuse/core'
+// import { useStorage } from '@vueuse/core'
 import { useForms } from '@/stores/forms'
 import { useRoles } from '@/stores/roles'
 import { uid } from 'quasar'
@@ -38,7 +38,7 @@ watchEffect(() => {
 	}
 })
 
-const app = useStorage('app', localStorage)
+// const app = useStorage('app', localStorage)
 
 const resetZay = () => {
 	setTimeout(() => {
@@ -132,8 +132,8 @@ const tmpDesc = ref('Это сопроводительный текст-опис
 
 const desc = computed({
 	get() {
-		let form = myform.formList?.find((el: Form) => el.name == name.value)
-		if (!!form) return form.desc
+		// let form = myform.formList?.find((el: Form) => el.name == name.value)
+		// if (!!form) return form.desc
 		return tmpDesc.value
 	},
 	set(val: string) {
