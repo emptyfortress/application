@@ -70,7 +70,7 @@ type Field = {
 	type: string
 	// label: string
 	name: string
-	// typ: string
+	typ?: string
 	readonly: boolean
 	visible: boolean
 	options?: string[]

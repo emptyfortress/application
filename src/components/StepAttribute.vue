@@ -29,6 +29,7 @@ const add = () => {
 		id: uid(),
 		name: name.value,
 		type: calcType(type.value),
+		typ: type.value,
 		visible: true,
 		readonly: false,
 		selected: false,
@@ -56,7 +57,7 @@ q-form(@submit='add')
 	q-list.q-mb-md(v-else separator)
 		q-item(clickable v-for="(attr, index) in lstore.fields" :key="attr.id")
 			q-item-section {{ attr.name }}
-			// q-item-section {{ attr.type }}
+			q-item-section {{ attr.typ }}
 			q-item-section(side)
 				q-btn(flat round icon="mdi-trash-can-outline" color="primary" @click='destroy(index)') 
 

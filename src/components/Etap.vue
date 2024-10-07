@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, watchEffect, computed, onMounted } from 'vue'
 import FormTop from '@/components/FormTop.vue'
-import FormBottom from '@/components/FormBottom.vue'
+// import FormBottom from '@/components/FormBottom.vue'
 import FormLayout from '@/components/FormLayout.vue'
 import FormLayout1 from '@/components/FormLayout1.vue'
 import VueDraggableResizable from 'vue-draggable-resizable'
@@ -210,7 +210,7 @@ const closeNav = () => {
 		FormTop(v-if='myform.showBt || myform.zay' v-model="desc" @update:modelValue='setDesc')
 		FormLayout1(v-if='myform.zay' :form='myform.zayform')
 		FormLayout(v-else :layout='startLayout')
-		FormBottom(v-if='calcCreation')
+		// FormBottom(v-if='calcCreation')
 		// FormLayout(v-else :layout='startLayout')
 
 ChooseFormDialog(v-model="dialog" @load='loadForm')
