@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useStore } from '@/stores/store'
 import { useRouter } from 'vue-router'
-import { myApps } from '@/stores/tree'
 import { useData } from '@/stores/alldata'
-import CreateVersionDialog from '@/components/CreateVersionDialog.vue'
+import VersionTable from '@/components/VersionTable.vue'
 
 const props = defineProps({
 	id: {
@@ -25,13 +24,53 @@ const ass = () => {
 	mydata.setAssist(true)
 	router.push('/assistent')
 }
-const version = ref('1.0')
-const options = ['0.0', '1.0', '2.0']
+const versions = ref<Version[]>([
+	{
+		id: 2,
+		label: '2.0',
+		value: '2.0',
+		created: '13.11.2023 15:13',
+		published: null,
+		author: 'Орлов П.С.',
+		comment: '',
+		current: true,
+	},
+	{
+		id: 1,
+		label: '1.0',
+		value: '1.0',
+		created: '28.09.2023 09:23',
+		published: '18.10.2023 17:11',
+		author: 'Орлов П.С.',
+		comment: 'Доработки формы создания',
+		current: false,
+	},
+	{
+		id: 0,
+		label: '0.0',
+		value: '0.0',
+		created: '20.06.2023 12:03',
+		published: '23.06.2023 20:11',
+		author: 'Орлов П.С.',
+		comment: 'Стартовая версия',
+		current: false,
+	},
+])
 const dialog = ref(false)
+
+const tab = ref('current')
+const curVersion = ref('2.0')
+
+const version = computed(() => {
+	let v = versions.value.filter((item) => item.value == curVersion.value)[0]
+	return v
+})
 </script>
 
 <template lang="pug">
 .q-ml-md
+
+
 	template(v-if="store.currentNode")
 		.grid
 			div
@@ -47,27 +86,52 @@ const dialog = ref(false)
 						q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
 
 			div(v-if="store.currentNode.data.type == 1")
-				q-select(v-model="version" dense :options="options" label='version')
+				q-select(v-model="curVersion" dense :options="versions" label='version' emit-value)
 					template(v-slot:prepend)
 						q-icon(name="mdi-source-branch" color="primary")
-				q-btn(flat color="primary" label="История версий" @click="dialog = true") 
+					template(v-slot:option="scope")
+						q-item(v-bind="scope.itemProps")
+							q-item-section(avatar)
+								q-icon(v-if='scope.opt.published' name="mdi-web-check")
+								q-icon(v-else name="mdi-pencil-outline")
+							q-item-section
+								q-item-label {{ scope.opt.label }}
+								q-item-label(v-if='scope.opt.published' caption) опубликовано
+				// q-btn(flat color="primary" label="История версий" @click="dialog = true") 
 
-		template(v-if="store.currentNode.data.type == 1")
-			.grid1
-				.text-bold Создано:
-				div 21.10.24  15:40
-				.text-bold Автор:
-				div Орлов П.С.
-				div &nbsp;
-				div &nbsp;
+		br
+		q-tabs(v-model="tab" dense align="left" active-color="primary" indicator-color="primary")
+			q-tab(name="current" :label="`Версия ${curVersion}`")
+			q-tab(name="manage" label="Управление версиями")
 
-			q-card-actions.q-mt-xl
-				q-btn(unelevated  icon="mdi-pencil" label="Настроить приложение" color="primary" @click="goto") 
-				q-btn(unelevated  icon="mdi-school" label="Ассистент" color="primary" @click="ass") 
-				q-space
-				q-btn(unelevated color="negative" label="Удалить приложение" @click="store.del = true") 
-			// q-btn.q-mt-lg.q-ml-sm(unelevated  label="Опубликовать приложение" color="primary" @click="") 
-	CreateVersionDialog(v-model="dialog")
+		q-tab-panels(v-model="tab")
+			q-tab-panel(name="current")
+				template(v-if="store.currentNode.data.type == 1")
+					.grid1
+						.text-bold Создано:
+						div {{ version.created }}
+						.text-bold Автор:
+						div {{ version.author }}
+						template(v-if='version.published')
+							.text-bold Опубликовано:
+							div {{ version.published }}
+							.text-bold Комментарий:
+							div {{ version.comment }}
+						template(v-else)
+							.rd Версия не опубликована
+
+					q-card-actions.q-mt-xl
+						template(v-if='!version.published')
+							q-btn(unelevated  icon="mdi-pencil" label="Настроить приложение" color="primary" @click="goto") 
+							q-space
+							q-btn(unelevated  icon="mdi-school" label="Ассистент" color="primary" @click="ass") 
+							// q-btn(unelevated color="negative" label="Удалить версию?" @click="store.del = true") 
+						template(v-else)
+							q-btn(unelevated  icon="mdi-eye" label="Просмотр" color="primary" @click="goto") 
+
+			q-tab-panel(name="manage")
+				VersionTable(v-model="versions")
+
 </template>
 
 <style scoped lang="scss">
@@ -81,7 +145,7 @@ const dialog = ref(false)
 }
 .grid {
 	display: grid;
-	grid-template-columns: 2fr auto;
+	grid-template-columns: 1fr 200px;
 	align-items: center;
 	column-gap: 1rem;
 	row-gap: 0.5rem;
@@ -94,16 +158,15 @@ const dialog = ref(false)
 	// align-items: stretch;
 	column-gap: 1rem;
 }
-.app {
-	width: 200px;
-	height: 200px;
-	background: #fff;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	cursor: pointer;
-}
 .edit {
 	border-bottom: 1px dotted $primary;
+}
+.q-tab-panels {
+	background: transparent;
+}
+.rd {
+	grid-column: 1 / -1;
+	color: $negative;
+	font-weight: 600;
 }
 </style>

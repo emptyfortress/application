@@ -1,3 +1,13 @@
+interface Version {
+	id: number
+	label: string
+	value: string
+	created: string
+	published: null | string
+	author: string
+	comment: string
+	current: boolean
+}
 interface LayoutSet {
 	// id: string
 	form: string
