@@ -35,6 +35,8 @@ const setBt = () => {
 <template lang="pug">
 q-page
 
+	q-btn(unelevated color="primary" icon="mdi-arrow-left" label="Отмена" @click="router.back()") 
+
 	q-stepper(
 		flat
 		v-model="step"
