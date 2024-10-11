@@ -5,12 +5,9 @@ import PublishDialog from '@/components/PublishDialog.vue'
 
 const versions = defineModel<Version[]>()
 
-// const icon = ref(3)
-// const myform = useForms()
-
 const ind = ref(3)
 
-const create = () => {
+const create = (e: string) => {
 	let tmp = {
 		id: ind.value,
 		label: `${ind.value}.0`,
@@ -19,10 +16,11 @@ const create = () => {
 		published: null,
 		author: 'Орлов П.С.',
 		current: false,
-		comment: '',
+		comment: e,
 	}
 	versions.value?.unshift(tmp)
 	ind.value += 1
+	dialog2.value = false
 }
 
 const selected = ref(2)
@@ -31,9 +29,20 @@ const select = (e: number) => {
 	selected.value = e
 }
 const dialog2 = ref(false)
-const tmpVer = ref<Version | null>(null)
+
+const tmpVer = ref<Version>({
+	id: 0,
+	label: '',
+	value: '',
+	created: new Date().toLocaleDateString('ru-RU') + ' 00:00',
+	published: null,
+	author: 'Орлов П.С.',
+	current: false,
+	comment: '',
+})
 
 const showPublish = (v: Version) => {
+	newVersion.value = false
 	tmpVer.value = v
 	dialog2.value = true
 }
@@ -46,6 +55,12 @@ const publish = (e: string) => {
 const destroy = (e: Version) => {
 	versions.value = versions.value?.filter((v) => v.id != e.id)
 }
+
+const newVersion = ref(false)
+const create0 = (() => {
+	newVersion.value = true
+	dialog2.value = true
+})
 </script>
 
 <template lang="pug">
@@ -60,7 +75,7 @@ q-markup-table(flat)
 			th Комментарий
 			th
 	tbody
-		tr(v-for="version in versions" :key='version.id' @click='select(version.id)' :class='{selected: selected == version.id}')
+		tr(v-for="version in versions" :key='version.id' @click='select(version.id)' :class='{ selected: selected == version.id }')
 			td.sma
 				q-icon(v-if='version.published' name="mdi-web-check" color="primary" size="18px")
 					q-tooltip Опубликовано
@@ -77,18 +92,20 @@ q-markup-table(flat)
 				q-btn(v-if='!version.published' flat round icon="mdi-trash-can-outline" color="negative" @click.stop="destroy(version)" size='sm') 
 
 q-card-actions.q-mx-md.q-mb-md
-q-btn(unelevated color="primary" label="Создать версию на основе выбранной" @click="create") 
+q-btn(unelevated color="primary" label="Создать версию на основе выбранной" @click="create0" ) 
 
-PublishDialog(v-model="dialog2" @create='publish')
+	PublishDialog(v-model="dialog2" @publish='publish' @create="create" :newversion="newVersion" v-model:comment="tmpVer.comment")
 </template>
 
 <style scoped lang="scss">
 .selected {
 	background: var(--bg-selected);
 }
+
 th {
 	text-align: left;
 }
+
 .sma {
 	padding: 8px;
 	min-width: 20px;
