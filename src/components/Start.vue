@@ -56,7 +56,6 @@ const versions = ref<Version[]>([
 		current: false,
 	},
 ])
-const dialog = ref(false)
 
 const tab = ref('current')
 const curVersion = ref('2.0')
@@ -97,7 +96,6 @@ const version = computed(() => {
 							q-item-section
 								q-item-label {{ scope.opt.label }}
 								q-item-label(v-if='scope.opt.published' caption) опубликовано
-				// q-btn(flat color="primary" label="История версий" @click="dialog = true") 
 
 		br
 		q-tabs(v-model="tab" dense align="left" active-color="primary" indicator-color="primary")
@@ -140,9 +138,11 @@ const version = computed(() => {
 	color: $primary;
 	cursor: pointer;
 }
+
 .text-overline {
 	line-height: 1;
 }
+
 .grid {
 	display: grid;
 	grid-template-columns: 1fr 200px;
@@ -150,6 +150,7 @@ const version = computed(() => {
 	column-gap: 1rem;
 	row-gap: 0.5rem;
 }
+
 .grid1 {
 	margin-top: 1rem;
 	display: grid;
@@ -158,12 +159,15 @@ const version = computed(() => {
 	// align-items: stretch;
 	column-gap: 1rem;
 }
+
 .edit {
 	border-bottom: 1px dotted $primary;
 }
+
 .q-tab-panels {
 	background: transparent;
 }
+
 .rd {
 	grid-column: 1 / -1;
 	color: $negative;

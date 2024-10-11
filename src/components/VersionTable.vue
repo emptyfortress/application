@@ -94,7 +94,7 @@ q-markup-table(flat)
 q-card-actions.q-mx-md.q-mb-md
 q-btn(unelevated color="primary" label="Создать версию на основе выбранной" @click="create0" ) 
 
-	PublishDialog(v-model="dialog2" @publish='publish' @create="create" :newversion="newVersion" v-model:comment="tmpVer.comment")
+PublishDialog(v-model="dialog2" @publish='publish' @create="create" :newversion="newVersion" v-model:comment="tmpVer.comment")
 </template>
 
 <style scoped lang="scss">
