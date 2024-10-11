@@ -128,7 +128,7 @@ const version = computed(() => {
 							q-btn(unelevated  icon="mdi-eye" label="Просмотр" color="primary" @click="goto") 
 
 			q-tab-panel(name="manage")
-				VersionTable(v-model="versions")
+				VersionTable(v-model:versions="versions")
 
 </template>
 
