@@ -60,15 +60,6 @@ const create0 = (() => {
 	dialog2.value = true
 })
 const columns: QTableProps['columns'] = [
-	// {
-	// 	name: 'icon',
-	// 	required: true,
-	// 	label: '',
-	// 	align: 'left',
-	// 	field: 'icon',
-	// 	format: (val: string) => val,
-	// 	sortable: false
-	// },
 	{
 		name: 'version',
 		required: true,

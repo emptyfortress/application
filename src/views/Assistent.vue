@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import StepRole1 from '@/components/StepRole1.vue'
 import StepAttribute from '@/components/StepAttribute.vue'
+import StepStatus from '@/components/StepStatus.vue'
 import { useRouter } from 'vue-router'
 import { useStorage } from '@vueuse/core'
 import { useData } from '@/stores/alldata'
@@ -76,9 +77,20 @@ q-page
 
 		q-step(
 			:name="4"
-			title="Назовите кнопку старта"
+			title="Если нужно, добавьте состояния"
 			prefix="4"
 			:done="step > 4")
+			StepStatus(@next='step = 5')
+
+
+			// q-stepper-navigation
+			// 	q-btn(@click="step = 4" color="primary" label="Далее")
+
+		q-step(
+			:name="5"
+			title="Назовите кнопку старта"
+			prefix="5"
+			:done="step > 5")
 			div Когда все поля будут заполнены, Инициатор нажмет кнопку. Дайте ей название.
 			q-input.q-my-md(ref='button' v-model="mydata.button" dense outlined bg-color="white" @focus="setBt")
 			.q-mt-md Система автоматически передаст управление следующему участнику процесса.
@@ -86,10 +98,10 @@ q-page
 				q-btn(@click="step = 5" color="primary" label="Далее")
 
 		q-step(
-			:name="5"
+			:name="6"
 			title="Завершение"
-			prefix="5"
-			:done="step > 5")
+			prefix="6"
+			:done="step > 6")
 			div Поздравляем, вы завершили первичную настройку, сейчаc вы будете направлены на страницу приложения, где можете продолжить настройку.
 
 			q-stepper-navigation
@@ -101,10 +113,12 @@ q-page
 	background: initial;
 	width: 1100px;
 }
+
 .q-input {
 	width: 300px;
 	margin-bottom: 3px;
 }
+
 .sma {
 	font-size: 0.8rem;
 	font-style: italic;

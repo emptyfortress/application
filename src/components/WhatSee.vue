@@ -3,7 +3,7 @@ import { ref, computed } from 'vue'
 import { useRoles } from '@/stores/roles'
 import { useForms } from '@/stores/forms'
 import { useStorage } from '@vueuse/core'
-import draggable from 'vuedraggable'
+// import draggable from 'vuedraggable'
 import ConditionDialogRow from '@/components/ConditionDialogRow.vue'
 import ConditionDialogAdd from '@/components/ConditionDialogAdd.vue'
 import { useRouter, useRoute } from 'vue-router'
@@ -12,8 +12,8 @@ const store = useFlow()
 
 const myform = useForms()
 const myrole = useRoles()
-const myflow = useFlow()
-const app = useStorage('app', localStorage)
+// const myflow = useFlow()
+// const app = useStorage('app', localStorage)
 const router = useRouter()
 const route = useRoute()
 
@@ -23,12 +23,13 @@ const etapConditionList = computed(() => {
 	})
 	return tmp
 })
-const showAddCond = computed(() => {
-	let tmp = myform.conditionList.filter((item: Condition) => {
-		return item.etap == myform.currentEtap
-	})
-	return tmp.length > 0 ? true : false
-})
+
+// const showAddCond = computed(() => {
+// 	let tmp = myform.conditionList.filter((item: Condition) => {
+// 		return item.etap == myform.currentEtap
+// 	})
+// 	return tmp.length > 0 ? true : false
+// })
 
 const goto = (e: Condition) => {
 	myform.zay = false
@@ -52,26 +53,28 @@ const goto1 = () => {
 const dialogRow = ref(false)
 const dialogAdd = ref(false)
 
-const toggle0 = () => {
-	row.value = null
-	dialogRow.value = !dialogRow.value
-}
+// const toggle0 = () => {
+// 	row.value = null
+// 	dialogRow.value = !dialogRow.value
+// }
 
 const row = ref<null | Condition>(null)
 
 const toggle2 = () => {
 	dialogAdd.value = !dialogAdd.value
 }
-const toggleSecond = () => {
-	row.value = {
-		id: 'fuck',
-		etap: myform.currentEtap,
-		role: myrole.currentRole,
-		form: '',
-	}
-	dialogRow.value = !dialogRow.value
-}
-const el = ref()
+
+// const toggleSecond = () => {
+// 	row.value = {
+// 		id: 'fuck',
+// 		etap: myform.currentEtap,
+// 		role: myrole.currentRole,
+// 		form: '',
+// 	}
+// 	dialogRow.value = !dialogRow.value
+// }
+
+// const el = ref()
 
 const toggle1 = (el: any) => {
 	console.log(el)
@@ -85,20 +88,20 @@ const toggle1 = (el: any) => {
 // 	dialogOther.value = !dialogOther.value
 // }
 
-const addedFirst = computed(() => {
-	// return myform.formList.length > 0 ? false : true
-
-	let tmp = etapConditionList.value.find((item) => {
-		return item.role == myrole.currentRole
-	})
-	return tmp == undefined ? true : false
-})
+// const addedFirst = computed(() => {
+// 	// return myform.formList.length > 0 ? false : true
+// 	let tmp = etapConditionList.value.find((item) => {
+// 		return item.role == myrole.currentRole
+// 	})
+// 	return tmp == undefined ? true : false
+// })
 
 const noset = ref<null | string>(null)
 
-const set = (e: any) => {
-	noset.value = e
-}
+// const set = (e: any) => {
+// 	noset.value = e
+// }
+
 const otherCalc = computed(() => {
 	const active = etapConditionList.value.map((item) => item.role)
 	const flatActive = active.flat()
@@ -106,12 +109,13 @@ const otherCalc = computed(() => {
 	return tmp.length == 0 ? true : false
 })
 
-const calcIni = computed(() => {
-	const active = etapConditionList.value.map((item) => item.role)
-	const flatActive = active.flat()
-	const tmp = flatActive.filter((el) => el == myrole.currentRole)
-	return tmp.length == 0 ? true : false
-})
+// const calcIni = computed(() => {
+// 	const active = etapConditionList.value.map((item) => item.role)
+// 	const flatActive = active.flat()
+// 	const tmp = flatActive.filter((el) => el == myrole.currentRole)
+// 	return tmp.length == 0 ? true : false
+// })
+
 </script>
 
 <template lang="pug">
@@ -161,18 +165,23 @@ const calcIni = computed(() => {
 	text-decoration: underline;
 	text-align: left;
 }
+
 .selected {
 	background: var(--bg-selected);
 }
+
 .down {
 	transform: translateY(-2px);
 }
+
 tr {
 	cursor: pointer;
 }
+
 .second {
 	border-top: none;
 }
+
 .other {
 	font-weight: 600;
 	font-size: 0.8rem;

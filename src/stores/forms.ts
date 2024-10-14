@@ -107,6 +107,13 @@ export const useForms = defineStore('forms', () => {
 		if (ind !== undefined) formList.value.splice(ind, 1)
 	}
 
+	const status = ref([
+		'Начало',
+	])
+	const addStatus = ((e: string) => {
+		status.value.push(e)
+	})
+
 	return {
 		currentBO,
 		currentEtap,
@@ -130,5 +137,8 @@ export const useForms = defineStore('forms', () => {
 		toggleZay,
 		setZayForm,
 		setZay,
+
+		status,
+		addStatus
 	}
 })

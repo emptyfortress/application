@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+// import { computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useStore } from '@/stores/store'
 import FieldList from '@/components/FieldList.vue'
@@ -8,6 +8,7 @@ import { useForms } from '@/stores/forms'
 import { useRoles } from '@/stores/roles'
 import WhatSee from '@/components/WhatSee.vue'
 import WhatSee1 from '@/components/WhatSee1.vue'
+import StateTable from '@/components/StateTable.vue'
 
 const store = useStore()
 const myform = useForms()
@@ -25,51 +26,53 @@ const emulate1 = () => {
 	router.push('/emulate1/1')
 }
 
-const goto = () => {
-	myform.zay = false
-	myform.newform = true
-	let e = myform.currentEtap
-	router.push(`/${route.params.id}/editor/process/${e}`)
-}
-const goto1 = (e: string) => {
-	myform.zay = false
-	router.push(`/${route.params.id}/editor/process/${e}`)
-}
+// const goto = () => {
+// 	myform.zay = false
+// 	myform.newform = true
+// 	let e = myform.currentEtap
+// 	router.push(`/${route.params.id}/editor/process/${e}`)
+// }
+// const goto1 = (e: string) => {
+// 	myform.zay = false
+// 	router.push(`/${route.params.id}/editor/process/${e}`)
+// }
 
-const defaultForm = computed(() => {
-	let tmp = myform.conditionList.filter(
-		(el: Condition) => el.etap == myform.currentEtap && el.role == myrole.currentRole
-	)
-	return tmp.length == 0 ? true : false
-})
-const def = computed(() => {
-	let tmp = myform.conditionList.filter(
-		(el: Condition) => el.etap == myform.currentEtap && el.role == myrole.currentRole
-	)
-	return tmp[0]?.form
-})
+// const defaultForm = computed(() => {
+// 	let tmp = myform.conditionList.filter(
+// 		(el: Condition) => el.etap == myform.currentEtap && el.role == myrole.currentRole
+// 	)
+// 	return tmp.length == 0 ? true : false
+// })
+
+// const def = computed(() => {
+// 	let tmp = myform.conditionList.filter(
+// 		(el: Condition) => el.etap == myform.currentEtap && el.role == myrole.currentRole
+// 	)
+// 	return tmp[0]?.form
+// })
 
 // const dialogAdd = ref(false)
 // const toggle2 = () => {
 // 	dialogAdd.value = !dialogAdd.value
 // }
 
-const calcFormName = computed(() => {
-	switch (myform.currentBO.name) {
-		case 'Создал Заявку':
-			return 'Создание'
-		case 'Принять результаты':
-			return 'Архив'
-		default:
-			return 'Просмотр'
-	}
-})
+// const calcFormName = computed(() => {
+// 	switch (myform.currentBO.name) {
+// 		case 'Создал Заявку':
+// 			return 'Создание'
+// 		case 'Принять результаты':
+// 			return 'Архив'
+// 		default:
+// 			return 'Просмотр'
+// 	}
+// })
 
-const goto2 = (e: string) => {
-	myform.toggleZay()
-	myform.setZayForm(e)
-	router.push(`/${route.params.id}/editor/process/${e}`)
-}
+// const goto2 = (e: string) => {
+// 	myform.toggleZay()
+// 	myform.setZayForm(e)
+// 	router.push(`/${route.params.id}/editor/process/${e}`)
+// }
+
 </script>
 
 <template lang="pug">
@@ -105,15 +108,19 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO && myform.cu
 
 		template(v-if='myform.currentBO.$type == "bpmn:Task" || myform.currentBO.$type == "bpmn:EndEvent"')
 			div Исполнитель:
-			.text-bold {{myrole.currentRole}}
-
-			div Варианты завершения:
-			div
-				.text-bold(v-for="item in myform.bt") {{ item.name }}
-
+			.text-bold {{ myrole.currentRole }}
 			template(v-if='myform.currentBO.$type == "bpmn:Task"')
 				div Срок:
 				div 25 сентября 2024 г.
+
+	br
+	template(v-if='myform.currentBO.$type == "bpmn:Task" || myform.currentBO.$type == "bpmn:EndEvent"')
+		StateTable
+
+			// div Варианты завершения:
+			// div
+			// 	.text-bold(v-for="item in myform.bt") {{ item.name }}
+
 
 	br
 	br
@@ -132,7 +139,7 @@ template(v-if="route.name == 'Этап' && store.currentField == null && store.c
 .prev(v-if='app.text == "Заявка"')
 	q-btn.btn(outline color="primary" icon='mdi-play' label='Проверка работы приложения с текущего этапа' @click='emulate' size='sm') 
 
-.prev(v-if='app.text !== "Заявка" && ( route.name == "Процесс" || route.name == "Этап")')
+.prev(v-if='app.text !== "Заявка" && (route.name == "Процесс" || route.name == "Этап")')
 	q-btn.btn(v-if='myform.currentBO && myform.currentBO.$type == "bpmn:Task"' outline color="primary" icon='mdi-play' label='Проверка работы приложения с текущего этапа' @click='emulate1' size='sm') 
 
 </template>
@@ -147,27 +154,33 @@ template(v-if="route.name == 'Этап' && store.currentField == null && store.c
 	row-gap: 1rem;
 	line-height: 1.1;
 }
+
 .show {
 	font-size: 0.9rem;
 	margin: 0 1rem;
 	margin-top: 1rem;
 }
+
 .prev {
 	margin: 1rem;
 	margin-top: 2rem;
 }
+
 .btd {
 	color: $primary;
 	text-decoration: underline;
 	text-align: left;
 	cursor: pointer;
 }
+
 .sec {
 	grid-column: 1/-1;
 }
+
 :deep(.formkit-wrapper) {
 	max-width: initial;
 }
+
 :deep(.formkit-input) {
 	font-size: 0.8rem;
 }
