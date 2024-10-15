@@ -4,13 +4,14 @@ import { useForms } from '@/stores/forms'
 import StatusDialogAdd from '@/components/StatusDialogAdd.vue'
 
 const myform = useForms()
-const state = ref('В работе')
+const start = ref('Подготовка')
+const finish = ref('Подготовка')
 
 const dialog = ref(false)
 
-const add = (data: any) => {
-	myform.addStatus(data.status)
-}
+const setState = ((e: string) => {
+	finish.value = e
+})
 </script>
 
 <template lang="pug">
@@ -24,21 +25,26 @@ const add = (data: any) => {
 				th.text-left Конечное состояние
 		tbody
 			tr(v-for="item in myform.bt")
-				td Начальное
+				td
+					span.btd.sel {{ start }}
+						q-menu
+							q-list
+								q-item(clickable v-for="item in myform.status" :key="item" @click='start = item' v-close-popup :class="{ selected: item == start }")
+									q-item-section {{ item }}
 				td
 					span.btd {{ item.name }}
 						q-popup-edit(v-model="item.name" title="Исход" buttons auto-save v-slot="scope")
 							q-input(v-model="scope.value" dense outlined autofocus @keyup.enter="scope.set")
 				td
-					span.btd.sel {{ state }}
+					span.btd.sel {{ finish }}
 						q-menu
 							q-list
-								q-item(clickable v-for="item in myform.status" :key="item" @click='state = item' v-close-popup :class="{ selected: item == state }")
+								q-item(clickable v-for="item in myform.status" :key="item" @click='finish = item' v-close-popup :class="{ selected: item == finish }")
 									q-item-section {{ item }}
 
 	q-btn.q-mt-sm(flat color="primary" icon='mdi-plus-circle' label="Добавить состояние" @click="dialog = !dialog" size='sm') 
 
-StatusDialogAdd(v-model="dialog")
+StatusDialogAdd(v-model="dialog" @set="setState")
 </template>
 
 <style scoped lang="scss">

@@ -87,8 +87,6 @@ AddFieldDialog(v-model="dialog" @create="addField")
 	background: #fff;
 	cursor: pointer;
 
-	// display: grid;
-	// grid-template-columns: 1fr 1fr 0.5fr;
 	&:hover {
 		background: #eee;
 	}

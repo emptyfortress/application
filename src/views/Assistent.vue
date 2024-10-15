@@ -95,7 +95,7 @@ q-page
 			q-input.q-my-md(ref='button' v-model="mydata.button" dense outlined bg-color="white" @focus="setBt")
 			.q-mt-md Система автоматически передаст управление следующему участнику процесса.
 			q-stepper-navigation
-				q-btn(@click="step = 5" color="primary" label="Далее")
+				q-btn(@click="step = 6" color="primary" label="Далее")
 
 		q-step(
 			:name="6"

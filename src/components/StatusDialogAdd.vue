@@ -1,15 +1,16 @@
 <script setup lang="ts">
-import { ref, } from 'vue'
+// import { ref, } from 'vue'
 import { useForms } from '@/stores/forms'
 
 const modelValue = defineModel<boolean>()
 
 const myform = useForms()
 
-const data = ref()
-const emit = defineEmits(['create'])
+const emit = defineEmits(['set'])
+
 const add = (data: any) => {
 	myform.addStatus(data.status)
+	emit('set', data.status)
 	modelValue.value = false
 }
 
@@ -23,8 +24,9 @@ q-dialog(v-model="modelValue")
 			.text-h6 Добавить состояние
 
 		q-card-section
-			FormKit(type="form" id="newapp" submit-label="Добавить" @submit.prevent="add" :value="data")
+			FormKit(type="form" id="newstate" submit-label="Добавить" @submit="add")
 				FormKit(type="text" autofocus name="status" label="Состояние" help="Назовите новое состояние" validation="required|length:3")
+
 </template>
 
 <style scoped lang="scss">

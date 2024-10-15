@@ -155,8 +155,6 @@ const version = computed(() => {
 	margin-top: 1rem;
 	display: grid;
 	grid-template-columns: auto 1fr;
-	// justify-items: start;
-	// align-items: stretch;
 	column-gap: 1rem;
 }
 
