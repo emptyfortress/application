@@ -108,7 +108,7 @@ export const useForms = defineStore('forms', () => {
 	}
 
 	const status = ref([
-		'Начало',
+		'Подготовка',
 	])
 	const addStatus = ((e: string) => {
 		status.value.push(e)

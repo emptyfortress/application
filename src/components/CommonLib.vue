@@ -24,6 +24,9 @@ const expanded = ref([true, true])
 const calcLabel = computed(() => {
 	return 'Доступные поля ' + app.value.card
 })
+const status = ref([
+	{ name: 'Состояние', id: 0 },
+])
 </script>
 
 <template lang="pug">
@@ -34,6 +37,18 @@ q-list.q-mt-md
 		.node(:draggable="true" @dragstart="dragStart(1)") Простой блок
 
 	q-expansion-item.q-mt-lg(:label="calcLabel" expand-separator header-class="bold" v-model="expanded[1]")
+		draggable(
+			class="list-group"
+			:list="status"
+			ghost-class="ghost"
+			:group="{ name: 'people', pull: 'clone', put: false }"
+			itemKey="id"
+			@dragstart="dragStart(5)"
+			)
+			template(#item="{ element, index }")
+				.node
+					.name {{ element.name }}
+
 		draggable(
 			class="list-group"
 			:list="lstore.fields"
@@ -57,38 +72,46 @@ AddFieldDialog(v-model="dialog" @create="addField")
 .sid {
 	padding: 1rem;
 }
+
 .zg {
 	font-weight: 600;
 }
+
 .hh {
 	font-size: 0.8rem;
 	border-bottom: 1px solid #ccc;
 }
+
 .node {
 	padding: 5px 1rem;
 	background: #fff;
 	cursor: pointer;
+
 	// display: grid;
 	// grid-template-columns: 1fr 1fr 0.5fr;
 	&:hover {
 		background: #eee;
 	}
+
 	&.ghost {
 		opacity: 0.7;
 		background: #ceeccd;
 	}
 }
+
 .close {
 	position: absolute;
 	top: 0.3rem;
 	right: 0.3rem;
 }
+
 .blo {
 	width: 100%;
 	// width: 200px;
 	height: 100%;
 	background: #ccc;
 }
+
 :deep(.bold .q-item__label) {
 	font-weight: 600;
 	color: $primary;

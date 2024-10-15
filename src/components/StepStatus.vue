@@ -13,6 +13,7 @@ const status = ref('')
 
 const add = () => {
 	myform.addStatus(status.value)
+	status.value = ''
 }
 
 const emit = defineEmits(['next'])
@@ -35,7 +36,7 @@ div
 		q-list.q-mb-md(v-else separator)
 			q-item(clickable v-for="(item, index) in myform.status" :key="item")
 				q-item-section {{ item }}
-				q-item-section(side)
+				q-item-section(side v-if='index !== 0')
 					q-btn(flat round icon="mdi-trash-can-outline" color="primary" @click='destroy(index)') 
 
 		.row.items-center.q-gutter-x-sm
