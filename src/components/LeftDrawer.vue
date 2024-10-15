@@ -78,9 +78,7 @@ const urlTo = ((url: string) => {
 	let temp = '/' + route.params.id + '/editor/' + url
 	return temp
 })
-const navigate = (url: string) => {
-	// let temp = '/' + route.params.id + '/editor/' + url
-	// router.push(temp)
+const navigate = () => {
 	myform.setCurrentBO(null)
 }
 const calcClass = (e: string) => {
@@ -94,7 +92,7 @@ q-drawer.rel(v-model="modelValue" side="left" :width="180" :mini="store.mini")
 	transition(@enter="enter" @leave="leave" :css="false" mode="out-in")
 
 		q-list(v-if="show")
-			q-item(clickable v-ripple v-for="page in pages" :key="page.id" @click="navigate(page.url)" :class="calcClass(page.url)" :to='urlTo(page.url)')
+			q-item(clickable v-ripple v-for="page in pages" :key="page.id" @click="navigate" :class="calcClass(page.url)" :to='urlTo(page.url)')
 				q-item-section(avatar)
 					q-icon(:name="page.icon")
 				q-item-section
