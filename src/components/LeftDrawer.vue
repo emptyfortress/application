@@ -10,11 +10,11 @@ const router = useRouter()
 const store = useStore()
 const myform = useForms()
 
-const modelValue = defineModel()
+const modelValue = defineModel<boolean>()
 
-const par = computed(() => {
-	return route.params.id
-})
+// const par = computed(() => {
+// 	return route.params.id
+// })
 
 const pages = reactive([
 	{
@@ -50,8 +50,6 @@ const pages = reactive([
 	},
 ])
 
-const mini = ref(false)
-
 const show = computed(() => {
 	return route.path.includes('editor') ? true : false
 })
@@ -75,9 +73,14 @@ const leave = async (el: any, done: any) => {
 	})
 	done()
 }
-const navigate = (url: string) => {
+
+const urlTo = ((url: string) => {
 	let temp = '/' + route.params.id + '/editor/' + url
-	router.push(temp)
+	return temp
+})
+const navigate = (url: string) => {
+	// let temp = '/' + route.params.id + '/editor/' + url
+	// router.push(temp)
 	myform.setCurrentBO(null)
 }
 const calcClass = (e: string) => {
@@ -91,7 +94,7 @@ q-drawer.rel(v-model="modelValue" side="left" :width="180" :mini="store.mini")
 	transition(@enter="enter" @leave="leave" :css="false" mode="out-in")
 
 		q-list(v-if="show")
-			q-item(clickable v-ripple v-for="page in pages" :key="page.id" @click="navigate(page.url)" :class="calcClass(page.url)" :to='page.url')
+			q-item(clickable v-ripple v-for="page in pages" :key="page.id" @click="navigate(page.url)" :class="calcClass(page.url)" :to='urlTo(page.url)')
 				q-item-section(avatar)
 					q-icon(:name="page.icon")
 				q-item-section
@@ -106,11 +109,13 @@ q-drawer.rel(v-model="modelValue" side="left" :width="180" :mini="store.mini")
 :deep(.q-drawer) {
 	background: transparent;
 }
+
 .q-item.q-router-link--active,
 .active {
 	background: $primary;
 	color: white;
 }
+
 .q-btn {
 	position: absolute;
 	left: 1rem;
