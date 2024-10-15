@@ -1,5 +1,4 @@
 <script setup lang="ts">
-// import { computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useStore } from '@/stores/store'
 import FieldList from '@/components/FieldList.vue'
@@ -25,53 +24,6 @@ const emulate = () => {
 const emulate1 = () => {
 	router.push('/emulate1/1')
 }
-
-// const goto = () => {
-// 	myform.zay = false
-// 	myform.newform = true
-// 	let e = myform.currentEtap
-// 	router.push(`/${route.params.id}/editor/process/${e}`)
-// }
-// const goto1 = (e: string) => {
-// 	myform.zay = false
-// 	router.push(`/${route.params.id}/editor/process/${e}`)
-// }
-
-// const defaultForm = computed(() => {
-// 	let tmp = myform.conditionList.filter(
-// 		(el: Condition) => el.etap == myform.currentEtap && el.role == myrole.currentRole
-// 	)
-// 	return tmp.length == 0 ? true : false
-// })
-
-// const def = computed(() => {
-// 	let tmp = myform.conditionList.filter(
-// 		(el: Condition) => el.etap == myform.currentEtap && el.role == myrole.currentRole
-// 	)
-// 	return tmp[0]?.form
-// })
-
-// const dialogAdd = ref(false)
-// const toggle2 = () => {
-// 	dialogAdd.value = !dialogAdd.value
-// }
-
-// const calcFormName = computed(() => {
-// 	switch (myform.currentBO.name) {
-// 		case 'Создал Заявку':
-// 			return 'Создание'
-// 		case 'Принять результаты':
-// 			return 'Архив'
-// 		default:
-// 			return 'Просмотр'
-// 	}
-// })
-
-// const goto2 = (e: string) => {
-// 	myform.toggleZay()
-// 	myform.setZayForm(e)
-// 	router.push(`/${route.params.id}/editor/process/${e}`)
-// }
 
 </script>
 
@@ -116,11 +68,6 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO && myform.cu
 	br
 	template(v-if='myform.currentBO.$type == "bpmn:Task" || myform.currentBO.$type == "bpmn:EndEvent"')
 		StateTable
-
-			// div Варианты завершения:
-			// div
-			// 	.text-bold(v-for="item in myform.bt") {{ item.name }}
-
 
 	br
 	br

@@ -29,7 +29,7 @@ q-list.q-mt-md
 		FieldList
 
 
-AddFieldDialog(v-model="dialog" @create="addField")
+// AddFieldDialog(v-model="dialog" @create="addField")
 </template>
 
 <style scoped lang="scss">
@@ -37,16 +37,19 @@ AddFieldDialog(v-model="dialog" @create="addField")
 	padding: 5px 1rem;
 	background: #fff;
 	cursor: pointer;
+
 	// display: grid;
 	// grid-template-columns: 1fr 1fr 0.5fr;
 	&:hover {
 		background: #eee;
 	}
+
 	&.ghost {
 		opacity: 0.7;
 		background: #ceeccd;
 	}
 }
+
 :deep(.bold .q-item__label) {
 	font-weight: 600;
 	color: $primary;
