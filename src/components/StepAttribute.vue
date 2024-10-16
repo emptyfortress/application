@@ -2,10 +2,11 @@
 import { ref } from 'vue'
 import { uid } from 'quasar'
 import { useLayoutStore } from '@/stores/layout'
-import { useStorage } from '@vueuse/core'
+// import { useStorage } from '@vueuse/core'
 
-const app = useStorage('app', localStorage)
-const attributes = ref<any[]>([])
+// const app = useStorage('app', localStorage)
+// const attributes = ref<any[]>([])
+
 const lstore = useLayoutStore()
 
 const name = ref('')
@@ -24,7 +25,7 @@ const calcType = (e: string) => {
 	}
 }
 
-const add = () => {
+const addField = () => {
 	let tmp = {
 		id: uid(),
 		name: name.value,
@@ -49,45 +50,49 @@ const input = ref()
 </script>
 
 <template lang="pug">
-q-form(@submit='add')
-	div Добавьте необходимые поля для данных. Они нужны для отображения информации, которую заполняют участники процесса. Например: Автор, Срок выполнения, Проверяющий и тд. Также у полей задается тип: строка, дата, номер, сотрудник
-	.no(v-if='lstore.fields.length == 0') Поля не заданы
-	q-list.q-mb-md(v-else separator)
-		q-item(clickable v-for="(attr, index) in lstore.fields" :key="attr.id")
-			q-item-section {{ attr.name }}
-			q-item-section {{ attr.typ }}
-			q-item-section(side)
-				q-btn(flat round icon="mdi-trash-can-outline" color="primary" @click='destroy(index)') 
+div Добавьте необходимые поля для данных. Они нужны для отображения информации, которую заполняют участники процесса. Например: Автор, Срок выполнения, Проверяющий и тд. Также у полей задается тип: строка, дата, номер, сотрудник
+q-markup-table(flat bordered style="width: 500px;")
+	thead
+		tr
+			th.text-left Название
+			th.text-left Тип
+			th.text-right
 
+	tbody
+		tr(v-if='lstore.fields.length == 0')
+			td(colspan='3')
+				.no Поля не заданы.
+
+		tr(v-else v-for="(attr, index) in lstore.fields" :key="attr.id")
+			td {{ attr.name }}
+			td {{ attr.typ }}
+			td.text-right
+				q-btn(flat round icon="mdi-close" color="primary" @click='destroy(index)' size='sm') 
+
+q-form(@submit='addField')
 	.row.items-center.q-gutter-x-sm
 		q-input(ref='input' autofocus v-model="name" label='Название поля' dense outlined bg-color="white")
 		q-select(v-model="type" label='Тип поля' dense outlined bg-color="white" :options='options')
 		q-btn(flat color="primary" label="Добавить" type='submit') 
-	// .q-mt-md.info Поля необходимо будет разместить на формы позднее, при их настройке.
+
 </template>
 
 <style scoped lang="scss">
-.q-list {
-	margin-bottom: 1rem;
-	max-width: 800px;
-}
-
-.info {
-	margin-top: 1rem;
-	margin-bottom: 1rem;
-	background: #a5d9ff;
-	padding: 3px 1rem;
-	display: inline-block;
-}
-
 .q-select,
 .q-input {
 	width: 200px;
 }
 
+.q-table thead tr {
+	height: 28px;
+}
+
 .no {
 	color: $negative;
-	margin-bottom: 1rem;
+}
+
+.q-markup-table {
 	margin-top: 1rem;
+	margin-bottom: 1rem;
 }
 </style>

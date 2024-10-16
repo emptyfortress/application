@@ -83,7 +83,7 @@ q-stepper-navigation
 	text-align: center;
 }
 
-:deep(.q-table thead tr) {
+.q-table thead tr {
 	height: 28px;
 }
 </style>

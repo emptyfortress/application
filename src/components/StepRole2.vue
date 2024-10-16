@@ -58,7 +58,5 @@ q-form(@submit='add')
 
 .no {
 	color: $negative;
-	// margin-bottom: 1rem;
-	// margin-top: 1rem;
 }
 </style>

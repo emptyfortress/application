@@ -87,9 +87,8 @@ q-page
 			title="Назовите кнопку старта"
 			prefix="5"
 			:done="step > 5")
-			div Когда все поля будут заполнены, Инициатор нажмет кнопку. Дайте ей название.
+			div Когда все поля будут заполнены, инициатор нажмет кнопку и система автоматически передаст управление следующему участнику процесса. Дайте ей название.
 			q-input.q-my-md(ref='button' v-model="mydata.button" dense outlined bg-color="white" @focus="setBt")
-			.q-mt-md Система автоматически передаст управление следующему участнику процесса.
 			q-stepper-navigation
 				q-btn(@click="step = 6" color="primary" label="Далее")
 
@@ -98,7 +97,7 @@ q-page
 			title="Завершение"
 			prefix="6"
 			:done="step > 6")
-			div Поздравляем, вы завершили первичную настройку, сейчаc вы будете направлены на страницу приложения, где можете продолжить настройку.
+			div Поздравляем, вы завершили первичную настройку. Дальнейшая настройка производится вне ассистента.
 
 			q-stepper-navigation
 				q-btn(@click="goto" color="primary" label="Завершить")
@@ -108,6 +107,7 @@ q-page
 .q-stepper {
 	background: initial;
 	font-size: .9rem;
+	max-width: 1200px;
 }
 
 .q-input {
