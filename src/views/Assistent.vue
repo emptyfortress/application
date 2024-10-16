@@ -63,7 +63,7 @@ q-page
 			title="Определите участников и наблюдателей процесса (роли)"
 			prefix="2"
 			:done="step > 2")
-			div В приложении в виде схемы будет определен процесс, согласно которому к работе будут подключаться следующие участники (роли):
+			div В приложении в виде схемы будет определен процесс, согласно которому к работе будут подключаться следующие роли:
 			StepRole1(@next='step = 3')
 
 		q-step(
@@ -81,10 +81,6 @@ q-page
 			prefix="4"
 			:done="step > 4")
 			StepStatus(@next='step = 5')
-
-
-			// q-stepper-navigation
-			// 	q-btn(@click="step = 4" color="primary" label="Далее")
 
 		q-step(
 			:name="5"
@@ -111,7 +107,7 @@ q-page
 <style scoped lang="scss">
 .q-stepper {
 	background: initial;
-	width: 1100px;
+	font-size: .9rem;
 }
 
 .q-input {

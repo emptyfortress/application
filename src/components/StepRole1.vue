@@ -3,14 +3,11 @@ import { ref } from 'vue'
 import { uid } from 'quasar'
 import { useRoles } from '@/stores/roles'
 import StepRole2 from '@/components/StepRole2.vue'
-import { useStorage } from '@vueuse/core'
 
-const app = useStorage('app', localStorage)
 const rolename = ref('')
-const input = ref()
+const input1 = ref()
 
 const myrole = useRoles()
-// const roles = ref([{ id: 'ini', name: 'Инициатор (системная)', trash: false }])
 
 const add = () => {
 	if (rolename.value.length > 0) {
@@ -20,7 +17,7 @@ const add = () => {
 			trash: true,
 		})
 		rolename.value = ''
-		input.value.focus()
+		input1.value.focus()
 	}
 }
 const destroy = (e: number) => {
@@ -38,22 +35,24 @@ const nexxt = () => {
 <template lang="pug">
 .twocol
 	q-form(@submit='add')
-		.hd Участники
-		div Кто непосредственно участвует в процессе <span class='text-bold'>{{ app.card }}</span>?
-		q-list.q-mb-md(separator)
-			q-item(clickable v-for="(role, index) in myrole.tempRoles" :key="role.id")
-				q-item-section(avatar)
-					q-icon(name="mdi-account" color="primary")
-				q-item-section {{ role.name }}
-				q-item-section(side v-if='role.trash')
-					q-btn(flat round icon="mdi-trash-can-outline" color="primary" @click='destroy(index)') 
+		br
+		q-markup-table(flat bordered)
+			thead
+				tr
+					th.text-left Участники
+					th
+			tbody
+				tr(v-for="(role, index) in myrole.tempRoles" :key="role.id")
+					td
+						span {{ role.name }}
+					td.text-right
+						q-btn(v-if='role.trash' flat round icon="mdi-close" color="primary" @click='destroy(index)' size='sm') 
 
-		.row.items-center
-			q-input(ref='input' v-model="rolename" autofocus label='Участник процесса' dense outlined bg-color="white")
+		.row.items-center.q-mt-md
+			q-input(ref='input1' v-model="rolename" autofocus label='Участник процесса' dense outlined bg-color="white")
 			q-btn(flat color="primary" label="Добавить" type='submit') 
 
 	div
-		.hd Наблюдатели
 		StepRole2
 
 q-stepper-navigation
@@ -68,16 +67,23 @@ q-stepper-navigation
 	column-gap: 1rem;
 	row-gap: 0.5rem;
 }
+
 .q-list {
 	margin-bottom: 1rem;
 	max-width: 800px;
 }
+
 .q-input {
 	width: 300px;
 	margin-bottom: 3px;
 }
+
 .hd {
 	font-weight: 600;
 	text-align: center;
+}
+
+:deep(.q-table thead tr) {
+	height: 28px;
 }
 </style>

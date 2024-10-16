@@ -22,7 +22,7 @@ export const useRoles = defineStore('roles', () => {
 	const roles = computed(() => {
 		return myflow.lanes.concat(rolesN.value)
 	})
-	const tempRoles = ref([{ id: 'ini', name: 'Инициатор (системная)', trash: false }])
+	const tempRoles = ref([{ id: 'ini', name: 'Инициатор', trash: false }])
 	const addTemp = (e: any) => {
 		tempRoles.value.push(e)
 	}

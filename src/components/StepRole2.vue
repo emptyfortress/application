@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { uid } from 'quasar'
-import { useStorage } from '@vueuse/core'
 
-const app = useStorage('app', localStorage)
 const rolename = ref('')
 
 const roles = ref<any[]>([])
+const input = ref()
 const add = () => {
 	if (rolename.value.length > 0) {
 		roles.value.push({
@@ -15,6 +14,7 @@ const add = () => {
 			trash: true,
 		})
 		rolename.value = ''
+		input.value.focus()
 	}
 }
 const destroy = (e: number) => {
@@ -24,18 +24,24 @@ const destroy = (e: number) => {
 
 <template lang="pug">
 q-form(@submit='add')
-	div Список включает всех, кто может видеть <span class='text-bold'>{{app.card}}</span>.
-	.no(v-if='roles.length == 0') Наблюдатели не заданы
-	q-list.q-mb-md(separator v-else)
-		q-item(clickable v-for="(role, index) in roles" :key="role.id")
-			q-item-section(avatar)
-				q-icon(name="mdi-account" color="primary")
-			q-item-section {{ role.name }}
-			q-item-section(side v-if='role.trash')
-				q-btn(flat round icon="mdi-trash-can-outline" color="primary" @click='destroy(index)') 
+	br
+	q-markup-table(flat bordered)
+		thead
+			tr
+				th.text-left Наблюдатели
+				th
+		tbody
+			tr(v-if='roles.length == 0')
+				td(colspan='2')
+					.no Наблюдатели не заданы
 
-	.row.items-center
-		q-input(v-model="rolename" label='Наблюдатель' dense outlined bg-color="white")
+			tr(v-else v-for="(role, index) in roles" :key="role.id")
+				td {{ role.name }}
+				td.text-right
+					q-btn(v-if='role.trash' flat round icon="mdi-close" color="primary" @click='destroy(index)' size='sm') 
+
+	.row.items-center.q-mt-md
+		q-input(ref='input' v-model="rolename" autofocus label='Наблюдатель' dense outlined bg-color="white")
 		q-btn(flat color="primary" label="Добавить" type='submit') 
 </template>
 
@@ -44,12 +50,15 @@ q-form(@submit='add')
 	margin-bottom: 1rem;
 	max-width: 800px;
 }
+
 .q-input {
 	width: 300px;
 	margin-bottom: 3px;
 }
+
 .no {
 	color: $negative;
-	margin-bottom: 1rem;
+	// margin-bottom: 1rem;
+	// margin-top: 1rem;
 }
 </style>
