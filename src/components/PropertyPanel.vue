@@ -1,6 +1,4 @@
 <script setup lang="ts">
-// import { ref } from 'vue'
-// import { onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useStore } from '@/stores/store'
 import CommonLib from '@/components/CommonLib.vue'
@@ -8,7 +6,6 @@ import RoleRule from '@/components/RoleRule.vue'
 import CommonProp from '@/components/CommonProp.vue'
 
 const store = useStore()
-// const router = useRouter()
 const route = useRoute()
 </script>
 
