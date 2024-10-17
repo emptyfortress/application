@@ -3,7 +3,6 @@ import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useForms } from '@/stores/forms'
 import CreateDialog from '@/components/CreateDialog.vue'
-import { useStorage } from '@vueuse/core'
 
 const router = useRouter()
 const route = useRoute()
@@ -16,13 +15,7 @@ const toggleDialog = () => {
 	dialog.value = !dialog.value
 }
 
-// const edit = (e: string) => {
-// 	let url = '/' + route.params.id + '/editor/process/' + e
-// 	router.push(url)
-// }
-
 const goto = (e: string) => {
-	myform.setZay(false)
 	let url = '/' + route.params.id + '/editor/process/' + e
 	router.push(url)
 }
@@ -36,14 +29,6 @@ const remove = (e: string) => {
 	myform.removeForm(e)
 }
 
-const app = useStorage('app', localStorage)
-const zayList = ['Создание', 'Просмотр', 'Архив']
-
-const goto2 = (e: string) => {
-	myform.setZay(true)
-	myform.setZayForm(e)
-	router.push(`/${route.params.id}/editor/process/${e}`)
-}
 const calcClass = (e: string) => {
 	let tmp = myform.conditionList.find((el: Condition) => el.form == e)
 	if (tmp == undefined) {
@@ -56,27 +41,14 @@ const calcClass = (e: string) => {
 .bl
 	h5 Формы
 	q-list(separator)
-		q-expansion-item(v-if='app.text == "Заявка"' v-for='form in zayList' :key='form' )
-			template(v-slot:header)
-				q-item-section(avatar)
-					q-icon(name='mdi-list-box-outline')
-				q-item-section()
-					q-item-label
-						span {{ form }}
-						span.q-ml-md(v-if='form == "Создание"') (форма создания)
-				q-item-section(side)
-					.row.q-gutter-x-sm
-						q-btn(flat round icon='mdi-pencil-outline' color='primary' dense size='sm' @click.stop='goto2(form)') 
-						q-btn(flat round icon='mdi-trash-can-outline' color='primary' dense size='sm' @click.stop='') 
-
-		q-expansion-item(v-else v-for='form in myform.formList' :key='form.id' )
+		q-expansion-item(v-for='form in myform.formList' :key='form.id' )
 			template(v-slot:header)
 				q-item-section(avatar)
 					q-icon(name='mdi-list-box-outline')
 				q-item-section()
 					q-item-label(:class='calcClass(form.name)')
 						span {{ form.name }}
-						span.q-ml-md(v-if='form.creation == true') (форма создания)
+						span.q-ml-md(v-if='form.type == 0') (форма создания)
 				q-item-section(side)
 					.row.q-gutter-x-sm
 						q-btn(flat round icon='mdi-pencil-outline' color='primary' dense size='sm' @click.stop='goto(form.name)') 
