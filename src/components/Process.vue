@@ -1,37 +1,34 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import BpmnModeler from 'bpmn-js/lib/Modeler'
-// import BpmnModdle from 'bpmn-moddle'
 import 'bpmn-js/dist/assets/diagram-js.css'
 import 'bpmn-js/dist/assets/bpmn-js.css'
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css'
-import zay from '@/stores/zayavka1.bpmn?raw'
 import empty from '@/stores/simple1.bpmn?raw'
 import assist from '@/stores/assist.bpmn?raw'
 import 'diagram-js-minimap/assets/diagram-js-minimap.css'
 
-import { useRouter, useRoute } from 'vue-router'
-import { useStore } from '@/stores/store'
+// import { useRouter, useRoute } from 'vue-router'
+// import { useStore } from '@/stores/store'
 import { useStorage } from '@vueuse/core'
 import { useForms } from '@/stores/forms'
 import { useData } from '@/stores/alldata'
 import { useFlow } from '@/stores/flow'
 
-const store = useStore()
+// const store = useStore()
 const myform = useForms()
 const mydata = useData()
 const myflow = useFlow()
 
-const router = useRouter()
-const route = useRoute()
+// const router = useRouter()
+// const route = useRoute()
 const canvas = ref()
 
-const app = useStorage('app', localStorage)
+// const app = useStorage('app', localStorage)
 
 const bpmn = computed(() => {
 	if (mydata.myxml == null && mydata.assist == false) {
-		return app.value.file ? zay : empty
-		// return app.value.file ? zay : empty.replace('Старт', 'Fuck')
+		return empty
 	}
 	if (mydata.myxml == null && mydata.assist == true) {
 		return assist.replace('Старт', mydata.button)
@@ -63,7 +60,7 @@ onMounted(() => {
 
 	var eventBus: any = modeler.get('eventBus')
 
-	const events = ['element.click']
+	// const events = ['element.click']
 
 	const myClick = eventBus.on('element.click', (e: any) => {
 		// console.log(e.element)
@@ -118,10 +115,10 @@ onMounted(() => {
 	background: #fff;
 	height: var(--panel-height);
 	margin-right: 0.25rem;
-	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAAXNSR0IArs4c6QAAADBJREFUGFclioEJADAMwvSl7f8P1pfMaAsiCcT1inOPQJIlkwy3uT8JbmImh2zANh9STBXvibRbIgAAAABJRU5ErkJggg==)
-		repeat;
+	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAAXNSR0IArs4c6QAAADBJREFUGFclioEJADAMwvSl7f8P1pfMaAsiCcT1inOPQJIlkwy3uT8JbmImh2zANh9STBXvibRbIgAAAABJRU5ErkJggg==) repeat;
 	position: relative;
 }
+
 .etap {
 	border: 2px solid #333;
 	padding: 1rem;
@@ -131,35 +128,45 @@ onMounted(() => {
 	background: #fff;
 	top: 5rem;
 	left: 13rem;
+
 	&:hover {
 		background: #dedede;
 	}
 }
+
 .more {
 	top: 9rem;
 	left: 26rem;
 }
+
 :deep(.bpmn-icon-group) {
 	display: none;
 }
+
 :deep(.bpmn-icon-data-store) {
 	display: none;
 }
+
 :deep(.bpmn-icon-data-object) {
 	display: none;
 }
+
 :deep(.bpmn-icon-subprocess-expanded) {
 	display: none;
 }
+
 :deep(.bpmn-icon-space-tool) {
 	display: none;
 }
+
 :deep(.bpmn-icon-lasso-tool) {
 	display: none;
 }
+
 :deep(.bpmn-icon-participant) {
 	display: none;
 }
+
 .undo {
 	position: absolute;
 	top: 0;
