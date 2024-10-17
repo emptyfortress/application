@@ -20,19 +20,6 @@ export const useForms = defineStore('forms', () => {
 		return null
 	})
 
-	// для заявки only
-	const zay = ref(false)
-	const zayform = ref('create')
-	const toggleZay = () => {
-		zay.value = !zay.value
-	}
-	const setZay = (b: boolean) => {
-		zay.value = b
-	}
-	const setZayForm = (e: string) => {
-		zayform.value = e
-	}
-
 	// это кнопки на форме сверху ***********************
 	const notMain = ref(false)
 	const desc = ref('Это сопроводительный текст-описание')
@@ -125,12 +112,6 @@ export const useForms = defineStore('forms', () => {
 		desc,
 		createForm,
 		removeForm,
-
-		zay,
-		zayform,
-		toggleZay,
-		setZayForm,
-		setZay,
 
 		status,
 		addStatus
