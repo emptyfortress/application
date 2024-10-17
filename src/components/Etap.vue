@@ -15,6 +15,7 @@ import { useForms } from '@/stores/forms'
 import { useRoles } from '@/stores/roles'
 import { uid } from 'quasar'
 import { gsap } from 'gsap'
+import FormStatus from '@/components/FormStatus.vue'
 
 const store = useStore()
 const myform = useForms()
@@ -51,6 +52,7 @@ const calcCreation = computed(() => {
 	if (!!myform.currentBO && myform.currentBO?.id == 'Activity_03rm8hy') return true
 	else return false
 })
+
 const save = () => {
 	if (!!myform.currentBO) {
 		if (myform.newform == true) {
@@ -101,15 +103,16 @@ const back = () => {
 
 const startLayout = ref<Layout[]>([])
 
+
 let start = [
 	{
 		x: 1,
 		y: 0,
 		w: 10,
-		h: 4,
+		h: 12,
 		i: 0,
 		selected: false,
-		fieldList: [],
+		fieldList: [...lstore.fields],
 	},
 ]
 
@@ -208,6 +211,7 @@ const closeNav = () => {
 			q-btn(flat round dense color="primary" icon='mdi-redo') 
 	.inner
 		FormTop(v-if='myform.showBt || myform.zay' v-model="desc" @update:modelValue='setDesc')
+		FormStatus()
 		FormLayout1(v-if='myform.zay' :form='myform.zayform')
 		FormLayout(v-else :layout='startLayout')
 		// FormBottom(v-if='calcCreation')
@@ -228,33 +232,40 @@ Teleport(to="body" v-if='nav')
 .bl {
 	position: relative;
 }
+
 .vdr {
 	border: 1px solid #ccc;
 	background: #fff;
 	box-shadow: 2px 2px 4px rgba($color: #000000, $alpha: 0.2);
 	padding: 3px;
 }
+
 .zag {
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
 	align-items: start;
+
 	h5 {
 		text-align: center;
 		border-bottom: 1px dotted $primary;
 	}
 }
+
 .inner {
 	margin: 1rem auto;
 	width: v-bind(width);
 }
+
 .q-card {
 	height: 100%;
 	overflow: hidden;
 }
+
 .fuck {
 	border: 1px solid #aaa;
 }
+
 .bar {
 	height: 26px;
 	background: #dedede;
@@ -265,6 +276,7 @@ Teleport(to="body" v-if='nav')
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+
 	.q-icon {
 		cursor: pointer;
 	}

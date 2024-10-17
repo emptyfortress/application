@@ -5,7 +5,7 @@ import { defineStore } from 'pinia'
 // const myform = useForms()
 
 export const useLayoutStore = defineStore('layout', () => {
-	const index = ref(2)
+	const index = ref(0)
 	// const colNum = ref(12)
 	const dragType = ref(0)
 	const forms = ref([])
@@ -14,58 +14,12 @@ export const useLayoutStore = defineStore('layout', () => {
 			x: 1,
 			y: 0,
 			w: 10,
-			h: 4,
+			h: 5,
 			i: 0,
 			selected: false,
 		},
 	]
-	const fields = reactive<Field[]>([
-		// {
-		// 	id: 'author',
-		// 	type: 'select',
-		// 	name: 'Автор',
-		// 	readonly: true,
-		// 	visible: true,
-		// 	options: ['Иванов', 'Петров', 'Орлов'],
-		// 	selected: false,
-		// },
-		// {
-		// 	id: 'datedd',
-		// 	type: 'date',
-		// 	name: 'Дата создания',
-		// 	visible: true,
-		// 	readonly: true,
-		// 	selected: false,
-		// },
-		// {
-		// 	id: 'one',
-		// 	type: 'date',
-		// 	name: 'Дата изменения',
-		// 	visible: true,
-		// 	readonly: false,
-		// 	selected: false,
-		// },
-		// {
-		// 	id: 7,
-		// 	type: 'text',
-		// 	label: 'Название',
-		// 	name: 'Название',
-		// 	typ: 'Строка',
-		// 	visible: true,
-		// 	readonly: false,
-		// 	selected: false,
-		// },
-		// {
-		// 	id: 8,
-		// 	type: 'textarea',
-		// 	label: 'Содержание',
-		// 	name: 'Содержание',
-		// 	typ: 'Текст',
-		// 	visible: true,
-		// 	readonly: false,
-		// 	selected: false,
-		// },
-	])
+	const fields = reactive<Field[]>([])
 
 	const fieldsVisible = computed(() => {
 		return fields.filter((item) => item.visible)

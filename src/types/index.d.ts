@@ -41,7 +41,9 @@ type Form = {
 	name: string
 	desc: string
 	selected: boolean
-	creation: boolean
+	type: number
+	layout: Layout
+	// creation: boolean
 }
 interface Option {
 	id: string

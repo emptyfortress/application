@@ -15,10 +15,11 @@ const dialog = ref(false)
 const toggleDialog = () => {
 	dialog.value = !dialog.value
 }
-const edit = (e: string) => {
-	let url = '/' + route.params.id + '/editor/process/' + e
-	router.push(url)
-}
+
+// const edit = (e: string) => {
+// 	let url = '/' + route.params.id + '/editor/process/' + e
+// 	router.push(url)
+// }
 
 const goto = (e: string) => {
 	myform.setZay(false)
@@ -104,24 +105,29 @@ const calcClass = (e: string) => {
 	border: 1px solid $primary;
 	margin-bottom: 1rem;
 }
+
 .hd {
 	font-size: 1rem;
 	font-weight: 600;
 }
+
 .grd {
 	display: grid;
 	grid-template-columns: auto 1fr;
 	column-gap: 4rem;
 }
+
 th {
 	font-weight: 600;
 	background: #eee;
 	padding: 0.3rem 1rem;
 }
+
 .q-table thead tr,
 .q-table tbody td {
 	height: initial;
 }
+
 td span {
 	margin-right: 1rem;
 }

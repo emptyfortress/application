@@ -1,8 +1,9 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-import { uid } from 'quasar'
+// import { uid } from 'quasar'
 
 export const useForms = defineStore('forms', () => {
+	const index = ref(0)
 	const currentBO = ref<any>()
 	const setCurrentBO = (e: any) => {
 		currentBO.value = e
@@ -67,20 +68,11 @@ export const useForms = defineStore('forms', () => {
 
 	const formList = ref<Form[]>([])
 
-	const conditionList = ref<Condition[]>([])
 
-	// function moveToEnd(arr, key, value) {
-	// 	const index = arr.findIndex((obj) => obj[key] === value)
-	// 	if (index !== -1) {
-	// 		const removed = arr.splice(index, 1)[0]
-	// 		arr.push(removed)
-	// 	}
-	// 	return arr
-	// }
+	const conditionList = ref<Condition[]>([])
 
 	const addCondition = (e: Condition) => {
 		conditionList.value.push(e)
-		// moveToEnd(conditionList.value, 'role', ['Все остальные'])
 	}
 
 	const removeCondition = (e: Form) => {
@@ -93,11 +85,12 @@ export const useForms = defineStore('forms', () => {
 
 	const createForm = (form: Form) => {
 		let row = {
-			id: uid(),
+			id: form.id,
 			name: form.name,
 			desc: form.desc || 'Это описание формы',
 			selected: false,
-			creation: form.creation,
+			type: form.type,
+			layout: form.layout
 		}
 		formList.value.push(row)
 	}
@@ -115,6 +108,7 @@ export const useForms = defineStore('forms', () => {
 	})
 
 	return {
+		index,
 		currentBO,
 		currentEtap,
 		setCurrentBO,

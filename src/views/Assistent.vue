@@ -7,6 +7,9 @@ import { useRouter } from 'vue-router'
 import { useStorage } from '@vueuse/core'
 import { useData } from '@/stores/alldata'
 import { useRoles } from '@/stores/roles'
+import { useForms } from '@/stores/forms'
+import { useLayoutStore } from '@/stores/layout'
+import { uid } from 'quasar'
 
 const router = useRouter()
 
@@ -15,16 +18,67 @@ const step = ref(1)
 const app = useStorage('app', localStorage)
 
 const myrole = useRoles()
+const myform = useForms()
+const lstore = useLayoutStore()
 
-const goto = () => {
+const finish = () => {
 	myrole.addRole({
 		id: 'one',
 		name: 'Кадровик',
 		selected: false,
 	})
+	myform.createForm({
+		id: uid(),
+		name: 'Создание',
+		desc: 'Это описание формы',
+		selected: false,
+		type: 0,
+		layout: {
+			x: 0,
+			y: 0,
+			w: 10,
+			h: 10,
+			i: lstore.index,
+			selected: false,
+			fieldList: lstore.fields
+		}
+	})
+	myform.createForm({
+		id: uid(),
+		name: 'Редактирование',
+		desc: 'Это описание формы',
+		selected: false,
+		type: 1,
+		layout: {
+			x: 0,
+			y: 0,
+			w: 10,
+			h: 10,
+			i: lstore.index,
+			selected: false,
+			fieldList: lstore.fields
+		}
+	})
+	myform.createForm({
+		id: uid(),
+		name: 'Просмотр',
+		desc: 'Это описание формы',
+		selected: false,
+		type: 2,
+		layout: {
+			x: 0,
+			y: 0,
+			w: 10,
+			h: 10,
+			i: lstore.index,
+			selected: false,
+			fieldList: lstore.fields
+		}
+	})
 	let url = `/${app.value.text}/editor/process`
 	router.push(url)
 }
+
 const mydata = useData()
 mydata.setAssist(true)
 const button = ref()
@@ -48,13 +102,13 @@ q-page
 
 		q-step(
 			:name="1"
-			title="Работа начинается с того, что Инициатор заполняет форму."
+			title="Работа начинается с того, что Инициатор создает карточку процесса."
 			prefix="1"
 			:done="step > 1")
 
-			div Придумайте названия для этой формы.
+			div Придумайте ей название.
 
-			q-input(v-model="app.card" dense outlined bg-color="white")
+			q-input(v-model="app.card" label="Название карточки" dense outlined bg-color="white")
 			q-stepper-navigation
 				q-btn(@click="step = 2" color="primary" label="Далее")
 
@@ -100,7 +154,7 @@ q-page
 			div Поздравляем, вы завершили первичную настройку. Дальнейшая настройка производится вне ассистента.
 
 			q-stepper-navigation
-				q-btn(@click="goto" color="primary" label="Завершить")
+				q-btn(@click="finish" color="primary" label="Завершить")
 </template>
 
 <style scoped lang="scss">

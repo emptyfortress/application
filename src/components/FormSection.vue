@@ -20,6 +20,7 @@ const select = (e: Field) => {
 const remove = (e: number) => {
 	props.list.splice(e, 1)
 }
+
 const type = computed(() => {
 	if (!!myform.currentBO && myform.currentBO.name == 'Создание заявления') {
 		return true
@@ -45,7 +46,7 @@ draggable(
 	itemKey="id")
 
 	template(#item="{ element, index }")
-		.node1(ref='node' @click="select(element)" :class="{selected: element.selected}")
+		.node1(ref='node' @click="select(element)" :class="{ selected: element.selected }")
 			FormKit(v-if='type' :type="element.type" :label="element.name" :options="element.options")
 
 			.row.items-center.q-gutter-x-lg(v-else)
@@ -62,6 +63,7 @@ draggable(
 	background: #fff;
 	position: relative;
 	margin-bottom: 2px;
+
 	.bt {
 		position: absolute;
 		top: 0;
@@ -69,39 +71,47 @@ draggable(
 		background: #ffaa5b;
 		display: none;
 	}
+
 	&.ghost {
 		opacity: 0.5;
 		background: #c8ebfb;
 	}
+
 	&:hover,
 	&.selected {
 		outline: 2px solid #ffaa5b;
+
 		.bt {
 			display: block;
 		}
 	}
 }
+
 .close {
 	position: absolute;
 	right: 0;
 	top: 0;
 	cursor: pointer;
 }
+
 .resize {
 	position: absolute;
 	right: 3px;
 	bottom: 3px;
 	cursor: pointer;
 }
+
 .val {
 	color: $primary;
 	border-bottom: 1px dotted $primary;
 	cursor: pointer;
 }
+
 .list-group:empty {
 	padding: 1rem;
 	padding-bottom: 100px;
 	text-align: center;
+
 	&::before {
 		content: 'Перетащите сюда нужное поле из библиотеки справа.';
 		color: #bbb;
