@@ -8,36 +8,6 @@ const myApps = [
 		selected: false,
 		children: [
 			{
-				id: 1,
-				text: 'Заявка',
-				card: 'Заявка',
-				descr: 'Простая заявка товаров',
-				hidden: false,
-				selected: false,
-				type: 1,
-				file: 'zay',
-				version: '1.2.0',
-				forms: [
-					{
-						id: 0,
-						name: 'Создание',
-						role: 'Инициатор',
-						layout: [
-							{
-								x: 1,
-								y: 0,
-								w: 6,
-								h: 4,
-								i: 0,
-								selected: false,
-							},
-						],
-					},
-					{ id: 1, name: 'Редактирование', role: 'Руководитель', layout: [] },
-					{ id: 2, name: 'Просмотр', role: 'Все остальные', layout: [] },
-				],
-			},
-			{
 				id: 3,
 				text: 'Заявление на отпуск',
 				card: '',
