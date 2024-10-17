@@ -4,45 +4,41 @@ import { useForms } from '@/stores/forms'
 import StatusDialogAdd from '@/components/StatusDialogAdd.vue'
 
 const myform = useForms()
-const start = ref('Подготовка')
-const finish = ref('Подготовка')
+const finish = ref(['Подготовка'])
 
 const dialog = ref(false)
 
+const start = ref<number>()
+
 const setState = ((e: string) => {
-	finish.value = e
+	finish.value[start.value!] = e
+})
+
+const add = ((n: number) => {
+	start.value = n
+	dialog.value = !dialog.value
 })
 </script>
 
 <template lang="pug">
 .q-mx-md
-	.text-bold Чем завершается задача?
 	q-markup-table(bordered flat)
 		thead
 			tr
-				th.text-left Начальное состояние
-				th.text-left Вариант исхода
-				th.text-left Конечное состояние
+				th.text-left Вариант завершения
+				th.text-left Статус
 		tbody
-			tr(v-for="item in myform.bt")
-				td
-					span.btd.sel {{ start }}
-						q-menu
-							q-list
-								q-item(clickable v-for="item in myform.status" :key="item" @click='start = item' v-close-popup :class="{ selected: item == start }")
-									q-item-section {{ item }}
+			tr(v-for="(item, index) in myform.bt")
 				td
 					span.btd {{ item.name }}
-						q-popup-edit(v-model="item.name" title="Исход" buttons auto-save v-slot="scope")
-							q-input(v-model="scope.value" dense outlined autofocus @keyup.enter="scope.set")
+						q-popup-edit(v-model="item.name" auto-save v-slot="scope")
+							q-input(v-model="scope.value" dense filled autofocus @keyup.enter="scope.set")
 				td
-					span.btd.sel {{ finish }}
-						q-menu
-							q-list
-								q-item(clickable v-for="item in myform.status" :key="item" @click='finish = item' v-close-popup :class="{ selected: item == finish }")
-									q-item-section {{ item }}
-
-	q-btn.q-mt-sm(flat color="primary" icon='mdi-plus-circle' label="Добавить состояние" @click="dialog = !dialog" size='sm') 
+					q-select(v-model="finish[index]" dense filled :options="myform.status")
+						template(v-slot:after-options)
+							q-item
+								q-item-section
+									q-btn(unelevated color="primary" label="Добавить" @click="add(index)" size='sm' v-close-popup) 
 
 StatusDialogAdd(v-model="dialog" @set="setState")
 </template>
@@ -53,15 +49,6 @@ StatusDialogAdd(v-model="dialog" @set="setState")
 	text-decoration: underline;
 	text-align: left;
 	cursor: pointer;
-
-	&.sel::after {
-		display: inline-block;
-		content: '⌄';
-		font-size: 1rem;
-		margin-left: .5rem;
-		transform: translateY(-2px);
-		text-decoration: none;
-	}
 }
 
 th {
@@ -70,5 +57,13 @@ th {
 
 .selected {
 	background: var(--bg-selected);
+}
+
+.q-table thead tr {
+	height: 22px;
+}
+
+.q-table td {
+	font-size: .9rem;
 }
 </style>

@@ -5,8 +5,9 @@ import FieldList from '@/components/FieldList.vue'
 import { useStorage } from '@vueuse/core'
 import { useForms } from '@/stores/forms'
 import { useRoles } from '@/stores/roles'
-import WhatSee from '@/components/WhatSee.vue'
+// import WhatSee2 from '@/components/WhatSee2.vue'
 import StateTable from '@/components/StateTable.vue'
+import { ref } from 'vue'
 
 const store = useStore()
 const myform = useForms()
@@ -19,6 +20,8 @@ const app = useStorage('app', localStorage)
 const emulate1 = () => {
 	router.push('/emulate1/1')
 }
+
+const form = ref('Форма 1')
 
 </script>
 
@@ -59,20 +62,17 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO && myform.cu
 				div Срок:
 				div 25 сентября 2024 г.
 
-	br
-	template(v-if='myform.currentBO.$type == "bpmn:Task" || myform.currentBO.$type == "bpmn:EndEvent"')
-		StateTable
-	br
-	br
+			div Форма:
+			q-select(v-model="form" dense filled)
 
-	WhatSee(v-if='myform.currentBO.$type == "bpmn:Task" || myform.currentBO.$type == "bpmn:EndEvent"')
+	br
+	StateTable(v-if='myform.currentBO.$type == "bpmn:Task" || myform.currentBO.$type == "bpmn:EndEvent"')
 
 template(v-if="route.name == 'Этап' && store.currentField == null && store.currentBlock == null")
 	.q-ma-md Здесь общие настройки формы
 
 template(v-if="route.name == 'Этап' && store.currentField == null && store.currentBlock")
 	.q-pa-md.text-bold Здесь свойства данного блока
-
 
 .prev(v-if='route.name == "Процесс" || route.name == "Этап"')
 	q-btn.btn(v-if='myform.currentBO && myform.currentBO.$type == "bpmn:Task"' outline color="primary" icon='mdi-play' label='Проверка работы приложения с текущего этапа' @click='emulate1' size='sm') 
@@ -83,9 +83,9 @@ template(v-if="route.name == 'Этап' && store.currentField == null && store.c
 .grid {
 	padding: 0 1rem;
 	display: grid;
-	grid-template-columns: 170px 2fr;
-	align-items: start;
-	column-gap: 1rem;
+	grid-template-columns: auto 2fr;
+	align-items: center;
+	column-gap: 2rem;
 	row-gap: 1rem;
 	line-height: 1.1;
 }
@@ -118,5 +118,9 @@ template(v-if="route.name == 'Этап' && store.currentField == null && store.c
 
 :deep(.formkit-input) {
 	font-size: 0.8rem;
+}
+
+.fill {
+	grid-column: 1/-1;
 }
 </style>

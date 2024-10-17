@@ -39,7 +39,7 @@ watchEffect(() => {
 const myrole = useRoles()
 
 const calcCreation = computed(() => {
-	if (!!myform.currentBO && myform.currentBO?.id == 'Activity_03rm8hy') return true
+	if (!myform.currentBO && myform.currentBO?.id == 'Activity_03rm8hy') return true
 	else return false
 })
 
@@ -139,27 +139,9 @@ const setDesc = (e: string) => {
 		form.desc = e
 	}
 }
+
 const calcNav = computed(() => {
-	if (store.currentNode && store.currentNode.data.text == 'Заявка') {
-		switch (myform.currentBO?.name) {
-			case 'Создал Заявку':
-				return '/nav1.png'
-			case 'Согласовать заявку':
-				return '/nav2.png'
-			case 'Исправить заявку':
-				return '/nav3.png'
-			case 'Рассмотреть заявку':
-				return '/nav4.png'
-			case 'Обработать отказ':
-				return '/nav5.png'
-			case 'Исполнить заявку':
-				return '/nav6.png'
-			case 'Принять результаты':
-				return '/nav7.png'
-			default:
-				return '/nav0.png'
-		}
-	} else return '/preview.png'
+	return '/preview.png'
 })
 
 onMounted(() => {
@@ -203,8 +185,6 @@ const closeNav = () => {
 		FormTop(v-if='myform.showBt' v-model="desc" @update:modelValue='setDesc')
 		FormStatus
 		FormLayout(:layout='startLayout')
-		// FormBottom(v-if='calcCreation')
-		// FormLayout(v-else :layout='startLayout')
 
 ChooseFormDialog(v-model="dialog" @load='loadForm')
 
