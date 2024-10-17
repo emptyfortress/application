@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive, computed } from 'vue'
+import { ref, computed } from 'vue'
 import draggable from 'vuedraggable'
 import AddFieldDialog from '@/components/AddFieldDialog.vue'
 import { useLayoutStore } from '@/stores/layout'
@@ -10,11 +10,8 @@ const lstore = useLayoutStore()
 
 const dialog = ref(false)
 
-// const list1 = ref([])
-
 const addField = (tmp: Field) => {
 	lstore.addField(tmp)
-	// list1.value.push(tmp)
 }
 const dragStart = (type: number) => {
 	lstore.setDragType(type)
