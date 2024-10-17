@@ -1,16 +1,13 @@
 <script setup lang="ts">
 import { ref, watchEffect, computed, onMounted } from 'vue'
 import FormTop from '@/components/FormTop.vue'
-// import FormBottom from '@/components/FormBottom.vue'
 import FormLayout from '@/components/FormLayout.vue'
-import FormLayout1 from '@/components/FormLayout1.vue'
 import VueDraggableResizable from 'vue-draggable-resizable'
 import Toolbar from '@/components/Toolbar.vue'
 import ChooseFormDialog from '@/components/ChooseFormDialog.vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useLayoutStore } from '@/stores/layout'
 import { useStore } from '@/stores/store'
-// import { useStorage } from '@vueuse/core'
 import { useForms } from '@/stores/forms'
 import { useRoles } from '@/stores/roles'
 import { uid } from 'quasar'
@@ -39,13 +36,6 @@ watchEffect(() => {
 	}
 })
 
-// const app = useStorage('app', localStorage)
-
-const resetZay = () => {
-	setTimeout(() => {
-		myform.toggleZay()
-	}, 100)
-}
 const myrole = useRoles()
 
 const calcCreation = computed(() => {
@@ -63,6 +53,8 @@ const save = () => {
 				creation: calcCreation.value,
 				selected: false,
 			}
+
+			// TODO: разобраться с формой
 
 			myform.createForm(tmpform)
 
@@ -90,7 +82,6 @@ const save = () => {
 	lstore.saveLayout(name.value, startLayout.value)
 	myform.setCurrentBO(null)
 	router.back()
-	resetZay()
 }
 
 const back = () => {
@@ -98,7 +89,6 @@ const back = () => {
 	myform.notMain = false
 	router.back()
 	myform.setCurrentBO(null)
-	resetZay()
 }
 
 const startLayout = ref<Layout[]>([])
@@ -210,10 +200,9 @@ const closeNav = () => {
 			q-btn(flat round dense color="primary" icon='mdi-undo') 
 			q-btn(flat round dense color="primary" icon='mdi-redo') 
 	.inner
-		FormTop(v-if='myform.showBt || myform.zay' v-model="desc" @update:modelValue='setDesc')
-		FormStatus()
-		FormLayout1(v-if='myform.zay' :form='myform.zayform')
-		FormLayout(v-else :layout='startLayout')
+		FormTop(v-if='myform.showBt' v-model="desc" @update:modelValue='setDesc')
+		FormStatus
+		FormLayout(:layout='startLayout')
 		// FormBottom(v-if='calcCreation')
 		// FormLayout(v-else :layout='startLayout')
 
