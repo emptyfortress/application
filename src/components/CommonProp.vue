@@ -6,7 +6,6 @@ import { useStorage } from '@vueuse/core'
 import { useForms } from '@/stores/forms'
 import { useRoles } from '@/stores/roles'
 import WhatSee from '@/components/WhatSee.vue'
-import WhatSee1 from '@/components/WhatSee1.vue'
 import StateTable from '@/components/StateTable.vue'
 
 const store = useStore()
@@ -16,10 +15,6 @@ const router = useRouter()
 const myrole = useRoles()
 
 const app = useStorage('app', localStorage)
-
-const emulate = () => {
-	router.push('/emulate/1')
-}
 
 const emulate1 = () => {
 	router.push('/emulate1/1')
@@ -41,7 +36,6 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO && myform.cu
 	q-card-section
 		h6.text-center.q-gutter-x-md Событие:
 		.text-center Возникла необходимость в запуске процесса
-	WhatSee1(v-if='app.text == "Заявка" && (myform.currentBO.$type == "bpmn:Task" || myform.currentBO.$type == "bpmn:StartEvent" || myform.currentBO.$type == "bpmn:EndEvent")')
 
 template(v-if="route.name == 'Процесс' && !!myform.currentBO && myform.currentBO.$type !== 'bpmn:StartEvent'")
 	q-card-section
@@ -68,13 +62,10 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO && myform.cu
 	br
 	template(v-if='myform.currentBO.$type == "bpmn:Task" || myform.currentBO.$type == "bpmn:EndEvent"')
 		StateTable
-
 	br
 	br
 
-	WhatSee1(v-if='app.text == "Заявка" && (myform.currentBO.$type == "bpmn:Task" || myform.currentBO.$type == "bpmn:EndEvent")')
-	WhatSee(v-if='app.text !== "Заявка" && (myform.currentBO.$type == "bpmn:Task" || myform.currentBO.$type == "bpmn:EndEvent")')
-
+	WhatSee(v-if='myform.currentBO.$type == "bpmn:Task" || myform.currentBO.$type == "bpmn:EndEvent"')
 
 template(v-if="route.name == 'Этап' && store.currentField == null && store.currentBlock == null")
 	.q-ma-md Здесь общие настройки формы
@@ -83,10 +74,7 @@ template(v-if="route.name == 'Этап' && store.currentField == null && store.c
 	.q-pa-md.text-bold Здесь свойства данного блока
 
 
-.prev(v-if='app.text == "Заявка"')
-	q-btn.btn(outline color="primary" icon='mdi-play' label='Проверка работы приложения с текущего этапа' @click='emulate' size='sm') 
-
-.prev(v-if='app.text !== "Заявка" && (route.name == "Процесс" || route.name == "Этап")')
+.prev(v-if='route.name == "Процесс" || route.name == "Этап"')
 	q-btn.btn(v-if='myform.currentBO && myform.currentBO.$type == "bpmn:Task"' outline color="primary" icon='mdi-play' label='Проверка работы приложения с текущего этапа' @click='emulate1' size='sm') 
 
 </template>
