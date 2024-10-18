@@ -7,13 +7,13 @@ import Toolbar from '@/components/Toolbar.vue'
 import ChooseFormDialog from '@/components/ChooseFormDialog.vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useLayoutStore } from '@/stores/layout'
-import { useStore } from '@/stores/store'
+// import { useStore } from '@/stores/store'
 import { useForms } from '@/stores/forms'
 import { useRoles } from '@/stores/roles'
 import { uid } from 'quasar'
 import { gsap } from 'gsap'
 
-const store = useStore()
+// const store = useStore()
 const myform = useForms()
 const route = useRoute()
 const router = useRouter()
@@ -91,7 +91,6 @@ const back = () => {
 }
 
 const startLayout = ref<Layout[]>([])
-
 
 let start = [
 	{

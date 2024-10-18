@@ -54,7 +54,6 @@ export const useForms = defineStore('forms', () => {
 
 	const formList = ref<Form[]>([])
 
-
 	const conditionList = ref<Condition[]>([])
 
 	const addCondition = (e: Condition) => {

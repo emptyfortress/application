@@ -2,6 +2,10 @@
 import { ref, computed, watch } from 'vue'
 import draggable from 'vuedraggable'
 import { useForms } from '@/stores/forms'
+import { useRouter, useRoute } from 'vue-router'
+
+const router = useRouter()
+const route = useRoute()
 
 import { onClickOutside } from '@vueuse/core'
 
@@ -21,11 +25,11 @@ const remove = (e: number) => {
 	props.list.splice(e, 1)
 }
 
-const type = computed(() => {
-	if (!!myform.currentBO && myform.currentBO.name == 'Создание заявления') {
-		return true
-	}
-	return false
+const calcType = computed(() => {
+	// let currForm = myform.formList.filter((el: Form) => el.selected == true)
+	let tmp = route.params.etap.toString()
+	let currForm = myform.formList.filter((el: Form) => el.label == tmp)
+	return currForm[0].type
 })
 
 const unselect = () => {
@@ -47,11 +51,16 @@ draggable(
 
 	template(#item="{ element, index }")
 		.node1(ref='node' @click="select(element)" :class="{ selected: element.selected }")
-			FormKit(v-if='type' :type="element.type" :label="element.name" :options="element.options")
+			FormKit(v-if='calcType == 0' :type="element.type" :label="element.name" :options="element.options")
 
-			.row.items-center.q-gutter-x-md(v-else)
+			.row.items-center.q-gutter-x-md(v-if='calcType == 1')
 				label {{ element.name }}:
 				.val {{ element.type }}
+				div(v-if='element.name == "Статус"') значение
+
+			.row.items-center.q-gutter-x-md(v-if='calcType == 2')
+				label {{ element.name }}:
+				div {{ element.type }}
 				div(v-if='element.name == "Статус"') значение
 
 			.bt

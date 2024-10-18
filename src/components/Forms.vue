@@ -15,8 +15,10 @@ const toggleDialog = () => {
 	dialog.value = !dialog.value
 }
 
-const goto = (e: string) => {
-	let url = '/' + route.params.id + '/editor/process/' + e
+const goto = (e: Form) => {
+	let url = '/' + route.params.id + '/editor/process/' + e.label
+	myform.formList.map(el => el.selected = false)
+	e.selected = true
 	router.push(url)
 }
 const calcCondition = (e: string) => {
@@ -35,13 +37,17 @@ const calcClass = (e: string) => {
 		return ''
 	} else return 'text-bold'
 }
+
+const action = ((e: Form) => {
+	console.log(e)
+})
 </script>
 
 <template lang="pug">
 .bl
 	h5 Формы
 	q-list(separator)
-		q-expansion-item(v-for='form in myform.formList' :key='form.id' )
+		q-expansion-item(v-for='form in myform.formList' :key='form.id')
 			template(v-slot:header)
 				q-item-section(avatar)
 					q-icon(name='mdi-list-box-outline')
@@ -51,7 +57,7 @@ const calcClass = (e: string) => {
 						span.q-ml-md(v-if='form.type == 0') (форма создания)
 				q-item-section(side)
 					.row.q-gutter-x-sm
-						q-btn(flat round icon='mdi-pencil-outline' color='primary' dense size='sm' @click.stop='goto(form.label)') 
+						q-btn(flat round icon='mdi-pencil-outline' color='primary' dense size='sm' @click.stop='goto(form)') 
 						q-btn(flat round icon='mdi-trash-can-outline' color='primary' dense size='sm' @click.stop='remove(form.label)') 
 			q-card
 				q-card-section
@@ -63,7 +69,7 @@ const calcClass = (e: string) => {
 									th.text-left Этап
 									th.text-left Роль
 							tbody
-								tr(v-for="item in calcCondition(form.name)" :key='item.id')
+								tr(v-for="item in calcCondition(form.label)" :key='item.id')
 									td {{ item.etap }}
 									td {{ item.role }}
 
