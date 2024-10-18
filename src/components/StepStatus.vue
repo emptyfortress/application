@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useForms } from '@/stores/forms'
-// import { useStorage } from '@vueuse/core'
+import { useStorage } from '@vueuse/core'
 
-// const app = useStorage('app', localStorage)
+const app = useStorage('app', localStorage)
 const myform = useForms()
 
 const destroy = (e: number) => {
@@ -30,20 +30,16 @@ const nexxt = () => {
 </script>
 
 <template lang="pug">
-div Процесс может находиться в различных состояниях, например: подготовка, рассмотрение, согласование, архив и тп.
+div В процессе обработки <span class='text-bold text-uppercase'>{{ app.card }}</span> может находиться в различных состояниях (статусах), например: подготовка, рассмотрение, согласование, архив и тп.
 
 q-markup-table(flat bordered style="width: 500px;")
 	thead
 		tr
-			th.text-left Состояние
+			th.text-left Статус
 			th.text-rigth
 
 	tbody
-		tr(v-if='myform.status.length == 0')
-			td
-				.no Поля не заданы.
-
-		tr(v-else v-for="(item, index) in myform.status" :key="item")
+		tr(v-for="(item, index) in myform.status" :key="item")
 			td
 				span {{ item }}
 			td.text-right
@@ -51,7 +47,7 @@ q-markup-table(flat bordered style="width: 500px;")
 
 q-form(@submit='add')
 	.row.items-center.q-gutter-x-sm
-		q-input(ref='input' autofocus v-model="status" type="text" label='Состояние' dense outlined bg-color="white")
+		q-input(ref='input' autofocus v-model="status" type="text" label='Статус' dense outlined bg-color="white")
 		q-btn(flat color="primary" label="Добавить" type='submit') 
 
 q-stepper-navigation

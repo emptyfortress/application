@@ -2,6 +2,13 @@
 import { ref } from 'vue'
 import { uid } from 'quasar'
 
+
+const props = defineProps({
+	app: {
+		type: String,
+	}
+})
+
 const rolename = ref('')
 
 const roles = ref<any[]>([])
@@ -28,7 +35,7 @@ q-form(@submit='add')
 	q-markup-table(flat bordered)
 		thead
 			tr
-				th.text-left Наблюдатели
+				th.text-left Наблюдатели <span class="q-ml-lg">(все кто может видеть {{ props.app }})</span>
 				th
 		tbody
 			tr(v-if='roles.length == 0')

@@ -106,23 +106,23 @@ q-page
 
 		q-step(
 			:name="1"
-			title="Работа начинается с того, что Инициатор создает карточку процесса."
+			title="Работа начинается с того, что Инициатор заполняет форму."
 			prefix="1"
 			:done="step > 1")
 
 			div Придумайте ей название.
 
-			q-input(v-model="app.card" label="Название карточки" dense outlined bg-color="white")
+			q-input(v-model="app.card" dense outlined bg-color="white")
 			q-stepper-navigation
 				q-btn(@click="step = 2" color="primary" label="Далее")
 
 		q-step(
 			:name="2"
-			title="Определите участников и наблюдателей процесса (роли)"
+			title="Кто участвует в процессе?"
 			prefix="2"
 			:done="step > 2")
 			div В приложении в виде схемы будет определен процесс, согласно которому к работе будут подключаться следующие роли:
-			StepRole1(@next='step = 3')
+			StepRole1(@next='step = 3' :app='app.card')
 
 		q-step(
 			:name="3"
@@ -135,7 +135,7 @@ q-page
 
 		q-step(
 			:name="4"
-			title="Если нужно, добавьте состояния"
+			title="Если нужно, добавьте статусы"
 			prefix="4"
 			:done="step > 4")
 			StepStatus(@next='step = 5')
@@ -155,7 +155,8 @@ q-page
 			title="Завершение"
 			prefix="6"
 			:done="step > 6")
-			div Поздравляем, вы завершили первичную настройку. Дальнейшая настройка производится вне ассистента.
+			div Поздравляем, вы заполнили первичный шаблон приложения <span class='text-bold text-uppercase'>{{ app.card }}</span>!
+			div Система автоматически сгенерит схему процесса и все необходимые атрибуты. Вы можете продолжить дальнейшую настройку вне ассистента.
 
 			q-stepper-navigation
 				q-btn(@click="finish" color="primary" label="Завершить")

@@ -2,9 +2,9 @@
 import { ref } from 'vue'
 import { uid } from 'quasar'
 import { useLayoutStore } from '@/stores/layout'
-// import { useStorage } from '@vueuse/core'
+import { useStorage } from '@vueuse/core'
 
-// const app = useStorage('app', localStorage)
+const app = useStorage('app', localStorage)
 // const attributes = ref<any[]>([])
 
 const lstore = useLayoutStore()
@@ -50,7 +50,7 @@ const input = ref()
 </script>
 
 <template lang="pug">
-div Добавьте необходимые поля для данных. Они нужны для отображения информации, которую заполняют участники процесса. Например: Автор, Срок выполнения, Проверяющий и тд. Также у полей задается тип: строка, дата, номер, сотрудник
+div Добавьте в <span class='text-bold text-uppercase'>{{ app.card }}</span> необходимые поля. Поля нужны для отображения информации, которую заполняют участники процесса. Например: Автор, Срок выполнения, Проверяющий и тд. Также у полей задается тип: строка, дата, номер, сотрудник
 q-markup-table(flat bordered style="width: 500px;")
 	thead
 		tr

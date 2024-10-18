@@ -17,8 +17,6 @@ const toggleDialog = () => {
 
 const goto = (e: Form) => {
 	let url = '/' + route.params.id + '/editor/process/' + e.label
-	myform.formList.map(el => el.selected = false)
-	e.selected = true
 	router.push(url)
 }
 const calcCondition = (e: string) => {

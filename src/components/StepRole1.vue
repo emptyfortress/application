@@ -4,6 +4,11 @@ import { uid } from 'quasar'
 import { useRoles } from '@/stores/roles'
 import StepRole2 from '@/components/StepRole2.vue'
 
+const props = defineProps({
+	app: {
+		type: String,
+	}
+})
 const rolename = ref('')
 const input1 = ref()
 
@@ -39,7 +44,7 @@ const nexxt = () => {
 		q-markup-table(flat bordered)
 			thead
 				tr
-					th.text-left Участники
+					th.text-left Участники <span class="q-ml-lg">(принимают участие в процессе)</span>
 					th
 			tbody
 				tr(v-for="(role, index) in myrole.tempRoles" :key="role.id")
@@ -53,7 +58,7 @@ const nexxt = () => {
 			q-btn(flat color="primary" label="Добавить" type='submit') 
 
 	div
-		StepRole2
+		StepRole2(:app='props.app')
 
 q-stepper-navigation
 	q-btn(@click="nexxt" color="primary" label="Далее")
