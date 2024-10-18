@@ -43,7 +43,7 @@ type Form = {
 	desc: string
 	selected: boolean
 	type: number
-	layout: Layout[]
+	layout: Layout
 	// creation: boolean
 }
 interface Option {
