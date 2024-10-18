@@ -63,10 +63,10 @@ const forms = [
 
 const requests = [
 	{ id: 0, label: 'Все карточки', descr: 'все доступные карточки', long: '', selected: false },
-	{ id: 1, label: 'Список 1', descr: 'Описание списка 1', long: '', selected: false },
-	{ id: 2, label: 'Список 2', descr: 'Описание списка 2', long: '', selected: false },
-	{ id: 3, label: 'Список 3', descr: 'Описание списка 3', long: '', selected: false },
-	{ id: 4, label: 'Список 4', descr: 'Описание списка 4', long: '', selected: false },
+	{ id: 1, label: 'Реестр 1', descr: 'Описание 1', long: '', selected: false },
+	{ id: 2, label: 'Реестр 2', descr: 'Описание 2', long: '', selected: false },
+	{ id: 3, label: 'Реестр 3', descr: 'Описание 3', long: '', selected: false },
+	{ id: 4, label: 'Реестр 4', descr: 'Описание 4', long: '', selected: false },
 ]
 
 export { myApps, etaps, forms, requests }

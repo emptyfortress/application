@@ -23,8 +23,8 @@ const calcFormName = computed(() => {
 const zayList = ['Создание', 'Просмотр', 'Архив']
 
 const goto2 = (e: string) => {
-	myform.toggleZay()
-	myform.setZayForm(e)
+	// myform.toggleZay()
+	// myform.setZayForm(e)
 	router.push(`/${route.params.id}/editor/process/${e}`)
 }
 </script>

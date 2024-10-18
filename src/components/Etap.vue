@@ -47,13 +47,22 @@ const save = () => {
 		if (myform.newform == true) {
 			let tmpform = {
 				id: uid(),
-				name: name.value,
+				label: name.value,
+				value: name.value,
 				desc: '',
-				creation: calcCreation.value,
 				selected: false,
+				type: 1,
+				layout:
+				{
+					x: 1,
+					y: 0,
+					w: 10,
+					h: 5,
+					i: 0,
+					selected: false,
+					fieldList: []
+				},
 			}
-
-			// TODO: разобраться с формой
 
 			myform.createForm(tmpform)
 

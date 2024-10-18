@@ -47,10 +47,21 @@ const create = (data: any) => {
 	if (props.mode == 'form') {
 		let tmp = {
 			id: uid(),
-			name: data.name,
+			label: data.name,
+			value: data.name,
 			desc: data.descr,
-			creation: data.creation,
 			selected: false,
+			type: 1,
+			layout:
+			{
+				x: 1,
+				y: 0,
+				w: 10,
+				h: 5,
+				i: 0,
+				selected: false,
+				fieldList: []
+			},
 		}
 		myform.createForm(tmp)
 		close()

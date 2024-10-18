@@ -28,7 +28,7 @@ const formsChip = ref(myform.formList)
 watch(modelValue, (val) => {
 	if (val) {
 		let tmp = formsChip.value.find((el) => {
-			return el.name == props.row!.form
+			return el.label == props.row!.form
 		})
 
 		formsChip.value?.map((item) => (item.selected = false))
@@ -54,10 +54,10 @@ const save = () => {
 			id: uid(),
 			etap: myform.currentEtap,
 			role: myrole.currentRole,
-			form: selection1.value[0].name,
+			form: selection1.value[0].label,
 		})
 	} else if (!!props.row) {
-		props.row.form = selection1.value[0].name
+		props.row.form = selection1.value[0].label
 	}
 	modelValue.value = false
 }
@@ -67,10 +67,21 @@ const ad = ref(false)
 const addForm = () => {
 	let tmp = {
 		id: uid(),
-		name: newForm.value,
+		label: newForm.value,
+		value: newForm.value,
 		desc: '',
 		selected: true,
-		creation: false,
+		type: 1,
+		layout:
+		{
+			x: 1,
+			y: 0,
+			w: 10,
+			h: 5,
+			i: 0,
+			selected: false,
+			fieldList: []
+		},
 	}
 	myform.createForm(tmp)
 	clear()
@@ -118,7 +129,7 @@ q-dialog(v-model="modelValue" persistent)
 				.grid
 					div
 						.text-bold Роли
-						q-chip(v-if='Array.isArray(props.row.role)' v-for="(item, ind) in props.row.role" :key='ind'
+						q-chip(v-if='Array.isArray(props.row!.role)' v-for="(item, ind) in props.row!.role" :key='ind'
 							:label="item"
 							selected
 							)
@@ -130,7 +141,7 @@ q-dialog(v-model="modelValue" persistent)
 						.text-bold Формы
 						q-chip(v-for="chip in formsChip"
 							clickable
-							:label="chip.name"
+							:label="chip.label"
 							:key="chip.id"
 							v-model:selected='chip.selected'
 							@click='select1(chip)'
@@ -154,20 +165,24 @@ q-dialog(v-model="modelValue" persistent)
 	background: $primary;
 	color: white;
 }
+
 :deep(.q-chip__icon) {
 	color: white;
 }
+
 .grid {
 	display: grid;
 	grid-template-columns: 1.5fr 2fr;
 	column-gap: 1rem;
 }
+
 .newname {
 	// width: 200px;
 	position: absolute;
 	top: 0;
 	left: 0;
 }
+
 .rel1 {
 	z-index: 10;
 	position: relative;

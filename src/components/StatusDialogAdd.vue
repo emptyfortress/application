@@ -30,17 +30,17 @@ const add1 = (data: any) => {
 		desc: 'Это описание формы',
 		selected: false,
 		type: 1,
-		layout: [
-			{
-				x: 1,
-				y: 0,
-				w: 10,
-				h: 5,
-				i: 0,
-				selected: false,
-				fieldList: []
-			},
-		]
+		layout:
+		{
+			x: 1,
+			y: 0,
+			w: 10,
+			h: 5,
+			i: 0,
+			selected: false,
+			fieldList: []
+		},
+
 	}
 	myform.createForm(row)
 	emit('set', data.form)

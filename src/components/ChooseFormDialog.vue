@@ -28,7 +28,7 @@ const emit = defineEmits(['load'])
 const loadForm = () => {
 	let tmp = chips.value.find((el) => el.selected)
 	if (!!tmp) {
-		emit('load', tmp.name)
+		emit('load', tmp.label)
 	}
 	close()
 	reset()
@@ -46,7 +46,7 @@ q-dialog(v-model="modelValue")
 			q-card-section
 				q-chip(v-for="chip in chips"
 					clickable
-					:label="chip.name"
+					:label="chip.label"
 					v-model:selected="chip.selected"
 					:key="chip.id"
 					@click="select(chip)"
@@ -64,6 +64,7 @@ q-dialog(v-model="modelValue")
 	background: $primary;
 	color: white;
 }
+
 :deep(.q-chip__icon) {
 	color: white;
 }

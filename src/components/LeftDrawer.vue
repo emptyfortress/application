@@ -38,7 +38,7 @@ const pages = reactive([
 	},
 	{
 		id: 4,
-		title: 'Списки',
+		title: 'Реестры',
 		icon: 'mdi-script-text-outline',
 		url: 'lists',
 	},

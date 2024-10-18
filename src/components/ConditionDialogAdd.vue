@@ -55,7 +55,7 @@ const add = () => {
 		id: uid(),
 		etap: myform.currentBO.name,
 		role: calcRoles.value,
-		form: selectionForms.value[0].name,
+		form: selectionForms.value[0].label,
 	}
 	myform.addCondition(tmp)
 	modelValue.value = false
@@ -82,10 +82,21 @@ const ad1 = ref(false)
 const addForm = () => {
 	let tmp = {
 		id: uid(),
-		name: newForm.value,
+		label: newForm.value,
+		value: newForm.value,
 		desc: '',
 		selected: true,
-		creation: false,
+		type: 1,
+		layout:
+		{
+			x: 1,
+			y: 0,
+			w: 10,
+			h: 5,
+			i: 0,
+			selected: false,
+			fieldList: []
+		},
 	}
 	myform.formList.map((e: Form) => (e.selected = false))
 	myform.formList.push(tmp)
@@ -151,7 +162,7 @@ q-dialog(v-model="modelValue" persistent)
 						.text-bold Формы
 						q-chip(v-for="chip in formsChip"
 							clickable
-							:label="chip.name"
+							:label="chip.label"
 							v-model:selected="chip.selected"
 							:key="chip.id"
 							@click='selectForm(chip)'
@@ -181,20 +192,24 @@ q-dialog(v-model="modelValue" persistent)
 	background: $primary;
 	color: white;
 }
+
 :deep(.q-chip__icon) {
 	color: white;
 }
+
 .grid {
 	display: grid;
 	grid-template-columns: 1.5fr 2fr;
 	column-gap: 1rem;
 }
+
 .newname {
 	// width: 200px;
 	position: absolute;
 	top: 0;
 	left: 0;
 }
+
 .rel1 {
 	z-index: 10;
 	position: relative;

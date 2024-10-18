@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { useStore } from '@/stores/store'
+// import { useStore } from '@/stores/store'
 import { requests } from '@/stores/tree'
 import CreateDialog from '@/components/CreateDialog.vue'
 
@@ -13,9 +13,10 @@ const props = defineProps({
 })
 
 const router = useRouter()
-const route = useRoute()
 
-const store = useStore()
+// const route = useRoute()
+
+// const store = useStore()
 
 const request = (e: string) => {
 	router.push(`/${props.id}/editor/lists/${e}/request`)
@@ -29,7 +30,7 @@ const dialog = ref(false)
 
 <template lang="pug">
 .bl
-	h5 Списки
+	h5 Реестры (списки)
 	q-list(separator)
 		q-expansion-item(icon='mdi-script-text-outline' v-for='item in requests' :key='item.id')
 			template(v-slot:header)
@@ -48,7 +49,7 @@ const dialog = ref(false)
 				q-btn(unelevated color='primary' label='Редактировать запрос' @click='request(item.label)' size='sm') 
 				q-btn(unelevated color='primary' label='Редактировать представление' @click='view(item.label)' size='sm') 
 	br
-	q-btn.q-ml-md(unelevated color='primary' label='Создать список' @click='dialog = !dialog') 
+	q-btn.q-ml-md(unelevated color='primary' label='Создать реестр' @click='dialog = !dialog') 
 
 CreateDialog(v-model="dialog" mode='list')
 </template>
@@ -59,6 +60,7 @@ CreateDialog(v-model="dialog" mode='list')
 	justify-content: center;
 	align-items: center;
 }
+
 :deep(.q-expansion-item--expanded .q-expansion-item__container) {
 	border: 1px solid $primary;
 	margin-bottom: 1rem;
