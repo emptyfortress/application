@@ -1,6 +1,5 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-// import { uid } from 'quasar'
 
 export const useForms = defineStore('forms', () => {
 	const index = ref(0)
@@ -73,7 +72,8 @@ export const useForms = defineStore('forms', () => {
 	const createForm = (form: Form) => {
 		let row = {
 			id: form.id,
-			name: form.name,
+			label: form.label,
+			value: form.value,
 			desc: form.desc || 'Это описание формы',
 			selected: false,
 			type: form.type,
@@ -83,7 +83,7 @@ export const useForms = defineStore('forms', () => {
 	}
 
 	const removeForm = (e: string) => {
-		const ind = formList.value.findIndex((el: Form) => el.name == e)
+		const ind = formList.value.findIndex((el: Form) => el.label == e)
 		if (ind !== undefined) formList.value.splice(ind, 1)
 	}
 

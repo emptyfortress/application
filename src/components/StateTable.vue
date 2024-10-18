@@ -36,11 +36,12 @@ const add = ((n: number) => {
 				td
 					q-select(v-model="finish[index]" dense filled :options="myform.status")
 						template(v-slot:after-options)
+							q-separator
 							q-item
 								q-item-section
-									q-btn(unelevated color="primary" label="Добавить" @click="add(index)" size='sm' v-close-popup) 
+									q-btn(flat color="primary" label="Добавить статус" icon="mdi-plus-circle" @click="add(index)" size='sm' v-close-popup) 
 
-StatusDialogAdd(v-model="dialog" @set="setState")
+StatusDialogAdd(v-model="dialog" @set="setState" type='status')
 </template>
 
 <style scoped lang="scss">

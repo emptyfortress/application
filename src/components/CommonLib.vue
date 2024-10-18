@@ -22,7 +22,7 @@ const calcLabel = computed(() => {
 	return 'Доступные поля ' + app.value.card
 })
 const status = ref([
-	{ name: 'Состояние', id: 0 },
+	{ name: 'Статус', id: 0 },
 ])
 </script>
 

@@ -120,9 +120,8 @@ const version = computed(() => {
 
 					q-card-actions.q-mt-xl
 						template(v-if='!version.published')
-							q-btn(unelevated  icon="mdi-school" label="Ассистент" color="primary" @click="ass") 
-							q-space
-							q-btn(unelevated  icon="mdi-pencil" label="Настроить приложение" color="primary" @click="goto") 
+							q-btn(v-if='mydata.begin == 0' unelevated  icon="mdi-school" label="Ассистент" color="primary" @click="ass") 
+							q-btn(v-else unelevated  icon="mdi-pencil" label="Настройки" color="primary" @click="goto") 
 						template(v-else)
 							q-btn(unelevated  icon="mdi-eye" label="Просмотр" color="primary" @click="goto") 
 

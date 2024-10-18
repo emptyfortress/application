@@ -49,9 +49,10 @@ draggable(
 		.node1(ref='node' @click="select(element)" :class="{ selected: element.selected }")
 			FormKit(v-if='type' :type="element.type" :label="element.name" :options="element.options")
 
-			.row.items-center.q-gutter-x-lg(v-else)
+			.row.items-center.q-gutter-x-md(v-else)
 				label {{ element.name }}:
 				.val {{ element.type }}
+				div(v-if='element.name == "Статус"') значение
 
 			.bt
 				q-btn(dense flat icon="mdi-close" @click="remove(index)" size="sm") 

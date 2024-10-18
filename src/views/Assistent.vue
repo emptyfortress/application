@@ -22,6 +22,7 @@ const myform = useForms()
 const lstore = useLayoutStore()
 
 const finish = () => {
+	mydata.increment()
 	myrole.addRole({
 		id: 'one',
 		name: 'Кадровик',
@@ -29,7 +30,8 @@ const finish = () => {
 	})
 	myform.createForm({
 		id: uid(),
-		name: 'Создание',
+		label: 'Создание',
+		value: 'Создание',
 		desc: 'Это описание формы',
 		selected: false,
 		type: 0,
@@ -45,7 +47,8 @@ const finish = () => {
 	})
 	myform.createForm({
 		id: uid(),
-		name: 'Редактирование',
+		label: 'Редактирование',
+		value: 'Редактирование',
 		desc: 'Это описание формы',
 		selected: false,
 		type: 1,
@@ -61,7 +64,8 @@ const finish = () => {
 	})
 	myform.createForm({
 		id: uid(),
-		name: 'Просмотр',
+		label: 'Просмотр',
+		value: 'Просмотр',
 		desc: 'Это описание формы',
 		selected: false,
 		type: 2,

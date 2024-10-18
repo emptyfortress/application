@@ -5,6 +5,7 @@ export const useData = defineStore('data', () => {
 	const myxml = ref<null | string>(null)
 	const assist = ref(false)
 	const button = ref('Кнопка')
+	const begin = ref(0)
 
 	const saveXML = (e: any) => {
 		myxml.value = e
@@ -15,6 +16,9 @@ export const useData = defineStore('data', () => {
 	const setButton = (e: string) => {
 		button.value = e
 	}
+	const increment = (() => {
+		begin.value++
+	})
 
 	return {
 		myxml,
@@ -23,5 +27,7 @@ export const useData = defineStore('data', () => {
 		setAssist,
 		button,
 		setButton,
+		begin,
+		increment,
 	}
 })

@@ -1,13 +1,14 @@
 <script setup lang="ts">
+import { watch, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useStore } from '@/stores/store'
 import FieldList from '@/components/FieldList.vue'
 import { useStorage } from '@vueuse/core'
 import { useForms } from '@/stores/forms'
 import { useRoles } from '@/stores/roles'
-// import WhatSee2 from '@/components/WhatSee2.vue'
 import StateTable from '@/components/StateTable.vue'
-import { ref } from 'vue'
+// import { useData } from '@/stores/alldata'
+import StatusDialogAdd from '@/components/StatusDialogAdd.vue'
 
 const store = useStore()
 const myform = useForms()
@@ -15,13 +16,34 @@ const route = useRoute()
 const router = useRouter()
 const myrole = useRoles()
 
+// const mydata = useData()
+
 const app = useStorage('app', localStorage)
 
 const emulate1 = () => {
 	router.push('/emulate1/1')
 }
 
-const form = ref('Форма 1')
+const form = ref('')
+
+watch(
+	() => myform.currentBO,
+	() => {
+		if (myform.currentBO !== null && myform.currentBO.$type == 'bpmn:Task' && myform.currentBO.id == 'Activity_03rm8hy') {
+			form.value = 'Создание'
+		} else form.value = 'Редактирование'
+	}
+)
+
+const dialog = ref(false)
+const setForm = ((e: string) => {
+	form.value = e
+})
+
+const run = (() => {
+	myform.newform = true
+	router.push(`/${route.params.id}/editor/process/${form.value}`)
+})
 
 </script>
 
@@ -63,7 +85,14 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO && myform.cu
 				div 25 сентября 2024 г.
 
 			div Форма:
-			q-select(v-model="form" dense filled)
+			q-select(v-model="form" dense filled :options="myform.formList" emit-value)
+				template(v-slot:after)
+					q-btn(flat round icon="mdi-arrow-right-circle-outline" color="primary" @click="run" dense) 
+				template(v-slot:after-options)
+					q-separator
+					q-item
+						q-item-section
+							q-btn(flat color="primary" label="Создать форму" icon="mdi-plus-circle" @click="dialog = true" size='sm' v-close-popup) 
 
 	br
 	StateTable(v-if='myform.currentBO.$type == "bpmn:Task" || myform.currentBO.$type == "bpmn:EndEvent"')
@@ -77,6 +106,7 @@ template(v-if="route.name == 'Этап' && store.currentField == null && store.c
 .prev(v-if='route.name == "Процесс" || route.name == "Этап"')
 	q-btn.btn(v-if='myform.currentBO && myform.currentBO.$type == "bpmn:Task"' outline color="primary" icon='mdi-play' label='Проверка работы приложения с текущего этапа' @click='emulate1' size='sm') 
 
+StatusDialogAdd(v-model="dialog" type='form' @set="setForm")
 </template>
 
 <style scoped lang="scss">

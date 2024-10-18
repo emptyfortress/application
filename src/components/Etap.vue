@@ -12,7 +12,6 @@ import { useForms } from '@/stores/forms'
 import { useRoles } from '@/stores/roles'
 import { uid } from 'quasar'
 import { gsap } from 'gsap'
-import FormStatus from '@/components/FormStatus.vue'
 
 const store = useStore()
 const myform = useForms()
@@ -71,7 +70,7 @@ const save = () => {
 				return el.etap == myform.currentEtap && el.role == myrole.currentRole
 			})
 			currentCondition!.form = name.value.toString()
-			let currentForm = myform.formList.find((el: Form) => el.name == name.value)
+			let currentForm = myform.formList.find((el: Form) => el.label == name.value)
 			if (!!currentForm) {
 				currentForm.desc = tmpDesc.value
 			}
@@ -125,7 +124,7 @@ const tmpDesc = ref('Это сопроводительный текст-опис
 
 const desc = computed({
 	get() {
-		let form = myform.formList?.find((el: Form) => el.name == name.value)
+		let form = myform.formList?.find((el: Form) => el.label == name.value)
 		if (!!form) return form.desc
 		return tmpDesc.value
 	},
@@ -134,7 +133,7 @@ const desc = computed({
 	},
 })
 const setDesc = (e: string) => {
-	let form = myform.formList?.find((el: Form) => el.name == name.value)
+	let form = myform.formList?.find((el: Form) => el.label == name.value)
 	if (!!form) {
 		form.desc = e
 	}
@@ -183,7 +182,6 @@ const closeNav = () => {
 			q-btn(flat round dense color="primary" icon='mdi-redo') 
 	.inner
 		FormTop(v-if='myform.showBt' v-model="desc" @update:modelValue='setDesc')
-		FormStatus
 		FormLayout(:layout='startLayout')
 
 ChooseFormDialog(v-model="dialog" @load='loadForm')

@@ -46,13 +46,13 @@ const calcClass = (e: string) => {
 				q-item-section(avatar)
 					q-icon(name='mdi-list-box-outline')
 				q-item-section()
-					q-item-label(:class='calcClass(form.name)')
-						span {{ form.name }}
+					q-item-label(:class='calcClass(form.label)')
+						span {{ form.label }}
 						span.q-ml-md(v-if='form.type == 0') (форма создания)
 				q-item-section(side)
 					.row.q-gutter-x-sm
-						q-btn(flat round icon='mdi-pencil-outline' color='primary' dense size='sm' @click.stop='goto(form.name)') 
-						q-btn(flat round icon='mdi-trash-can-outline' color='primary' dense size='sm' @click.stop='remove(form.name)') 
+						q-btn(flat round icon='mdi-pencil-outline' color='primary' dense size='sm' @click.stop='goto(form.label)') 
+						q-btn(flat round icon='mdi-trash-can-outline' color='primary' dense size='sm' @click.stop='remove(form.label)') 
 			q-card
 				q-card-section
 					.grd

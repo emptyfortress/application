@@ -38,11 +38,12 @@ type Role = {
 }
 type Form = {
 	id: string
-	name: string
+	label: string
+	value: string
 	desc: string
 	selected: boolean
 	type: number
-	layout: Layout
+	layout: Layout[]
 	// creation: boolean
 }
 interface Option {
