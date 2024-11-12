@@ -17,43 +17,43 @@ const mydata = useData()
 
 // const beforeLeave = () => {}
 //
-// const leave = async (el: any, done: any) => {
-// 	let div = document.createElement('div')
-// 	let cont = document.querySelector('#cont')
-// 	await cont?.appendChild(div)
-// 	await div.classList.add('cover')
-// 	await gsap.to(div, {
-// 		duration: 0.5,
-// 		left: 0,
-// 		ease: 'power3.out',
-// 	})
-// 	done()
-// 	div.remove()
-// }
-// const beforeEnter = (el: any) => {
-// 	let div = document.createElement('div')
-// 	let cont = document.querySelector('#cont')
-// 	cont?.appendChild(div)
-// 	div.classList.add('cover')
-// }
-//
-// const enter = async (el: any, done: any) => {
-// 	let div = document.querySelector('.cover')
-// 	await gsap.fromTo(
-// 		'.cover',
-// 		{
-// 			left: 0,
-// 		},
-// 		{
-// 			delay: 0.3,
-// 			left: '100%',
-// 			duration: 0.5,
-// 			ease: 'power3.out',
-// 		}
-// 	)
-// 	div?.remove()
-// 	done()
-// }
+const leave = async (el: any, done: any) => {
+	let div = document.createElement('div')
+	let cont = document.querySelector('#cont')
+	await cont?.appendChild(div)
+	await div.classList.add('cover')
+	await gsap.to(div, {
+		duration: 0.5,
+		left: 0,
+		ease: 'power3.out',
+	})
+	done()
+	div.remove()
+}
+const beforeEnter = (el: any) => {
+	let div = document.createElement('div')
+	let cont = document.querySelector('#cont')
+	cont?.appendChild(div)
+	div.classList.add('cover')
+}
+
+const enter = async (el: any, done: any) => {
+	let div = document.querySelector('.cover')
+	await gsap.fromTo(
+		'.cover',
+		{
+			left: 0,
+		},
+		{
+			delay: 0.3,
+			left: '100%',
+			duration: 0.5,
+			ease: 'power3.out',
+		}
+	)
+	div?.remove()
+	done()
+}
 const title = computed(() => {
 	return route.name == 'emp' || route.name == 'start'
 		? 'Конструктор приложений'
@@ -113,9 +113,9 @@ q-layout(view="hHr LpR fFf")
 	q-page-container
 		#cont
 			router-view(v-slot="{ Component, route }")
-				component(:is="Component")
+				transition(@before-enter="beforeEnter" @enter="enter" @leave="leave" :css="false" mode="out-in")
+					component(:is="Component")
 
-// transition(@before-enter="beforeEnter" @enter="enter" @leave="leave" :css="false" mode="out-in")
 </template>
 
 <style scoped lang="scss">
@@ -127,6 +127,7 @@ q-layout(view="hHr LpR fFf")
 	color: var(--text-color);
 	padding-right: 1rem;
 	line-height: 64px;
+
 	@media screen and (max-width: 1024px) {
 		height: 48px;
 		line-height: 48px;
@@ -138,12 +139,14 @@ q-layout(view="hHr LpR fFf")
 	height: 1.3rem;
 	cursor: pointer;
 }
+
 .title {
 	margin-left: 0.5rem;
 	font-size: 0.8rem;
 	text-transform: uppercase;
 	cursor: pointer;
 }
+
 #cont {
 	position: relative;
 	// background: yellow;
@@ -166,6 +169,7 @@ q-layout(view="hHr LpR fFf")
 		flex-wrap: wrap;
 	}
 }
+
 .name::before {
 	content: '';
 	width: 8px;
@@ -174,12 +178,14 @@ q-layout(view="hHr LpR fFf")
 	background: teal;
 	display: inline-block;
 }
+
 .tool {
 	width: 100%;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 }
+
 .center {
 	display: flex;
 	gap: 1rem;

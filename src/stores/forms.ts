@@ -47,6 +47,10 @@ export const useForms = defineStore('forms', () => {
 		} else return []
 	})
 
+
+	const finish = ref(['Подготовка'])
+
+
 	const newform = ref(false)
 	const showBt = computed(() => {
 		return bt.value.length > 0 ? true : false
@@ -113,6 +117,8 @@ export const useForms = defineStore('forms', () => {
 		removeForm,
 
 		status,
+		finish,
 		addStatus
+
 	}
 })

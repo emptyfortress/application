@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useForms } from '@/stores/forms'
 import StatusDialogAdd from '@/components/StatusDialogAdd.vue'
 
@@ -18,6 +18,7 @@ const add = ((n: number) => {
 	start.value = n
 	dialog.value = !dialog.value
 })
+
 </script>
 
 <template lang="pug">
@@ -34,7 +35,7 @@ const add = ((n: number) => {
 						q-popup-edit(v-model="item.name" auto-save v-slot="scope")
 							q-input(v-model="scope.value" dense filled autofocus @keyup.enter="scope.set")
 				td
-					q-select(v-model="finish[index]" dense filled :options="myform.status")
+					q-select(v-model="myform.finish[index]" dense filled :options="myform.status")
 						template(v-slot:after-options)
 							q-separator
 							q-item
