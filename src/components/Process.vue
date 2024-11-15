@@ -75,6 +75,7 @@ onMounted(() => {
 		}
 		else {
 			myform.setCurrentBO(e.element.businessObject)
+			myrole.selectRole(e.element.businessObject)
 			myrole.rolesN.map((item) => item.selected = false)
 		}
 	})
@@ -114,6 +115,7 @@ const select = ((role: Role) => {
 	const element = modeler.get('selection') // Replace with the desired element
 	modeler.get('selection').deselect(element._selectedElements[0])
 	myform.setCurrentBO(null)
+	myrole.selectRole(role)
 })
 </script>
 

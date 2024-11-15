@@ -1,12 +1,17 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
 import { useStore } from '@/stores/store'
+import { useRoles } from '@/stores/roles'
+import { useForms } from '@/stores/forms'
 import CommonLib from '@/components/CommonLib.vue'
 import RoleRule from '@/components/RoleRule.vue'
 import CommonProp from '@/components/CommonProp.vue'
 
 const store = useStore()
 const route = useRoute()
+
+const myrole = useRoles()
+const myform = useForms()
 </script>
 
 <template lang="pug">
@@ -18,7 +23,7 @@ const route = useRoute()
 
 	q-tab-panels(v-model="store.tabs")
 		q-tab-panel(name="property")
-			RoleRule(v-if='route.name == "Роли"')
+			RoleRule(v-if='myform.currentBO?.$type == "bpmn:Lane" || (myform.currentBO == null && myrole.selectedRole !== null)')
 			CommonProp(v-else)
 
 		q-tab-panel(name="lib")

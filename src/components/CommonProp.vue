@@ -32,7 +32,7 @@ const emulate1 = () => {
 template(v-if="route.name == 'Представление'")
 	FieldList
 
-template(v-if="route.name == 'Процесс' && myform.currentBO == null")
+template(v-if="route.name == 'Процесс' && myform.currentBO == null || myform.currentBO.$type == 'bpmn:Collaboration'")
 	q-card-section
 		h6.text-center {{ app.text }}
 		div {{ app.descr }}

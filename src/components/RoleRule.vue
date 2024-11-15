@@ -14,8 +14,9 @@ const dialog = ref(false)
 
 <template lang="pug">
 .q-ma-md(v-if='!!myrole.selectedRole')
-	.hd {{ myrole.selectedRole.name }}
+	.text-h6 Роль: {{ myrole.selectedRole.name}}
 
+	br
 	.ini
 		label Название роли:
 		.val
