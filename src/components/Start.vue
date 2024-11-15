@@ -84,7 +84,7 @@ const version = computed(() => {
 					q-popup-edit(v-model="store.currentNode.data.descr" buttons title="Описание приложения" auto-save v-slot="scope")
 						q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
 
-			div(v-if="store.currentNode.data.type == 1")
+			// div(v-if="store.currentNode.data.type == 1")
 				q-select(v-model="curVersion" dense :options="versions" label='version' emit-value)
 					template(v-slot:prepend)
 						q-icon(name="mdi-source-branch" color="primary")
@@ -98,11 +98,23 @@ const version = computed(() => {
 								q-item-label(v-if='scope.opt.published' caption) опубликовано
 
 		br
-		q-tabs(v-model="tab" dense align="left" active-color="primary" indicator-color="primary")
+		template(v-if="store.currentNode.data.type == 1")
+			.grid1
+				.text-bold Создано:
+				div {{ version.created }}
+				.text-bold Автор:
+				div {{ version.author }}
+
+			q-card-actions.q-mt-xl
+				template(v-if='!version.published')
+					q-btn(v-if='mydata.begin == 0' unelevated icon="mdi-tune-vertical" label="Настройки" color="primary" @click="ass") 
+					q-btn(v-else unelevated  icon="mdi-pencil" label="Настройки" color="primary" @click="goto") 
+
+		// q-tabs(v-model="tab" dense align="left" active-color="primary" indicator-color="primary")
 			q-tab(name="current" :label="`Версия ${curVersion}`")
 			q-tab(name="manage" label="Управление версиями")
 
-		q-tab-panels(v-model="tab")
+		// q-tab-panels(v-model="tab")
 			q-tab-panel(name="current")
 				template(v-if="store.currentNode.data.type == 1")
 					.grid1
@@ -110,6 +122,7 @@ const version = computed(() => {
 						div {{ version.created }}
 						.text-bold Автор:
 						div {{ version.author }}
+
 						template(v-if='version.published')
 							.text-bold Опубликовано:
 							div {{ version.published }}

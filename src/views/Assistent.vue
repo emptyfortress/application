@@ -159,7 +159,7 @@ q-page
 			div Система автоматически сгенерит схему процесса и все необходимые атрибуты. Вы можете продолжить дальнейшую настройку вне ассистента.
 
 			q-stepper-navigation
-				q-btn(@click="finish" color="primary" label="Завершить")
+				q-btn(@click="finish" color="primary" label="Продолжить")
 </template>
 
 <style scoped lang="scss">

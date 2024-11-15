@@ -14,11 +14,13 @@ import { useStorage } from '@vueuse/core'
 import { useForms } from '@/stores/forms'
 import { useData } from '@/stores/alldata'
 import { useFlow } from '@/stores/flow'
+import { useRoles } from '@/stores/roles'
 
 // const store = useStore()
 const myform = useForms()
 const mydata = useData()
 const myflow = useFlow()
+const myrole = useRoles()
 
 // const router = useRouter()
 // const route = useRoute()
@@ -100,13 +102,21 @@ onMounted(() => {
 
 	exportArtifacts()
 })
+
+const select = ((role: Role) => {
+	myrole.rolesN.map(item => item.selected = false)
+	role.selected = true
+})
 </script>
 
 <template lang="pug">
-.canvas(ref="canvas")
-	.undo
-		q-btn(flat round dense color="primary" icon='mdi-undo') 
-		q-btn(flat round dense color="primary" icon='mdi-redo') 
+.rel
+	.canvas(ref="canvas")
+		.undo
+			q-btn(flat round dense color="primary" icon='mdi-undo') 
+			q-btn(flat round dense color="primary" icon='mdi-redo') 
+	.roles
+		.role(v-for="role in myrole.rolesN" :key="role.id" @click.stop='select(role)') {{ role.name }}
 
 </template>
 
@@ -171,5 +181,19 @@ onMounted(() => {
 	position: absolute;
 	top: 0;
 	right: 0;
+}
+
+.roles {
+	position: absolute;
+	bottom: 1rem;
+	left: 6rem;
+	display: flex;
+	gap: 1rem;
+
+	.role {
+		width: 100px;
+		height: 100px;
+		background: #ccc;
+	}
 }
 </style>
