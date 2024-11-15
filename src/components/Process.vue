@@ -62,16 +62,20 @@ onMounted(() => {
 
 	var eventBus: any = modeler.get('eventBus')
 
-	// const events = ['element.click']
-
 	const myClick = eventBus.on('element.click', (e: any) => {
-		// console.log(e.element)
-		if (!!myform.currentBO && e.element.id == myform.currentBO.id) {
+		if (e.element.id == 'Collaboration_00d62mw') {
+			const element = modeler.get('selection') // Replace with the desired element
+			modeler.get('selection').deselect(element._selectedElements[0])
 			myform.setCurrentBO(null)
-		} else {
-			// let tmp = e.element.businessObject
+		}
+		if (!!myform.currentBO && e.element.id == myform.currentBO.id) {
+			const element = modeler.get('selection') // Replace with the desired element
+			modeler.get('selection').deselect(element._selectedElements[0])
+			myform.setCurrentBO(null)
+		}
+		else {
 			myform.setCurrentBO(e.element.businessObject)
-			console.log(e.element.businessObject)
+			myrole.rolesN.map((item) => item.selected = false)
 		}
 	})
 
@@ -103,20 +107,23 @@ onMounted(() => {
 	exportArtifacts()
 })
 
+const roles = ref()
 const select = ((role: Role) => {
 	myrole.rolesN.map(item => item.selected = false)
 	role.selected = true
+	const element = modeler.get('selection') // Replace with the desired element
+	modeler.get('selection').deselect(element._selectedElements[0])
+	myform.setCurrentBO(null)
 })
 </script>
 
 <template lang="pug">
-.rel
-	.canvas(ref="canvas")
-		.undo
-			q-btn(flat round dense color="primary" icon='mdi-undo') 
-			q-btn(flat round dense color="primary" icon='mdi-redo') 
-	.roles
-		.role(v-for="role in myrole.rolesN" :key="role.id" @click.stop='select(role)') {{ role.name }}
+.canvas(ref="canvas")
+	.undo
+		q-btn(flat round dense color="primary" icon='mdi-undo') 
+		q-btn(flat round dense color="primary" icon='mdi-redo') 
+	.roles(ref="roles")
+		.role(v-for="role in myrole.rolesN" :key="role.id" @click='select(role)' :class="{ selected: role.selected }") {{ role.name }}
 
 </template>
 
@@ -189,11 +196,16 @@ const select = ((role: Role) => {
 	left: 6rem;
 	display: flex;
 	gap: 1rem;
+	z-index: 1;
 
 	.role {
 		width: 100px;
 		height: 100px;
 		background: #ccc;
+
+		&.selected {
+			background: red;
+		}
 	}
 }
 </style>

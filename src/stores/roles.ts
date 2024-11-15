@@ -5,8 +5,8 @@ import { useForms } from '@/stores/forms'
 import { useStorage } from '@vueuse/core'
 
 export const useRoles = defineStore('roles', () => {
-	// const rolesN = ref<Role[]>([{ id: 'all', name: 'Все остальные', selected: false }])
-	const rolesN = ref<Role[]>([])
+	const rolesN = ref<Role[]>([{ id: 'all', name: 'Все остальные', selected: false }])
+	// const rolesN = ref<Role[]>([])
 
 	const addRole = (role: Role) => {
 		rolesN.value.push(role)
