@@ -72,11 +72,10 @@ onMounted(() => {
 			const element = modeler.get('selection') // Replace with the desired element
 			modeler.get('selection').deselect(element._selectedElements[0])
 			myform.setCurrentBO(null)
-		}
-		else {
+		} else {
 			myform.setCurrentBO(e.element.businessObject)
 			myrole.selectRole(e.element.businessObject)
-			myrole.rolesN.map((item) => item.selected = false)
+			myrole.rolesN.map((item) => (item.selected = false))
 		}
 	})
 
@@ -109,23 +108,31 @@ onMounted(() => {
 })
 
 const roles = ref()
-const select = ((role: Role) => {
-	myrole.rolesN.map(item => item.selected = false)
+const select = (role: Role) => {
+	myrole.rolesN.map((item) => (item.selected = false))
 	role.selected = true
 	const element = modeler.get('selection') // Replace with the desired element
 	modeler.get('selection').deselect(element._selectedElements[0])
 	myform.setCurrentBO(null)
 	myrole.selectRole(role)
-})
+}
 </script>
 
 <template lang="pug">
 .canvas(ref="canvas")
 	.undo
-		q-btn(flat round dense color="primary" icon='mdi-undo') 
-		q-btn(flat round dense color="primary" icon='mdi-redo') 
-	.roles(ref="roles")
-		.role(v-for="role in myrole.rolesN" :key="role.id" @click='select(role)' :class="{ selected: role.selected }") {{ role.name }}
+		q-btn(flat round dense color="primary" icon='mdi-undo')
+		q-btn(flat round dense color="primary" icon='mdi-redo')
+	// .roles(v-if='myrole.rolesN.length > 0')
+	.roles(v-if='myrole.rolesN.length > 0')
+		.text Роли, не участвующие<br> в процессе:
+		div(v-for="role in myrole.rolesN" :key="role.id")
+			.role(@click='select(role)' )
+				q-btn(v-if='role.selected' round color="primary" text-color="white" icon="mdi-account") 
+				q-btn(v-else round color="white" text-color="primary" icon="mdi-account") 
+			.name {{ role.name }}
+
+		q-btn(round color="accent" icon="mdi-plus") 
 
 </template>
 
@@ -195,19 +202,26 @@ const select = ((role: Role) => {
 .roles {
 	position: absolute;
 	bottom: 1rem;
-	left: 6rem;
+	left: 1rem;
 	display: flex;
-	gap: 1rem;
+	align-items: start;
+	gap: 2rem;
 	z-index: 1;
 
 	.role {
-		width: 100px;
-		height: 100px;
-		background: #ccc;
+		// width: 48px;
+		// height: 48px;
+		// border: 1px solid #ccc;
+		// border-radius: 50%;
+		// background: #fff;
 
 		&.selected {
 			background: red;
 		}
+	}
+
+	.name {
+		font-size: .8rem;
 	}
 }
 </style>

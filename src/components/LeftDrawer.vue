@@ -32,7 +32,7 @@ const pages = reactive([
 	{
 		id: 3,
 		title: 'Роли',
-		icon: 'mdi-drama-masks',
+		icon: 'mdi-account',
 		// icon: 'mdi-account-circle-outline',
 		url: 'roles',
 	},

@@ -3,11 +3,11 @@ import { ref, computed } from 'vue'
 import { useRoles } from '@/stores/roles'
 import CreateDialog from '@/components/CreateDialog.vue'
 import draggable from 'vuedraggable'
-import { useStorage } from '@vueuse/core'
+// import { useStorage } from '@vueuse/core'
 
 const myrole = useRoles()
 
-const allroles = useStorage('roles', localStorage)
+// const allroles = useStorage('roles', localStorage)
 
 const dialog = ref(false)
 
@@ -17,9 +17,9 @@ const select = (e: Role) => {
 	selection.value = e.name
 	myrole.selectRole(e)
 }
-const filtered = computed(() => {
-	return allroles.value.filter((el: Role) => el.name !== 'Все остальные')
-})
+// const filtered = computed(() => {
+// 	return allroles.value.filter((el: Role) => el.name !== 'Все остальные')
+// })
 </script>
 
 <template lang="pug">
@@ -28,14 +28,14 @@ const filtered = computed(() => {
 	q-list(separator)
 		draggable(
 			class="list-group"
-			:list="filtered"
+			:list="myrole.roles"
 			itemKey="id")
 
 			template(#item="{ element, index }")
-				q-item.node(@click='select(element)' clickable :class='{selected: selection == element.name}')
+				q-item.node(@click='select(element)' clickable :class='{ selected: selection == element.name }')
 					q-item-section(avatar)
-						q-icon(name="mdi-guy-fawkes-mask")
-					q-item-section(:class='{"text-bold" : element.type}') {{ element.name }}
+						q-icon(name="mdi-account")
+					q-item-section(:class='{ "text-bold": element.type }') {{ element.name }}
 					q-item-section(v-if='element.descr') {{ element.descr }}
 					q-item-section(side v-if='element.type' )
 						q-icon(v-if='element.type' name="mdi-shuffle-variant")
@@ -55,8 +55,10 @@ CreateDialog(v-model="dialog" mode='role')
 .q-item.selected {
 	background: var(--bg-selected);
 }
+
 .node {
 	background: #fff;
+
 	// cursor: pointer;
 	&:not(:last-child) {
 		border-bottom: 1px solid #ccc;

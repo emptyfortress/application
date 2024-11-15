@@ -32,7 +32,8 @@ const emulate1 = () => {
 template(v-if="route.name == 'Представление'")
 	FieldList
 
-template(v-if="route.name == 'Процесс' && myform.currentBO == null || myform.currentBO.$type == 'bpmn:Collaboration'")
+// template(v-if="route.name == 'Процесс' && myform.currentBO == null || myform.currentBO.$type == 'bpmn:Collaboration'")
+template(v-if="route.name == 'Процесс' && myform.currentBO == null")
 	q-card-section
 		h6.text-center {{ app.text }}
 		div {{ app.descr }}
@@ -46,7 +47,7 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO && myform.cu
 	q-card-section
 		h6.text-center.q-gutter-x-md
 			span(v-if='myform.currentBO.$type == "bpmn:Task"') Задача:
-			span(v-if='myform.currentBO.$type == "bpmn:Lane"') Роль:
+			// span(v-if='myform.currentBO.$type == "bpmn:Lane"') Роль:
 			span(v-if='myform.currentBO.$type == "bpmn:StartEvent"') Событие:
 			span(v-if='myform.currentBO.$type == "bpmn:EndEvent"') Событие:
 			span {{ myform.currentBO.name }}
