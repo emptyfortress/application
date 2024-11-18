@@ -7,6 +7,7 @@ import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css'
 import empty from '@/stores/simple1.bpmn?raw'
 import assist from '@/stores/assist.bpmn?raw'
 import 'diagram-js-minimap/assets/diagram-js-minimap.css'
+import CreateDialog from '@/components/CreateDialog.vue'
 
 // import { useRouter, useRoute } from 'vue-router'
 // import { useStore } from '@/stores/store'
@@ -116,6 +117,8 @@ const select = (role: Role) => {
 	myform.setCurrentBO(null)
 	myrole.selectRole(role)
 }
+
+const dialog = ref(false)
 </script>
 
 <template lang="pug">
@@ -123,16 +126,17 @@ const select = (role: Role) => {
 	.undo
 		q-btn(flat round dense color="primary" icon='mdi-undo')
 		q-btn(flat round dense color="primary" icon='mdi-redo')
-	// .roles(v-if='myrole.rolesN.length > 0')
-	.roles(v-if='myrole.rolesN.length > 0')
-		.text Роли, не участвующие<br> в процессе:
+	.roles()
+		.text Роли-наблюдатели:
 		div(v-for="role in myrole.rolesN" :key="role.id")
 			.role(@click='select(role)' )
 				q-btn(v-if='role.selected' round color="primary" text-color="white" icon="mdi-account") 
 				q-btn(v-else round color="white" text-color="primary" icon="mdi-account") 
 			.name {{ role.name }}
 
-		q-btn(round color="accent" icon="mdi-plus") 
+		q-btn(round icon="mdi-plus" color="white" text-color="primary" @click='dialog = !dialog') 
+
+CreateDialog(v-model="dialog" mode='role')
 
 </template>
 
@@ -207,18 +211,6 @@ const select = (role: Role) => {
 	align-items: start;
 	gap: 2rem;
 	z-index: 1;
-
-	.role {
-		// width: 48px;
-		// height: 48px;
-		// border: 1px solid #ccc;
-		// border-radius: 50%;
-		// background: #fff;
-
-		&.selected {
-			background: red;
-		}
-	}
 
 	.name {
 		font-size: .8rem;
