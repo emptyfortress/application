@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { ref, watch, computed } from 'vue'
 import { useForms } from '@/stores/forms'
+import { useRoles } from '@/stores/roles'
 import { useRouter, useRoute } from 'vue-router'
 import StatusDialogAdd from '@/components/StatusDialogAdd.vue'
 import { uid } from 'quasar'
 
 const myform = useForms()
+const myrole = useRoles()
 
 const form = ref('')
 const route = useRoute()
@@ -20,12 +22,13 @@ const setForm = ((e: string) => {
 
 const run = (() => {
 	myform.newform = true
-	router.push(`/${route.params.id}/editor/process/${form.value}`)
+	myrole.selectRole(null)
+	router.push(`/${route.params.id}/editor/process/${calcForm.value}`)
 })
 
 const calcForm = computed({
 	get() {
-		let curr = myform.currentBO.id
+		let curr = myform.currentBO?.id
 		let item = myform.conditionList.find((item) => item.etap == curr)
 
 		if (item !== undefined) {

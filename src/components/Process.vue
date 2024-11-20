@@ -76,7 +76,9 @@ onMounted(() => {
 			myform.setCurrentBO(null)
 		} else {
 			myform.setCurrentBO(e.element.businessObject)
-			myrole.selectRole(e.element.businessObject)
+			if (e.element.type == 'bpmn:Lane') {
+				myrole.selectRole(e.element.businessObject)
+			}
 			myrole.rolesN.map((item) => (item.selected = false))
 		}
 	})
