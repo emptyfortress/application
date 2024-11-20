@@ -67,11 +67,11 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO && myform.cu
 
 			FormaLine
 
-			div Текущий статус:
-			div state
+			// div Текущий статус:
+			// div state
 
 	br
-	StateTable(v-if='myform.currentBO.$type == "bpmn:Task" || myform.currentBO.$type == "bpmn:EndEvent"')
+	StateTable(v-if='myform.currentBO.$type == "bpmn:Task"')
 
 template(v-if="route.name == 'Этап' && store.currentField == null && store.currentBlock == null")
 	.q-ma-md Здесь общие настройки формы

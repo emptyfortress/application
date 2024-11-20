@@ -84,7 +84,7 @@ const finish = () => {
 		etap: 'Activity_03rm8hy',
 		form: 'Создание',
 		status: 'Подготовка',
-		newstatus: ''
+		newstatus: 'Подготовка'
 	}
 	myform.addCondition(tmp)
 

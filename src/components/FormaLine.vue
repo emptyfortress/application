@@ -16,7 +16,7 @@ const router = useRouter()
 const dialog = ref(false)
 
 const setForm = ((e: string) => {
-	form.value = e
+	update(e)
 })
 
 
@@ -34,11 +34,20 @@ const calcForm = computed({
 		if (item !== undefined) {
 			return item.form
 		}
-		return 'Редактирование'
+		return ''
 	},
 	set(val) {
 		update(val)
 	}
+})
+
+const calcStatus = computed(() => {
+	let curr = myform.currentBO?.id
+	let item = myform.conditionList.find((item) => item.etap == curr)
+	if (item !== undefined) {
+		return item.status
+	}
+	return ''
 })
 
 const update = ((val: any) => {
@@ -49,7 +58,10 @@ const update = ((val: any) => {
 		let tmp = {
 			id: uid(),
 			etap: curr,
-			form: val
+			form: val,
+			status: 'Подготовка',
+			newstatus: ''
+
 		}
 		myform.addCondition(tmp)
 	}
@@ -72,6 +84,9 @@ q-select(v-model="calcForm" dense filled :options="myform.formList" @update:mode
 		q-item
 			q-item-section
 				q-btn(flat color="primary" label="Создать форму" icon="mdi-plus-circle" @click="dialog = true" size='sm' v-close-popup) 
+
+div Текущий статус:
+div {{ calcStatus }}
 
 StatusDialogAdd(v-model="dialog" type='form' @set="setForm")
 </template>
