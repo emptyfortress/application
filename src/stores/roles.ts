@@ -58,8 +58,11 @@ export const useRoles = defineStore('roles', () => {
 
 	const selectedRole = ref<Role | null>(null)
 
-	const selectRole = (role: Role) => {
+	const selectRole = (role: Role | null) => {
 		selectedRole.value = role
+		if (role == null) {
+			rolesN.value.map((item) => item.selected = false)
+		}
 	}
 
 	return {

@@ -4,11 +4,13 @@ import { useRoute, useRouter } from 'vue-router'
 import { useStore } from '@/stores/store'
 import { gsap } from 'gsap'
 import { useForms } from '@/stores/forms'
+import { useRoles } from '@/stores/roles'
 
 const route = useRoute()
 const router = useRouter()
 const store = useStore()
 const myform = useForms()
+const myrole = useRoles()
 
 const modelValue = defineModel<boolean>()
 
@@ -86,6 +88,7 @@ const urlTo = ((url: string) => {
 })
 const navigate = () => {
 	myform.setCurrentBO(null)
+	myrole.selectRole(null)
 }
 const calcClass = (e: string) => {
 	let temp = '/' + route.params.id + '/editor/' + e
