@@ -37,10 +37,10 @@ watchEffect(() => {
 
 const myrole = useRoles()
 
-const calcCreation = computed(() => {
-	if (!myform.currentBO && myform.currentBO?.id == 'Activity_03rm8hy') return true
-	else return false
-})
+// const calcCreation = computed(() => {
+// 	if (!myform.currentBO && myform.currentBO?.id == 'Activity_03rm8hy') return true
+// 	else return false
+// })
 
 const save = () => {
 	if (!!myform.currentBO) {
@@ -76,7 +76,8 @@ const save = () => {
 			myform.addCondition(tmp)
 		} else {
 			let currentCondition = myform.conditionList.find((el: Condition) => {
-				return el.etap == myform.currentEtap && el.role == myrole.currentRole
+				return el.etap == myform.currentEtap
+				// return el.etap == myform.currentEtap && el.role == myrole.currentRole
 			})
 			currentCondition!.form = name.value.toString()
 			let currentForm = myform.formList.find((el: Form) => el.label == name.value)
