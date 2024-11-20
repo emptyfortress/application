@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, watch, computed } from 'vue'
 import { useForms } from '@/stores/forms'
 import { useRouter, useRoute } from 'vue-router'
 import StatusDialogAdd from '@/components/StatusDialogAdd.vue'
+import { uid } from 'quasar'
 
 const myform = useForms()
 
@@ -16,22 +17,50 @@ const setForm = ((e: string) => {
 	form.value = e
 })
 
-const update = (() => {
-	myform.currentBO.form = form.value 
-	console.log('update')
-})
 
 const run = (() => {
 	myform.newform = true
 	router.push(`/${route.params.id}/editor/process/${form.value}`)
 })
 
+const calcForm = computed({
+	get() {
+		let curr = myform.currentBO.id
+		let item = myform.conditionList.find((item) => item.etap == curr)
+
+		if (item !== undefined) {
+			return item.form
+		}
+		return 'Редактирование'
+	},
+	set(val) {
+		update(val)
+	}
+})
+
+const update = ((val: any) => {
+	let curr = myform.currentBO.id
+	let item = myform.conditionList.find((item) => item.etap == curr)
+
+	if (item == undefined) {
+		let tmp = {
+			id: uid(),
+			etap: curr,
+			form: val
+		}
+		myform.addCondition(tmp)
+	}
+
+	if (item !== undefined) {
+		item.form = val
+	}
+})
+
 </script>
 
 <template lang="pug">
 div Форма:
-// q-select(v-model="form" dense filled :options="myform.formList")
-q-select(v-model="form" dense filled :options="myform.formList" @update:model-value="update")
+q-select(v-model="calcForm" dense filled :options="myform.formList" @update:model-value="update")
 	template(v-slot:after)
 		q-btn(flat round icon="mdi-arrow-right-circle-outline" color="primary" @click="run" dense) 
 			q-tooltip Редактировать

@@ -79,6 +79,14 @@ const finish = () => {
 			fieldList: lstore.fields
 		}
 	})
+	let tmp = {
+		id: uid(),
+		etap: 'Activity_03rm8hy',
+		form: 'Создание'
+	}
+	myform.addCondition(tmp)
+
+
 	let url = `/${app.value.text}/editor/process`
 	router.push(url)
 }
