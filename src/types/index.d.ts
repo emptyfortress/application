@@ -26,6 +26,8 @@ type Condition = {
 	id: string
 	etap: string
 	form: string
+	status: string
+	newstatus: string
 	// role: string | string[]
 }
 type Role = {

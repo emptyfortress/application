@@ -92,11 +92,9 @@ export const useForms = defineStore('forms', () => {
 		if (ind !== undefined) formList.value.splice(ind, 1)
 	}
 
-	const status = ref([
-		{ id: '0', label: 'Подготовка', value: 'Подготовка' },
-	])
+	const status = ref(['Подготовка'])
 
-	const addStatus = ((e: any) => {
+	const addStatus = ((e: string) => {
 		status.value.push(e)
 	})
 

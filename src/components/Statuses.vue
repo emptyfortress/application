@@ -8,8 +8,8 @@ const myform = useForms()
 
 const selection = ref('')
 
-const select = (e: Role) => {
-	selection.value = e.name
+const select = (e: string) => {
+	selection.value = e
 	// myrole.selectRole(e)
 }
 
@@ -27,10 +27,10 @@ const dialog = ref(false)
 			itemKey="id")
 
 			template(#item="{ element, index }")
-				q-item.node(@click='select(element)' clickable :class='{ selected: selection == element.name }')
+				q-item.node(@click='select(element)' clickable :class='{ selected: selection == element }')
 					q-item-section(avatar)
 						q-icon(name="mdi-circle-medium")
-					q-item-section() {{ element.label }}
+					q-item-section() {{ element }}
 					q-item-section(side)
 						q-btn(flat round dense icon="mdi-trash-can-outline" @click="myform.removeStatus(index)" size="sm") 
 
@@ -40,4 +40,17 @@ const dialog = ref(false)
 CreateDialog(v-model="dialog" mode='status')
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.node {
+	background: #fff;
+
+	// cursor: pointer;
+	&:not(:last-child) {
+		border-bottom: 1px solid #ccc;
+	}
+
+	&.selected {
+		background: var(--bg-selected);
+	}
+}
+</style>

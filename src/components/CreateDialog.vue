@@ -67,14 +67,8 @@ const create = (data: any) => {
 		close()
 	}
 	if (props.mode == 'status') {
-		let tmp = {
-			id: uid(),
-			label: data.name,
-			value: data.name,
-		}
-		myform.addStatus(tmp)
+		myform.addStatus(data.name)
 		close()
-
 	}
 }
 // const card = ref(true)

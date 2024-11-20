@@ -82,7 +82,9 @@ const finish = () => {
 	let tmp = {
 		id: uid(),
 		etap: 'Activity_03rm8hy',
-		form: 'Создание'
+		form: 'Создание',
+		status: 'Подготовка',
+		newstatus: ''
 	}
 	myform.addCondition(tmp)
 

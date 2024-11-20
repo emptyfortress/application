@@ -15,12 +15,12 @@ const status = ref('')
 const input = ref()
 
 const add = () => {
-	let tmp = {
-		id: uid(),
-		label: status.value,
-		value: status.value
-	}
-	myform.addStatus(tmp)
+	// let tmp = {
+	// 	id: uid(),
+	// 	label: status.value,
+	// 	value: status.value
+	// }
+	myform.addStatus(status.value)
 	status.value = ''
 	input.value.focus()
 }
@@ -46,9 +46,9 @@ q-markup-table(flat bordered style="width: 500px;")
 			th.text-rigth
 
 	tbody
-		tr(v-for="(item, index) in myform.status" :key="item.id")
+		tr(v-for="(item, index) in myform.status" :key="item")
 			td
-				span {{ item.label }}
+				span {{ item }}
 			td.text-right
 				q-btn(v-if='index !== 0' flat round icon="mdi-close" color="primary" @click='destroy(index)' size='sm') 
 
