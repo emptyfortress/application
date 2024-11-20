@@ -23,7 +23,7 @@ const myform = useForms()
 
 	q-tab-panels(v-model="store.tabs")
 		q-tab-panel(name="property")
-			RoleRule(v-if='myform.currentBO?.$type == "bpmn:Lane" || (myform.currentBO == null && myrole.selectedRole !== null)')
+			RoleRule(v-if='myform.currentBO?.$type == "bpmn:Lane" || (route.name == "Этап" && myform.currentBO == null && myrole.selectedRole !== null)')
 			CommonProp(v-else)
 
 		q-tab-panel(name="lib")
