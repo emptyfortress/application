@@ -36,9 +36,6 @@ const calcClass = (e: string) => {
 	} else return 'text-bold'
 }
 
-const action = ((e: Form) => {
-	console.log(e)
-})
 </script>
 
 <template lang="pug">

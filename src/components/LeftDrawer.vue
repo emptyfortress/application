@@ -30,6 +30,12 @@ const pages = reactive([
 		url: 'forms',
 	},
 	{
+		id: 5,
+		title: 'Статусы',
+		icon: 'mdi-state-machine',
+		url: 'statuses',
+	},
+	{
 		id: 3,
 		title: 'Роли',
 		icon: 'mdi-account',

@@ -1,8 +1,10 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
+// import { uid } from 'quasar'
 
 export const useForms = defineStore('forms', () => {
 	const index = ref(0)
+
 	const currentBO = ref<any>()
 	const setCurrentBO = (e: any) => {
 		currentBO.value = e
@@ -91,10 +93,15 @@ export const useForms = defineStore('forms', () => {
 	}
 
 	const status = ref([
-		'Подготовка',
+		{ id: '0', label: 'Подготовка', value: 'Подготовка' },
 	])
-	const addStatus = ((e: string) => {
+
+	const addStatus = ((e: any) => {
 		status.value.push(e)
+	})
+
+	const removeStatus = ((n: number) => {
+		status.value.splice(n, 1)
 	})
 
 	return {
@@ -118,7 +125,10 @@ export const useForms = defineStore('forms', () => {
 
 		status,
 		finish,
-		addStatus
+		addStatus,
+		removeStatus,
 
+		// tempBO,
+		// setTempBO,
 	}
 })

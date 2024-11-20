@@ -19,6 +19,10 @@ export const useData = defineStore('data', () => {
 	const increment = (() => {
 		begin.value++
 	})
+	const firstRun = ref(true)
+	const setFirstRun = ((e: boolean) => {
+		firstRun.value = e
+	})
 
 	return {
 		myxml,
@@ -29,5 +33,7 @@ export const useData = defineStore('data', () => {
 		setButton,
 		begin,
 		increment,
+		firstRun,
+		setFirstRun,
 	}
 })

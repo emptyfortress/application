@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useRoles } from '@/stores/roles'
 import CreateDialog from '@/components/CreateDialog.vue'
 import draggable from 'vuedraggable'
@@ -17,9 +17,15 @@ const select = (e: Role) => {
 	selection.value = e.name
 	myrole.selectRole(e)
 }
-// const filtered = computed(() => {
-// 	return allroles.value.filter((el: Role) => el.name !== 'Все остальные')
-// })
+
+// const roles = ref(myrole.roles)
+//
+// watch(
+// 	() => myrole.roles,
+// 	() => {
+// 		roles.value = myrole.roles
+// 	}
+// )
 </script>
 
 <template lang="pug">

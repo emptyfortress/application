@@ -4,14 +4,14 @@ import { useForms } from '@/stores/forms'
 import StatusDialogAdd from '@/components/StatusDialogAdd.vue'
 
 const myform = useForms()
-const finish = ref(['Подготовка'])
+// const finish = ref(['Подготовка'])
 
 const dialog = ref(false)
 
 const start = ref<number>()
 
 const setState = ((e: string) => {
-	finish.value[start.value!] = e
+	myform.finish[start.value!] = e
 })
 
 const add = ((n: number) => {

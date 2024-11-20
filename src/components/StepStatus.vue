@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { useForms } from '@/stores/forms'
 import { useStorage } from '@vueuse/core'
+import { uid } from 'quasar'
 
 const app = useStorage('app', localStorage)
 const myform = useForms()
@@ -12,8 +13,14 @@ const destroy = (e: number) => {
 const status = ref('')
 
 const input = ref()
+
 const add = () => {
-	myform.addStatus(status.value)
+	let tmp = {
+		id: uid(),
+		label: status.value,
+		value: status.value
+	}
+	myform.addStatus(tmp)
 	status.value = ''
 	input.value.focus()
 }
@@ -39,9 +46,9 @@ q-markup-table(flat bordered style="width: 500px;")
 			th.text-rigth
 
 	tbody
-		tr(v-for="(item, index) in myform.status" :key="item")
+		tr(v-for="(item, index) in myform.status" :key="item.id")
 			td
-				span {{ item }}
+				span {{ item.label }}
 			td.text-right
 				q-btn(v-if='index !== 0' flat round icon="mdi-close" color="primary" @click='destroy(index)' size='sm') 
 

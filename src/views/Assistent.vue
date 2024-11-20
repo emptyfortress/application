@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, } from 'vue'
 import StepRole1 from '@/components/StepRole1.vue'
 import StepAttribute from '@/components/StepAttribute.vue'
 import StepStatus from '@/components/StepStatus.vue'
@@ -29,7 +29,7 @@ const finish = () => {
 		selected: false,
 	})
 	myform.createForm({
-		id: uid(),
+		id: 'create',
 		label: 'Создание',
 		value: 'Создание',
 		desc: 'Это описание формы',
@@ -46,7 +46,7 @@ const finish = () => {
 		}
 	})
 	myform.createForm({
-		id: uid(),
+		id: 'edit',
 		label: 'Редактирование',
 		value: 'Редактирование',
 		desc: 'Это описание формы',
@@ -63,7 +63,7 @@ const finish = () => {
 		}
 	})
 	myform.createForm({
-		id: uid(),
+		id: 'view',
 		label: 'Просмотр',
 		value: 'Просмотр',
 		desc: 'Это описание формы',
@@ -89,6 +89,7 @@ const button = ref()
 const setBt = () => {
 	button.value.select()
 }
+
 </script>
 
 <template lang="pug">

@@ -59,6 +59,11 @@ const router = createRouter({
 					component: () => import('@/components/Forms.vue'),
 				},
 				{
+					path: 'statuses',
+					name: 'Статусы',
+					component: () => import('@/components/Statuses.vue'),
+				},
+				{
 					path: 'roles',
 					name: 'Роли',
 					component: () => import('@/components/Roles.vue'),

@@ -17,7 +17,11 @@ const myform = useForms()
 const emit = defineEmits(['set'])
 
 const add = (data: any) => {
-	myform.addStatus(data.status)
+	myform.addStatus({
+		id: uid(),
+		label: data.status,
+		value: data.status
+	})
 	emit('set', data.status)
 	modelValue.value = false
 }

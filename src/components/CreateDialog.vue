@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { uid } from 'quasar'
 import { useRoles } from '@/stores/roles'
 import { useForms } from '@/stores/forms'
-import { useStorage } from '@vueuse/core'
+// import { useStorage } from '@vueuse/core'
 
 const props = defineProps({
 	mode: {
@@ -11,12 +11,12 @@ const props = defineProps({
 		default: 'app',
 	},
 })
-const icon = ref(3)
+// const icon = ref(3)
 const modelValue = defineModel<boolean>()
 const myform = useForms()
 
-const name = ref('Мое приложение')
-const descr = ref('')
+// const name = ref('Мое приложение')
+// const descr = ref('')
 
 const close = () => {
 	modelValue.value = false
@@ -24,7 +24,7 @@ const close = () => {
 
 const emit = defineEmits(['create'])
 
-const allroles = useStorage('roles', {})
+// const allroles = useStorage('roles', {})
 
 const myrole = useRoles()
 
@@ -66,8 +66,19 @@ const create = (data: any) => {
 		myform.createForm(tmp)
 		close()
 	}
+	if (props.mode == 'status') {
+		let tmp = {
+			id: uid(),
+			label: data.name,
+			value: data.name,
+		}
+		myform.addStatus(tmp)
+		close()
+
+	}
 }
-const card = ref(true)
+// const card = ref(true)
+
 </script>
 
 <template lang="pug">
@@ -79,6 +90,7 @@ q-dialog(v-model="modelValue")
 			.text-h6(v-if="props.mode == 'role'") Создать роль 
 			.text-h6(v-if="props.mode == 'list'") Создать список
 			.text-h6(v-if="props.mode == 'form'") Создать форму
+			.text-h6(v-if="props.mode == 'status'") Новый статус
 
 		q-card-section
 			FormKit(type="form" id="newapp" submit-label="Создать" @submit="create")
@@ -94,6 +106,8 @@ q-dialog(v-model="modelValue")
 				FormKit(v-if='props.mode == "form"' type="text" autofocus name="name" label="Название" validation="required|length:3")
 				FormKit(v-if='props.mode == "form"' type="textarea" name="descr" label="Описание")
 				FormKit(v-if='props.mode == "form"' type="checkbox" name="creation" label="Форма создания")
+
+				FormKit(v-if='props.mode == "status"'  type="text" autofocus name="name" label="Название"  help="Назовите статус" validation="required|length:3")
 </template>
 
 <style scoped lang="scss"></style>

@@ -23,6 +23,17 @@ export const useRoles = defineStore('roles', () => {
 	const roles = computed(() => {
 		return myflow.lanes.concat(rolesN.value)
 	})
+
+	// const roles = computed({
+	// 	get: () => {
+	// 		return myflow.lanes.concat(rolesN.value)
+	// 	},
+	// 	set: (val) => {
+	// 		rolesN.value = val.filter((item) => item.type !== 'bpmn:Lane')
+	// 		myflow.lanes = val.filter((item) => item.type == 'bpmn:Lane')
+	// 	}
+	// })
+
 	const tempRoles = ref([{ id: 'ini', name: 'Инициатор', trash: false }])
 	const addTemp = (e: any) => {
 		tempRoles.value.push(e)
@@ -42,10 +53,11 @@ export const useRoles = defineStore('roles', () => {
 
 	const myform = useForms()
 	const currentRole = computed(() => {
-		return myform.currentBO.lanes[0].name
+		return myform.currentBO?.lanes[0].name
 	})
 
 	const selectedRole = ref<Role | null>(null)
+
 	const selectRole = (role: Role) => {
 		selectedRole.value = role
 	}

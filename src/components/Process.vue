@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import BpmnModeler from 'bpmn-js/lib/Modeler'
 import 'bpmn-js/dist/assets/diagram-js.css'
 import 'bpmn-js/dist/assets/bpmn-js.css'
@@ -64,6 +64,7 @@ onMounted(() => {
 	var eventBus: any = modeler.get('eventBus')
 
 	const myClick = eventBus.on('element.click', (e: any) => {
+		console.log(e.element)
 		if (e.element.id == 'Collaboration_00d62mw') {
 			const element = modeler.get('selection') // Replace with the desired element
 			modeler.get('selection').deselect(element._selectedElements[0])
@@ -106,9 +107,11 @@ onMounted(() => {
 	modeler.on('commandStack.changed', exportArtifacts)
 
 	exportArtifacts()
+
 })
 
-const roles = ref()
+
+// const roles = ref()
 const select = (role: Role) => {
 	myrole.rolesN.map((item) => (item.selected = false))
 	role.selected = true
@@ -119,6 +122,26 @@ const select = (role: Role) => {
 }
 
 const dialog = ref(false)
+
+const test = (() => {
+	const selection = modeler.get('selection');
+	const modeling = modeler.get('modeling');
+
+	const selectedElements = selection.get();
+
+	if (selectedElements.length > 0) {
+		const selectedElement = selectedElements[0];
+		const businessObject = selectedElement.businessObject
+
+		// Add a custom property
+		businessObject.customProperty = 'Custom Value' // Add your custom property here
+
+		// Update properties in the model to reflect changes
+		modeling.updateProperties(selectedElement, { customProperty: businessObject.customProperty })
+	}
+
+})
+
 </script>
 
 <template lang="pug">
@@ -134,7 +157,9 @@ const dialog = ref(false)
 				q-btn(v-else round color="white" text-color="primary" icon="mdi-account") 
 			.name {{ role.name }}
 
-		q-btn(round icon="mdi-plus" color="white" text-color="primary" @click='dialog = !dialog') 
+		// q-btn(round icon="mdi-plus" color="white" text-color="primary" @click='dialog = !dialog') 
+
+		q-btn(round icon="mdi-plus" color="white" text-color="primary" @click='test') 
 
 CreateDialog(v-model="dialog" mode='role')
 

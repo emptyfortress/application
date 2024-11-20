@@ -57,7 +57,7 @@ const versions = ref<Version[]>([
 	},
 ])
 
-const tab = ref('current')
+// const tab = ref('current')
 const curVersion = ref('2.0')
 
 const version = computed(() => {
