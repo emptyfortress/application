@@ -43,51 +43,19 @@ const myrole = useRoles()
 // })
 
 const save = () => {
-	if (!!myform.currentBO) {
-		if (myform.newform == true) {
-			let tmpform = {
-				id: uid(),
-				label: name.value,
-				value: name.value,
-				desc: '',
-				selected: false,
-				type: 1,
-				layout:
-				{
-					x: 1,
-					y: 0,
-					w: 10,
-					h: 5,
-					i: 0,
-					selected: false,
-					fieldList: []
-				},
-			}
-
-			myform.createForm(tmpform)
-
-			let tmp = {
-				id: uid(),
-				etap: myform.currentBO.name,
-				role: myrole.currentRole,
-				form: name.value.toString(),
-			}
-			myform.newform = false
-			myform.addCondition(tmp)
-		} else {
-			let currentCondition = myform.conditionList.find((el: Condition) => {
-				return el.etap == myform.currentEtap
-				// return el.etap == myform.currentEtap && el.role == myrole.currentRole
-			})
-			currentCondition!.form = name.value.toString()
-			let currentForm = myform.formList.find((el: Form) => el.label == name.value)
-			if (!!currentForm) {
-				currentForm.desc = tmpDesc.value
-			}
-			myform.notMain = false
-			myform.newform = false
-		}
-	}
+	// if (!!myform.currentBO) {
+	// 	let currentCondition = myform.conditionList.find((el: Condition) => {
+	// 		return el.etap == myform.currentEtap
+	// 		// return el.etap == myform.currentEtap && el.role == myrole.currentRole
+	// 	})
+	// 	// currentCondition?.form = name.value.toString()
+	// 	let currentForm = myform.formList.find((el: Form) => el.label == name.value)
+	// 	if (!!currentForm) {
+	// 		currentForm.desc = tmpDesc.value
+	// 	}
+	// 	myform.notMain = false
+	// 	myform.newform = false
+	// }
 	lstore.saveLayout(name.value, startLayout.value)
 	myform.setCurrentBO(null)
 	router.back()
