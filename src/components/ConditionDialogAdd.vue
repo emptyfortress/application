@@ -16,7 +16,7 @@ const myflow = useFlow()
 const formsChip = ref(myform.formList)
 
 const rolesChip1 = computed(() => {
-	const active = etapConditionList.value.map((item) => item.role)
+	const active = etapConditionList.value.map((item) => item.etap)
 	const flatActive = active.flat()
 
 	let filtered = myrole.roles.filter((role) => !flatActive.includes(role.name))
@@ -54,8 +54,10 @@ const add = () => {
 	let tmp = {
 		id: uid(),
 		etap: myform.currentBO.name,
-		role: calcRoles.value,
+		// role: calcRoles.value,
 		form: selectionForms.value[0].label,
+		status: '',
+		newstatus: '',
 	}
 	myform.addCondition(tmp)
 	modelValue.value = false

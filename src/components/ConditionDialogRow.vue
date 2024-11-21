@@ -53,8 +53,9 @@ const save = () => {
 		myform.conditionList.push({
 			id: uid(),
 			etap: myform.currentEtap,
-			role: myrole.currentRole,
 			form: selection1.value[0].label,
+			status: '',
+			newstatus: '',
 		})
 	} else if (!!props.row) {
 		props.row.form = selection1.value[0].label
