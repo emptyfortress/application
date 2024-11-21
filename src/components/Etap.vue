@@ -157,9 +157,11 @@ const list = computed(() => {
 		Toolbar
 
 	.zag
-		h5 Форма "{{ name }}"
-			span.etap ({{ list.length }})
-			span.que(@click.stop) ?
+		div
+			h5 Форма "{{ name }}"
+				q-popup-edit(v-model="name" title="Название формы" auto-save v-slot="scope")
+					q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
+			.etap (используется в {{ list.length }} этапах)
 				q-menu
 					q-card.list
 						.hd Форма используется в следущих этапах:
@@ -167,8 +169,6 @@ const list = computed(() => {
 							q-item(dense v-for="(item, index) in list" :key="item")
 								q-item-section(side) {{ index + 1 }}
 								q-item-section {{ item }}
-			q-popup-edit(v-model="name" title="Название формы" auto-save v-slot="scope")
-				q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
 
 		div
 			q-btn(flat color="primary" label="Отмена" @click="back") 
@@ -244,19 +244,27 @@ Teleport(to="body" v-if='nav')
 		cursor: pointer;
 	}
 }
+
 .etap {
-	margin-left: 1rem;
+	margin-left: .5rem;
+	font-size: .9rem;
+	color: $primary;
+	cursor: pointer;
 }
+
 .que {
 	font-size: 1.2rem;
 	color: $accent;
 	cursor: pointer;
 	display: inline-block;
 	padding: 0 7px;
-	transform: translate(5px, -9px);
+	// transform: translate(5px, -9px);
 }
+
 .q-card.list {
-	padding: 1rem;;
+	padding: 1rem;
+	;
+
 	.hd {
 		font-weight: 600;
 	}
