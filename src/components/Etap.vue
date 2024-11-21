@@ -133,6 +133,15 @@ const nav = ref(true)
 const closeNav = () => {
 	nav.value = false
 }
+
+const list = computed(() => {
+	return myform.conditionList.reduce((result: any[], current: any) => {
+		if (current.form == name.value) {
+			result.push(current.etap)
+		}
+		return result
+	}, [])
+})
 </script>
 
 <template lang="pug">
@@ -149,8 +158,18 @@ const closeNav = () => {
 
 	.zag
 		h5 Форма "{{ name }}"
+			span.etap ({{ list.length }})
+			span.que(@click.stop) ?
+				q-menu
+					q-card.list
+						.hd Форма используется в следущих этапах:
+						q-list
+							q-item(dense v-for="(item, index) in list" :key="item")
+								q-item-section(side) {{ index + 1 }}
+								q-item-section {{ item }}
 			q-popup-edit(v-model="name" title="Название формы" auto-save v-slot="scope")
 				q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
+
 		div
 			q-btn(flat color="primary" label="Отмена" @click="back") 
 			q-btn(v-if='myform.formList.length > 0' flat color="primary" icon="mdi-content-duplicate" label="Скопировать из формы" @click="dialog = !dialog") 
@@ -223,6 +242,23 @@ Teleport(to="body" v-if='nav')
 
 	.q-icon {
 		cursor: pointer;
+	}
+}
+.etap {
+	margin-left: 1rem;
+}
+.que {
+	font-size: 1.2rem;
+	color: $accent;
+	cursor: pointer;
+	display: inline-block;
+	padding: 0 7px;
+	transform: translate(5px, -9px);
+}
+.q-card.list {
+	padding: 1rem;;
+	.hd {
+		font-weight: 600;
 	}
 }
 </style>

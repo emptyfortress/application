@@ -81,7 +81,7 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO && myform.cu
 template(v-if="route.name == 'Этап'")
 	UsedForm
 
-.prev(v-if='route.name == "Процесс" || route.name == "Этап"')
+.prev(v-if='route.name == "Процесс"')
 	q-btn.btn(v-if='myform.currentBO && myform.currentBO.$type == "bpmn:Task"' outline color="primary" icon='mdi-play' label='Проверка работы приложения с текущего этапа' @click='emulate1' size='sm') 
 
 </template>
