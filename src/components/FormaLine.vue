@@ -28,7 +28,7 @@ const run = (() => {
 
 const calcForm = computed({
 	get() {
-		let curr = myform.currentBO?.id
+		let curr = myform.currentBO?.name
 		let item = myform.conditionList.find((item) => item.etap == curr)
 
 		if (item !== undefined) {
@@ -42,7 +42,7 @@ const calcForm = computed({
 })
 
 const calcStatus = computed(() => {
-	let curr = myform.currentBO?.id
+	let curr = myform.currentBO?.name
 	let item = myform.conditionList.find((item) => item.etap == curr)
 	if (item !== undefined) {
 		return item.status
@@ -51,7 +51,7 @@ const calcStatus = computed(() => {
 })
 
 const update = ((val: any) => {
-	let curr = myform.currentBO.id
+	let curr = myform.currentBO.name
 	let item = myform.conditionList.find((item) => item.etap == curr)
 
 	if (item == undefined) {

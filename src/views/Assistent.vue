@@ -81,7 +81,7 @@ const finish = () => {
 	})
 	let tmp = {
 		id: uid(),
-		etap: 'Activity_03rm8hy',
+		etap: 'Создание заявления',
 		form: 'Создание',
 		status: 'Подготовка',
 		newstatus: 'Подготовка'

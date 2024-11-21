@@ -10,6 +10,7 @@ import StateTable from '@/components/StateTable.vue'
 // import { useData } from '@/stores/alldata'
 import StatusDialogAdd from '@/components/StatusDialogAdd.vue'
 import FormaLine from '@/components/FormaLine.vue'
+import UsedForm from '@/components/UsedForm.vue'
 
 const store = useStore()
 const myform = useForms()
@@ -73,11 +74,12 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO && myform.cu
 	br
 	StateTable(v-if='myform.currentBO.$type == "bpmn:Task"')
 
-template(v-if="route.name == 'Этап' && store.currentField == null && store.currentBlock == null")
-	.q-ma-md Здесь общие настройки формы
+// template(v-if="route.name == 'Этап' && store.currentField == null && store.currentBlock == null")
+// 	.q-ma-md Здесь общие настройки формы
 
-template(v-if="route.name == 'Этап' && store.currentField == null && store.currentBlock")
-	.q-pa-md.text-bold Здесь свойства данного блока
+// template(v-if="route.name == 'Этап' && store.currentField == null && store.currentBlock")
+template(v-if="route.name == 'Этап'")
+	UsedForm
 
 .prev(v-if='route.name == "Процесс" || route.name == "Этап"')
 	q-btn.btn(v-if='myform.currentBO && myform.currentBO.$type == "bpmn:Task"' outline color="primary" icon='mdi-play' label='Проверка работы приложения с текущего этапа' @click='emulate1' size='sm') 
