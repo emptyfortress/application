@@ -75,7 +75,7 @@ const update = ((val: any) => {
 
 <template lang="pug">
 div Форма:
-q-select(v-model="calcForm" dense filled :options="myform.formList" @update:model-value="update")
+q-select(v-model="calcForm" dense filled :options="myform.formList" @update:model-value="update" emit-value)
 	template(v-slot:after)
 		q-btn(flat round icon="mdi-arrow-right-circle-outline" color="primary" @click="run" dense) 
 			q-tooltip Редактировать
