@@ -125,24 +125,6 @@ const select = (role: Role) => {
 }
 
 const dialog = ref(false)
-
-const test = () => {
-	const selection = modeler.get('selection')
-	const modeling = modeler.get('modeling')
-
-	const selectedElements = selection.get()
-
-	if (selectedElements.length > 0) {
-		const selectedElement = selectedElements[0]
-		const businessObject = selectedElement.businessObject
-
-		// Add a custom property
-		businessObject.customProperty = 'Custom Value' // Add your custom property here
-
-		// Update properties in the model to reflect changes
-		modeling.updateProperties(selectedElement, { customProperty: businessObject.customProperty })
-	}
-}
 </script>
 
 <template lang="pug">
@@ -158,9 +140,7 @@ const test = () => {
 				q-btn(v-else round color="white" text-color="primary" icon="mdi-account") 
 			.name {{ role.name }}
 
-		// q-btn(round icon="mdi-plus" color="white" text-color="primary" @click='dialog = !dialog') 
-
-		q-btn(round icon="mdi-plus" color="white" text-color="primary" @click='test') 
+		q-btn(round icon="mdi-plus" color="white" text-color="primary" @click='dialog = !dialog') 
 
 CreateDialog(v-model="dialog" mode='role')
 
