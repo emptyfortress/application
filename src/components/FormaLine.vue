@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, computed } from 'vue'
+import { ref, computed } from 'vue'
 import { useForms } from '@/stores/forms'
 import { useRoles } from '@/stores/roles'
 import { useRouter, useRoute } from 'vue-router'
@@ -9,7 +9,7 @@ import { uid } from 'quasar'
 const myform = useForms()
 const myrole = useRoles()
 
-const form = ref('')
+// const form = ref('')
 const route = useRoute()
 const router = useRouter()
 

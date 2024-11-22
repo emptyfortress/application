@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, } from 'vue'
+import { ref } from 'vue'
 import StepRole1 from '@/components/StepRole1.vue'
 import StepAttribute from '@/components/StepAttribute.vue'
 import StepStatus from '@/components/StepStatus.vue'
@@ -27,6 +27,23 @@ const finish = () => {
 		id: 'one',
 		name: 'Кадровик',
 		selected: false,
+		form: {
+			id: 'view',
+			label: 'Просмотр',
+			value: 'Просмотр',
+			desc: 'Это описание формы',
+			selected: false,
+			type: 2,
+			layout: {
+				x: 0,
+				y: 0,
+				w: 10,
+				h: 10,
+				i: lstore.index,
+				selected: false,
+				fieldList: lstore.fields,
+			},
+		},
 	})
 	myform.createForm({
 		id: 'create',
@@ -42,8 +59,8 @@ const finish = () => {
 			h: 10,
 			i: lstore.index,
 			selected: false,
-			fieldList: lstore.fields
-		}
+			fieldList: lstore.fields,
+		},
 	})
 	myform.createForm({
 		id: 'edit',
@@ -59,8 +76,8 @@ const finish = () => {
 			h: 10,
 			i: lstore.index,
 			selected: false,
-			fieldList: lstore.fields
-		}
+			fieldList: lstore.fields,
+		},
 	})
 	myform.createForm({
 		id: 'view',
@@ -76,18 +93,17 @@ const finish = () => {
 			h: 10,
 			i: lstore.index,
 			selected: false,
-			fieldList: lstore.fields
-		}
+			fieldList: lstore.fields,
+		},
 	})
 	let tmp = {
 		id: uid(),
 		etap: 'Создание заявления',
 		form: 'Создание',
 		status: 'Подготовка',
-		newstatus: 'Подготовка'
+		newstatus: 'Подготовка',
 	}
 	myform.addCondition(tmp)
-
 
 	let url = `/${app.value.text}/editor/process`
 	router.push(url)
@@ -99,7 +115,6 @@ const button = ref()
 const setBt = () => {
 	button.value.select()
 }
-
 </script>
 
 <template lang="pug">
@@ -176,7 +191,7 @@ q-page
 <style scoped lang="scss">
 .q-stepper {
 	background: initial;
-	font-size: .9rem;
+	font-size: 0.9rem;
 	max-width: 1200px;
 }
 

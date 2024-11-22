@@ -6,8 +6,8 @@ import { uid } from 'quasar'
 const props = defineProps({
 	type: {
 		type: String,
-		default: 'status'
-	}
+		default: 'status',
+	},
 })
 
 const modelValue = defineModel<boolean>()
@@ -30,20 +30,18 @@ const add1 = (data: any) => {
 		desc: 'Это описание формы',
 		selected: false,
 		type: 1,
-		layout:
-		{
+		layout: {
 			x: 1,
 			y: 0,
 			w: 10,
 			h: 5,
 			i: 0,
 			selected: false,
-			fieldList: []
+			fieldList: [],
 		},
-
 	}
 	myform.createForm(row)
-	emit('set', data.form)
+	emit('set', row)
 	modelValue.value = false
 }
 </script>

@@ -33,6 +33,7 @@ type Condition = {
 type Role = {
 	id: string
 	name: string
+	form?: Form
 	type?: string
 	selected?: boolean
 	description?: string

@@ -25,7 +25,6 @@ const app = useStorage('app', localStorage)
 const emulate1 = () => {
 	router.push('/emulate1/1')
 }
-
 </script>
 
 <template lang="pug">
@@ -67,9 +66,6 @@ template(v-if="route.name == 'Процесс' && !!myform.currentBO && myform.cu
 				div 25 сентября 2024 г.
 
 			FormaLine
-
-			// div Текущий статус:
-			// div state
 
 	br
 	StateTable(v-if='myform.currentBO.$type == "bpmn:Task"')

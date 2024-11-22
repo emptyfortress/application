@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { ref, } from 'vue'
+import { ref } from 'vue'
 import { useRoles } from '@/stores/roles'
 import RoleRulesDialog from '@/components/RoleRulesDialog.vue'
 import { useStorage } from '@vueuse/core'
-import FormaLine from '@/components/FormaLine.vue'
+import FormaLine1 from '@/components/FormaLine1.vue'
 
 const app = useStorage('app', localStorage)
 const myrole = useRoles()
 
-const role = ref()
+// const role = ref()
 const dialog = ref(false)
 </script>
 
@@ -36,7 +36,7 @@ const dialog = ref(false)
 	// div Данная роль видит следующую форму, при просмотре через реестр.
 	div Форма, для показа <span class='text-bold text-uppercase'>{{ app.card }}</span> через реестр
 	.grid
-		FormaLine
+		FormaLine1
 
 	RoleRulesDialog(v-model="dialog" :role='myrole.selectedRole.name' :pers='myrole.selectedRole.pers')
 </template>
