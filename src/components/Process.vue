@@ -30,11 +30,14 @@ const canvas = ref()
 // const app = useStorage('app', localStorage)
 
 const bpmn = computed(() => {
-	if (mydata.myxml == null && mydata.assist == false) {
-		return empty
-	}
+	// if (mydata.myxml == null && mydata.assist == false) {
+	// 	return empty
+	// }
 	if (mydata.myxml == null && mydata.assist == true) {
 		return assist.replace('Старт', mydata.button)
+	}
+	if (mydata.assist == false) {
+		return mydata.myxml
 	}
 	return mydata.myxml
 })
@@ -109,9 +112,7 @@ onMounted(() => {
 	modeler.on('commandStack.changed', exportArtifacts)
 
 	exportArtifacts()
-
 })
-
 
 // const roles = ref()
 const select = (role: Role) => {
@@ -125,14 +126,14 @@ const select = (role: Role) => {
 
 const dialog = ref(false)
 
-const test = (() => {
-	const selection = modeler.get('selection');
-	const modeling = modeler.get('modeling');
+const test = () => {
+	const selection = modeler.get('selection')
+	const modeling = modeler.get('modeling')
 
-	const selectedElements = selection.get();
+	const selectedElements = selection.get()
 
 	if (selectedElements.length > 0) {
-		const selectedElement = selectedElements[0];
+		const selectedElement = selectedElements[0]
 		const businessObject = selectedElement.businessObject
 
 		// Add a custom property
@@ -141,9 +142,7 @@ const test = (() => {
 		// Update properties in the model to reflect changes
 		modeling.updateProperties(selectedElement, { customProperty: businessObject.customProperty })
 	}
-
-})
-
+}
 </script>
 
 <template lang="pug">
@@ -172,7 +171,8 @@ CreateDialog(v-model="dialog" mode='role')
 	background: #fff;
 	height: var(--panel-height);
 	margin-right: 0.25rem;
-	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAAXNSR0IArs4c6QAAADBJREFUGFclioEJADAMwvSl7f8P1pfMaAsiCcT1inOPQJIlkwy3uT8JbmImh2zANh9STBXvibRbIgAAAABJRU5ErkJggg==) repeat;
+	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAAXNSR0IArs4c6QAAADBJREFUGFclioEJADAMwvSl7f8P1pfMaAsiCcT1inOPQJIlkwy3uT8JbmImh2zANh9STBXvibRbIgAAAABJRU5ErkJggg==)
+		repeat;
 	position: relative;
 }
 
@@ -240,7 +240,7 @@ CreateDialog(v-model="dialog" mode='role')
 	z-index: 1;
 
 	.name {
-		font-size: .8rem;
+		font-size: 0.8rem;
 	}
 }
 </style>

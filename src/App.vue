@@ -62,7 +62,7 @@ const title = computed(() => {
 
 const home = () => {
 	store.setCurrentNode(null)
-	mydata.saveXML(null)
+	// mydata.saveXML(null)
 	router.push('/')
 }
 const app = useStorage('app', localStorage)

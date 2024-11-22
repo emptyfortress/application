@@ -15,16 +15,15 @@ const router = useRouter()
 
 const dialog = ref(false)
 
-const setForm = ((e: string) => {
+const setForm = (e: string) => {
 	update(e)
-})
+}
 
-
-const run = (() => {
+const run = () => {
 	myform.newform = true
 	myrole.selectRole(null)
 	router.push(`/${route.params.id}/editor/process/${calcForm.value}`)
-})
+}
 
 const calcForm = computed({
 	get() {
@@ -38,7 +37,7 @@ const calcForm = computed({
 	},
 	set(val) {
 		update(val)
-	}
+	},
 })
 
 const calcStatus = computed(() => {
@@ -50,7 +49,7 @@ const calcStatus = computed(() => {
 	return ''
 })
 
-const update = ((val: any) => {
+const update = (val: any) => {
 	let curr = myform.currentBO.name
 	let item = myform.conditionList.find((item) => item.etap == curr)
 
@@ -59,9 +58,8 @@ const update = ((val: any) => {
 			id: uid(),
 			etap: curr,
 			form: val,
-			status: 'Подготовка',
-			newstatus: ''
-
+			status: '<status>',
+			newstatus: '',
 		}
 		myform.addCondition(tmp)
 	}
@@ -69,8 +67,7 @@ const update = ((val: any) => {
 	if (item !== undefined) {
 		item.form = val
 	}
-})
-
+}
 </script>
 
 <template lang="pug">
