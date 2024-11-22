@@ -114,7 +114,6 @@ onMounted(() => {
 	exportArtifacts()
 })
 
-// const roles = ref()
 const select = (role: Role) => {
 	myrole.rolesN.map((item) => (item.selected = false))
 	role.selected = true
