@@ -20,7 +20,7 @@ const setForm = (e: Form) => {
 
 const run = () => {
 	myform.newform = true
-	router.push(`/${route.params.id}/editor/process/${myrole.selectedRole?.form}`)
+	router.push(`/${route.params.id}/editor/process/${myrole.selectedRole?.form?.label}`)
 }
 </script>
 

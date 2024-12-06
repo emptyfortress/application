@@ -6,7 +6,7 @@ declare module '*.vue' {
 	export default component
 }
 
-declare module 'vue-draggable-resizable' {}
+// declare module 'vue-draggable-resizable' {}
 declare module 'diagram-js-minimap' {}
 // declare module "vue-draggable-resizable" {}
 declare module 'vue-ts-responsive-grid-layout'

@@ -11,14 +11,14 @@ const dialog = ref(false)
 
 const start = ref<number>()
 
-const setState = ((e: string) => {
+const setState = (e: string) => {
 	update(e)
-})
+}
 
-const add = ((n: number) => {
+const add = (n: number) => {
 	start.value = n
 	dialog.value = !dialog.value
-})
+}
 
 const calcStatus = computed({
 	get() {
@@ -31,10 +31,10 @@ const calcStatus = computed({
 	},
 	set(val) {
 		update(val)
-	}
+	},
 })
 
-const update = ((val: any) => {
+const update = (val: any) => {
 	let curr = myform.currentBO.id
 	let item = myform.conditionList.find((item) => item.etap == curr)
 
@@ -44,8 +44,7 @@ const update = ((val: any) => {
 			etap: curr,
 			form: val,
 			status: 'Подготовка',
-			newstatus: 'Подготовка'
-
+			newstatus: 'Подготовка',
 		}
 		myform.addCondition(tmp)
 	}
@@ -53,7 +52,7 @@ const update = ((val: any) => {
 	if (item !== undefined) {
 		item.newstatus = val
 	}
-})
+}
 </script>
 
 <template lang="pug">
@@ -64,7 +63,7 @@ const update = ((val: any) => {
 				th.text-left Вариант завершения
 				th.text-left Статус по завершению
 		tbody
-			tr(v-if='myform.bt.length > 0' v-for="(item, index) in myform.bt")
+			tr(v-if='myform.bt.length > 0' v-for="(item, index) in myform.bt" :key="item.id")
 				td
 					span.btd {{ item.name }}
 						q-popup-edit(v-model="item.name" auto-save v-slot="scope")
@@ -103,7 +102,7 @@ th {
 }
 
 .q-table td {
-	font-size: .9rem;
+	font-size: 0.9rem;
 
 	&.red {
 		color: darkred;
