@@ -10,7 +10,7 @@ const route = useRoute()
 const router = useRouter()
 const store = useStore()
 const myform = useForms()
-const myrole = useRoles()
+const myrole = useForms()
 
 const modelValue = defineModel<boolean>()
 
@@ -32,12 +32,6 @@ const pages = reactive([
 		url: 'forms',
 	},
 	{
-		id: 5,
-		title: 'Статусы',
-		icon: 'mdi-state-machine',
-		url: 'statuses',
-	},
-	{
 		id: 3,
 		title: 'Роли',
 		icon: 'mdi-account',
@@ -45,17 +39,23 @@ const pages = reactive([
 		url: 'roles',
 	},
 	{
-		id: 4,
-		title: 'Реестры',
-		icon: 'mdi-script-text-outline',
-		url: 'lists',
+		id: 5,
+		title: 'Статусы',
+		icon: 'mdi-nut',
+		url: 'statuses',
 	},
 	{
-		id: 0,
-		title: 'Карточки',
-		icon: 'mdi-cards-playing-spade-outline',
-		url: 'cards',
+		id: 4,
+		title: 'Папки',
+		icon: 'mdi-folder-search-outline',
+		url: 'lists',
 	},
+	// {
+	// 	id: 0,
+	// 	title: 'Карточки',
+	// 	icon: 'mdi-cards-playing-spade-outline',
+	// 	url: 'cards',
+	// },
 ])
 
 const show = computed(() => {
@@ -82,13 +82,13 @@ const leave = async (el: any, done: any) => {
 	done()
 }
 
-const urlTo = ((url: string) => {
+const urlTo = (url: string) => {
 	let temp = '/' + route.params.id + '/editor/' + url
 	return temp
-})
+}
 const navigate = () => {
 	myform.setCurrentBO(null)
-	myrole.selectRole(null)
+	// myrole.selectRole(null)
 }
 const calcClass = (e: string) => {
 	let temp = '/' + route.params.id + '/editor/' + e
@@ -98,8 +98,8 @@ const calcClass = (e: string) => {
 
 <template lang="pug">
 q-drawer.rel(v-model="modelValue" side="left" :width="180" :mini="store.mini")
-	transition(@enter="enter" @leave="leave" :css="false" mode="out-in")
 
+	.toolbar()
 		q-list(v-if="show")
 			q-item(clickable v-ripple v-for="page in pages" :key="page.id" @click="navigate" :class="calcClass(page.url)" :to='urlTo(page.url)')
 				q-item-section(avatar)
@@ -127,5 +127,11 @@ q-drawer.rel(v-model="modelValue" side="left" :width="180" :mini="store.mini")
 	position: absolute;
 	left: 1rem;
 	bottom: 1rem;
+}
+.toolbar {
+	width: calc(100% - 5px);
+	background: #fff;
+	box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+	margin-top: 150px;
 }
 </style>

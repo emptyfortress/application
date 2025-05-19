@@ -17,22 +17,14 @@ import { useData } from '@/stores/alldata'
 import { useFlow } from '@/stores/flow'
 import { useRoles } from '@/stores/roles'
 
-// const store = useStore()
 const myform = useForms()
 const mydata = useData()
 const myflow = useFlow()
 const myrole = useRoles()
 
-// const router = useRouter()
-// const route = useRoute()
 const canvas = ref()
 
-// const app = useStorage('app', localStorage)
-
 const bpmn = computed(() => {
-	// if (mydata.myxml == null && mydata.assist == false) {
-	// 	return empty
-	// }
 	if (mydata.myxml == null && mydata.assist == true) {
 		return assist.replace('Старт', mydata.button)
 	}
@@ -127,32 +119,43 @@ const dialog = ref(false)
 </script>
 
 <template lang="pug">
-.canvas(ref="canvas")
-	.undo
-		q-btn(flat round dense color="primary" icon='mdi-undo')
-		q-btn(flat round dense color="primary" icon='mdi-redo')
-	.roles()
-		.text Роли-наблюдатели:
-		div(v-for="role in myrole.rolesN" :key="role.id")
-			.role(@click='select(role)' )
-				q-btn(v-if='role.selected' round color="primary" text-color="white" icon="mdi-account") 
-				q-btn(v-else round color="white" text-color="primary" icon="mdi-account") 
-			.name {{ role.name }}
+.con
+	.canvas(ref="canvas")
+		.undo
+			q-btn(flat round dense color="primary" icon='mdi-undo')
+			q-btn(flat round dense color="primary" icon='mdi-redo')
+		.roles()
+			.text Роли-наблюдатели:
+			div(v-for="role in myrole.rolesN" :key="role.id")
+				.role(@click='select(role)' )
+					q-btn(v-if='role.selected' round color="primary" text-color="white" icon="mdi-account") 
+					q-btn(v-else round color="white" text-color="primary" icon="mdi-account") 
+				.name {{ role.name }}
 
-		q-btn(round icon="mdi-plus" color="white" text-color="primary" @click='dialog = !dialog') 
+			q-btn(round icon="mdi-plus" color="white" text-color="primary" @click='dialog = !dialog') 
 
 CreateDialog(v-model="dialog" mode='role')
 
 </template>
 
 <style scoped lang="scss">
+.con {
+	box-sizing: border-box;
+	padding: 0.25rem;
+	position: relative;
+	height: var(--panel-height);
+}
 .canvas {
 	background: #fff;
-	height: var(--panel-height);
+	height: calc(100vh - 106px);
+	// height: var(--panel-height);
 	margin-right: 0.25rem;
 	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAAXNSR0IArs4c6QAAADBJREFUGFclioEJADAMwvSl7f8P1pfMaAsiCcT1inOPQJIlkwy3uT8JbmImh2zANh9STBXvibRbIgAAAABJRU5ErkJggg==)
 		repeat;
 	position: relative;
+	border-radius: 0.5rem;
+	box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+	// margin: 0.5rem;
 }
 
 .etap {

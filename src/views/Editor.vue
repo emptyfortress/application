@@ -26,6 +26,7 @@ q-page
 }
 .q-page {
 	padding-right: 1rem;
+	margin-left: 3rem;
 }
 .q-card {
 	height: 100%;

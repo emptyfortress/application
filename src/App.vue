@@ -1,22 +1,19 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { RouterLink, RouterView, useRoute, useRouter } from 'vue-router'
-import SvgIcon from '@/components/SvgIcon.vue'
 import { gsap } from 'gsap'
 import { useStore } from '@/stores/store'
 import LeftDrawer from '@/components/LeftDrawer.vue'
-import Breadcrumbs from '@/components/Breadcrumbs.vue'
 import { useStorage } from '@vueuse/core'
 import { useData } from '@/stores/alldata'
 import { useForms } from '@/stores/forms'
+import IconHome from '@/components/icons/IconHome.vue'
 
 const route = useRoute()
 const router = useRouter()
 const store = useStore()
 const mydata = useData()
 
-// const beforeLeave = () => {}
-//
 const leave = async (el: any, done: any) => {
 	let div = document.createElement('div')
 	let cont = document.querySelector('#cont')
@@ -86,27 +83,16 @@ const back = () => {
 
 <template lang="pug">
 q-layout(view="hHr LpR fFf")
-	q-header.head
+	q-header(elevated)
 		q-toolbar
-			q-toolbar-title()
-				q-avatar(@click="home")
-					SvgIcon.log(name="logo")
-				span.title(v-if='!calcBack' @click="home") {{ title }}
-				q-btn.q-ml-md(v-if='calcBack' flat color="primary" label="Назад" icon='mdi-arrow-left-circle' @click="back") 
+			q-btn(dense flat round @click='home')
+				IconHome.home
+			q-toolbar-title
+				span(v-if='route.path == "/"') Конструктор приложений
+				span(v-else) Настройка приложения "Заявки на отпуск"
 
-			Breadcrumbs
-
-			q-space
-			q-avatar(color="blue-2" size="32px")
-				img(src="@/assets/img/user0.svg")
-				q-menu
-					q-item(clickable v-close-popup)
-						q-item-section(side).name
-						q-item-section Орлов&nbsp;П.С.
-					q-item(clickable v-close-popup)
-						q-item-section О программе
-					q-item(clickable v-close-popup)
-						q-item-section Выход
+			q-btn(dense flat round icon='mdi-menu')
+			q-btn(ref='buttonRef' dense flat round icon='mdi-information-outline')
 
 	LeftDrawer(v-model="store.drawer")
 
@@ -149,6 +135,7 @@ q-layout(view="hHr LpR fFf")
 
 #cont {
 	position: relative;
+	padding-top: 1rem;
 	// background: yellow;
 }
 
@@ -190,5 +177,8 @@ q-layout(view="hHr LpR fFf")
 	display: flex;
 	gap: 1rem;
 	align-items: center;
+}
+.home {
+	font-size: 1.5rem;
 }
 </style>

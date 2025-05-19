@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
-import { useStore } from '@/stores/store'
+// import { useStore } from '@/stores/store'
 import { useRoles } from '@/stores/roles'
 import { useForms } from '@/stores/forms'
-import CommonLib from '@/components/CommonLib.vue'
+// import CommonLib from '@/components/CommonLib.vue'
 import RoleRule from '@/components/RoleRule.vue'
 import CommonProp from '@/components/CommonProp.vue'
 
-const store = useStore()
+// const store = useStore()
 const route = useRoute()
 
 const myrole = useRoles()
@@ -16,25 +16,40 @@ const myform = useForms()
 
 <template lang="pug">
 .prop
-	q-tabs(v-model="store.tabs" dense active-color="primary" indicator-color="primary" inline-label)
-		q-tab(name="property" label="Свойства")
-		q-tab(name="lib" label="Библиотека" v-if="route.name == 'Этап'")
-	q-separator
+	RoleRule(v-if='myform.currentBO?.$type == "bpmn:Lane" || (route.name == "Процесс" && myform.currentBO == null && myrole.selectedRole !== null) || (route.name == "Роли" && myrole.selectedRole !== null)')
+	CommonProp(v-else)
+	q-btn.clo(flat round dense icon="mdi-close-circle-outline" size="12px") 
 
-	q-tab-panels(v-model="store.tabs")
-		q-tab-panel(name="property")
-			RoleRule(v-if='myform.currentBO?.$type == "bpmn:Lane" || (route.name == "Процесс" && myform.currentBO == null && myrole.selectedRole !== null) || (route.name == "Роли" && myrole.selectedRole !== null)')
-			CommonProp(v-else)
+	// CommonLib
+	// q-tabs(v-model="store.tabs" dense active-color="primary" indicator-color="primary" inline-label)
+	// 	q-tab(name="property" label="Свойства")
+	// 	q-tab(name="lib" label="Библиотека" v-if="route.name == 'Этап'")
+	// q-separator
 
-		q-tab-panel(name="lib")
-			CommonLib
+	// q-tab-panels(v-model="store.tabs")
+	// 	q-tab-panel(name="property")
+	// 		RoleRule(v-if='myform.currentBO?.$type == "bpmn:Lane" || (route.name == "Процесс" && myform.currentBO == null && myrole.selectedRole !== null) || (route.name == "Роли" && myrole.selectedRole !== null)')
+	// 		CommonProp(v-else)
+	//
+	// 	q-tab-panel(name="lib")
+	// 		CommonLib
 </template>
 
 <style scoped lang="scss">
+.clo {
+	position: absolute;
+	top: 0.25rem;
+	right: 0.25rem;
+	color: var(--green);
+}
 .prop {
 	background: #fff;
 	margin-left: 0.5rem;
-	height: var(--panel-height);
+	// height: var(--panel-height);
+	height: calc(100vh - 106px);
+	border-radius: 0.5rem;
+	box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+	position: relative;
 }
 
 .q-tab-panel {

@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 
 export const useStore = defineStore('store', {
 	state: () => ({
-		mini: false,
+		mini: true,
 		drawer: true,
 		drawer1: false,
 		currentNode: null as Stat | null,
