@@ -82,8 +82,8 @@ q-select(v-model="calcForm" dense filled :options="myform.formList" @update:mode
 			q-item-section
 				q-btn(flat color="primary" label="Создать форму" icon="mdi-plus-circle" @click="dialog = true" size='sm' v-close-popup) 
 
-div Текущий статус:
-div {{ calcStatus }}
+// div Текущий статус:
+// div {{ calcStatus }}
 
 StatusDialogAdd(v-model="dialog" type='form' @set="setForm")
 </template>
