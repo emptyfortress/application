@@ -91,7 +91,7 @@ q-layout(view="hHr LpR fFf")
 				span(v-if='route.path == "/"') Конструктор приложений
 				span(v-else) Настройка приложения "Заявки на отпуск"
 
-			q-btn(dense flat round icon='mdi-menu')
+			q-btn(dense flat round icon='mdi-cog')
 			q-btn(ref='buttonRef' dense flat round icon='mdi-information-outline')
 
 	LeftDrawer(v-model="store.drawer")
@@ -180,5 +180,8 @@ q-layout(view="hHr LpR fFf")
 }
 .home {
 	font-size: 1.5rem;
+}
+.q-layout__section--marginal {
+	background: $primary;
 }
 </style>
