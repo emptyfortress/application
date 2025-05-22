@@ -20,19 +20,19 @@ const add = (n: number) => {
 	dialog.value = !dialog.value
 }
 
-const calcStatus = computed({
-	get() {
-		let curr = myform.currentBO?.id
-		let item = myform.conditionList.find((item) => item.etap == curr)
-		if (item !== undefined) {
-			return item.newstatus
-		}
-		return ''
-	},
-	set(val) {
-		update(val)
-	},
-})
+// const calcStatus = computed({
+// 	get() {
+// 		let curr = myform.currentBO?.id
+// 		let item = myform.conditionList.find((item) => item.etap == curr)
+// 		if (item !== undefined) {
+// 			return item.newstatus
+// 		}
+// 		return ''
+// 	},
+// 	set(val) {
+// 		update(val)
+// 	},
+// })
 
 const update = (val: any) => {
 	let curr = myform.currentBO.id
@@ -53,6 +53,12 @@ const update = (val: any) => {
 		item.newstatus = val
 	}
 }
+
+function updateStatus(item: any, index: number, val: string) {
+	// item.newstatus = val
+	console.log(`Статус для строки ${index} изменён на:`, val)
+	// Можно сделать тут дополнительную бизнес-логику
+}
 </script>
 
 <template lang="pug">
@@ -69,7 +75,7 @@ const update = (val: any) => {
 						q-popup-edit(v-model="item.name" auto-save v-slot="scope")
 							q-input(v-model="scope.value" dense filled autofocus @keyup.enter="scope.set")
 				td
-					q-select(v-model="calcStatus" dense filled :options="myform.status" @update:model-value="update")
+					q-select(v-model="item.newstatus" dense filled :options="myform.status" @update:model-value="val => updateStatus(item, index, val)")
 						template(v-slot:after-options)
 							q-separator
 							q-item
